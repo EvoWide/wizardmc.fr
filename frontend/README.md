@@ -1,4 +1,4 @@
-# frontend
+# WizardMC FrontEnd
 
 ## Project setup
 ```
