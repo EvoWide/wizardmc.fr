@@ -1,14 +1,24 @@
 <template>
   <div>
     <h1 class="text-xl font-semibold">Connexion</h1>
-    <form class="mt-4">
+    <form @submit.prevent="login" class="mt-4">
       <label class="block">
         <span class="text-gray-700">Pseudonyme</span>
-        <input type="text" class="form-input mt-1 block w-full" placeholder="Pseudonyme" />
+        <input
+          v-model="username"
+          type="text"
+          class="form-input mt-1 block w-full"
+          placeholder="Pseudonyme"
+        />
       </label>
       <label class="mt-2 block">
         <span class="text-gray-700">Mot de passe</span>
-        <input type="password" class="form-input mt-1 block w-full" placeholder="Mot de passe" />
+        <input
+          v-model="password"
+          type="password"
+          class="form-input mt-1 block w-full"
+          placeholder="Mot de passe"
+        />
       </label>
       <div class="flex mt-6">
         <label class="flex items-center">
@@ -20,3 +30,25 @@
     </form>
   </div>
 </template>
+
+<script>
+import { AUTH_REQUEST } from '@/store/actions/auth'
+
+export default {
+  data () {
+    return {
+      username: '',
+      password: ''
+    }
+  },
+
+  methods: {
+    login () {
+      const { username, password } = this
+      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+        this.$router.push('/')
+      })
+    }
+  }
+}
+</script>
