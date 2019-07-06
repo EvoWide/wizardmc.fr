@@ -15,7 +15,25 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
+    public function register() {
+        // $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
+
+        // TODO : 
+        // - add more validation
+        // - check captcha
+        // - create user
+        // - return errors / success : jwt token
+        $credentials = request()->validate([
+            'username' => 'required|min:5|max:33',
+            'password' => 'required|min:8|max:255',
+            'email' => 'required|email',
+            'recaptchaToken' => 'required',
+        ]);
+
+        return response()->json($credentials);
     }
 
     /**
