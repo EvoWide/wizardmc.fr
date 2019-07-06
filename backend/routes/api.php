@@ -13,16 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
+// For development
+header('Access-Control-Allow-Origin: http://localhost:8080');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
+
 Route::group([
-
-    'middleware' => 'api',
+    'middleware' => 'ajax',
     'prefix' => 'auth'
-
 ], function ($router) {
-
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-
+    Route::get('me', 'AuthController@me');
 });

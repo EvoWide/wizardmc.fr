@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    
 
 /**
      * Create a new AuthController instance.
@@ -42,7 +41,8 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(['message' => 'test']);
+        // return response()->json(auth()->user());
     }
 
     /**

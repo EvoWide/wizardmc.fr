@@ -4,6 +4,8 @@ import axiosHttp from 'axios'
 
 export const axios = axiosHttp
 
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
 export default {
   install (Vue, options) {
     Vue.prototype.$axios = axiosHttp
