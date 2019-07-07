@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -19,13 +21,15 @@ class AuthController extends Controller
     }
 
     public function register() {
-        // $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
 
         // TODO : 
         // - add more validation
-        // - check captcha
-        // - create user
+        // - check captcha (DONE)
+        // - create user (DONE)
         // - return errors / success : jwt token
+        // - login the user ??
+
+
         $credentials = request()->validate([
             'username' => 'required|min:5|max:33',
             'password' => 'required|min:8|max:255',
@@ -33,7 +37,23 @@ class AuthController extends Controller
             'recaptchaToken' => 'required',
         ]);
 
-        return response()->json($credentials);
+        $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
+        $captchaCheck = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . request('recaptchaToken')));
+
+        if (!$captchaCheck->success) {
+            return response()->json(['error' => 'Une erreur est survenue durant la validation anti robot.']);
+        }
+
+        if (User::where('username', request('username'))->orWhere('email', request('email'))->exists()) {
+            return response()->json(['error' => 'Same user already exist']);
+        }
+
+        $user = new User(request()->only('username', 'password', 'email'));
+        $user->uuid = Str::uuid();
+        $user->logged = auth()->getToken();
+        $user->save();
+
+        return response()->json(['success' => true]);
     }
 
     /**
