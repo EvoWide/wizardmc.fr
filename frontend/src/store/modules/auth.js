@@ -17,7 +17,7 @@ const actions = {
       commit(AUTH_REQUEST)
       axios({ url: 'http://localhost:8000/auth/login', data: user, method: 'POST' })
         .then(resp => {
-          const token = resp.data.token
+          const token = resp.data['access_token']
           localStorage.setItem('user-token', token) // store the token in localstorage
           axios.defaults.headers.common['Authorization'] = token
           commit(AUTH_SUCCESS, token)
@@ -53,6 +53,9 @@ const mutations = {
   },
   [AUTH_ERROR]: (state) => {
     state.status = 'error'
+  },
+  [AUTH_LOGOUT]: (state) => {
+    state.token = ''
   }
 }
 

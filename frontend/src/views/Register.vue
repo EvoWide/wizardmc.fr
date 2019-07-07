@@ -80,16 +80,18 @@
         sitekey="6LdHZ6wUAAAAACKhTV7CNNbzS4d1PQCB0GXQXMEv"
       ></vue-recaptcha>
     </form>
-    {{ errors }}
+    <validation-errors :errors="errors" v-if="errors"></validation-errors>
   </div>
 </template>
 
 <script>
 import VueRecaptcha from 'vue-recaptcha'
+import ValidationErrors from '@/components/ValidationErrors'
 
 export default {
   components: {
-    'vue-recaptcha': VueRecaptcha
+    'vue-recaptcha': VueRecaptcha,
+    'validation-errors': ValidationErrors
   },
 
   data () {
@@ -131,10 +133,12 @@ export default {
         recaptchaToken: recaptchaToken
       })
         .then((response) => {
-          console.log(response)
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.response.status)
+          if (err.response.status === 422) {
+            this.errors = err.response.data.errors
+          }
         })
         .then(() => {
           self.status = ''

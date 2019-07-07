@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 class AuthController extends Controller
 {
 
-/**
+    /**
      * Create a new AuthController instance.
      *
      * @return void
@@ -20,8 +20,8 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
-    public function register() {
-
+    public function register()
+    {
         // TODO : 
         // - add more validation
         // - check captcha (DONE)
@@ -29,26 +29,25 @@ class AuthController extends Controller
         // - return errors / success : jwt token
         // - login the user ??
 
-
-        $credentials = request()->validate([
-            'username' => 'required|min:5|max:33',
-            'password' => 'required|min:8|max:255',
-            'email' => 'required|email',
-            'recaptchaToken' => 'required',
-        ]);
-
         $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
-        $captchaCheck = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . request('recaptchaToken')));
+        $recaptchaToken = request('recaptchaToken');
 
+        if (!$recaptchaToken) {
+            return response()->json(['error' => 'Une erreur est survenue durant la validation anti robot.']);
+        }
+
+        $captchaCheck = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$recaptchaToken}"));
         if (!$captchaCheck->success) {
             return response()->json(['error' => 'Une erreur est survenue durant la validation anti robot.']);
         }
 
-        if (User::where('username', request('username'))->orWhere('email', request('email'))->exists()) {
-            return response()->json(['error' => 'Same user already exist']);
-        }
+        $credentials = request()->validate([
+            'username' => 'required|min:5|max:33|unique:users',
+            'password' => 'required|min:8|max:255',
+            'email' => 'required|email|unique:users',
+        ]);
 
-        $user = new User(request()->only('username', 'password', 'email'));
+        $user = new User($credentials);
         $user->uuid = Str::uuid();
         $user->logged = auth()->getToken();
         $user->save();
@@ -65,7 +64,7 @@ class AuthController extends Controller
     {
         $credentials = request(['username', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (!$token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -120,5 +119,4 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
-
 }
