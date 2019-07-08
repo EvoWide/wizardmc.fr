@@ -11,7 +11,6 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-
     /**
      * Default attributes
      *
@@ -47,18 +46,18 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    public function getJWTIdentifier() {
+    public function getJWTIdentifier()
+    {
         return $this->getKey();
     }
 
-    public function getJWTCustomClaims() {
+    public function getJWTCustomClaims()
+    {
         return [];
     }
 
-
-    public function setPasswordAttribute($password) {
+    public function setPasswordAttribute($password)
+    {
         $this->attributes['password'] = bcrypt($password);
     }
-    
-    
 }

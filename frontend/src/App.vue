@@ -16,7 +16,7 @@ export default {
   created () {
     const token = localStorage.getItem('user-token')
     if (token) {
-      this.$axios.defaults.headers.common['Authorization'] = token
+      this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     }
   }
 }
