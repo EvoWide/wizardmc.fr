@@ -21,8 +21,6 @@ const actions = {
           localStorage.setItem('user-token', token) // store the token in localstorage
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
           commit(AUTH_SUCCESS, token)
-          // you have your token, now log in your user :)
-          // dispatch(USER_REQUEST)
           resolve(resp)
         })
         .catch(err => {

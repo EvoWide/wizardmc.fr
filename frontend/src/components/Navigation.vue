@@ -4,6 +4,7 @@
     <router-link v-if="!isAuthenticated" to="/login" class="ml-2">Connexion</router-link>
     <router-link v-if="!isAuthenticated" to="/register" class="ml-2">Inscription</router-link>
     <router-link v-if="isAuthenticated" to="/profile" class="ml-2">Profil</router-link>
+    <router-link v-if="isAuthenticated" to="/admin/users" class="ml-2">Utilisateurs</router-link>
     <button v-if="isAuthenticated" @click="logout" class="ml-2" type="button">Déconnexion</button>
   </div>
 </template>
@@ -15,7 +16,6 @@ import { AUTH_LOGOUT } from '@/store/actions/auth'
 export default {
   methods: {
     logout () {
-      console.log(AUTH_LOGOUT)
       this.$store.dispatch(AUTH_LOGOUT)
         .then(() => {
           this.$router.push('/login')

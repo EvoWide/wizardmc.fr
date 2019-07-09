@@ -14,6 +14,7 @@ export default {
   },
 
   created () {
+    console.log('app.vue')
     const token = localStorage.getItem('user-token')
     if (token) {
       this.$axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
