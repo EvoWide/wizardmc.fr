@@ -126,7 +126,7 @@ export default {
       const self = this
       self.status = 'submitting'
       self.$refs.recaptcha.reset()
-      self.$axios.post('http://localhost:8000/auth/register', {
+      self.$axios.post('auth/register', {
         username: self.username,
         email: self.email,
         password: self.password,

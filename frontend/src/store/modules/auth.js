@@ -15,7 +15,7 @@ const actions = {
   [AUTH_REQUEST]: ({ commit, dispatch }, user) => {
     return new Promise((resolve, reject) => { // The Promise used for router redirect in login
       commit(AUTH_REQUEST)
-      axios({ url: 'http://localhost:8000/auth/login', data: user, method: 'POST' })
+      axios({ url: 'auth/login', data: user, method: 'POST' })
         .then(resp => {
           const token = resp.data['access_token']
           localStorage.setItem('user-token', token) // store the token in localstorage

@@ -19,7 +19,7 @@ export default {
   },
 
   created () {
-    this.$axios.get('http://localhost:8000/auth/me')
+    this.$axios.get('auth/me')
       .then(response => {
         this.profile = response.data
       })
