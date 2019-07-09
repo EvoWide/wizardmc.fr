@@ -22,13 +22,6 @@ class AuthController extends Controller
 
     public function register()
     {
-        // TODO : 
-        // - add more validation
-        // - check captcha (DONE)
-        // - create user (DONE)
-        // - return errors / success : jwt token
-        // - login the user ??
-
         $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
         $recaptchaToken = request('recaptchaToken');
 
@@ -78,8 +71,7 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(['message' => 'test']);
-        // return response()->json(auth()->user());
+        return response()->json(auth()->user());
     }
 
     /**
