@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password', 255);
             $table->uuid('uuid');
             $table->string('logged', 16)->nullable();
-            $table->tinyInteger('role');
+            $table->tinyInteger('role_id')->default(1);
 
             $table->timestamps();
         });
