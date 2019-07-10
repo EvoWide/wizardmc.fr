@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Home from './pages/Home.vue'
 import store from './store'
 import { USER_REQUEST } from '@/store/actions/user'
 
@@ -18,7 +18,7 @@ const router = new Router({
     {
       path: '/profile',
       name: 'profile',
-      component: () => import(/* webpackChunkName: "about" */ './views/Profile.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './pages/Profile.vue'),
       meta: {
         requiresAuth: true
       }
@@ -26,18 +26,19 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+      component: () => import(/* webpackChunkName: "login" */ './pages/Login.vue')
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import(/* webpackChunkName: "register" */ './views/Register.vue')
+      component: () => import(/* webpackChunkName: "register" */ './pages/Register.vue')
     },
     {
       path: '/admin/users',
       name: 'users',
-      component: () => import(/* webpackChunkName: "admin" */ './views/admin/users/Index.vue'),
+      component: () => import(/* webpackChunkName: "admin" */ './pages/admin/users/Index.vue'),
       meta: {
+        layout: 'dashboard',
         requiresAuth: true,
         role: 'Administrateur'
       }
