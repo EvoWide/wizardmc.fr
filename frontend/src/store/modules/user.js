@@ -5,12 +5,18 @@ import { AUTH_LOGOUT } from '../actions/auth'
 
 const state = {
   status: '',
-  profile: {}
+  profile: {},
+  roles: {
+    Visiteur: 1,
+    Membre: 2,
+    Administrateur: 5,
+    Fondateur: 6
+  }
 }
 
 const getters = {
   getProfile: state => state.profile,
-  isProfileLoaded: state => !!state.profile.name
+  isProfileLoaded: state => !!state.profile.username
 }
 
 const actions = {

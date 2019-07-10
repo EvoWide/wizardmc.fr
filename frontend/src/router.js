@@ -47,7 +47,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
   // Get role
-  if (store.getters.isAuthenticated && store.state.user.profile.role === undefined) {
+  if (store.getters.isAuthenticated && !store.getters.isProfileLoaded) {
     store.dispatch(USER_REQUEST)
       .then(() => {
         CheckRoleAndAuth(to, from, next)
@@ -65,12 +65,9 @@ function CheckRoleAndAuth (to, from, next) {
       next({ name: 'login' })
     }
     // Check role
-    if (to.matched.some(rec => rec.meta.role)) {
-      if (store.state.user.profile.role.name !== to.meta.role) {
-        next({ name: 'home' })
-      } else {
-        next()
-      }
+    const roles = store.state.user.roles
+    if (to.matched.some(rec => rec.meta.role) && roles[to.meta.role] > roles[store.state.user.profile.role.name]) {
+      next({ name: 'home' })
     } else {
       next()
     }
