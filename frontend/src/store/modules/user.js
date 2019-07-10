@@ -17,7 +17,6 @@ const actions = {
   [USER_REQUEST]: ({ commit, dispatch }) => {
     return new Promise((resolve, reject) => {
       commit(USER_REQUEST)
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('user-token')}`
       axios({ url: 'auth/me' })
         .then(resp => {
           commit(USER_SUCCESS, resp)
