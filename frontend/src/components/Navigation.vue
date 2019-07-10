@@ -14,8 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import { AUTH_LOGOUT } from '@/store/actions/auth'
 
 export default {
