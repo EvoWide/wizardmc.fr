@@ -7,9 +7,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
+    ...mapGetters(['isProfileLoaded']),
     layout () {
+      if (!this.isProfileLoaded) {
+        return
+      }
       return (this.$route.meta.layout || 'default') + '-layout'
     }
   }
