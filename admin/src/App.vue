@@ -9,9 +9,9 @@
 
 
 <template>
-	<div id="app">
-		<router-view></router-view>
-	</div>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
@@ -19,11 +19,11 @@ import themeConfig from '@/../themeConfig.js'
 
 export default {
   watch: {
-    '$store.state.theme'(val) {
+    '$store.state.theme' (val) {
       this.toggleClassInBody(val);
     }
   },
-  async created() {
+  async created () {
     try {
       await this.$auth.renewTokens();
     } catch (e) {
@@ -31,7 +31,7 @@ export default {
     }
   },
   methods: {
-    toggleClassInBody(className) {
+    toggleClassInBody (className) {
       if (className == 'dark') {
         if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark');
         document.body.classList.add('theme-dark');
@@ -43,18 +43,18 @@ export default {
         if (document.body.className.match('theme-semi-dark')) document.body.classList.remove('theme-semi-dark');
       }
     },
-    handleWindowResize(event) {
+    handleWindowResize (event) {
       this.$store.dispatch('updateWindowWidth', event.currentTarget.innerWidth);
     },
   },
-  mounted() {
+  mounted () {
     this.toggleClassInBody(themeConfig.theme)
     this.$nextTick(() => {
       window.addEventListener('resize', this.handleWindowResize);
     });
     this.$store.dispatch('updateWindowWidth', window.innerWidth);
   },
-  beforeDestroy() {
+  beforeDestroy () {
     window.removeEventListener('resize', this.handleWindowResize);
   },
 }

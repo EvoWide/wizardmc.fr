@@ -15,14 +15,20 @@ import state from "./state"
 import getters from "./getters"
 import mutations from "./mutations"
 import actions from "./actions"
+import user from './modules/user'
+import auth from './modules/auth'
 
 Vue.use(Vuex)
 
 
 export default new Vuex.Store({
-    getters,
-    mutations,
-    state,
-    actions,
-    strict: process.env.NODE_ENV !== 'production'
+  modules: {
+    user,
+    auth
+  },
+  getters,
+  mutations,
+  state,
+  actions,
+  strict: process.env.NODE_ENV !== 'production'
 })

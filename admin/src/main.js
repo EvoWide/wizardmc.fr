@@ -50,6 +50,9 @@ import './filters/filters'
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
 
+// Axios
+import VueAxios from './plugins/axios'
+Vue.use(VueAxios)
 
 // PrismJS
 import 'prismjs'
