@@ -1,0 +1,61 @@
+/*=========================================================================================
+    File Name: _contextMenu.scss
+    Description: Styles for context menu
+    ----------------------------------------------------------------------------------------
+    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+      Author: Pixinvent
+    Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+@import '../_variables.scss';
+
+.v-context {
+  // background: $white !important;
+
+  padding: 0 !important;
+  border-radius: .5rem !important;
+  overflow: hidden;
+  @apply shadow-drop;
+
+  li {
+    a {
+      padding: .75rem 2rem !important;
+
+      &:hover {
+        color: $white !important;
+      }
+
+      &:focus,
+      &:hover {
+        background: $primary !important;
+      }
+    }
+  }
+
+  // ul li:hover {
+  //  background: $primary !important;
+  // }
+}
+
+.theme-dark {
+  .v-context {
+    background: $theme-light-dark-bg !important;
+
+    // ul li:hover {
+    //  background: $theme-light-dark-bg !important;
+    // }
+
+    li {
+      a {
+
+        color: $theme-dark-text-color !important;
+
+        &:focus,
+        &:hover {
+          background: $theme-dark-bg !important;
+        }
+      }
+    }
+  }
+
+}

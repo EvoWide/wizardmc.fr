@@ -1,0 +1,106 @@
+/*=========================================================================================
+    File Name: _vueSelect.scss
+    Description: vue-select component style.
+    ----------------------------------------------------------------------------------------
+    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+      Author: Pixinvent
+    Author URL: http://www.themeforest.net/user/pixinvent
+==========================================================================================*/
+
+
+@import "../_variables.scss";
+
+.v-select {
+  .vs__dropdown-toggle {
+    // padding: 5px 0 5px;
+
+    .vs__search {
+      color: $content-color;
+    }
+
+    .vs__deselect {
+      svg {
+        stroke: $content-color;
+        opacity: 0.5;
+      }
+    }
+
+    .vs__selected-options {
+      .vs__selected {
+        // margin: 0px 4px 0;
+      }
+    }
+
+    .vs__actions {
+      // padding: 0px 6px 0 0px;
+
+      .vs__clear {
+        // display: flex;
+      }
+    }
+  }
+
+  .vs__dropdown-menu  {
+    .vs__dropdown-option--highlight {
+      // background: rgba(var(--vs-primary),1) !important;
+      color: $white !important;
+    }
+
+    .vs__dropdown-option {
+      color: $content-color;
+    }
+  }
+
+
+  .vs__selected {
+    color: $content-color;
+  }
+}
+
+.theme-dark {
+  .v-select{
+      .vs__dropdown-toggle{
+          background: $content-dark-bg;
+
+          .vs__clear svg{
+              stroke: $grey;
+          }
+          .vs__deselect svg{
+              stroke: $grey;
+              opacity: 0.7;
+          }
+      }
+      &:not(.vs--single) {
+        .vs__selected{
+            // color: $white;
+            background: $dark-card-color;
+            border: none;
+        }
+      }
+      .vs__selected{
+        color: $white;
+      }
+      .vs__open-indicator{
+          fill: $grey;
+      }
+      .vs__dropdown-menu{
+          background: $content-dark-bg;
+          .vs__dropdown-option {
+            color: $theme-dark-text-color;
+          }
+      }
+  }
+}
+
+
+// Override vars
+
+//  Global Component Variables
+$vs-component-line-height: 1.8;
+
+//  Active State
+$vs-state-active-bg: $primary !default;
+$vs-state-active-color: $white !default;
+
+
+@import "~vue-select/src/scss/vue-select.scss"
