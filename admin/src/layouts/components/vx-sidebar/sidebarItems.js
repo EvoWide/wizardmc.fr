@@ -22,14 +22,26 @@
 export default [
   {
     url: "/",
-    name: "Home",
+    name: "Dashboard",
     slug: "home",
     icon: "HomeIcon",
   },
   {
-    url: "/page2",
-    name: "Page 2",
-    slug: "page2",
-    icon: "FileIcon",
+    url: "/news",
+    name: "Articles",
+    slug: "news",
+    icon: "BookOpenIcon",
+  },
+  {
+    url: "/shop",
+    name: "Boutique",
+    slug: "shop",
+    icon: "ShoppingCartIcon",
+  },
+  {
+    url: "/users",
+    name: "Utilisateurs",
+    slug: "users",
+    icon: "UsersIcon",
   },
 ]

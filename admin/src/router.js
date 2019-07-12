@@ -46,9 +46,19 @@ const router = new Router({
             component: () => import('./views/Home.vue')
           },
           {
-            path: '/page2',
-            name: 'page2',
-            component: () => import('./views/Page2.vue')
+            path: '/news',
+            name: 'news',
+            component: () => import('./views/News.vue')
+          },
+          {
+            path: '/shop',
+            name: 'shop',
+            component: () => import('./views/Shop.vue')
+          },
+          {
+            path: '/users',
+            name: 'users',
+            component: () => import('./views/Users.vue')
           },
         ],
       },

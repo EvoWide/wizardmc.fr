@@ -1,3 +1,3 @@
 <template>
-	<h4>You are in home.</h4>
+	<h4>Dashboard Admin de WizardMC</h4>
 </template>
