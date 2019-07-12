@@ -20,6 +20,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from './store/store'
+import { USER_REQUEST } from '@/store/actions/user'
 
 Vue.use(Router)
 
@@ -94,12 +95,19 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  // Pages without auth
   const noAuth = ['pageLogin', 'pageError404']
-
   if (noAuth.includes(to.name)) {
-    next()
-  } else if (!store.getters.isAuthenticated) {
+    return next()
+  }
+
+  if (!store.getters.isAuthenticated) {
     next({ name: 'pageLogin' })
+  } else if (!store.getters.isProfileLoaded) {
+    store.dispatch(USER_REQUEST)
+      .then(() => {
+        next()
+      })
   } else {
     next()
   }

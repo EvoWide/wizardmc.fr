@@ -179,7 +179,7 @@
         <!-- USER META -->
         <div class="the-navbar__user-meta flex items-center">
           <div class="text-right leading-tight hidden sm:block">
-            <p class="font-semibold">{{ user_displayName }}</p>
+            <p class="font-semibold">{{ profile.username }}</p>
             <small>Available</small>
           </div>
           <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
@@ -255,6 +255,7 @@ import VxAutoSuggest from '@/components/vx-auto-suggest/VxAutoSuggest.vue';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import draggable from 'vuedraggable'
 import { AUTH_LOGOUT } from '@/store/actions/auth'
+import { mapState } from 'vuex'
 
 export default {
   name: "the-navbar",
@@ -290,6 +291,7 @@ export default {
     }
   },
   computed: {
+    ...mapState({ profile: state => state.user.profile }),
     // HELPER
     sidebarWidth () {
       return this.$store.state.sidebarWidth;
