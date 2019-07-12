@@ -8,7 +8,7 @@ axios.defaults.baseURL = 'http://localhost:8000/'
 
 const token = localStorage.getItem('user-token')
 if (token) {
-  axios.defaults.headers.common['Authorization'] = `${token}`
+  axios.defaults.headers.common['Authorization'] = token
 }
 
 export default {
