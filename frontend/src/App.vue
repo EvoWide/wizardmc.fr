@@ -11,9 +11,9 @@ import { mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['isProfileLoaded']),
+    ...mapGetters(['isProfileLoaded', 'isAuthenticated']),
     layout () {
-      if (!this.isProfileLoaded) {
+      if (this.isAuthenticated && !this.isProfileLoaded) {
         return
       }
       return (this.$route.meta.layout || 'default') + '-layout'
