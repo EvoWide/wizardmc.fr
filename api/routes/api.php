@@ -24,6 +24,7 @@ Route::group([
 ], function ($router) {
     Route::post('register', 'AuthController@register');
     Route::post('login', 'AuthController@login');
+    Route::post('login-admin', 'AuthController@loginAdmin');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
@@ -31,7 +32,6 @@ Route::group([
 
 Route::group([
     'middleware' => ['ajax', 'auth:api', 'role:Administrateur'],
-    // 'middleware' => 'ajax',
     'prefix' => 'admin'
 ], function ($router) {
     Route::resource('user', 'Admin\UserController');

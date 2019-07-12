@@ -49,6 +49,7 @@
                   <vs-checkbox v-model="checkbox_remember_me" class="mb-3">Se souvenir de moi</vs-checkbox>
                   <router-link to="#">Mot de passe oublié?</router-link>
                 </div>
+                <p v-for="(error, index) in errors" :key="'error-' + index" class="text-red italic pb-5">{{ error }}</p>
                 <vs-button @click="login" class="ml-auto block">Login</vs-button>
               </div>
             </div>
@@ -61,6 +62,7 @@
 
 <script>
 import { AUTH_REQUEST } from '@/store/actions/auth'
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -69,6 +71,10 @@ export default {
       password: '',
       checkbox_remember_me: false
     }
+  },
+
+  computed: {
+    ...mapState({ errors: state => state.auth.errors })
   },
 
   methods: {

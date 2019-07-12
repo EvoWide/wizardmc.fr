@@ -15,7 +15,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login', 'register', 'loginAdmin']]);
     }
 
     public function register()
@@ -57,6 +57,28 @@ class AuthController extends Controller
 
         if (!auth()->validate($credentials)) {
             return response()->json(['error' => 'Unauthorized (USER_NOT_FOUND)'], 401);
+        }
+
+        return response()->json(['access_token' => auth()->getToken()]);
+    }
+
+    /**
+     * Get a JWT via given credentials : admin only.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function loginAdmin()
+    {
+        $credentials = request(['username', 'password']);
+
+        if (!auth()->validate($credentials)) {
+            return response()->json(['error' => 'Unauthorized (USER_NOT_FOUND)'], 401);
+        }
+
+        $ranks = ['Administrateur', 'Fondateur'];
+
+        if (!in_array(auth()->user()->role->name, $ranks)) {
+            return response()->json(['error' => 'Unauthorized (NO_PERMISSION)'], 401);
         }
 
         return response()->json(['access_token' => auth()->getToken()]);

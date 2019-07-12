@@ -3,6 +3,7 @@ import { axios } from '@/plugins/axios'
 
 const state = {
   token: localStorage.getItem('admin-token') || '',
+  errors: {},
   status: ''
 }
 
@@ -15,7 +16,7 @@ const actions = {
   [AUTH_REQUEST]: ({ commit }, user) => {
     return new Promise((resolve, reject) => { // The Promise used for router redirect in login
       commit(AUTH_REQUEST)
-      axios({ url: 'auth/login', data: user, method: 'POST' })
+      axios({ url: 'auth/login-admin', data: user, method: 'POST' })
         .then(resp => {
           const token = resp.data['access_token']
           localStorage.setItem('admin-token', token) // store the token in localstorage
@@ -47,12 +48,15 @@ const mutations = {
   },
   [AUTH_SUCCESS]: (state, token) => {
     state.status = 'success'
+    state.errors = {}
     state.token = token
   },
-  [AUTH_ERROR]: (state) => {
+  [AUTH_ERROR]: (state, err) => { 
+    state.errors = err.response.data
     state.status = 'error'
   },
   [AUTH_LOGOUT]: (state) => {
+    state.errors = {}
     state.token = ''
   }
 }
