@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Str;
 
@@ -40,9 +38,9 @@ class AuthController extends Controller
             'email' => 'required|email|unique:users',
         ]);
 
+
         $user = new User($credentials);
         $user->uuid = Str::uuid();
-        $user->logged = auth()->getToken();
         $user->save();
 
         return response()->json(['success' => true]);
@@ -57,11 +55,11 @@ class AuthController extends Controller
     {
         $credentials = request(['username', 'password']);
 
-        if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!auth()->validate($credentials)) {
+            return response()->json(['error' => 'Unauthorized (USER_NOT_FOUND)'], 401);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json(['access_token' => auth()->getToken()]);
     }
 
     /**
@@ -82,33 +80,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->logout();
-
         return response()->json(['message' => 'Successfully logged out']);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
-
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
     }
 }

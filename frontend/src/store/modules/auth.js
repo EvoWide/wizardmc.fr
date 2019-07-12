@@ -19,7 +19,7 @@ const actions = {
         .then(resp => {
           const token = resp.data['access_token']
           localStorage.setItem('user-token', token) // store the token in localstorage
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          axios.defaults.headers.common['Authorization'] = `${token}`
           commit(AUTH_SUCCESS, token)
           resolve(resp)
         })

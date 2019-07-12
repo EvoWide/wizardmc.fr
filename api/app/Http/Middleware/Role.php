@@ -28,6 +28,6 @@ class Role
             }
         }
 
-        return response('Unauthenticated.', 401);
+        return response('Unauthenticated (NO_PERMISSION).', 401);
     }
 }
