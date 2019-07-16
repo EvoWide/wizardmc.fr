@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Builder;
 use Exception;
@@ -92,8 +94,8 @@ class JwtGuard implements Guard {
             return $this->validateJWT();
         }
 
-        $user = $this->provider->retrieveByCredentials($credentials);
-        if (!$user) {
+        $user = User::where('username', $credentials['username'])->first();
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
             return false;
         }
 
