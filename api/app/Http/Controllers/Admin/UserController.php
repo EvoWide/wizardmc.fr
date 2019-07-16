@@ -10,7 +10,10 @@ class UserController extends Controller
 {
     public function index()
     {
-        return response()->json(User::all());
+        return response()->json(
+            User::all()
+                ->load('role')
+        );
     }
 
     public function create()

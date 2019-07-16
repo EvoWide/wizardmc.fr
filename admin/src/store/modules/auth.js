@@ -26,6 +26,7 @@ const actions = {
         })
         .catch(err => {
           commit(AUTH_ERROR, err)
+          console.log('error auth request')
           localStorage.removeItem('admin-token') // if the request fails, remove any possible user token if possible
           reject(err)
         })
@@ -34,6 +35,7 @@ const actions = {
   [AUTH_LOGOUT]: ({ commit }) => {
     return new Promise((resolve) => {
       commit(AUTH_LOGOUT)
+      console.log('logout')
       localStorage.removeItem('admin-token')
       delete axios.defaults.headers.common['Authorization']
       resolve()
