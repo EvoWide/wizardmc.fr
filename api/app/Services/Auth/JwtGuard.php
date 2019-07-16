@@ -14,7 +14,8 @@ use Exception;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 
-class JwtGuard implements Guard {
+class JwtGuard implements Guard
+{
 
     private $signer;
     private $key;
@@ -26,7 +27,7 @@ class JwtGuard implements Guard {
     private $token = NULL;
 
     private $checked = false;
-  
+
     /**
      * @param UserProvider $provider
      * @param Request $request
@@ -39,18 +40,19 @@ class JwtGuard implements Guard {
         $this->signer = new Sha256();
         $this->key = new Key(env('APP_KEY'));
     }
-    
+
     /**
      * Determine if the current user is authenticated.
      *
      * @return bool
      */
-    public function check() {
+    public function check()
+    {
         if (!$this->checked) {
             $this->checked = true;
             $this->validate();
         }
-        
+
         return !is_null($this->user());
     }
 
@@ -59,16 +61,18 @@ class JwtGuard implements Guard {
      *
      * @return bool
      */
-    public function guest() {
+    public function guest()
+    {
         return !$this->check();
     }
 
     /**
-    * Get the currently authenticated user.
-    *
-    * @return \Illuminate\Contracts\Auth\Authenticatable|null
-    */
-    public function user() {
+     * Get the currently authenticated user.
+     *
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function user()
+    {
         return $this->user;
     }
 
@@ -77,7 +81,8 @@ class JwtGuard implements Guard {
      *
      * @return int|string|null
      */
-    public function id() {
+    public function id()
+    {
         if ($this->check()) {
             return $this->user->getAuthIdentifier();
         }
@@ -89,7 +94,8 @@ class JwtGuard implements Guard {
      * @param  array  $credentials
      * @return bool
      */
-    public function validate(array $credentials = []) {
+    public function validate(array $credentials = [])
+    {
         if (empty($credentials)) {
             return $this->validateJWT();
         }
@@ -102,18 +108,19 @@ class JwtGuard implements Guard {
         $time = time();
         $user->logged = uniqid('');
         $token = (new Builder())
-        ->issuedAt($time)
-        ->expiresAt($time + 120) // TODO CHECKBOX REMEMBER
-        ->withClaim('uid', $user->getAuthIdentifier())
-        ->identifiedBy($user->logged, true)
-        ->getToken($this->signer, $this->key);
+            ->issuedAt($time)
+            ->expiresAt($time + 120) // TODO CHECKBOX REMEMBER
+            ->withClaim('uid', $user->getAuthIdentifier())
+            ->identifiedBy($user->logged, true)
+            ->getToken($this->signer, $this->key);
         $user->save();
 
         $this->setUserAndToken($user, $token->__toString());
         return true;
     }
 
-    private function validateJWT() {
+    private function validateJWT()
+    {
         $rawToken = $this->request->header('Authorization');
         if (!$rawToken) {
             return false;
@@ -129,7 +136,6 @@ class JwtGuard implements Guard {
             return false;
         }
 
-    
         $user_id = $token->getClaim('uid');
         $logged = $token->getHeader('jti');
 
@@ -148,12 +154,13 @@ class JwtGuard implements Guard {
      * @param  \Illuminate\Contracts\Auth\Authenticatable  $user
      * @return void
      */
-    public function setUser(Authenticatable $user) {
+    public function setUser(Authenticatable $user)
+    {
         $this->user = $user;
     }
 
-
-    public function setUserAndToken(Authenticatable $user, string $token) {
+    public function setUserAndToken(Authenticatable $user, string $token)
+    {
         $this->setUser($user);
         $this->token = $token;
     }
@@ -163,8 +170,8 @@ class JwtGuard implements Guard {
      *
      * @return string|null
      */
-    public function getToken() {
+    public function getToken()
+    {
         return $this->token;
     }
-
 }
