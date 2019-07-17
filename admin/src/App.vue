@@ -23,13 +23,7 @@ export default {
       this.toggleClassInBody(val);
     }
   },
-  async created () {
-    try {
-      await this.$auth.renewTokens();
-    } catch (e) {
-      console.log(e);
-    }
-  },
+
   methods: {
     toggleClassInBody (className) {
       if (className == 'dark') {
@@ -47,6 +41,7 @@ export default {
       this.$store.dispatch('updateWindowWidth', event.currentTarget.innerWidth);
     },
   },
+  
   mounted () {
     this.toggleClassInBody(themeConfig.theme)
     this.$nextTick(() => {

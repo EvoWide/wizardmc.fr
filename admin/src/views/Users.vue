@@ -167,15 +167,12 @@ export default {
       this.gridApi.setQuickFilter(val);
     }
   },
-  mounted () {
+  async mounted () {
     this.gridApi = this.gridOptions.api;
 
-    this.$axios.get('admin/user')
-      .then(response => {
-        console.log(response.data)
-        this.users = response.data
-      })
-      .catch(err => console.log(err))
+    let res = await this.$axios.get('admin/user')
+    // console.log(res.data)
+    this.users = res.data
   }
 }
 
