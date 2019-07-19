@@ -13,6 +13,8 @@ use Lcobucci\JWT\Builder;
 use Exception;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class JwtGuard implements Guard
 {
@@ -105,15 +107,16 @@ class JwtGuard implements Guard
             return false;
         }
 
-        $time = time();
-        $user->logged = uniqid('');
-        $token = (new Builder())
-            ->issuedAt($time)
-            ->expiresAt($time + 120) // TODO CHECKBOX REMEMBER
-            ->withClaim('uid', $user->getAuthIdentifier())
-            ->identifiedBy($user->logged, true)
-            ->getToken($this->signer, $this->key);
-        $user->save();
+        $expireAt = Carbon::now();
+        if (request()->get('remember', 0)) {
+            $expireAt->addDays(7);
+        } else {
+            $expireAt->addHours(2);
+        }
+
+        $generatedToken = uniqid();
+        $token = (new Builder())->issuedAt(time())->expiresAt($expireAt->timestamp)->withClaim('uid', $user->getAuthIdentifier())->identifiedBy($generatedToken, true)->getToken($this->signer, $this->key);
+        DB::insert('insert into users_logged (user_id, token, expire_at) values (?, ?, ?)', [$user->id, $generatedToken, $expireAt->toDateTimeString()]);
 
         $this->setUserAndToken($user, $token->__toString());
         return true;
@@ -140,7 +143,7 @@ class JwtGuard implements Guard
         $logged = $token->getHeader('jti');
 
         $user = $this->provider->retrieveById($user_id);
-        if (!$user || $user->logged !== $logged) {
+        if (!$user || !DB::select('select * from users_logged where user_id = ? AND token = ? AND expire_at > NOW()', [$user_id, $logged])) {
             return false;
         }
 

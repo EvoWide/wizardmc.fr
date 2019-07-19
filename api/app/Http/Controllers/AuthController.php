@@ -20,14 +20,13 @@ class AuthController extends Controller
 
     public function register()
     {
-        $secretKey = '6LdHZ6wUAAAAAPZHDJXTzcvoGDGPbbZ980nUkvTx';
         $recaptchaToken = request('recaptchaToken');
 
         if (!$recaptchaToken) {
             return response()->json(['error' => 'Une erreur est survenue durant la validation anti robot.']);
         }
 
-        $captchaCheck = json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret={$secretKey}&response={$recaptchaToken}"));
+        $captchaCheck = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . env('RECAPTCHA_SECRET') . '&response=' . $recaptchaToken));
         if (!$captchaCheck->success) {
             return response()->json(['error' => 'Une erreur est survenue durant la validation anti robot.']);
         }

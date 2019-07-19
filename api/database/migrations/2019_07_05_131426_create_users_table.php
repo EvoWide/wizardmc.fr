@@ -21,9 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('votes')->default(0);
             $table->string('password', 255);
             $table->uuid('uuid');
-            $table->string('logged', 16)->nullable();
             $table->tinyInteger('role_id')->default(1);
-
             $table->timestamps();
         });
     }
