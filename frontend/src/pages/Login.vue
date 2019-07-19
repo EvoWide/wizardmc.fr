@@ -22,7 +22,7 @@
       </label>
       <div class="flex mt-6">
         <label class="flex items-center">
-          <input type="checkbox" class="form-checkbox text-purple-500 w-5 h-5" />
+          <input type="checkbox" v-model="remember" v-bind:true-value="1" v-bind:false-value="0" class="form-checkbox text-purple-500 w-5 h-5" />
           <span class="ml-2">Se souvenir de moi</span>
         </label>
       </div>
@@ -38,14 +38,15 @@ export default {
   data () {
     return {
       username: '',
-      password: ''
+      password: '',
+      remember: ''
     }
   },
 
   methods: {
     login () {
-      const { username, password } = this
-      this.$store.dispatch(AUTH_REQUEST, { username, password }).then(() => {
+      const { username, password, remember } = this
+      this.$store.dispatch(AUTH_REQUEST, { username, password, remember }).then(() => {
         this.$router.push('/')
       })
     }

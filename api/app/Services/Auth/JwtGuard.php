@@ -108,7 +108,7 @@ class JwtGuard implements Guard
         }
 
         $expireAt = Carbon::now();
-        if (request()->get('remember', 0)) {
+        if (request()->input('remember')) {
             $expireAt->addDays(7);
         } else {
             $expireAt->addHours(2);
