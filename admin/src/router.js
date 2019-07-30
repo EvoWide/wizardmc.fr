@@ -53,6 +53,11 @@ const router = new Router({
           component: () => import('./views/News.vue')
         },
         {
+          path: '/news/add',
+          name: 'add-news',
+          component: () => import('./views/AddNews.vue')
+        },
+        {
           path: '/shop',
           name: 'shop',
           component: () => import('./views/Shop.vue')
