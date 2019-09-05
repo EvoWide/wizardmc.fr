@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Services\Api\Exceptions\ShopBoughtException;
+use App\Services\Api\Exceptions\TransactionException;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -48,5 +50,48 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    // Econ
+
+    public function balance()
+    {
+        return $this->credits;
+    }
+
+    /**
+     * Remove credits from user, throw an exception if an error occured.
+     *
+     * @param integer $amount
+     * @return void
+     */
+    public function withdraw(int $amount): void
+    {
+        if ($amount <= 0) {
+            throw new TransactionException("Le montant indiqué est invalide.");
+        }
+
+        if ($amount > $this->credits) {
+            throw new TransactionException("Fonds insuffisant.");
+        }
+
+        $this->credits -= $amount;
+        $this->save();
+    }
+
+    /**
+     * Give credits from user, throw an exception if an error occured.
+     *
+     * @param integer $amount
+     * @return void
+     */
+    public function deposit(int $amount): void
+    {
+        if ($amount <= 0) {
+            throw new TransactionException('Le montant indiqué est invalide.');
+        }
+
+        $this->credits += $amount;
+        $this->save();
     }
 }
