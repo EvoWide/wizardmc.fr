@@ -19,7 +19,8 @@
     "./providers/AppProvider",
     "@adonisjs/core",
     "@adonisjs/lucid",
-    "@adonisjs/redis"
+    "@adonisjs/redis",
+    "@adonisjs/session"
   ],
   "metaFiles": [
     ".env",
