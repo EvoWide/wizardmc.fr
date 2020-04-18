@@ -43,18 +43,32 @@ export default {
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'nuxt-webfontloader'
   ],
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3333/' : ''
+  },
+
+  webfontloader: {
+    google: {
+      families: ['Inter:400,500,600,700,800,900', 'Asul:400,700']
+    }
   },
   /*
   ** Build configuration
   */
   build: {
+    html: {
+      minify: {
+        collapseWhitespace: true, // as @dario30186 mentioned
+        removeComments: true // 👈 add this line
+      }
+    },
     /*
     ** You can extend webpack config here
     */

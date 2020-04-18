@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container font-sans">
     <div>
       <logo />
-      <h1 class="title">
+      <h1 class="title font-title">
         wizardmc
       </h1>
       <h2 class="subtitle">
@@ -54,8 +54,6 @@ export default {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;
