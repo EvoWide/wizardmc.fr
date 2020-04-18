@@ -9,10 +9,9 @@
         >
           <span class="text-yellow-600">666</span> Joueurs en ligne
         </div>
-        <div class="hidden lg:block">
-          <i class="cursor-pointer fab fa-twitter hover:text-white" />
-          <i class="ml-4 cursor-pointer fab fa-youtube hover:text-white" />
-          <i class="ml-4 cursor-pointer fab fa-discord hover:text-white" />
+        <div class="hidden text-sm lg:block">
+          <span>Login</span>
+          <span class="ml-2">Register</span>
         </div>
         <!-- Mobile Nav toggler -->
         <button class="block focus:outline-none lg:hidden" @click="toggleSide">

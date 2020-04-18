@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "aos": "^3.0.0-beta.6",
     "nuxt": "^2.0.0",
     "nuxt-webfontloader": "^1.1.0"
   },
