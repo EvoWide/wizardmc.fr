@@ -23,6 +23,11 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/css/utils.css',
+    '@/assets/css/pages/homepage.css',
+    '@/assets/css/components/button.css',
+    '@/assets/css/components/footer.css',
+    '@/assets/css/components/navbar.css'
   ],
   /*
   ** Plugins to load before mounting the App

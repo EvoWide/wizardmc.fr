@@ -1,0 +1,6 @@
+<svg aria-hidden="true" focusable="false" data-prefix="fab" data-icon="windows" class="svg-inline--fa fa-windows fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="url(#paint0_linear)" d="M0 93.7l183.6-25.3v177.4H0V93.7zm0 324.6l183.6 25.3V268.4H0v149.9zm203.8 28L448 480V268.4H203.8v177.9zm0-380.6v180.1H448V32L203.8 65.7z"></path><defs>
+<linearGradient id="paint0_linear" x1="224" y1="0" x2="224" y2="512" gradientUnits="userSpaceOnUse">
+<stop stop-color="#C3A758"/>
+<stop offset="1" stop-color="#6B521E"/>
+</linearGradient>
+</defs></svg>

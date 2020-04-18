@@ -1,75 +1,176 @@
 <template>
-  <div class="container font-sans">
-    <div>
-      <logo />
-      <h1 class="title font-title">
-        wizardmc
-      </h1>
-      <h2 class="subtitle">
-        WizardMC Nuxt Frontend
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
+  <main>
+    <!-- What is WizardMC -->
+    <div
+      class="bg-center bg-no-repeat bg-cover border-t-2 border-b-2 border-yellow-600 about-section"
+      :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-2.jpg')})` }"
+    >
+      <div class="container relative px-4 pt-10 pb-20 mx-auto text-center sm:text-left">
+        <div
+          data-aos="fade-right"
+          data-aos-anchor=".about-section"
+          class="inline-block pb-6 bg-bottom bg-no-repeat ornament-lg md:pb-5"
         >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
+          <h2
+            class="text-xl font-bold uppercase font-title text-gradient md:text-3xl"
+          >
+            QU’EST-CE QUE WIZARDMC ?
+          </h2>
+        </div>
+
+        <div
+          data-aos="fade-right"
+          data-aos-delay="200"
+          data-aos-anchor=".about-section"
+          class="relative z-10 px-4 py-6 mt-2 border-2 border-gradient xl:max-w-4xl"
+          style="background: rgba(26, 32, 44, .3);"
         >
-          GitHub
-        </a>
+          <p
+            class="text-base font-normal text-justify text-white md:text-lg"
+          >
+            Embark on a journey of adventure and creativity! WizardMC combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards. Designed with creative players in mind, Hytale’s engine supports everything from block-by-block castle construction to scripting and customization delivered using easy to use and powerful tools.
+          </p>
+        </div>
+        <img
+          data-aos="fade-centered"
+          data-aos-delay="400"
+          data-aos-anchor=".about-section"
+          class="render-1"
+          src="@/assets/img/renders/render-1.png"
+          alt="Render 1"
+          style="top: 50%"
+        >
       </div>
     </div>
-  </div>
+
+    <!-- News -->
+    <div
+      class="min-h-screen bg-center bg-no-repeat bg-cover news-section"
+      :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-3.jpg')})` }"
+    >
+      <div class="container px-4 py-10 mx-auto">
+        <h2
+          class="text-3xl font-bold text-center uppercase font-title text-gradient"
+        >
+          Derniers articles
+        </h2>
+        <img class="block mx-auto" src="@/assets/img/line.png" alt="Separator">
+        <div class="flex flex-col mt-6 -mx-6 lg:flex-row lg:justify-between">
+          <!-- News List -->
+          <div class="px-6 lg:w-2/3">
+            <div class="p-6 border-2 border-gradient">
+              <News
+                v-for="(news, index) in lastNews"
+                :key="'news-' + index"
+                class="news"
+                :data="news"
+                :last="index === lastNews.length - 1"
+                data-aos="fade-right"
+                data-aos-anchor=".news-section"
+                :data-aos-delay="200 * index"
+              />
+            </div>
+            <div class="flex items-center justify-center mt-3">
+              <img src="@/assets/img/chevron-left.svg" alt="Précédente">
+              <span class="px-2 text-white">
+                Page
+                <span class="text-yellow-600">1</span> sur
+                <span class="text-yellow-600">5</span>
+              </span>
+              <img src="@/assets/img/chevron-right.svg" alt="Suivante">
+            </div>
+          </div>
+          <!-- Socials -->
+          <div class="relative px-6 mt-3 lg:mt-0 lg:w-1/3 lg:flex lg:flex-col">
+            <div class="p-6 border-2 border-gradient">
+              <h2
+                class="text-xl font-bold text-center uppercase font-title text-gradient"
+              >
+                Nos réseaux sociaux
+              </h2>
+              <div
+                data-aos="fade-right"
+                data-aos-delay="200"
+                data-aos-anchor=".news-section"
+                class="flex items-center justify-around max-w-md px-4 py-8 mx-auto md:px-12"
+              >
+                <a href="https://discord.gg/a8qf5AD" target="_blank">
+                  <img src="@/assets/img/socials/Discord.svg" alt="Discord">
+                </a>
+                <a href="https://twitter.com/WizardMC__" target="_blank">
+                  <img src="@/assets/img/socials/Twitter.svg" alt="Twitter">
+                </a>
+                <a href="#">
+                  <img src="@/assets/img/socials/YouTube.svg" alt="YouTube">
+                </a>
+              </div>
+              <a href="#" class="flex items-center justify-center">
+                <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak">
+                <span class="pl-4 text-lg text-white uppercase font-bol">ts.wizardmc.fr</span>
+              </a>
+            </div>
+            <img
+              data-aos="fade-up"
+              data-aos-delay="400"
+              data-aos-anchor=".news-section"
+              class="hidden -mt-8 lg:block"
+              src="@/assets/img/renders/render-2.png"
+              alt="Render 2"
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import News from '@/components/Home/News.vue'
 
 export default {
   components: {
-    Logo
+    News
+  },
+  data () {
+    return {
+      lastNews: [
+        {
+          title: 'WizardMC 1.0 est sorti !',
+          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
+          date: '13.07.2019',
+          author: 'Kalane',
+          image: 'news-1.jpg'
+        },
+        {
+          title: 'WizardMC 1.0 est sorti !',
+          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
+          date: '13.07.2019',
+          author: 'Kalane',
+          image: 'news-1.jpg'
+        },
+        {
+          title: 'WizardMC 1.0 est sorti !',
+          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
+          date: '13.07.2019',
+          author: 'Kalane',
+          image: 'news-1.jpg'
+        },
+        {
+          title: 'WizardMC 1.0 est sorti !',
+          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
+          date: '13.07.2019',
+          author: 'Kalane',
+          image: 'news-1.jpg'
+        },
+        {
+          title: 'WizardMC 1.0 est sorti !',
+          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
+          date: '13.07.2019',
+          author: 'Kalane',
+          image: 'news-1.jpg'
+        }
+      ]
+    }
   }
 }
 </script>
-
-<style>
-/* Sample `apply` at-rules with Tailwind CSS
-.container {
-  @apply min-h-screen flex justify-center items-center text-center mx-auto;
-}
-*/
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

@@ -1,0 +1,20 @@
+.footer-link {
+  @apply flex items-center;
+  transition: all 0.2s ease;
+}
+
+.footer-link img {
+  @apply h-2;
+}
+
+.footer-link span {
+  @apply pl-2 text-purple-100;
+}
+
+.footer-link span:hover {
+  @apply text-white;
+}
+
+.footer-link:hover {
+  transform: translateX(2px);
+}

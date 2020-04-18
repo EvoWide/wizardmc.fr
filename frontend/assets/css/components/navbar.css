@@ -1,0 +1,37 @@
+.nav {
+  @apply bg-no-repeat;
+  background-image: url('~@/assets/img/ornament-nav-left.svg'), url('~@/assets/img/ornament-nav-right.svg');
+  background-position: left, right;
+  background-size: auto 101%;
+  background-color: rgba(26, 32, 44, .6);
+}
+
+.side-nav {
+  transform: translateX(-100%);
+  transition: all .5s ease;
+}
+
+.side-nav.open {
+  transform: translateX(0px);
+}
+
+.nav-link {
+  @apply relative block;
+}
+
+.nav-link::before {
+  @apply absolute bg-no-repeat bg-contain opacity-0 pointer-events-none;
+  content: '';
+  height: 26px;
+  width: 100px;
+  left: calc(50% - 50px);
+  bottom: -14px;
+  background-image: url('~@/assets/img/menu-current.png');
+  background-position: center bottom;
+  transition: all 0.2s;
+}
+
+.nav-link:hover::before,
+.nav-link.nuxt-link-exact-active::before {
+  @apply opacity-100;
+}
