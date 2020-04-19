@@ -24,3 +24,8 @@ Route.group(() => {
   Route.get('/', 'PostsController.index')
   Route.get('/:id', 'PostsController.view')
 }).prefix('posts')
+
+Route.group(() => {
+  Route.post('/login', 'UsersController.authenticate')
+  Route.post('/register', 'UsersController.store')
+}).prefix('user')
