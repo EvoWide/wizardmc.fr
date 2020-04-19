@@ -2,7 +2,7 @@
   <div class="relative font-sans" style="background-color: #231845;">
     <div
       :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-1.jpg')})` }"
-      :class="$route.name === 'index' ? 'md:h-screen' : 'h-full'"
+      :class="$route.name === 'index' ? 'md:h-screen' : 'h-full bg-fixed'"
       class="absolute inset-0 bg-center bg-no-repeat bg-cover"
     />
     <div class="relative">
