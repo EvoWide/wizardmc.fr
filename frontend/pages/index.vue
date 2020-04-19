@@ -164,6 +164,7 @@ export default {
     return {
       lastNews: [
         {
+          id: 1,
           title: 'WizardMC 1.0 est sorti !',
           content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
           date: '13.07.2019',
@@ -171,6 +172,7 @@ export default {
           image: 'news-1.jpg'
         },
         {
+          id: 2,
           title: 'WizardMC 1.0 est sorti !',
           content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
           date: '13.07.2019',
@@ -178,6 +180,7 @@ export default {
           image: 'news-1.jpg'
         },
         {
+          id: 3,
           title: 'WizardMC 1.0 est sorti !',
           content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
           date: '13.07.2019',
@@ -185,6 +188,7 @@ export default {
           image: 'news-1.jpg'
         },
         {
+          id: 4,
           title: 'WizardMC 1.0 est sorti !',
           content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
           date: '13.07.2019',
@@ -192,6 +196,7 @@ export default {
           image: 'news-1.jpg'
         },
         {
+          id: 5,
           title: 'WizardMC 1.0 est sorti !',
           content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
           date: '13.07.2019',

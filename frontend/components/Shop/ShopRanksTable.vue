@@ -58,8 +58,8 @@
         <tr>
           <td class="text-left">
             <div
-              class="inline-flex items-center justify-center p-2 leading-snug rounded-lg bg-purple-1000"
               @click="switchDuration"
+              class="inline-flex items-center justify-center p-2 leading-snug rounded-lg bg-purple-1000"
             >
               <div
                 :class="ranksDuration === 'mois' ? 'bg-purple-800 text-purple-200' : 'text-purple-500'"

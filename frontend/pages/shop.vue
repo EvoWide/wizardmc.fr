@@ -7,9 +7,9 @@
             Catégories
           </h2>
           <div
+            @click="changeTab('ranks')"
             :class="isActiveTab('ranks') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
-            @click="changeTab('ranks')"
           >
             <svg
               class="w-4 h-4 text-purple-300"
@@ -25,9 +25,9 @@
             <span class="ml-2">Grades</span>
           </div>
           <div
+            @click="changeTab('kits')"
             :class="isActiveTab('kits') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
-            @click="changeTab('kits')"
           >
             <svg
               class="w-4 h-4 text-purple-300"
@@ -42,9 +42,9 @@
             <span class="ml-2">Kits</span>
           </div>
           <div
+            @click="changeTab('spawners')"
             :class="isActiveTab('spawners') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
-            @click="changeTab('spawners')"
           >
             <svg
               class="w-4 h-4 text-purple-300"
@@ -59,9 +59,9 @@
             <span class="ml-2">Spawners</span>
           </div>
           <div
+            @click="changeTab('keys')"
             :class="isActiveTab('keys') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
-            @click="changeTab('keys')"
           >
             <svg
               class="w-4 h-4 text-purple-300"
@@ -76,9 +76,9 @@
             <span class="ml-2">Clés</span>
           </div>
           <div
+            @click="changeTab('others')"
             :class="isActiveTab('others') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
-            @click="changeTab('others')"
           >
             <svg
               class="w-4 h-4 text-purple-300"

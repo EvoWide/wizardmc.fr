@@ -14,7 +14,7 @@
           <span class="ml-2">Register</span>
         </div>
         <!-- Mobile Nav toggler -->
-        <button class="block focus:outline-none lg:hidden" @click="toggleSide">
+        <button @click="toggleSide" class="block focus:outline-none lg:hidden">
           <svg
             class="w-6 fill-current hover:text-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
       class="fixed top-0 left-0 z-40 max-w-xl min-h-screen px-8 py-4 side-nav bg-purple-1000"
       :class="isOpen ? 'open' : ''"
     >
-      <button class="focus:outline-none" @click="toggleSide">
+      <button @click="toggleSide" class="focus:outline-none">
         <img
           class="absolute top-0 left-0 w-5 mt-4 ml-4"
           src="@/assets/img/icons/close.svg"
@@ -72,9 +72,9 @@
     </div>
     <div
       v-show="isOpen"
+      @click="toggleSide"
       class="absolute inset-0"
       style="backgroundColor: rgba(0, 0, 0, .6)"
-      @click="toggleSide"
     />
 
     <!-- Desktop Nav -->
