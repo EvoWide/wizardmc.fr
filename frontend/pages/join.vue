@@ -15,7 +15,7 @@
         </p>
       </div>
       <video
-        class="w-full max-w-lg mx-auto mt-8 border-2 shadow-xl border-gradient lg:mt-16"
+        class="w-full max-w-lg mx-auto mt-8 border-2 shadow-xl bg-purple-1000 border-gradient lg:mt-16"
         src="@/assets/videos/launcher.mp4"
         type="video/mp4"
         autoplay

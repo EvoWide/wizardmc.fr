@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="absolute left-0 right-0">
     <div class="h-10 bg-purple-900 border-b border-purple-800">
       <div
         class="container flex items-center justify-between h-full px-4 mx-auto text-lg text-purple-200"

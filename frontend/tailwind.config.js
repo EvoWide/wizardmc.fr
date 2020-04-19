@@ -20,6 +20,9 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         title: ['Asul', 'Mirza', ...defaultTheme.fontFamily.sans]
       },
+      padding: {
+        36: '9rem'
+      },
       spacing: {
         80: '20rem'
       }
