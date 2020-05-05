@@ -22,7 +22,7 @@ export default class LoginValidator {
    */
   public schema = schema.create({
     username: schema.string({ escape: true, trim: true }, [
-      rules.unique({ table: 'users', column: 'username' }),
+      rules.exists({ table: 'users', column: 'username' }),
       rules.minLength(5),
       rules.maxLength(16)
     ]),
