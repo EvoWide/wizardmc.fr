@@ -33,3 +33,8 @@ Route.group(() => {
 
   Route.post('/logout', 'UsersController.logout').middleware('Auth')
 }).prefix('user')
+
+Route.group(() => {
+  Route.get('/', 'ShopController.index')
+
+}).prefix('shop')
