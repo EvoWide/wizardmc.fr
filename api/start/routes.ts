@@ -20,21 +20,29 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 
+/* Guests only */
+Route.group(() => {
+  // Users
+  Route.post('sessions', 'SessionsController.store')
+  Route.post('users', 'UsersController.store')
+}).middleware('guest')
+
+/* Auth only */
+Route.group(() => {
+  // Users
+  Route.get('me', 'UsersController.current')
+  Route.delete('sessions', 'SessionsController.destroy')
+}).middleware('auth')
+
+/* All users */
+
+// Posts
 Route.group(() => {
   Route.get('/', 'PostsController.index')
   Route.get('/:id', 'PostsController.view')
-}).prefix('posts').middleware('Auth')
+}).prefix('posts')
 
-Route.group(() => {
-  Route.group(() => {
-    Route.post('/login', 'UsersController.authenticate')
-    Route.post('/register', 'UsersController.store')
-  }).middleware('Guest')
-
-  Route.post('/logout', 'UsersController.logout').middleware('Auth')
-}).prefix('user')
-
+// Shop
 Route.group(() => {
   Route.get('/', 'ShopController.index')
-
 }).prefix('shop')
