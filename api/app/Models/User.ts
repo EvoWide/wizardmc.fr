@@ -35,7 +35,7 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken: string
 
-  @hasMany(() => Post, {localKey: 'id', foreignKey: 'authorId'})
+  @hasMany(() => Post, {foreignKey: 'authorId'})
   public posts: HasMany<typeof Post>
 
   @beforeCreate()
