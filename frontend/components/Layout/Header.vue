@@ -10,8 +10,12 @@
           <span class="text-yellow-600">666</span> Joueurs en ligne
         </div>
         <div class="hidden text-sm lg:block">
-          <span>Login</span>
-          <span class="ml-2">Register</span>
+          <nuxt-link :to="{name: 'login'}" class="hover:text-white">
+            Connexion
+          </nuxt-link>
+          <nuxt-link :to="{name: 'register'}" class="ml-2 hover:text-white">
+            Inscription
+          </nuxt-link>
         </div>
         <!-- Mobile Nav toggler -->
         <button @click="toggleSide" class="block focus:outline-none lg:hidden">
