@@ -32,6 +32,9 @@ export default class User extends BaseModel {
   @column()
   public uuid: string
 
+  @column()
+  public rememberMeToken: string
+
   @hasMany(() => Post, {localKey: 'id', foreignKey: 'authorId'})
   public posts: HasMany<typeof Post>
 

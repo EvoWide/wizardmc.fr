@@ -16,7 +16,7 @@ export default class UsersController {
   public async authenticate({ request, response, auth }: HttpContextContract) {
     const data = await request.validate(LoginValidator)
 
-    await auth.attempt(data.username, data.password)
+    await auth.attempt(data.username, data.password, !!request.post().remember)
     response.send({ success: true })
   }
 
