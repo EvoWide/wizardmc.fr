@@ -2,7 +2,6 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import RegisterValidator from 'App/Validators/User/RegisterValidator'
 import LoginValidator from 'App/Validators/User/LoginValidator'
-import Hash from '@ioc:Adonis/Core/Hash'
 
 
 export default class UsersController {
@@ -14,15 +13,16 @@ export default class UsersController {
     return response.send(user)
   }
 
-  public async authenticate({ request, response }: HttpContextContract) {
+  public async authenticate({ request, response, auth }: HttpContextContract) {
     const data = await request.validate(LoginValidator)
-    const user = await User.query().where('username', data.username).first()
 
-    if (!user || !Hash.verify(user.password, data.password)) {
-      return response.json({error: 'Bad combinaison'})
-    }
+    await auth.attempt(data.username, data.password)
+    response.send({ success: true })
+  }
 
-    // Logged as user
+  public async logout({ response, auth }: HttpContextContract) {
+    await auth.logout()
+    response.send({ success: true })
   }
   
 }

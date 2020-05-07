@@ -23,9 +23,13 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   Route.get('/', 'PostsController.index')
   Route.get('/:id', 'PostsController.view')
-}).prefix('posts')
+}).prefix('posts').middleware('Auth')
 
 Route.group(() => {
-  Route.post('/login', 'UsersController.authenticate')
-  Route.post('/register', 'UsersController.store')
+  Route.group(() => {
+    Route.post('/login', 'UsersController.authenticate')
+    Route.post('/register', 'UsersController.store')
+  }).middleware('Guest')
+
+  Route.post('/logout', 'UsersController.logout').middleware('Auth')
 }).prefix('user')

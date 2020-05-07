@@ -12,6 +12,7 @@ export default class Users extends BaseSchema {
       table.integer('credits').unsigned().defaultTo(0)
       table.integer('votes').unsigned().defaultTo(0)
       table.string('uuid', 36).notNullable()
+      table.string('remember_me_token').nullable()
       table.timestamp('created_at').defaultTo(this.now())
       table.timestamp('updated_at').defaultTo(this.now())
     })
