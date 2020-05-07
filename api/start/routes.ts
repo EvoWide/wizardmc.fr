@@ -34,6 +34,14 @@ Route.group(() => {
   Route.delete('sessions', 'SessionsController.destroy')
 }).middleware('auth')
 
+/* Rest only */
+Route.group(() => {
+  Route.post('balance', 'Rest/UsersController.balance')
+  Route.post('withdraw', 'Rest/UsersController.withdraw')
+  Route.post('deposit', 'Rest/UsersController.deposit')
+  Route.post('transfer', 'Rest/UsersController.transfer')
+}).prefix('rest').middleware('rest')
+
 /* All users */
 
 // Posts
