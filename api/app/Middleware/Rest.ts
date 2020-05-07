@@ -1,9 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import wizardConfig from 'config/wizard'
 
 export default class Rest {
-  private readonly key: string = 'hello-world' // todo mettre ça dans config
-  private readonly allowedAdress: string[] = ['127.0.0.1']
-
   public async handle (ctx: HttpContextContract, next: () => Promise<void>) {
     const { authorization } = ctx.request.headers()
     if (!authorization) {
@@ -11,7 +9,7 @@ export default class Rest {
     }
 
     const [, token] = authorization.split(' ')
-    if (token !== this.key || !this.allowedAdress.includes(ctx.request.ip())) {
+    if (token !== wizardConfig.rest.key || !wizardConfig.rest.whitelist.includes(ctx.request.ip())) {
       return this.deny(ctx)
     }
 
