@@ -30,9 +30,6 @@ export default class LoginValidator {
     password: schema.string({ trim: true }, [
       rules.minLength(5)
     ]),
-
-    recaptcha: schema.string({}, [])
-
   })
 
   /**

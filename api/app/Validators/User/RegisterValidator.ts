@@ -35,8 +35,6 @@ export default class RegisterValidator {
       rules.email(),
       rules.unique({ table: 'users', column: 'email' })
     ]),
-
-    recaptcha: schema.string({}, [])
   })
 
   /**

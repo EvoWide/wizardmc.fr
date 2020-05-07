@@ -1,8 +1,8 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import RegisterValidator from 'App/Validators/User/RegisterValidator'
-import Recaptcha from 'App/Services/Recaptcha'
 import LoginValidator from 'App/Validators/User/LoginValidator'
+import Hash from '@ioc:Adonis/Core/Hash'
 
 
 export default class UsersController {
@@ -16,13 +16,13 @@ export default class UsersController {
 
   public async authenticate({ request, response }: HttpContextContract) {
     const data = await request.validate(LoginValidator)
+    const user = await User.query().where('username', data.username).first()
 
-    if (!(await Recaptcha.verify(data.recaptcha))) {
-      return response.status(422).send([{field: null, 'message': 'Une erreur est survenue pendant la vérification du ReCaptcha'}])
+    if (!user || !Hash.verify(user.password, data.password)) {
+      return response.json({error: 'Bad combinaison'})
     }
 
-    await Recaptcha.verify(data.recaptcha)
+    // Logged as user
   }
-
-
+  
 }
