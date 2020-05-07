@@ -13,34 +13,22 @@ export const mutations = {
 
 export const actions = {
   async getCurrentUser ({ commit }) {
-    try {
-      const user = await this.$axios.$get('me')
-      commit('SET_AUTHENTICATE_USER', user)
-    } catch (e) {
-      // throw e
-    }
+    const user = await this.$axios.$get('me')
+    commit('SET_AUTHENTICATE_USER', user)
   },
 
-  async login ({ dispatch }, { uid, password }) {
-    try {
-      await this.$axios.$post('sessions', {
-        uid, password
-      })
+  async login ({ dispatch }, { username, password }) {
+    await this.$axios.$post('sessions', {
+      username, password
+    })
 
-      await dispatch('getCurrentUser')
-    } catch (e) {
-      // throw e
-    }
+    await dispatch('getCurrentUser')
   },
 
   async logout ({ commit }) {
-    try {
-      await this.$axios.$delete('sessions')
+    await this.$axios.$delete('sessions')
 
-      commit('CLEAR_STORE')
-    } catch (e) {
-      // throw e
-    }
+    commit('LOGOUT')
   }
 }
 

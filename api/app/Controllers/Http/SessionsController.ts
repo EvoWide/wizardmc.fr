@@ -10,6 +10,7 @@ export default class SessionsController {
   }
 
   public async destroy ({ response, auth }: HttpContextContract) {
+    console.log('destroy')
     await auth.logout()
 
     return response.send({ success: true })

@@ -14,12 +14,12 @@ export default class SeedDb extends BaseCommand {
 
     await User.create({
       username: 'Kalane',
-      password: '1234',
+      password: '12345',
       email: 'kalanehd@gmail.com',
     })
     await User.create({
       username: 'Forsties08',
-      password: '1234',
+      password: '12345',
       email: 'forsties08@gmail.com',
     })
     this.logger.success('Seed finished.')

@@ -10,12 +10,17 @@
           <span class="text-yellow-600">666</span> Joueurs en ligne
         </div>
         <div class="hidden text-sm lg:block">
-          <nuxt-link :to="{name: 'login'}" class="hover:text-white">
-            Connexion
-          </nuxt-link>
-          <nuxt-link :to="{name: 'register'}" class="ml-2 hover:text-white">
-            Inscription
-          </nuxt-link>
+          <template v-if="logged">
+            <button
+              @click="logout"
+              class="focus:outline-none hover:text-white focus:text-white"
+              type="button"
+            >Déconnexion</button>
+          </template>
+          <template v-else>
+            <nuxt-link :to="{name: 'login'}" class="hover:text-white">Connexion</nuxt-link>
+            <nuxt-link :to="{name: 'register'}" class="ml-2 hover:text-white">Inscription</nuxt-link>
+          </template>
         </div>
         <!-- Mobile Nav toggler -->
         <button @click="toggleSide" class="block focus:outline-none lg:hidden">
@@ -40,25 +45,19 @@
           class="absolute top-0 left-0 w-5 mt-4 ml-4"
           src="@/assets/img/icons/close.svg"
           alt="Fermer le menu"
-        >
+        />
       </button>
 
-      <img class="block h-24 mx-auto" src="@/assets/img/logo-letter.png" alt="W logo">
+      <img class="block h-24 mx-auto" src="@/assets/img/logo-letter.png" alt="W logo" />
       <nav class="mt-6 text-lg font-bold text-white uppercase font-title">
         <div class="py-2">
-          <nuxt-link :to="{name: 'index'}" class="underline-effect">
-            Accueil
-          </nuxt-link>
+          <nuxt-link :to="{name: 'index'}" class="underline-effect">Accueil</nuxt-link>
         </div>
         <div class="py-2">
-          <nuxt-link :to="{name: 'join'}" class="underline-effect">
-            Nous rejoindre
-          </nuxt-link>
+          <nuxt-link :to="{name: 'join'}" class="underline-effect">Nous rejoindre</nuxt-link>
         </div>
         <div class="py-2">
-          <nuxt-link :to="{name: 'shop'}" class="underline-effect">
-            Boutique
-          </nuxt-link>
+          <nuxt-link :to="{name: 'shop'}" class="underline-effect">Boutique</nuxt-link>
         </div>
         <div class="py-2">
           <a href="#" class="underline-effect">Classements</a>
@@ -84,7 +83,7 @@
     <!-- Desktop Nav -->
     <div class="container hidden mx-auto lg:block">
       <header class="flex items-center justify-center pt-2">
-        <img class="h-24" src="@/assets/img/logo-letter.png" alt="W logo">
+        <img class="h-24" src="@/assets/img/logo-letter.png" alt="W logo" />
         <nav
           class="flex items-center ml-4 font-bold uppercase border-2 shadow-2xl nav font-title border-gradient"
         >
@@ -93,16 +92,12 @@
               :to="{name: 'index'}"
               class="pr-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
-            >
-              Accueil
-            </nuxt-link>
+            >Accueil</nuxt-link>
             <nuxt-link
               :to="{name: 'join'}"
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
-            >
-              Nous rejoindre
-            </nuxt-link>
+            >Nous rejoindre</nuxt-link>
             <a
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
@@ -124,27 +119,39 @@
         <nuxt-link
           :to="{ name:'shop' }"
           class="px-8 py-4 ml-6 font-semibold text-yellow-600 uppercase bg-gray-900 border-2 btn-shop border-gradient font-title"
-        >
-          Boutique
-        </nuxt-link>
+        >Boutique</nuxt-link>
       </header>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data () {
     return {
       isOpen: false
     }
   },
+
+  computed: {
+    ...mapGetters('auth', ['logged'])
+  },
+
   watch: {
     $route () {
       if (this.isOpen) { this.toggleSide() }
     }
   },
+
   methods: {
+    async logout () {
+      try {
+        await this.$store.dispatch('auth/logout')
+        this.$router.push('/login')
+      } catch (e) { console.log(e) }
+    },
     toggleSide () {
       this.isOpen = !this.isOpen
     }

@@ -34,7 +34,7 @@ const sessionConfig: SessionConfig = {
   | The name of the cookie that will hold the session id.
   |
   */
-  cookieName: 'adonis-session',
+  cookieName: 'wizardmc-session',
 
   /*
   |--------------------------------------------------------------------------
@@ -45,7 +45,7 @@ const sessionConfig: SessionConfig = {
   | this value to `true` will ignore the `age`.
   |
   */
-  clearWithBrowser: false,
+  clearWithBrowser: true,
 
   /*
   |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ const sessionConfig: SessionConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: false,
+    sameSite: true,
   },
 
   /*

@@ -34,7 +34,7 @@ export default {
   */
   plugins: [
     { src: '@/plugins/aos', ssr: false },
-    { src: '~/plugins/nuxt-client-init.js', ssr: false }
+    '~/plugins/nuxt-client-init.js'
   ],
   /*
   ** Nuxt.js dev-modules
@@ -58,7 +58,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3333/' : ''
+    baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:3333/' : '',
+    credentials: true
   },
 
   webfontloader: {
