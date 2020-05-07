@@ -38,7 +38,10 @@ export default class AuthMiddleware {
     /**
      * Unable to authenticate using any guard
      */
-    throw new AuthenticationException('Vous devez être connecté pour pouvoir accéder à ce contenu.', 'E_UNAUTHORIZED_ACCESS', this.redirectTo)
+    throw new AuthenticationException(
+      'Vous devez être connecté pour pouvoir accéder à ce contenu.',
+      'E_UNAUTHORIZED_ACCESS',
+      this.redirectTo)
   }
 
   /**
@@ -49,7 +52,6 @@ export default class AuthMiddleware {
      * Uses the user defined guards or the default guard mentioned in
      * the config file
      */
-    console.log('middleware auth')
     const guards = customGuards.length ? customGuards : [auth.name]
     await this.authenticate(auth, guards)
     await next()

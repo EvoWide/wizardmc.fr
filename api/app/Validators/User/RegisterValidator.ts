@@ -24,16 +24,16 @@ export default class RegisterValidator {
     username: schema.string({ escape: true, trim: true }, [
       rules.unique({ table: 'users', column: 'username' }),
       rules.minLength(5),
-      rules.maxLength(16)
+      rules.maxLength(16),
     ]),
 
     password: schema.string({ trim: true }, [
-      rules.minLength(5)
+      rules.minLength(5),
     ]),
 
     email: schema.string({ escape: true, trim: true}, [
       rules.email(),
-      rules.unique({ table: 'users', column: 'email' })
+      rules.unique({ table: 'users', column: 'email' }),
     ]),
   })
 
@@ -45,7 +45,7 @@ export default class RegisterValidator {
    * defining a unique cache key. The simplest way is to use the current request route
    * key, which is a combination of the route pattern and HTTP method.
    */
-  public cacheKey = "user-register"
+  public cacheKey = 'user-register'
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

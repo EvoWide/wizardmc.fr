@@ -24,11 +24,11 @@ export default class LoginValidator {
     username: schema.string({ escape: true, trim: true }, [
       rules.exists({ table: 'users', column: 'username' }),
       rules.minLength(5),
-      rules.maxLength(16)
+      rules.maxLength(16),
     ]),
 
     password: schema.string({ trim: true }, [
-      rules.minLength(5)
+      rules.minLength(5),
     ]),
   })
 
@@ -40,7 +40,7 @@ export default class LoginValidator {
    * defining a unique cache key. The simplest way is to use the current request route
    * key, which is a combination of the route pattern and HTTP method.
    */
-  public cacheKey = "user-login"
+  public cacheKey = 'user-login'
 
   /**
    * Custom messages for validation failures. You can make use of dot notation `(.)`

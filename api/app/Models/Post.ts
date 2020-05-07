@@ -14,7 +14,7 @@ export default class Post extends BaseModel {
 
   @column()
   public authorId: number
-  
+
   @column()
   public title: String
 
@@ -26,5 +26,4 @@ export default class Post extends BaseModel {
 
   @belongsTo(() => User, {localKey: 'id', foreignKey: 'authorId'})
   public author: BelongsTo<typeof User>
-
 }

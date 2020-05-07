@@ -39,13 +39,13 @@ export default class User extends BaseModel {
   public posts: HasMany<typeof Post>
 
   @beforeCreate()
-  public static async beforeCreateHook(userInstance: User) {
+  public static async beforeCreateHook (userInstance: User) {
     userInstance.password = await Hash.hash(userInstance.password)
     userInstance.uuid = uuid()
   }
 
   @beforeUpdate()
-  public static async beforeUpdateHook(userInstance: User) {
+  public static async beforeUpdateHook (userInstance: User) {
     if (userInstance.$dirty.password) {
       userInstance.password = await Hash.hash(userInstance.password)
     }

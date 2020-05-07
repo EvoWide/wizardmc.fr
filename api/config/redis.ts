@@ -42,7 +42,7 @@ const redisConfig: RedisConfigContract = {
       db: 0,
       keyPrefix: '',
     },
-  }
+  },
 }
 
 export default redisConfig

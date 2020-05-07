@@ -150,7 +150,7 @@ export default {
       try {
         await this.$store.dispatch('auth/logout')
         this.$router.push('/login')
-      } catch (e) { console.log(e) }
+      } catch (e) { }
     },
     toggleSide () {
       this.isOpen = !this.isOpen

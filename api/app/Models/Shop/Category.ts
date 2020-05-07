@@ -3,7 +3,7 @@ import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Offer from './Offer'
 
 export default class Category extends BaseModel {
-  public static table = "shop_categories"
+  public static table = 'shop_categories'
 
   @column({ isPrimary: true })
   public id: number
