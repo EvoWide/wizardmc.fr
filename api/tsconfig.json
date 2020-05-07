@@ -23,7 +23,8 @@
       "@adonisjs/core",
       "@adonisjs/lucid",
       "@adonisjs/redis",
-      "@adonisjs/session"
+      "@adonisjs/session",
+      "@adonisjs/auth"
     ]
   }
 }
