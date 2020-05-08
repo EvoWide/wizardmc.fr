@@ -45,16 +45,8 @@ Route.group(() => {
 /* All users */
 
 // Posts
-Route.group(() => {
-  Route.get('/c/', 'PostsController.index')
-  Route.get('/c/:id', 'PostsController.view')
-}).prefix('posts')
 
 // Shop
-Route.group(() => {
-  Route.get('/c/', 'ShopController.index')
-  Route.get('/c/:id', 'ShopController.view')
-}).prefix('shop')
 
 /* Cloudflare cached pages */
 
