@@ -17,9 +17,9 @@ export const actions = {
     commit('SET_AUTHENTICATE_USER', user)
   },
 
-  async login ({ dispatch }, { username, password }) {
+  async login ({ dispatch }, { username, password, remember }) {
     await this.$axios.$post('sessions', {
-      username, password
+      username, password, remember
     })
 
     await dispatch('getCurrentUser')
