@@ -32,6 +32,9 @@ Route.group(() => {
   // Users
   Route.get('me', 'UsersController.current')
   Route.delete('sessions', 'SessionsController.destroy')
+
+  // Shop
+  Route.get('/shop/buy/:id', 'ShopController.buy')
 }).middleware('auth')
 
 /* Rest only */
@@ -43,10 +46,6 @@ Route.group(() => {
 }).prefix('rest').middleware('rest')
 
 /* All users */
-
-// Posts
-
-// Shop
 
 /* Cloudflare cached pages */
 
