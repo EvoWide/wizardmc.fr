@@ -46,11 +46,24 @@ Route.group(() => {
 
 // Posts
 Route.group(() => {
-  Route.get('/', 'PostsController.index')
-  Route.get('/:id', 'PostsController.view')
+  Route.get('/c/', 'PostsController.index')
+  Route.get('/c/:id', 'PostsController.view')
 }).prefix('posts')
 
 // Shop
 Route.group(() => {
-  Route.get('/', 'ShopController.index')
+  Route.get('/c/', 'ShopController.index')
+  Route.get('/c/:id', 'ShopController.view')
 }).prefix('shop')
+
+/* Cloudflare cached pages */
+
+Route.group(() => {
+  // Posts
+  Route.get('/posts', 'PostsController.index')
+  Route.get('/posts/:id', 'PostsController.view')
+
+  // Shop
+  Route.get('/shop', 'ShopController.index')
+  Route.get('/shop/:id', 'ShopController.view')
+}).prefix('c')
