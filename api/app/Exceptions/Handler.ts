@@ -27,7 +27,15 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     // }
 
     if (error.code === 'E_ROW_NOT_FOUND') {
-      return ctx.response.status(404).send({ error: 'Not found'})
+      return ctx.response.status(404).send({ error: 'Not found' })
+    }
+
+    if (error.code === 'E_INVALID_AUTH_PASSWORD') {
+      return ctx.response.status(422).send({ errors: [{ message: 'Identifiants invalides.' }] })
+    }
+
+    if (error.code === 'E_UNAUTHORIZED_ACCESS') {
+      return ctx.response.status(401).send({ errors: [{ message: 'Accès non autorisé.' }] })
     }
 
     return super.handle(error, ctx)

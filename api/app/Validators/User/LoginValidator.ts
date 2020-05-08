@@ -52,5 +52,10 @@ export default class LoginValidator {
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
   */
-  public messages = {}
+  public messages = {
+    'username.exists': 'Nom d\'utilisateur incorrect.',
+    'username.minLength': 'Nom d\'utilisateur incorrect.',
+    'username.maxLength': 'Nom d\'utilisateur incorrect.',
+    'password.minLength': 'Mot de passe incorrect.',
+  }
 }

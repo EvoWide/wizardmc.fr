@@ -1,19 +1,23 @@
 <template>
-  <div class="relative font-sans" style="background-color: #231845;">
-    <div
-      :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-1.jpg')})` }"
-      :class="$route.name === 'index' ? 'md:h-screen' : 'h-full bg-fixed'"
-      class="absolute inset-0 bg-center bg-no-repeat bg-cover"
-    />
-    <div class="relative">
-      <!-- Header -->
-      <Header />
+  <div class="overflow-hidden" style="background-color: #231845;">
+    <NotificationsContainer />
 
-      <div class="pt-10 lg:pt-36">
-        <nuxt />
+    <div class="relative font-sans">
+      <div
+        :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-1.jpg')})` }"
+        :class="$route.name === 'index' ? 'md:h-screen' : 'h-full bg-fixed'"
+        class="absolute inset-0 bg-center bg-no-repeat bg-cover"
+      />
+      <div class="relative">
+        <!-- Header -->
+        <Header />
+
+        <div class="pt-10 lg:pt-36">
+          <nuxt />
+        </div>
+        <!-- Footer -->
+        <Footer />
       </div>
-      <!-- Footer -->
-      <Footer />
     </div>
   </div>
 </template>
@@ -21,10 +25,13 @@
 <script>
 import Header from '@/components/Layout/Header.vue'
 import Footer from '@/components/Layout/Footer.vue'
+import NotificationsContainer from '@/components/Global/NotificationsContainer.vue'
+
 export default {
   components: {
     Header,
-    Footer
+    Footer,
+    NotificationsContainer
   }
 }
 </script>
