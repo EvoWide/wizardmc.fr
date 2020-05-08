@@ -8,12 +8,14 @@
         :class="$route.name === 'index' ? 'md:h-screen' : 'h-full bg-fixed'"
         class="absolute inset-0 bg-center bg-no-repeat bg-cover"
       />
-      <div class="relative">
-        <!-- Header -->
-        <Header />
+      <div class="relative flex flex-col justify-between min-h-screen">
+        <div>
+          <!-- Header -->
+          <Header />
 
-        <div class="pt-10 lg:pt-36">
-          <nuxt />
+          <div class="pt-10 lg:pt-36">
+            <nuxt />
+          </div>
         </div>
         <!-- Footer -->
         <Footer />

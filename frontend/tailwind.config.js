@@ -8,6 +8,28 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
   theme: {
+    customForms: theme => ({
+      default: {
+        checkbox: {
+          color: theme('colors.purple.600'),
+          '&:focus': {
+            borderColor: theme('colors.purple.400'),
+            boxShadow: '0 0 0 3px rgba(183, 148, 244, 0.5)'
+          }
+        },
+        input: {
+          backgroundColor: theme('colors.purple.800'),
+          borderColor: theme('colors.purple.500'),
+          borderRadius: 0,
+          color: theme('colors.purple.200'),
+          '&:focus': {
+            backgroundColor: theme('colors.purple.1000'),
+            borderColor: theme('colors.yellow.600'),
+            boxShadow: undefined
+          }
+        }
+      }
+    }),
     extend: {
       colors: {
         purple: {
