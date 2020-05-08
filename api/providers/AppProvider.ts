@@ -1,7 +1,8 @@
 import { IocContract } from '@adonisjs/fold'
+import { ResponseConstructorContract } from '@ioc:Adonis/Core/Response'
 
 export default class AppProvider {
-  constructor (protected $container: IocContract) {
+  constructor (protected container: IocContract) {
   }
 
   public register () {
@@ -10,6 +11,13 @@ export default class AppProvider {
 
   public boot () {
     // IoC container is ready
+    this.container.with(['Adonis/Core/Response'],
+      (context: ResponseConstructorContract) => {
+        context.macro('globalError', function globalError (error: string, code?: number) {
+          return this.status(code ?? 400).send({ errors: [{ message: error }] })
+        })
+      },
+    )
   }
 
   public shutdown () {
