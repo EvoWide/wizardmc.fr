@@ -45,7 +45,7 @@
           <input
             v-model="form.password"
             id="password"
-            :class="errors.username ? 'border-red-500': 'border-gradient'"
+            :class="errors.password ? 'border-red-500': 'border-gradient'"
             class="block w-full form-input"
             type="password"
             required
