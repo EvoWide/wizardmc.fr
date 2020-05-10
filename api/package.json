@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node ace build",
+    "dev": "npm run start",
     "start": "node ace serve --watch",
     "lint": "eslint . --ext=.ts"
   },

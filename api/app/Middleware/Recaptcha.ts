@@ -6,8 +6,7 @@ export default class Recaptcha {
     const recaptchaToken = ctx.request.post()['recaptcha']
 
     if (!recaptchaToken || !(await RecaptchaService.verify(recaptchaToken))) {
-      return ctx.response.status(422)
-        .send([{field: null, 'message': 'Une erreur est survenue pendant la vérification du ReCaptcha'}])
+      return ctx.response.globalError('Une erreur est survenue pendant la vérification du ReCaptcha')
     }
 
     await next()

@@ -11,9 +11,10 @@
         </div>
         <div class="hidden text-sm lg:block">
           <template v-if="logged">
+            <span>{{ currentUser.username }}</span>
             <button
               @click="logout"
-              class="focus:outline-none hover:text-white focus:text-white"
+              class="ml-2 focus:outline-none hover:text-white focus:text-white"
               type="button"
             >Déconnexion</button>
           </template>
@@ -126,7 +127,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   data () {
@@ -136,6 +137,7 @@ export default {
   },
 
   computed: {
+    ...mapState('auth', ['currentUser']),
     ...mapGetters('auth', ['logged'])
   },
 

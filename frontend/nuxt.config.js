@@ -34,6 +34,7 @@ export default {
   */
   plugins: [
     { src: '@/plugins/aos', ssr: false },
+    { src: '@/plugins/recaptcha', ssr: false },
     '~/plugins/axios.js',
     '~/plugins/nuxt-client-init.js'
   ],
