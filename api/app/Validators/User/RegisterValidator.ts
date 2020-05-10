@@ -57,5 +57,12 @@ export default class RegisterValidator {
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
   */
-  public messages = {}
+  public messages = {
+    'username.unique': 'Nom d\'utilisateur non disponible.',
+    'username.minLength': 'Nom d\'utilisateur trop court.',
+    'username.maxLength': 'Nom d\'utilisateur trop long.',
+    'password.minLength': 'Mot de passe pas assez sécurisé.',
+    'email.email': 'Email incorrecte.',
+    'email.unique': 'Email non disponible.',
+  }
 }

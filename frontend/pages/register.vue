@@ -160,20 +160,19 @@ export default {
       const token = await this.recaptcha()
       console.log(token)
 
-      // try {
-      //   await this.$store.dispatch('auth/register', this.form)
-      //   this.$router.push({ name: 'index' })
-      //   this.$store.dispatch('notification/add', {
-      //     type: 'success',
-      //     title: 'Succès!',
-      //     message: 'Vous vous êtes inscrit avec succès.'
-      //   })
-      // } catch (e) {
-      //   this.errors = {}
-      //   for (const error of e.response.data.errors) {
-      //     this.$set(this.errors, error.field, error)
-      //   }
-      // }
+      try {
+        await this.$store.dispatch('auth/register', { ...this.form, recaptcha: token })
+        this.$router.push({ name: 'index' })
+        this.$store.dispatch('notification/add', {
+          type: 'success',
+          title: 'Succès!',
+          message: 'Vous vous êtes inscrit avec succès.'
+        })
+      } catch (e) {
+        for (const error of e.response.data.errors) {
+          this.$set(this.errors, error.field, error)
+        }
+      }
     }
   }
 }
