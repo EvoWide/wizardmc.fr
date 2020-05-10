@@ -30,19 +30,26 @@ export default class ShopsController {
       return
     }
 
+    if (offer.price > user.credits) {
+      return response.globalError(`Il vous manque ${offer.price - user.credits} crédit(s) pour effectuer cet achat.`)
+    }
+
     if (offer.deps && !(await this.hasBuy(user, offer.deps))) {
-      return response.globalError('Vous')
+      return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
     if (offer.unique && (await this.hasBuy(user, offer.id))) {
-      return response.globalError('hello world')
+      return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
+
+    user.credits -= offer.price
+    await user.save()
 
     await Database.insertQuery()
       .table('shop_histories')
       .insert({ user_id: user.id, offer_id: offer.id, price: offer.price })
 
-    return response.send({ success: true })
+    return response.globalSuccess('L\'achat a bien été effectué.')
   }
 
   private async hasBuy (user: User, offer_id: number) {
