@@ -24,15 +24,24 @@ export default class Minecraft {
       .digest('hex')
   }
 
-  private async call (method: string, args?: any): Promise<Response> {
+  private async call (method: string, args?: any): Promise<any> {
     const url = this.generateUrl(method, args)
-    return await got.get(url, { responseType: 'json', timeout: 1500 })
+    const response: any = await got.get(url, { responseType: 'json', timeout: 1500 })
+
+    if (response.statusCode !== 200 || response.body.result !== 'success') {
+      return null
+    }
+    return response.body.success
   }
 
   public async getPlayerCount (): Promise<number> {
-    const response = await this.call('getPlayerCount')
-    console.log(response)
-    return -1
+    const response: any = await this.call('getPlayerCount')
+    return response !== null ? Number(response) : -1
+  }
+
+  public async getPlayerNames (): Promise<string[]> {
+    const response: any = await this.call('getPlayerNames')
+    return response !== null ? response : []
   }
 }
 

@@ -1,7 +1,7 @@
-import Minecraft from './Minecraft'
+import Minecraft from 'App/Services/Server/Minecraft'
 import Env from '@ioc:Adonis/Core/Env'
 
-export default class ServerService {
+class ServerService {
   private playersName: string[] = []
   private playerCount: number = 0
 
@@ -21,6 +21,10 @@ export default class ServerService {
   }
 
   public async update () {
-    console.log(await this.minecraft.getPlayerCount())
+    this.playerCount = await this.minecraft.getPlayerCount()
+    this.playersName = await this.minecraft.getPlayerNames()
   }
 }
+
+const serverService = new ServerService()
+export default serverService
