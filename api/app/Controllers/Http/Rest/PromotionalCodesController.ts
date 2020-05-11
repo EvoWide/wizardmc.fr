@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import uuid from '@lukeed/uuid'
+import { schema } from '@ioc:Adonis/Core/Validator'
+import { randomString } from '@poppinss/utils'
 import ms from 'ms'
 import PromotionalCode from 'App/Models/PromotionalCode'
 
@@ -18,7 +18,7 @@ export default class PromotionalCodesController {
     const quantity = request.input('quantity', 1)
 
     if (code === 'random') {
-      code = uuid().replace(/-/g, '').substr(0, 8)
+      code = randomString(8)
     }
 
     if (reduction < 0 || reduction >= 100) {
