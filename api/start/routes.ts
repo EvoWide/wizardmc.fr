@@ -25,6 +25,9 @@ Route.group(() => {
   // Users
   Route.post('sessions', 'SessionsController.store')
   Route.post('users', 'UsersController.store')
+
+  Route.post('password-requests', 'PasswordRequestController.store')
+  Route.post('password-requests/:token', 'PasswordRequestController.update').as('passwordRequest')
 }).middleware('guest')
 
 /* Auth only */
