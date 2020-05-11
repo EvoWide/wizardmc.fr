@@ -42,10 +42,12 @@ Route.group(() => {
 
 /* Rest only */
 Route.group(() => {
-  Route.post('balance', 'Rest/UsersController.balance')
-  Route.post('withdraw', 'Rest/UsersController.withdraw')
-  Route.post('deposit', 'Rest/UsersController.deposit')
-  Route.post('transfer', 'Rest/UsersController.transfer')
+  Route.post('users/balance', 'Rest/UsersController.balance')
+  Route.post('users/withdraw', 'Rest/UsersController.withdraw')
+  Route.post('users/deposit', 'Rest/UsersController.deposit')
+  Route.post('users/transfer', 'Rest/UsersController.transfer')
+
+  Route.post('codes/store', 'Rest/PromotionalCodesController.store')
 }).prefix('rest').middleware('rest')
 
 /* All users */
