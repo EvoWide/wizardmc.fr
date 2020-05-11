@@ -1,7 +1,8 @@
 <template>
   <div class="container py-24 mx-auto text-center text-white">
     <div class="text-xl font-semibold uppercase">
-      <h1 v-if="error.statusCode === 404">Page non trouvée</h1>
+      <h1 v-if="error.message">{{ error.message }}</h1>
+      <h1 v-else-if="error.statusCode === 404">Page non trouvée</h1>
       <h1 v-else>Une erreur s'est produite.</h1>
     </div>
     <nuxt-link

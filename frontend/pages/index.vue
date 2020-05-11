@@ -90,13 +90,33 @@
               />
             </div>
             <div class="flex items-center justify-center mt-3">
-              <img src="@/assets/img/chevron-left.svg" alt="Précédente" />
+              <button
+                @click="switchPostPage(posts.meta.previous_page_url)"
+                class="focus:outline-none"
+                type="button"
+              >
+                <img
+                  class="duration-200 ease-in-out transform hover:scale-125"
+                  src="@/assets/img/chevron-left.svg"
+                  alt="Précédente"
+                />
+              </button>
               <span class="px-2 text-white">
                 Page
                 <span class="text-yellow-600">{{ posts.meta.current_page }}</span> sur
                 <span class="text-yellow-600">{{ posts.meta.last_page }}</span>
               </span>
-              <img src="@/assets/img/chevron-right.svg" alt="Suivante" />
+              <button
+                @click="switchPostPage(posts.meta.next_page_url)"
+                class="focus:outline-none"
+                type="button"
+              >
+                <img
+                  class="duration-200 ease-in-out transform hover:scale-125"
+                  src="@/assets/img/chevron-right.svg"
+                  alt="Suivante"
+                />
+              </button>
             </div>
           </div>
           <!-- Socials -->
@@ -153,6 +173,14 @@ export default {
     const posts = await $axios.$get('c/posts')
 
     return { posts }
+  },
+
+  methods: {
+    async switchPostPage (newPageUrl) {
+      if (!newPageUrl) { return }
+
+      this.posts = await this.$axios.$get(`c/posts${newPageUrl}`)
+    }
   }
 }
 </script>

@@ -2,8 +2,9 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from 'App/Models/Post'
 
 export default class PostsController {
-  public async index ({ response, params }: HttpContextContract) {
-    const page = params.page ?? 1
+  public async index ({ response, request }: HttpContextContract) {
+    const page = request.input('page', 1)
+
     const posts = await Post.query()
       .preload('author', (builder) => {
         builder.select('username')
