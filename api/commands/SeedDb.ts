@@ -47,6 +47,7 @@ export default class SeedDb extends BaseCommand {
     await User.create({
       username: 'Forsties08',
       password: '12345',
+      credits: 20000,
       email: 'forsties08@gmail.com',
     })
 
@@ -64,7 +65,7 @@ export default class SeedDb extends BaseCommand {
         description: '',
         image: 'https://i.imgur.com/nxLRdsx.png',
         price: 500,
-        unique: true,
+        version: true,
       },
       {
         name: 'Archimage',
@@ -73,7 +74,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         price: 800,
         deps: 1,
-        unique: true,
+        version: true,
       },
       {
         name: 'Mage',
@@ -82,7 +83,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         price: 1000,
         deps: 2,
-        unique: true,
+        version: true,
       },
       {
         name: 'Sorcier',
@@ -91,7 +92,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         price: 1250,
         deps: 3,
-        unique: true,
+        version: true,
       },
       {
         name: 'Kit alchimiste',
