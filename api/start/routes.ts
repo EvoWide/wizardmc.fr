@@ -37,7 +37,10 @@ Route.group(() => {
   Route.delete('sessions', 'SessionsController.destroy')
 
   // Shop
-  Route.get('/shop/buy/:id', 'ShopController.buy')
+  Route.get('shop/buy/:id', 'ShopController.buy')
+
+  // Promotional code
+  Route.get('promotional-code/:code', 'PromotionalCodesController.view')
 }).middleware('auth')
 
 /* Rest only */
@@ -55,10 +58,10 @@ Route.group(() => {
 /* Cloudflare cached pages */
 Route.group(() => {
   // Posts
-  Route.get('/posts', 'PostsController.index')
-  Route.get('/posts/:id', 'PostsController.show')
+  Route.get('posts', 'PostsController.index')
+  Route.get('posts/:id', 'PostsController.show')
 
   // Shop
-  Route.get('/shop', 'ShopController.index')
-  Route.get('/shop/:id', 'ShopController.show')
+  Route.get('shop', 'ShopController.index')
+  Route.get('shop/:id', 'ShopController.show')
 }).prefix('c')
