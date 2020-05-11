@@ -6,14 +6,14 @@ import User from 'App/Models/User'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
-    const offers = await Category.query().select('id', 'name').preload('offers', (builder) => {
+    const categories = await Category.query().select('id', 'name').preload('offers', (builder) => {
       builder.select('id', 'name', 'image', 'price')
     })
 
-    response.send(offers)
+    response.send(categories)
   }
 
-  public async view ({ response, params }: HttpContextContract) {
+  public async show ({ response, params }: HttpContextContract) {
     const offer = await Offer.query()
       .where('id', params.id)
       .select('id', 'name', 'image', 'description', 'price')

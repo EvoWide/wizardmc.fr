@@ -7,8 +7,8 @@
             Catégories
           </h2>
           <div
-            @click="changeTab('ranks')"
-            :class="isActiveTab('ranks') ? 'bg-purple-700' : 'bg-purple-800'"
+            @click="changeTab('Grades')"
+            :class="isActiveTab('Grades') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
           >
             <svg
@@ -25,8 +25,8 @@
             <span class="ml-2">Grades</span>
           </div>
           <div
-            @click="changeTab('kits')"
-            :class="isActiveTab('kits') ? 'bg-purple-700' : 'bg-purple-800'"
+            @click="changeTab('Kits')"
+            :class="isActiveTab('Kits') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
           >
             <svg
@@ -42,8 +42,8 @@
             <span class="ml-2">Kits</span>
           </div>
           <div
-            @click="changeTab('spawners')"
-            :class="isActiveTab('spawners') ? 'bg-purple-700' : 'bg-purple-800'"
+            @click="changeTab('Spawners')"
+            :class="isActiveTab('Spawners') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
           >
             <svg
@@ -59,8 +59,8 @@
             <span class="ml-2">Spawners</span>
           </div>
           <div
-            @click="changeTab('keys')"
-            :class="isActiveTab('keys') ? 'bg-purple-700' : 'bg-purple-800'"
+            @click="changeTab('Clés')"
+            :class="isActiveTab('Clés') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
           >
             <svg
@@ -76,8 +76,8 @@
             <span class="ml-2">Clés</span>
           </div>
           <div
-            @click="changeTab('others')"
-            :class="isActiveTab('others') ? 'bg-purple-700' : 'bg-purple-800'"
+            @click="changeTab('Autres')"
+            :class="isActiveTab('Autres') ? 'bg-purple-700' : 'bg-purple-800'"
             class="flex items-center px-4 py-2 mt-1 cursor-pointer select-none hover:bg-purple-700"
           >
             <svg
@@ -112,7 +112,7 @@
         </div>
       </div>
       <div class="w-full mt-4 md:w-9/12 md:mx-4 md:mt-0 lg:w-4/5">
-        <template v-if="activeTab === 'ranks'">
+        <template v-if="activeTab === 'Grades'">
           <ShopRanksTable />
         </template>
         <template v-else>
@@ -128,7 +128,7 @@
                 {{ article.price }} $
               </div>
               <div
-                :style="{ backgroundImage: `url(${images[Math.floor(Math.random() * images.length)]})` }"
+                :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"
               />
               <div
@@ -151,73 +151,30 @@ export default {
   components: {
     ShopRanksTable
   },
+
+  async asyncData ({ $axios }) {
+    const categories = await $axios.$get('c/shop')
+
+    return { categories }
+  },
+
   data () {
     return {
-      activeTab: 'ranks',
-      images: [
-        'https://i.imgur.com/RA30Prx.png',
-        'https://i.imgur.com/WIG1NTL.png',
-        'https://i.imgur.com/Nknf059.png',
-        'https://i.imgur.com/hn2lmB0.png',
-        'https://i.imgur.com/6iIlOQf.png',
-        'https://i.imgur.com/GHUpmPk.png',
-        'https://i.imgur.com/yVCLYcq.png',
-        'https://i.imgur.com/RiKNvQX.png',
-        'https://i.imgur.com/c2BxP9p.png',
-        'https://i.imgur.com/9M0UZXt.png',
-        'https://i.imgur.com/Wjj1Kgm.png',
-        'https://i.imgur.com/Kfv33fE.png',
-        'https://i.imgur.com/VOeOSND.png',
-        'https://i.imgur.com/pHylvrh.png',
-        'https://i.imgur.com/VDrssvg.png',
-        'https://i.imgur.com/nxLRdsx.png',
-        'https://i.imgur.com/rdyxCyB.png',
-        'https://i.imgur.com/99s3gQK.png',
-        'https://i.imgur.com/x1b8nFW.png'
-      ],
-      allArticles: [
-        {
-          name: 'Kit alchimiste',
-          price: 850,
-          category: 'kits'
-        },
-        {
-          name: 'Kit potions',
-          price: 1200,
-          category: 'kits'
-        },
-        {
-          name: 'Kit minerais',
-          price: 1500,
-          category: 'kits'
-        },
-        {
-          name: 'Kit construction',
-          price: 500,
-          category: 'kits'
-        },
-        {
-          name: 'Kit destruction',
-          price: 500,
-          category: 'kits'
-        },
-        {
-          name: 'Spawner à vaches',
-          price: 300,
-          category: 'spawners'
-        }
-      ],
-      displayArticles: []
+      activeTab: 'Grades'
     }
   },
-  created () {
-    this.displayArticles = this.allArticles.filter(a => a.category === this.activeTab)
+
+  computed: {
+    displayArticles () {
+      return this.categories.find(category => category.name === this.activeTab).offers
+    }
   },
+
   methods: {
     changeTab (tab) {
       if (tab === this.activeTab) { return }
+
       this.activeTab = tab
-      this.displayArticles = this.allArticles.filter(a => a.category === this.activeTab)
     },
     isActiveTab (tab) {
       return tab === this.activeTab

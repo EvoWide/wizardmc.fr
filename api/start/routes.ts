@@ -48,13 +48,12 @@ Route.group(() => {
 /* All users */
 
 /* Cloudflare cached pages */
-
 Route.group(() => {
   // Posts
   Route.get('/posts', 'PostsController.index')
-  Route.get('/posts/:id', 'PostsController.view')
+  Route.get('/posts/:id', 'PostsController.show')
 
   // Shop
   Route.get('/shop', 'ShopController.index')
-  Route.get('/shop/:id', 'ShopController.view')
+  Route.get('/shop/:id', 'ShopController.show')
 }).prefix('c')

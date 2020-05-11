@@ -12,7 +12,7 @@ export default class PostsController {
     response.send(posts)
   }
 
-  public async view ({ response, params }: HttpContextContract) {
+  public async show ({ response, params }: HttpContextContract) {
     const post = await Post.query().preload('author', (builder) => {
       builder.select('username')
     }).where('id', '=', params.id).firstOrFail()
