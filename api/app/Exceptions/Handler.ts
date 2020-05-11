@@ -22,20 +22,16 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
 
   public async handle (error, ctx) {
-    // if (error.code === 'E_VALIDATION_FAILURE') {
-    //   return ctx.response.status(422).send({ error: error.messages })
-    // }
-
     if (error.code === 'E_ROW_NOT_FOUND') {
-      return ctx.response.status(404).send({ error: 'Not found' })
+      return ctx.response.globalError('Elément non trouvé', 404)
     }
 
     if (error.code === 'E_INVALID_AUTH_PASSWORD') {
-      return ctx.response.status(422).send({ errors: [{ message: 'Identifiants invalides.' }] })
+      return ctx.response.globalError('Identifiants invalides.', 422)
     }
 
     if (error.code === 'E_UNAUTHORIZED_ACCESS') {
-      return ctx.response.status(401).send({ errors: [{ message: 'Accès non autorisé.' }] })
+      return ctx.response.globalError('Accès non autorisé.', 401)
     }
 
     return super.handle(error, ctx)
