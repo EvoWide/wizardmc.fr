@@ -26,5 +26,4 @@ class ServerService {
   }
 }
 
-const serverService = new ServerService()
-export default serverService
+export default new ServerService()

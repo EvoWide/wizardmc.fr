@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import got, { Response } from 'got'
+import got from 'got'
 import { JsonapiConfig } from '@ioc:App/WizardMC'
 
 export default class Minecraft {
