@@ -162,6 +162,7 @@
 </template>
 
 <script>
+import 'aos/dist/aos.css'
 import News from '@/components/Home/News.vue'
 
 export default {
@@ -173,6 +174,15 @@ export default {
     const posts = await $axios.$get('c/posts')
 
     return { posts }
+  },
+
+  async mounted () {
+    const AOS = await import('aos')
+    AOS.init({
+      duration: 500,
+      once: true,
+      anchorPlacement: 'top-center'
+    })
   },
 
   methods: {

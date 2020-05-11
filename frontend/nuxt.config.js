@@ -33,7 +33,6 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '@/plugins/aos', ssr: false },
     { src: '@/plugins/recaptcha', ssr: false },
     '~/plugins/axios.js',
     '~/plugins/nuxt-client-init.js'
