@@ -9,13 +9,12 @@ export default class PasswordRequestController {
   private readonly DAILY_MAIL_LIMIT = 6
 
   public async store ({ request, response }: HttpContextContract) {
-    const { email } = await validator.validate({
+    const { email } = await request.validate({
       schema: schema.create({
         email: schema.string({}, [
           rules.email(),
         ]),
       }),
-      data: request.post(),
     })
     const user = await User.query().where('email', email).firstOrFail()
 
