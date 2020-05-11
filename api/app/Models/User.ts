@@ -41,7 +41,7 @@ export default class User extends BaseModel {
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {
     userInstance.password = await Hash.hash(userInstance.password)
-    userInstance.uuid = uuid()
+    userInstance.uuid = uuid().replace(/-/g, '')
   }
 
   @beforeUpdate()
