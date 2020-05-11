@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- Join US -->
-    <div class="md:min-h-screen">
+    <div class="join-us">
       <div class="container px-4 mx-auto text-center cta-section">
         <img
           data-aos="zoom-in"
@@ -184,3 +184,17 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@screen md {
+  .join-us {
+    min-height: calc(100vh - 2.5rem);
+  }
+}
+
+@screen lg {
+  .join-us {
+    min-height: calc(100vh - 9rem);
+  }
+}
+</style>
