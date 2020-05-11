@@ -3,6 +3,7 @@ import Category from 'App/Models/Shop/Category'
 import Offer from 'App/Models/Shop/Offer'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
+import ServerService from 'App/Services/Server/ServerService'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
@@ -32,6 +33,10 @@ export default class ShopsController {
 
     if (offer.price > user.credits) {
       return response.globalError(`Il vous manque ${offer.price - user.credits} crédit(s) pour effectuer cet achat.`)
+    }
+
+    if (!ServerService.isOnline(user.username)) {
+      return response.globalError('Vous devez être connecté sur le serveur pour effectuer cet achat')
     }
 
     if (offer.deps && !(await this.hasBuy(user, offer.deps))) {
