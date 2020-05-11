@@ -3,13 +3,12 @@ import Category from 'App/Models/Shop/Category'
 import Offer from 'App/Models/Shop/Offer'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
-import ServerService from 'App/Services/Server/ServerService'
 import Env from '@ioc:Adonis/Core/Env'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
     const categories = await Category.query().select('id', 'name').preload('offers', (builder) => {
-      builder.select('id', 'name', 'image', 'price')
+      builder.select('id', 'name', 'image', 'price', 'unique', 'version')
     })
 
     response.send(categories)
@@ -18,7 +17,7 @@ export default class ShopsController {
   public async show ({ response, params }: HttpContextContract) {
     const offer = await Offer.query()
       .where('id', params.id)
-      .select('id', 'name', 'image', 'description', 'price')
+      .select('id', 'name', 'image', 'description', 'price', 'unique', 'version')
       .firstOrFail()
 
     response.send(offer)
