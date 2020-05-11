@@ -24,6 +24,6 @@ export default class PromotionalCode extends BaseModel {
   public updatedAt: DateTime
 
   public isExpired (): boolean {
-    return this.expireAt === null || this.expireAt > DateTime.local()
+    return this.expireAt !== null && this.expireAt <= DateTime.local()
   }
 }
