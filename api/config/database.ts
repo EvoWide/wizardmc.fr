@@ -57,6 +57,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     */
     mysql: {
       client: 'mysql',
+      debug: Env.get('DB_DEBUG', false) as boolean,
       connection: {
         host: Env.get('DB_HOST', '127.0.0.1') as string,
         port: Number(Env.get('DB_PORT', 3306)),
@@ -80,6 +81,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     */
     pg: {
       client: 'pg',
+      debug: Env.get('DB_DEBUG', false) as boolean,
       connection: {
         host: Env.get('DB_HOST', '127.0.0.1') as string,
         port: Number(Env.get('DB_PORT', 5432)),

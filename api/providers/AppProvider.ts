@@ -28,7 +28,9 @@ export default class AppProvider {
     // Cleanup, since app is going down
   }
 
-  public ready () {
-    // App is ready
+  public async ready () {
+    const Logger = (await import('@ioc:Adonis/Core/Logger')).default
+    const Event = (await import('@ioc:Adonis/Core/Event')).default
+    Event.on('db:query', (query: any) => Logger.debug(query))
   }
 }
