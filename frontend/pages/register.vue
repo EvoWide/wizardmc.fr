@@ -167,7 +167,7 @@ export default {
         this.$router.push({ name: 'index' })
         this.$store.dispatch('notification/add', {
           type: 'success',
-          title: 'Succès!',
+          title: 'Succès',
           message: 'Vous vous êtes inscrit avec succès.'
         })
       } catch (e) {

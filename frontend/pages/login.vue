@@ -99,11 +99,6 @@ export default {
       try {
         await this.$store.dispatch('auth/login', this.form)
         this.$router.push({ name: 'index' })
-        this.$store.dispatch('notification/add', {
-          type: 'success',
-          title: 'Connecté!',
-          message: 'Vous vous êtes connecté avec succès.'
-        })
       } catch (e) {
         this.errors = {}
         for (const error of e.response.data.errors) {

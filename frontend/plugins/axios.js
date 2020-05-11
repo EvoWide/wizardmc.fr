@@ -1,4 +1,14 @@
 export default ({ $axios, store }) => {
+  $axios.onResponse((response) => {
+    if (Object.keys(response.data).length === 1 && response.data.success) {
+      store.dispatch('notification/add', {
+        type: 'success',
+        title: 'Succès',
+        message: response.data.success
+      })
+    }
+  })
+
   $axios.onError((error) => {
     if (error.response.config.url === 'me') {
       return

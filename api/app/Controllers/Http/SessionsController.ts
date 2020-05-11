@@ -6,12 +6,13 @@ export default class SessionsController {
     const data = await request.validate(LoginValidator)
 
     await auth.attempt(data.username, data.password, !!request.post().remember)
-    return response.send({ success: true })
+
+    return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
   public async destroy ({ response, auth }: HttpContextContract) {
     await auth.logout()
 
-    return response.send({ success: true })
+    return response.globalSuccess('Vous vous êtes déconnecté avec succès.')
   }
 }
