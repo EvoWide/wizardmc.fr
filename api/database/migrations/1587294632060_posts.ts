@@ -10,7 +10,7 @@ export default class Posts extends BaseSchema {
       table.string('title', 255).notNullable()
       table.text('content').notNullable()
       table.string('image', 255).notNullable()
-      table.boolean('hidden')
+      table.boolean('hidden').defaultTo(false)
       table.timestamp('created_at').defaultTo(this.now())
       table.timestamp('updated_at').defaultTo(this.now())
     })

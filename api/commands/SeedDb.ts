@@ -16,12 +16,12 @@ export default class SeedDb extends BaseCommand {
   private execShellCommand (cmd) {
     const exec = require('child_process').exec
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       exec(cmd, (error, stdout, stderr) => {
         if (error) {
           console.warn(error)
         }
-        resolve(stdout? stdout : stderr)
+        resolve(stdout ? stdout : stderr)
       })
     })
   }
@@ -30,6 +30,8 @@ export default class SeedDb extends BaseCommand {
     const User = (await import('App/Models/User')).default
     const ShopCategory = (await import('App/Models/Shop/Category')).default
     const ShopOffer = (await import('App/Models/Shop/Offer')).default
+    const Post = (await import('App/Models/Post')).default
+
     this.logger.info('Seed started.')
 
     // Reset Database
@@ -154,6 +156,23 @@ export default class SeedDb extends BaseCommand {
     ]
     for (const offer of offers) {
       await ShopOffer.create(offer)
+    }
+
+    // News
+    for (let i = 0; i < 20; i++) {
+      await Post.create({
+        authorId: (Math.floor(Math.random() * 2) + 1) as number,
+        title: `News n ${i}`,
+        content: `Lorem ipsum ${i} dolor sit amet, consectetur adipiscing elit.
+        Duis ac nulla nulla. Class aptent taciti sociosqu ad litora torquent per.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?
+        Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
+        vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
+        image: 'https://i.imgur.com/2Hg56TL.jpg',
+        hidden: Math.random() >= 0.8,
+      })
     }
 
     this.logger.success('Seed finished.')

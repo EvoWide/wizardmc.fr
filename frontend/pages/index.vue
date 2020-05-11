@@ -8,25 +8,21 @@
           class="block py-10 mx-auto sm:max-w-xs md:pt-20 md:pb-32 md:max-w-lg"
           src="@/assets/img/logo.png"
           alt="Logo"
-        >
-        <img class="block mx-auto -mt-6 md:-mt-16" src="@/assets/img/line.png" alt="Separator">
+        />
+        <img class="block mx-auto -mt-6 md:-mt-16" src="@/assets/img/line.png" alt="Separator" />
         <h1
           data-aos="fade-right"
           data-aos-delay="200"
           data-aos-anchor=".cta-section"
           class="mt-8 text-xl font-bold text-white uppercase md:text-4xl font-title"
-        >
-          Préparez-vous à être le meilleur sorcier de ce monde, où magie et sortilèges font rage !
-        </h1>
+        >Préparez-vous à être le meilleur sorcier de ce monde, où magie et sortilèges font rage !</h1>
       </div>
 
       <div class="flex justify-center py-10">
         <nuxt-link
           :to="{ name: 'join' }"
           class="px-5 py-4 text-xl font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-        >
-          Nous rejoindre
-        </nuxt-link>
+        >Nous rejoindre</nuxt-link>
       </div>
     </div>
     <!-- What is WizardMC -->
@@ -42,9 +38,7 @@
         >
           <h2
             class="text-xl font-bold uppercase font-title text-gradient md:text-3xl"
-          >
-            QU’EST-CE QUE WIZARDMC ?
-          </h2>
+          >QU’EST-CE QUE WIZARDMC ?</h2>
         </div>
 
         <div
@@ -56,9 +50,7 @@
         >
           <p
             class="text-base font-normal text-justify text-white md:text-lg"
-          >
-            Embark on a journey of adventure and creativity! WizardMC combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards. Designed with creative players in mind, Hytale’s engine supports everything from block-by-block castle construction to scripting and customization delivered using easy to use and powerful tools.
-          </p>
+          >Embark on a journey of adventure and creativity! WizardMC combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards. Designed with creative players in mind, Hytale’s engine supports everything from block-by-block castle construction to scripting and customization delivered using easy to use and powerful tools.</p>
         </div>
         <img
           data-aos="fade-centered"
@@ -68,7 +60,7 @@
           src="@/assets/img/renders/render-1.png"
           alt="Render 1"
           style="top: 50%"
-        >
+        />
       </div>
     </div>
 
@@ -80,33 +72,31 @@
       <div class="container px-4 py-10 mx-auto">
         <h2
           class="text-3xl font-bold text-center uppercase font-title text-gradient"
-        >
-          Derniers articles
-        </h2>
-        <img class="block mx-auto" src="@/assets/img/line.png" alt="Separator">
+        >Derniers articles</h2>
+        <img class="block mx-auto" src="@/assets/img/line.png" alt="Separator" />
         <div class="flex flex-col mt-6 -mx-6 lg:flex-row lg:justify-between">
           <!-- News List -->
           <div class="px-6 lg:w-2/3">
             <div class="p-6 border-2 border-gradient">
               <News
-                v-for="(news, index) in lastNews"
-                :key="'news-' + index"
+                v-for="(post, index) in posts.data"
+                :key="post.id"
                 class="news"
-                :data="news"
-                :last="index === lastNews.length - 1"
+                :data="post"
+                :last="index === posts.data.length - 1"
                 data-aos="fade-right"
                 data-aos-anchor=".news-section"
                 :data-aos-delay="200 * index"
               />
             </div>
             <div class="flex items-center justify-center mt-3">
-              <img src="@/assets/img/chevron-left.svg" alt="Précédente">
+              <img src="@/assets/img/chevron-left.svg" alt="Précédente" />
               <span class="px-2 text-white">
                 Page
-                <span class="text-yellow-600">1</span> sur
-                <span class="text-yellow-600">5</span>
+                <span class="text-yellow-600">{{ posts.meta.current_page }}</span> sur
+                <span class="text-yellow-600">{{ posts.meta.last_page }}</span>
               </span>
-              <img src="@/assets/img/chevron-right.svg" alt="Suivante">
+              <img src="@/assets/img/chevron-right.svg" alt="Suivante" />
             </div>
           </div>
           <!-- Socials -->
@@ -114,9 +104,7 @@
             <div class="p-6 border-2 border-gradient">
               <h2
                 class="text-xl font-bold text-center uppercase font-title text-gradient"
-              >
-                Nos réseaux sociaux
-              </h2>
+              >Nos réseaux sociaux</h2>
               <div
                 data-aos="fade-right"
                 data-aos-delay="200"
@@ -124,17 +112,17 @@
                 class="flex items-center justify-around max-w-md px-4 py-8 mx-auto md:px-12"
               >
                 <a href="https://discord.gg/a8qf5AD" target="_blank">
-                  <img src="@/assets/img/socials/Discord.svg" alt="Discord">
+                  <img src="@/assets/img/socials/Discord.svg" alt="Discord" />
                 </a>
                 <a href="https://twitter.com/WizardMC__" target="_blank">
-                  <img src="@/assets/img/socials/Twitter.svg" alt="Twitter">
+                  <img src="@/assets/img/socials/Twitter.svg" alt="Twitter" />
                 </a>
                 <a href="#">
-                  <img src="@/assets/img/socials/YouTube.svg" alt="YouTube">
+                  <img src="@/assets/img/socials/YouTube.svg" alt="YouTube" />
                 </a>
               </div>
               <a href="#" class="flex items-center justify-center">
-                <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak">
+                <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak" />
                 <span class="pl-4 text-lg text-white uppercase font-bol">ts.wizardmc.fr</span>
               </a>
             </div>
@@ -145,7 +133,7 @@
               class="hidden -mt-8 lg:block"
               src="@/assets/img/renders/render-2.png"
               alt="Render 2"
-            >
+            />
           </div>
         </div>
       </div>
@@ -160,51 +148,11 @@ export default {
   components: {
     News
   },
-  data () {
-    return {
-      lastNews: [
-        {
-          id: 1,
-          title: 'WizardMC 1.0 est sorti !',
-          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
-          date: '13.07.2019',
-          author: 'Kalane',
-          image: 'news-1.jpg'
-        },
-        {
-          id: 2,
-          title: 'WizardMC 1.0 est sorti !',
-          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
-          date: '13.07.2019',
-          author: 'Kalane',
-          image: 'news-1.jpg'
-        },
-        {
-          id: 3,
-          title: 'WizardMC 1.0 est sorti !',
-          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
-          date: '13.07.2019',
-          author: 'Kalane',
-          image: 'news-1.jpg'
-        },
-        {
-          id: 4,
-          title: 'WizardMC 1.0 est sorti !',
-          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
-          date: '13.07.2019',
-          author: 'Kalane',
-          image: 'news-1.jpg'
-        },
-        {
-          id: 5,
-          title: 'WizardMC 1.0 est sorti !',
-          content: 'Embark on a journey of adventure and creativity! Hytale combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards... ',
-          date: '13.07.2019',
-          author: 'Kalane',
-          image: 'news-1.jpg'
-        }
-      ]
-    }
+
+  async asyncData ({ $axios }) {
+    const posts = await $axios.$get('c/posts')
+
+    return { posts }
   }
 }
 </script>
