@@ -3,7 +3,7 @@ import Post from 'App/Models/Post'
 
 export default class PostsController {
   public async index ({ response, request }: HttpContextContract) {
-    const page = request.input('page', 1)
+    const page = Number(request.input('page', 1))
 
     const posts = await Post.query()
       .preload('author', (builder) => {
