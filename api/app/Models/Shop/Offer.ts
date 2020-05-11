@@ -29,6 +29,9 @@ export default class Offer extends BaseModel {
   @column()
   public unique: boolean
 
+  @column()
+  public version: boolean
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

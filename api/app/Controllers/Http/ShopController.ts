@@ -4,6 +4,7 @@ import Offer from 'App/Models/Shop/Offer'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import ServerService from 'App/Services/Server/ServerService'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
@@ -52,15 +53,21 @@ export default class ShopsController {
 
     await Database.insertQuery()
       .table('shop_histories')
-      .insert({ user_id: user.id, offer_id: offer.id, price: offer.price })
+      .insert({
+        user_id: user.id,
+        offer_id: offer.id,
+        price: offer.price,
+        version: (offer.version ? Number(Env.get('SERVER_VERSION')) : -1),
+      })
 
     return response.globalSuccess('L\'achat a bien été effectué.')
   }
 
   private async hasBuy (user: User, offer_id: number) {
-    return (await Database.from('shop_histories')
+    return (await Database.query().from('shop_histories')
       .where('user_id', user.id)
       .where('offer_id', offer_id)
+      .whereIn('version', ['-1', Env.get('SERVER_VERSION') as string])
       .limit(1)).length > 0
   }
 }

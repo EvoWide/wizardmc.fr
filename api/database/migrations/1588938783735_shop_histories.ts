@@ -9,6 +9,7 @@ export default class ShopHistories extends BaseSchema {
       table.bigInteger('user_id').unsigned()
       table.integer('offer_id').unsigned()
       table.integer('price').unsigned()
+      table.integer('version').unsigned()
       table.timestamp('created_at').defaultTo(this.now())
     })
   }
