@@ -3,9 +3,7 @@
     <div class="flex flex-col items-start md:flex-row md:-mx-4">
       <div class="w-full bg-purple-900 md:w-3/12 md:mx-4 lg:w-1/5">
         <div class="py-2">
-          <h2 class="px-4 text-lg font-bold text-purple-200 uppercase font-title">
-            Catégories
-          </h2>
+          <h2 class="px-4 text-lg font-bold text-purple-200 uppercase font-title">Catégories</h2>
           <div
             @click="changeTab('Grades')"
             :class="isActiveTab('Grades') ? 'bg-purple-700' : 'bg-purple-800'"
@@ -92,22 +90,25 @@
             </svg>
             <span class="ml-2">Autres</span>
           </div>
-          <img class="block px-4 py-4 mx-auto" src="@/assets/img/line.png" alt="Separator">
-          <div class="px-4 text-center">
+          <img class="block px-4 py-4 mx-auto" src="@/assets/img/line.png" alt="Separator" />
+          <div v-if="logged" class="px-4 text-center">
             <h2
               class="text-lg font-bold leading-none text-purple-200 uppercase font-title"
-            >
-              Points boutique
-            </h2>
+            >Points boutique</h2>
             <p class="mt-2 text-sm leading-snug">
               Vous avez actuellement
-              <span class="font-semibold text-yellow-600">876 points boutique</span>
+              <span
+                class="font-semibold text-yellow-600"
+              >{{ currentUser.credits }} {{ currentUser.credits > 1 ? 'points' : 'point' }} boutique</span>
             </p>
             <button
               class="px-4 py-2 mt-4 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            >
-              Créditer votre compte
-            </button>
+            >Créditer votre compte</button>
+          </div>
+          <div v-else class="px-4 text-center text-purple-200">
+            <span>Veuillez vous</span>
+            <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+            <span>pour avoir un accès complet à la boutique.</span>
           </div>
         </div>
       </div>
@@ -124,9 +125,7 @@
             >
               <div
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
-              >
-                {{ article.price }} $
-              </div>
+              >{{ article.price }} $</div>
               <div
                 :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"
@@ -134,9 +133,7 @@
               <div
                 class="relative py-2 font-semibold text-center text-purple-200 bg-purple-900 border-t-2 article-name border-gradient"
                 style="background: radial-gradient(50% 50% at 50% 50%, #4F0F4F 0%, #2A0626 100%);"
-              >
-                {{ article.name }}
-              </div>
+              >{{ article.name }}</div>
             </div>
           </div>
         </template>
@@ -146,7 +143,9 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from 'vuex'
 import ShopRanksTable from '@/components/Shop/ShopRanksTable.vue'
+
 export default {
   components: {
     ShopRanksTable
@@ -167,7 +166,9 @@ export default {
   computed: {
     displayArticles () {
       return this.categories.find(category => category.name === this.activeTab).offers
-    }
+    },
+    ...mapGetters('auth', ['logged']),
+    ...mapState('auth', ['currentUser'])
   },
 
   methods: {
