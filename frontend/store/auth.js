@@ -6,16 +6,17 @@ export const mutations = {
   LOGOUT (state) {
     state.currentUser = null
   },
-  SET_AUTHENTICATE_USER (state, user) {
+  SET_AUTHENTICATE_USER (state, { user, offers }) {
+    user.offers = offers
     state.currentUser = user
   }
 }
 
 export const actions = {
   async getCurrentUser ({ commit }) {
-    const user = await this.$axios.$get('me')
+    const data = await this.$axios.$get('me')
 
-    commit('SET_AUTHENTICATE_USER', user)
+    commit('SET_AUTHENTICATE_USER', data)
   },
   async login ({ dispatch }, { username, password, remember }) {
     await this.$axios.$post('sessions', {
@@ -29,10 +30,10 @@ export const actions = {
 
     commit('LOGOUT')
   },
-  async register ({ commit }, form) {
-    const user = await this.$axios.$post('users', form)
+  async register ({ dispatch }, form) {
+    await this.$axios.$post('users', form)
 
-    commit('SET_AUTHENTICATE_USER', user)
+    await dispatch('getCurrentUser')
   }
 }
 

@@ -1,4 +1,5 @@
 import { BaseCommand } from '@adonisjs/ace'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class SeedDb extends BaseCommand {
   public static commandName = 'seed:db'
@@ -159,6 +160,22 @@ export default class SeedDb extends BaseCommand {
       await ShopOffer.create(offer)
     }
 
+    // Purchasing
+    const offersCreated = await ShopOffer.all()
+    const offersToBuy = ['Kit minerais', 'Enchanteur', 'Booster XP']
+
+    for (const offerName of offersToBuy) {
+      const offer = offersCreated.find(o => o.name === offerName)
+      await Database.insertQuery()
+        .table('shop_histories')
+        .insert({
+          user_id: 1,
+          offer_id: offer?.id,
+          price: offer?.price,
+          version: (offer?.version ? 1 : -1),
+        })
+    }
+
     // News
     for (let i = 0; i < 20; i++) {
       await Post.create({
@@ -175,6 +192,8 @@ export default class SeedDb extends BaseCommand {
         hidden: Math.random() >= 0.8,
       })
     }
+
+    await Database.manager.closeAll()
 
     this.logger.success('Seed finished.')
   }

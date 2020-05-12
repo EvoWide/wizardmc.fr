@@ -1,18 +1,42 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import RegisterValidator from 'App/Validators/User/RegisterValidator'
+import Database from '@ioc:Adonis/Lucid/Database'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class UsersController {
-  public current ({ auth }: HttpContextContract) {
-    return auth.user
+  public async current ({ auth, response, session }: HttpContextContract) {
+    if (!auth.user) {
+      return
+    }
+
+    const offersSession = session.get('offers')
+    if (offersSession) {
+      return response.send({ user: auth.user, offers: offersSession })
+    }
+
+    const offers = (await Database
+      .from('shop_histories')
+      .where('user_id', auth.user.id)
+      .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
+      .where((builder) => {
+        builder.where('shop_offers.unique', true)
+        builder.orWhere('shop_histories.version', Env.get('SERVER_VERSION') as string)
+      })
+      .select('shop_offers.id'))
+      .map(o => o.id)
+
+    session.put('offers', offers)
+
+    return response.send({ user: auth.user, offers })
   }
 
   public async store ({ auth, request, response }: HttpContextContract) {
     const data = await request.validate(RegisterValidator)
-    const user = await User.create(data)
+    await User.create(data)
 
     await auth.attempt(data.username, data.password)
 
-    return response.send(user)
+    return response.globalSuccess('Vous vous êtes inscrit avec succès.')
   }
 }

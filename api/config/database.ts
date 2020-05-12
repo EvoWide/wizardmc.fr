@@ -37,6 +37,7 @@ const databaseConfig: DatabaseConfig & { orm: Partial<OrmConfig> } = {
     */
     sqlite: {
       client: 'sqlite',
+      debug: Env.get('DB_DEBUG', false) as boolean,
       connection: {
         filename: Application.tmpPath('db.sqlite3'),
       },
