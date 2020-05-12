@@ -25,7 +25,7 @@
                 </div>
               </template>
               <template>
-                <div class="py-1 rounded-md shadow-xs bg-purple-1000">
+                <div class="py-2 rounded-md shadow-xs bg-purple-1000">
                   <nuxt-link
                     :to="{name: 'users-profile'}"
                     class="block px-4 py-2 text-sm text-purple-200 dropdown-link hover:bg-purple-900"

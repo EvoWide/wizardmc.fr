@@ -58,8 +58,8 @@
           data-aos-delay="400"
           data-aos-anchor=".about-section"
           class="render-1"
-          src="@/assets/img/renders/render-1.png"
-          alt="Render 1"
+          src="@/assets/img/renders/render-4.png"
+          alt="Render de skin décoratif 1"
           style="top: 50%"
         />
       </div>
@@ -153,7 +153,7 @@
               data-aos-anchor=".news-section"
               class="hidden -mt-8 lg:block"
               src="@/assets/img/renders/render-2.png"
-              alt="Render 2"
+              alt="Render de skin décoratif 2"
             />
           </div>
         </div>
