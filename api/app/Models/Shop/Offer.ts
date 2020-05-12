@@ -32,6 +32,9 @@ export default class Offer extends BaseModel {
   @column()
   public version: boolean
 
+  @column()
+  public commands: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

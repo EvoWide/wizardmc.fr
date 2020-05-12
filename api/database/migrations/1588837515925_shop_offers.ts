@@ -11,6 +11,7 @@ export default class ShopOffers extends BaseSchema {
       table.text('description')
       table.string('image')
       table.integer('price')
+      table.text('commands').defaultTo(null)
       table.integer('deps').defaultTo(null)
       table.boolean('unique').defaultTo(false)
       table.boolean('version').defaultTo(false)
