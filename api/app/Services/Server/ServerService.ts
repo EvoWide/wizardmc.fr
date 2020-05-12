@@ -20,6 +20,10 @@ class ServerService {
     return this.playersName.includes(playerName)
   }
 
+  public async execute (command: string) {
+    return this.minecraft.executeCommand(command.split('|'))
+  }
+
   public async update () {
     this.playerCount = await this.minecraft.getPlayerCount()
     this.playersName = await this.minecraft.getPlayerNames()

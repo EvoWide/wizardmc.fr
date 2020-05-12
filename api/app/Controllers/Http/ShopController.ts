@@ -4,6 +4,7 @@ import Offer from 'App/Models/Shop/Offer'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
+import ServerService from 'App/Services/Server/ServerService'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
@@ -58,6 +59,10 @@ export default class ShopsController {
         price: offer.price,
         version: (offer.version ? Number(Env.get('SERVER_VERSION')) : -1),
       })
+
+    if(offer.commands) {
+      ServerService.execute(offer.commands.replace(/{playerName}/g, user.username))
+    }
 
     if (offer.unique || offer.version) {
       session.forget('offers')

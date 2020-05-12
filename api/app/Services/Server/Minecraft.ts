@@ -43,6 +43,11 @@ export default class Minecraft {
     const response: any = await this.call('getPlayerNames')
     return response !== null ? response : []
   }
+
+  public async executeCommand (commands: string[] | string) {
+    const response: any = await this.call('runConsoleCommand', commands)
+    return response !== null ? response : []
+  }
 }
 
 export interface MinecraftOptions {
