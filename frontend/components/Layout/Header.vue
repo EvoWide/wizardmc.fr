@@ -11,12 +11,32 @@
         </div>
         <div class="hidden text-sm lg:block">
           <template v-if="logged">
-            <span>{{ currentUser.username }}</span>
-            <button
-              @click="logout"
-              class="ml-2 focus:outline-none hover:text-white focus:text-white"
-              type="button"
-            >Déconnexion</button>
+            <Dropdown class="ml-3" btn-classes="group" content-classes="w-48">
+              <template v-slot:trigger>
+                <div class="flex items-center max-w-xs text-sm">
+                  <img
+                    class="w-8 h-8 border-2 border-yellow-600 rounded-full group-focus:border-yellow-500"
+                    src="https://minotar.net/avatar/Kalane"
+                    alt="Player head"
+                  />
+                  <span
+                    class="ml-2 transition duration-100 ease-in group-hover:text-white group-focus:text-white"
+                  >{{ currentUser.username }}</span>
+                </div>
+              </template>
+              <template>
+                <div class="py-1 rounded-md shadow-xs bg-purple-1000">
+                  <nuxt-link
+                    :to="{name: 'users-profile'}"
+                    class="block px-4 py-2 text-sm text-purple-200 dropdown-link hover:bg-purple-900"
+                  >Profil</nuxt-link>
+                  <a
+                    @click="logout"
+                    class="block px-4 py-2 text-sm text-purple-200 cursor-pointer hover:bg-purple-900"
+                  >Déconnexion</a>
+                </div>
+              </template>
+            </Dropdown>
           </template>
           <template v-else>
             <nuxt-link :to="{name: 'login'}" class="hover:text-white">Connexion</nuxt-link>
@@ -128,8 +148,13 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import Dropdown from '@/components/Common/Dropdown.vue'
 
 export default {
+  components: {
+    Dropdown
+  },
+
   data () {
     return {
       isOpen: false
