@@ -23,7 +23,7 @@ export default class ShopsController {
     response.send(offer)
   }
 
-  public async buy ({ params, response, auth }: HttpContextContract) {
+  public async buy ({ params, response, auth, session }: HttpContextContract) {
     const offer = await Offer.query().where('id', params.id).firstOrFail()
     const { user } = auth
 
@@ -58,6 +58,10 @@ export default class ShopsController {
         price: offer.price,
         version: (offer.version ? Number(Env.get('SERVER_VERSION')) : -1),
       })
+
+    if (offer.unique || offer.version) {
+      session.forget('offers')
+    }
 
     return response.globalSuccess('L\'achat a bien été effectué.')
   }
