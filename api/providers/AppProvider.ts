@@ -29,8 +29,8 @@ export default class AppProvider {
   }
 
   public async ready () {
-    const Logger = (await import('@ioc:Adonis/Core/Logger')).default
+    // const Logger = (await import('@ioc:Adonis/Core/Logger')).default
     const Event = (await import('@ioc:Adonis/Core/Event')).default
-    Event.on('db:query', (query: any) => Logger.debug(query))
+    Event.on('db:query', (query: any) => console.log(query.sql))
   }
 }
