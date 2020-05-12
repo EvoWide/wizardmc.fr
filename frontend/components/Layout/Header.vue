@@ -81,16 +81,17 @@
           <nuxt-link :to="{name: 'shop'}" class="underline-effect">Boutique</nuxt-link>
         </div>
         <div class="py-2">
-          <a href="#" class="underline-effect">Classements</a>
+          <nuxt-link :to="{name: 'rankings'}" class="underline-effect">Classements</nuxt-link>
         </div>
         <div class="py-2">
-          <a href="#" class="underline-effect">Vote et gagne</a>
+          <nuxt-link :to="{name: 'vote'}" class="underline-effect">Vote et gagne</nuxt-link>
         </div>
         <div class="py-2">
           <a href="#" class="underline-effect">Forum</a>
         </div>
         <div class="py-2">
           <a href="#" class="underline-effect">FAQ</a>
+          <nuxt-link :to="{name: 'vote'}" class="underline-effect">FAQ</nuxt-link>
         </div>
       </nav>
     </div>
@@ -119,22 +120,26 @@
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
             >Nous rejoindre</nuxt-link>
-            <a
+            <nuxt-link
+              :to="{name: 'rankings'}"
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
-            >Classements</a>
-            <a
+            >Classements</nuxt-link>
+            <nuxt-link
+              :to="{name: 'vote'}"
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
-            >Vote et gagne</a>
+            >Vote et gagne</nuxt-link>
             <a
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
             >Forum</a>
-            <a
+
+            <nuxt-link
+              :to="{name: 'faq'}"
               class="pl-4 text-sm text-gray-200 nav-link hover:text-white xl:text-base"
               href="#"
-            >FAQ</a>
+            >FAQ</nuxt-link>
           </div>
         </nav>
         <nuxt-link
