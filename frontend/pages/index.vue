@@ -48,9 +48,10 @@
           class="relative z-10 px-4 py-6 mt-2 border-2 border-gradient xl:max-w-4xl"
           style="background: rgba(26, 32, 44, .3);"
         >
-          <p
-            class="text-base font-normal text-justify text-white md:text-lg"
-          >Embark on a journey of adventure and creativity! WizardMC combines the scope of a sandbox with the depth of a roleplaying game, immersing players in a procedurally generated world where teetering towers and deep dungeons promise rich rewards. Designed with creative players in mind, Hytale’s engine supports everything from block-by-block castle construction to scripting and customization delivered using easy to use and powerful tools.</p>
+          <p class="text-base font-normal text-justify text-white md:text-lg">
+            WizardMC est un serveur Minecraft PvP/Factions moddé en version 1.7.10. Il s'agit d'un serveur dédié aux thèmes de la magie et de la fantaisie. Avec des mises à jour régulières, nous proposons un gameplay inédit: en passant par de nouvelles mécaniques de pillages jusqu'à des nouvelles machines et bien sûr de nouveaux items.
+            <br />N'attendez plus et rejoignez-nous pour essayer de devenir le meilleur apprenti de notre monde !
+          </p>
         </div>
         <img
           data-aos="fade-centered"

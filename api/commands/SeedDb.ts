@@ -11,10 +11,8 @@ export default class SeedDb extends BaseCommand {
 
   /**
   * Executes a shell command and return it as a Promise.
-  * @param cmd {string}
-  * @return {Promise<string>}
   */
-  private execShellCommand (cmd) {
+  private execShellCommand (cmd: string): Promise<string> {
     const exec = require('child_process').exec
 
     return new Promise((resolve) => {
