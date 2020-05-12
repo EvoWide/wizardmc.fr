@@ -58,7 +58,7 @@
 
     <!-- Mobile Nav -->
     <div
-      class="fixed top-0 left-0 z-40 max-w-xl min-h-screen px-8 py-4 side-nav bg-purple-1000"
+      class="fixed top-0 left-0 z-40 max-w-xl min-h-screen px-8 py-4 text-lg font-bold text-white uppercase side-nav bg-purple-1000 font-title"
       :class="isOpen ? 'open' : ''"
     >
       <button @click="toggleSide" class="focus:outline-none">
@@ -70,7 +70,7 @@
       </button>
 
       <img class="block h-24 mx-auto" src="@/assets/img/logo-letter.png" alt="W logo" />
-      <nav class="mt-6 text-lg font-bold text-white uppercase font-title">
+      <nav class="mt-6">
         <div class="py-2">
           <nuxt-link :to="{name: 'index'}" class="underline-effect">Accueil</nuxt-link>
         </div>
@@ -90,17 +90,36 @@
           <a href="#" class="underline-effect">Forum</a>
         </div>
         <div class="py-2">
-          <a href="#" class="underline-effect">FAQ</a>
           <nuxt-link :to="{name: 'vote'}" class="underline-effect">FAQ</nuxt-link>
         </div>
       </nav>
+      <template v-if="logged">
+        <div class="flex items-center justify-center py-4">
+          <img
+            class="w-8 h-8 border-2 border-yellow-600 rounded-full"
+            src="https://minotar.net/avatar/Kalane"
+            alt="Player head"
+          />
+          <span class="ml-2">{{ currentUser.username }}</span>
+        </div>
+        <div class="py-2">
+          <nuxt-link :to="{name: 'users-profile'}" class="underline-effect">Profil</nuxt-link>
+        </div>
+        <div class="py-2">
+          <a @click="logout" class="underline-effect">Déconnexion</a>
+        </div>
+      </template>
+      <template v-else>
+        <img class="block w-32 py-3 mx-auto" src="@/assets/img/line.png" alt="Separator" />
+        <div class="py-2">
+          <nuxt-link :to="{name: 'login'}" class="underline-effect">Connexion</nuxt-link>
+        </div>
+        <div class="py-2">
+          <nuxt-link :to="{name: 'register'}" class="underline-effect">Inscription</nuxt-link>
+        </div>
+      </template>
     </div>
-    <div
-      v-show="isOpen"
-      @click="toggleSide"
-      class="absolute inset-0"
-      style="backgroundColor: rgba(0, 0, 0, .6)"
-    />
+    <div v-show="isOpen" @click="toggleSide" class="fixed inset-0 z-10 bg-black bg-opacity-75" />
 
     <!-- Desktop Nav -->
     <div class="container hidden mx-auto lg:block">
