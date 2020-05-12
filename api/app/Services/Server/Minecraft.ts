@@ -26,7 +26,13 @@ export default class Minecraft {
 
   private async call (method: string, args?: any): Promise<any> {
     const url = this.generateUrl(method, args)
-    const response: any = await got.get(url, { responseType: 'json', timeout: 1500 })
+    let response: any
+
+    try {
+      response = await got.get(url, { responseType: 'json', timeout: 1500 })
+    } catch (ex) {
+      return null
+    }
 
     if (response.statusCode !== 200 || response.body.result !== 'success') {
       return null
