@@ -1,10 +1,11 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { randomString } from '@poppinss/utils'
 import Database from '@ioc:Adonis/Lucid/Database'
-import { DateTime, Duration } from 'luxon'
-import sessionConfig from 'config/session'
-import Item from 'App/Models/Vote/Item'
-import VoteItems from 'database/migrations/1589376378530_vote_items'
+import { DateTime } from 'luxon'
+import Item from 'App/Models/Vote/Reward'
+import ServerService from 'App/Services/Server/ServerService'
+import InventoryItem from 'App/Models/Vote/InventoryItem'
+import RpgParadizeService from 'App/Services/RpgParadizeService'
 
 export default class VotesController {
   public async initiate ({ request, response, session, auth }: HttpContextContract) {
@@ -22,12 +23,12 @@ export default class VotesController {
     const token = randomString(16)
     session.put('vote-token', token)
 
-    return response.send({ success: true })
+    return response.send({ success: true, token: token })
   }
 
-  public async check ({ request, response, session, auth }: HttpContextContract) {
+  public async confirm ({ request, response, session, auth }: HttpContextContract) {
     const { out, token } = request.post()
-    if (!token || !token || !out || isNaN(out)) {
+    if (!token || !token || !out || isNaN(out) || !auth.user || Number(out) !== RpgParadizeService.getOut()) {
       return response.globalError('La valeur out est incorrect.')
     }
 
@@ -36,9 +37,34 @@ export default class VotesController {
       return response.globalError('Une erreur est survenue, veuillez raffraichir la page.')
     }
 
-    session.forget('vote-token')
+    await Database.insertQuery().table('vote_histories').insert({
+      user_id: auth.user?.id,
+      ip: request.ip(),
+    })
 
-    return response.globalSuccess('La ré')
+    session.forget('vote-token')
+    const reward = await this.getRandomReward()
+    if (!reward) {
+      return response.globalError('Aucune récompense n\'a été trouvée.')
+    }
+
+    if (reward.credits > 0) {
+      auth.user.credits += reward.credits
+      auth.user.save()
+    }
+
+    if (reward.commands) {
+      if (ServerService.isOnline(auth.user.username)) {
+        ServerService.execute(reward.commands.replace(/{playerName}/g, auth.user.username))
+      } else {
+        await InventoryItem.create({
+          userId: auth.user.id,
+          itemId: reward.id,
+        })
+      }
+    }
+
+    return response.globalSuccess(`Vous avez gagné : ${reward.name}`)
   }
 
   private async getRandomReward () {
@@ -47,17 +73,11 @@ export default class VotesController {
     const rand = Math.floor((Math.random() * totalChance) + 1)
 
     let i = 0
-    let currentItem
-
-    voteItems.some(item => {
-      if (rand <= i) {
-        currentItem = item
-        return true
+    return voteItems.find(item => {
+      if (rand <= (i += item.chance)) {
+        return item
       }
-      return currentItem !== null
     })
-
-    return currentItem
   }
 
   private async getLastVote (user_id: number, ip: string) {
@@ -66,8 +86,14 @@ export default class VotesController {
         builder.where('user_id', user_id)
         builder.orWhere('ip', ip)
       })
-      .where('created_at', '>', DateTime.local().minus({ hour: 3 }).toSQLDate())
+      .where('created_at', '>',this.convertDate(DateTime.local().minus({ hour: 3 }).toISO()))
       .orderBy('created_at', 'desc')
       .first()
+  }
+
+  private convertDate (date: string) {
+    date = date.replace('T', ' ')
+    date = date.substring(0, date.length - 5)
+    return date
   }
 }

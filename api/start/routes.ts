@@ -24,6 +24,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   // Users
   Route.post('sessions', 'SessionsController.store')
+  Route.post('sessions/verify', 'SessionsController.check')
   Route.post('users', 'UsersController.store')
 
   Route.post('password-requests', 'PasswordRequestController.store')
@@ -41,6 +42,10 @@ Route.group(() => {
 
   // Promotional code
   Route.get('promotional-code/:code', 'PromotionalCodesController.view')
+
+  // Vote
+  Route.get('vote/initiate', 'VotesController.initiate')
+  Route.post('vote/confirm', 'VotesController.confirm')
 }).middleware('auth')
 
 /* Rest only */
