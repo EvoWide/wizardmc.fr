@@ -114,7 +114,7 @@
       </div>
       <div class="w-full mt-4 md:w-9/12 md:mx-4 md:mt-0 lg:w-4/5">
         <template v-if="activeTab === 'Grades'">
-          <ShopRanksTable />
+          <ShopRanksTable :ranks="displayArticles" />
         </template>
         <template v-else>
           <div class="flex flex-wrap md:-mt-3">
@@ -122,10 +122,11 @@
               v-for="article in displayArticles"
               :key="article.name"
               class="relative flex flex-col w-full mt-3 cursor-pointer item-shop h-80 sm:mr-3"
+              :class="{'offer-bought pointer-events-none': currentUser.offers.includes(article.id)}"
             >
               <div
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
-              >{{ article.price }} $</div>
+              >{{ currentUser.offers.includes(article.id) ? 'Acheté' : `${article.price} $` }}</div>
               <div
                 :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"
@@ -191,6 +192,7 @@ export default {
     height: 235px;
   }
 }
+
 .article-name::before,
 .article-name::after {
   @apply absolute bg-no-repeat bg-contain bg-center opacity-0 w-4 h-4;
@@ -199,20 +201,28 @@ export default {
   background-image: url("~@/assets/img/badge.png");
   transition: all 0.2s ease;
 }
+
 .article-name::before {
   @apply left-0;
   transform: translate(0, -50%);
 }
+
 .article-name::after {
   @apply right-0;
   transform: translate(0, -50%);
 }
+
 .item-shop:hover .article-name::before {
   @apply opacity-100;
   transform: translate(16px, -50%);
 }
+
 .item-shop:hover .article-name::after {
   @apply opacity-100;
   transform: translate(-16px, -50%);
+}
+
+.offer-bought {
+  filter: grayscale(80%);
 }
 </style>

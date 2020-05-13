@@ -9,7 +9,7 @@ import ServerService from 'App/Services/Server/ServerService'
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
     const categories = await Category.query().select('id', 'name').preload('offers', (builder) => {
-      builder.select('id', 'name', 'image', 'price', 'unique', 'version')
+      builder.select('id', 'name', 'image', 'price', 'unique', 'version', 'deps')
     })
 
     response.send(categories)
