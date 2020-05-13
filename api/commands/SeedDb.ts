@@ -198,6 +198,32 @@ export default class SeedDb extends BaseCommand {
       })
     }
 
+    // Vote
+    await Database.insertQuery()
+      .table('vote_rewards')
+      .multiInsert([
+        {
+          name: '16 pommes cheat',
+          chance: 10,
+          commands: 'give pommescheat',
+        },
+        {
+          name: '64 obsidian',
+          chance: 40,
+          commands: 'give 64 obsidian',
+        },
+        {
+          name: '5 crédits',
+          chance: 40,
+          credits: 5,
+        },
+        {
+          name: '40 crédits',
+          chance: 5,
+          credits: 40,
+        },
+      ])
+
     await Database.manager.closeAll()
 
     this.logger.success('Seed finished.')
