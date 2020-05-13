@@ -1,5 +1,6 @@
 import { IocContract } from '@adonisjs/fold'
 import { ResponseConstructorContract } from '@ioc:Adonis/Core/Response'
+import Application from '@ioc:Adonis/Core/Application'
 import schedule from 'node-schedule'
 
 export default class AppProvider {
@@ -33,7 +34,8 @@ export default class AppProvider {
     const Event = (await import('@ioc:Adonis/Core/Event')).default
     Event.on('db:query', Database.prettyPrint)
 
-    if (process.env.mainApp) {
+    // Start the scheduler only if it's the web server
+    if (Application.environment === 'web') {
       this.startScheduler()
     }
   }

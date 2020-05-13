@@ -15,7 +15,6 @@ import sourceMapSupport from 'source-map-support'
 import { Ignitor } from '@adonisjs/core/build/src/Ignitor'
 
 sourceMapSupport.install({ handleUncaughtExceptions: false })
-process.env.mainApp = 'true'
 
 new Ignitor(__dirname)
   .httpServer()
