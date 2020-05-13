@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany, beforeCreate, beforeUpdate } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, beforeCreate, beforeUpdate, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import uuid from '@lukeed/uuid'
 import Post from 'App/Models/Post'
 import Hash from '@ioc:Adonis/Core/Hash'
+import UserSecurity from './UserSecurity'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -37,6 +38,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => Post, {foreignKey: 'authorId'})
   public posts: HasMany<typeof Post>
+
+  @hasOne(() => UserSecurity, {foreignKey: 'userId'})
+  public security: HasOne<typeof UserSecurity>
 
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {
