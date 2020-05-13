@@ -45,7 +45,7 @@
 }
 
 .underline-effect::before {
-  @apply absolute bottom-0 inset-x-0 bg-yellow-600;
+  @apply absolute inset-x-0 bottom-0 bg-yellow-600;
   content: '';
   height: 2px;
   transform-origin: bottom right;
@@ -56,4 +56,13 @@
 .underline-effect:hover::before {
   transform-origin: bottom left;
   transform: scaleX(1);
+}
+
+.form-input::placeholder {
+  @apply text-purple-300 opacity-100;
+}
+
+.form-input:-ms-input-placeholder,
+.form-input::-ms-input-placeholder {
+  @apply text-purple-300;
 }

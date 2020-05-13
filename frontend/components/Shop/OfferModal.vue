@@ -4,7 +4,15 @@
       <h1 class="text-xl text-center font-title">{{ offer.name }}</h1>
       <p class="mt-4">
         Prix:
-        <span class="text-yellow-500">{{ offer.price }} $</span>
+        <template v-if="promotion">
+          <span class="text-red-500 line-through">{{ offer.price }} $</span>
+          <span
+            class="ml-2 text-yellow-500"
+          >{{ Math.round(offer.price * (1 - promotion.reduction / 100)) }} $</span>
+        </template>
+        <template v-else>
+          <span class="text-yellow-500">{{ offer.price }} $</span>
+        </template>
       </p>
       <p>{{ offer.description }}</p>
 
@@ -39,6 +47,10 @@ export default {
     open: {
       type: Boolean,
       required: true
+    },
+    promotion: {
+      type: Object,
+      default: null
     }
   },
 
@@ -53,7 +65,8 @@ export default {
   methods: {
     async buyOffer () {
       try {
-        await this.$axios.$get(`shop/buy/${this.offer.id}`)
+        const url = this.promotion ? `shop/buy/${this.offer.id}/${this.promotion.code}` : `shop/buy/${this.offer.id}`
+        await this.$axios.$get(url)
 
         // Update offers bought for the frontend
         if (this.offer.unique === 1 || this.offer.version === 1) {

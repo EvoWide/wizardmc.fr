@@ -1,7 +1,13 @@
 <template>
   <main class="container px-4 py-10 mx-auto text-white md:px-0">
-    <OfferModal @close="showModal = false" :open="showModal" :offer="selectedOffer" />
+    <OfferModal
+      @close="showModal = false"
+      :open="showModal"
+      :offer="selectedOffer"
+      :promotion="!selectedOffer.season && !selectedOffer.unique ? appliedPromotion : null"
+    />
     <div class="flex flex-col items-start md:flex-row md:-mx-4">
+      <!-- Sidebar -->
       <div class="w-full bg-purple-900 md:w-3/12 md:mx-4 lg:w-1/5">
         <div class="py-2">
           <h2 class="px-4 text-lg font-bold text-purple-200 uppercase font-title">Catégories</h2>
@@ -111,8 +117,59 @@
             <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
             <span>pour avoir un accès complet à la boutique.</span>
           </div>
+          <div v-if="logged" class="px-4 text-purple-200">
+            <div class="flex items-center justify-center my-6 space-x-2">
+              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+            </div>
+            <form v-if="appliedPromotion === null" @submit.prevent="applyPromo" class="flex">
+              <input
+                v-model="promotion"
+                class="block w-full border form-input border-gradient"
+                type="text"
+                placeholder="Code promo"
+              />
+              <button
+                class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
+              >
+                <div class="w-6 h-6">
+                  <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </form>
+            <div v-else class="relative py-2 text-center bg-purple-800 rounded-md">
+              <button
+                @click="removePromo"
+                class="absolute top-0 right-0 mt-1 mr-1 hover:text-white"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </button>
+              <p class="text-lg font-semibold font-title">Promotion activée</p>
+              <p class="text-yellow-500">{{ appliedPromotion.code }}</p>
+              <p>
+                Réduction:
+                <span
+                  class="font-semibold text-yellow-500"
+                >-{{ appliedPromotion.reduction }}%</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+      <!-- Main Content -->
       <div class="w-full mt-4 md:w-9/12 md:mx-4 md:mt-0 lg:w-4/5">
         <template v-if="activeTab === 'Grades'">
           <ShopRanksTable :ranks="displayArticles" />
@@ -127,8 +184,13 @@
               class="relative flex flex-col w-full mt-3 cursor-pointer select-none item-shop h-80 sm:mr-3"
             >
               <div
+                v-if="appliedPromotion && !article.season && !article.unique"
+                class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-red-100 bg-red-900 border border-red-700 rounded-full"
+              >{{ Math.round(article.price * (1 - appliedPromotion.reduction / 100)) }} $</div>
+              <div
+                v-else
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
-              >{{ logged && currentUser.offers.includes(article.id) ? 'Acheté' : `${article.price} $` }}</div>
+              >{{ logged && currentUser.offers.includes(article.id) ? 'Acheté' : article.price + ' $' }}</div>
               <div
                 :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"
@@ -165,6 +227,8 @@ export default {
   data () {
     return {
       activeTab: 'Grades',
+      appliedPromotion: null,
+      promotion: null,
       selectedOfferId: null,
       showModal: false
     }
@@ -182,6 +246,12 @@ export default {
   },
 
   methods: {
+    async applyPromo () {
+      try {
+        this.appliedPromotion = await this.$axios.$get(`promotional-code/${this.promotion}`)
+      } catch (e) {
+      }
+    },
     buyOffer (offerId) {
       this.selectedOfferId = offerId
       this.showModal = true
@@ -193,6 +263,10 @@ export default {
     },
     isActiveTab (tab) {
       return tab === this.activeTab
+    },
+    removePromo () {
+      this.appliedPromotion = null
+      this.promotion = null
     }
   }
 }
