@@ -26,7 +26,7 @@ export default class SessionsController {
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
-  public async check ({ auth, request, response, session }: HttpContextContract) {
+  public async verify ({ auth, request, response, session }: HttpContextContract) {
     const data = session.get('auth-otp')
     if (!data || data.time <= Date.now()) {
       session.forget('auth-otp')
