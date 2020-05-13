@@ -41,7 +41,10 @@ export default class ShopsController {
         return response.globalError('L\'offre ne permet pas l\'utilisation d\'une promotion.')
       }
 
-      promo = await PromotionalCode.query().where('code', params.promotion).first()
+      promo = await PromotionalCode.query()
+        .whereRaw('LOWER(code) LIKE ?', params.promotion.toLowerCase())
+        .first()
+
       if (!promo) {
         return response.globalError('La promotion utilisée n\'a pas été trouvé.')
       }
