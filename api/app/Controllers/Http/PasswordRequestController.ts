@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Route from '@ioc:Adonis/Core/Route'
-import { schema, rules, validator } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import uuid from '@lukeed/uuid'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
@@ -15,8 +15,17 @@ export default class PasswordRequestController {
           rules.email(),
         ]),
       }),
+      messages: {
+        'email.email': 'Email incorrecte.',
+      },
     })
-    const user = await User.query().where('email', email).firstOrFail()
+
+    let user: User
+    try {
+      user = await User.query().where('email', email).firstOrFail()
+    } catch (error) {
+      return response.status(422).send({ 'errors': [{ 'field': 'email', 'message': 'Email inconnue.' }] })
+    }
 
     const res = await Database.query()
       .count('id as count')
@@ -53,13 +62,15 @@ export default class PasswordRequestController {
       return response.globalError('La requête est incorrect.')
     }
 
-    const { password } = await validator.validate({
+    const { password } = await request.validate({
       schema: schema.create({
         password: schema.string({}, [
           rules.minLength(5),
         ]),
       }),
-      data: request.post(),
+      messages: {
+        'password.minLength': 'Mot de passe pas assez sécurisé.',
+      },
     })
 
     const passwordRequest = await Database.query()

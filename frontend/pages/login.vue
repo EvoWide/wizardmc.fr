@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-lg px-4 py-8 mx-auto">
+    <ForgotPasswordModal @close="showModal = false" :open="showModal" />
     <div class="text-center">
       <div class="inline-block pb-6 text-white bg-bottom bg-no-repeat ornament-lg md:pb-5">
         <h1 class="text-xl font-bold uppercase font-title md:text-3xl">Connexion</h1>
@@ -66,6 +67,13 @@
             class="block ml-2 text-sm leading-5 text-purple-200"
           >Se souvenir de moi</label>
         </div>
+        <div>
+          <button
+            @click="showModal = true"
+            class="text-sm leading-5 text-purple-200 hover:text-white focus:text-white focus:outline-none"
+            type="button"
+          >Mot de passe oublié ?</button>
+        </div>
       </div>
 
       <div class="mt-8">
@@ -81,8 +89,14 @@
 </template>
 
 <script>
+import ForgotPasswordModal from '@/components/Auth/ForgotPasswordModal.vue'
+
 export default {
   middleware: 'guest',
+
+  components: {
+    ForgotPasswordModal
+  },
 
   data () {
     return {
@@ -91,9 +105,11 @@ export default {
         password: null,
         remember: false
       },
-      errors: {}
+      errors: {},
+      showModal: false
     }
   },
+
   methods: {
     async login () {
       try {

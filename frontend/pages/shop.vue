@@ -1,6 +1,6 @@
 <template>
   <main class="container px-4 py-10 mx-auto text-white md:px-0">
-    <OfferModal @close="showModal = false" :open="showModal" :offer="selectedOffer"></OfferModal>
+    <OfferModal @close="showModal = false" :open="showModal" :offer="selectedOffer" />
     <div class="flex flex-col items-start md:flex-row md:-mx-4">
       <div class="w-full bg-purple-900 md:w-3/12 md:mx-4 lg:w-1/5">
         <div class="py-2">

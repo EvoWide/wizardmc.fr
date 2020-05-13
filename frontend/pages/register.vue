@@ -145,7 +145,6 @@ export default {
       return await this.$recaptcha('login')
     },
     async register () {
-      console.log('register')
       this.errors = {}
 
       if (this.form.password !== this.form.passwordConfirmation) {
@@ -160,7 +159,6 @@ export default {
         })
       }
       const token = await this.recaptcha()
-      console.log(token)
 
       try {
         await this.$store.dispatch('auth/register', { ...this.form, recaptcha: token })
