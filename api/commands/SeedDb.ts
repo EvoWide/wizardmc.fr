@@ -41,6 +41,7 @@ export default class SeedDb extends BaseCommand {
     await User.create({
       username: 'Kalane',
       password: '12345',
+      credits: 5000,
       email: 'kalanehd@gmail.com',
     })
     await User.create({
@@ -59,7 +60,7 @@ export default class SeedDb extends BaseCommand {
     // Shop Offers
     const offers = [
       {
-        name: 'Enchanteur',
+        name: 'Grade Enchanteur',
         category_id: 1,
         description: '',
         image: 'https://i.imgur.com/nxLRdsx.png',
@@ -68,7 +69,7 @@ export default class SeedDb extends BaseCommand {
         version: true,
       },
       {
-        name: 'Archimage',
+        name: 'Grade Archimage',
         category_id: 1,
         description: '',
         image: 'https://i.imgur.com/nxLRdsx.png',
@@ -78,7 +79,7 @@ export default class SeedDb extends BaseCommand {
         version: true,
       },
       {
-        name: 'Mage',
+        name: 'Grade Mage',
         category_id: 1,
         description: '',
         image: 'https://i.imgur.com/nxLRdsx.png',
@@ -88,7 +89,7 @@ export default class SeedDb extends BaseCommand {
         version: true,
       },
       {
-        name: 'Sorcier',
+        name: 'Grade Sorcier',
         category_id: 1,
         description: '',
         image: 'https://i.imgur.com/nxLRdsx.png',
@@ -193,7 +194,7 @@ export default class SeedDb extends BaseCommand {
         Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur,
         vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?`,
         image: 'https://i.imgur.com/2Hg56TL.jpg',
-        hidden: Math.random() >= 0.8,
+        hidden: Math.random() >= 0.9,
       })
     }
 

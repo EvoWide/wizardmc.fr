@@ -57,10 +57,22 @@ export default {
     }
   },
 
+  beforeMount () {
+    document.addEventListener('keydown', this.handleEscape)
+  },
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.handleEscape)
+  },
+
   methods: {
     closeModal () {
       this.open = false
       this.$emit('close')
+    },
+    handleEscape (e) {
+      if (e.key === 'Esc' || e.key === 'Escape') {
+        this.closeModal()
+      }
     }
   }
 }
