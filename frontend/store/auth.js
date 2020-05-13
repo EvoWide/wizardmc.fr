@@ -9,6 +9,11 @@ export const mutations = {
   SET_AUTHENTICATE_USER (state, { user, offers }) {
     user.offers = offers
     state.currentUser = user
+  },
+  UPDATE_USER_CREDITS (state, purchase) {
+    if (state.currentUser) {
+      state.currentUser.credits -= purchase
+    }
   }
 }
 
@@ -34,6 +39,9 @@ export const actions = {
     await this.$axios.$post('users', form)
 
     await dispatch('getCurrentUser')
+  },
+  updateUserCredits ({ commit }, purchase) {
+    commit('UPDATE_USER_CREDITS', purchase)
   }
 }
 

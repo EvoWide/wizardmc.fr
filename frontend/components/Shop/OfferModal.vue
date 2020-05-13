@@ -71,6 +71,9 @@ export default {
         // Update offers bought for the frontend
         if (this.offer.unique === 1 || this.offer.version === 1) {
           this.$store.dispatch('auth/getCurrentUser')
+        } else {
+          const purchase = this.promotion ? Math.round(this.offer.price * (1 - this.promotion.reduction / 100)) : this.offer.price
+          this.$store.dispatch('auth/updateUserCredits', purchase)
         }
       } catch (e) {
       }
