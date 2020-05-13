@@ -1,7 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class VoteItems extends BaseSchema {
-  protected tableName = 'vote_items'
+export default class VoteRewards extends BaseSchema {
+  protected tableName = 'vote_rewards'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
