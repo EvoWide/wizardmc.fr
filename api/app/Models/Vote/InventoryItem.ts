@@ -1,9 +1,11 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from '../User'
-import Item from './Item'
+import Reward from './Reward'
 
 export default class InventoryItem extends BaseModel {
+  public static table = 'vote_inventory'
+
   @column({ isPrimary: true })
   public id: number
 
@@ -19,6 +21,6 @@ export default class InventoryItem extends BaseModel {
   @belongsTo(() => User, { localKey: 'userId' })
   public user: BelongsTo<typeof User>
 
-  @belongsTo(() => Item, { localKey: 'offerId' })
-  public item: BelongsTo<typeof Item>
+  @belongsTo(() => Reward, { localKey: 'offerId' })
+  public reward: BelongsTo<typeof Reward>
 }
