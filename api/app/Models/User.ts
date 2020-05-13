@@ -4,6 +4,7 @@ import uuid from '@lukeed/uuid'
 import Post from 'App/Models/Post'
 import Hash from '@ioc:Adonis/Core/Hash'
 import UserSecurity from './UserSecurity'
+import InventoryItem from './Vote/InventoryItem'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -36,11 +37,14 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken: string
 
-  @hasMany(() => Post, {foreignKey: 'authorId'})
+  @hasMany(() => Post, { foreignKey: 'authorId' })
   public posts: HasMany<typeof Post>
 
-  @hasOne(() => UserSecurity, {foreignKey: 'userId'})
+  @hasOne(() => UserSecurity, { foreignKey: 'userId' })
   public security: HasOne<typeof UserSecurity>
+
+  @hasMany(() => InventoryItem, { foreignKey: 'userId' })
+  public inventory: HasMany<typeof InventoryItem>
 
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {
