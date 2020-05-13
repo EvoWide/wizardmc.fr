@@ -1,5 +1,6 @@
 import { IocContract } from '@adonisjs/fold'
 import { ResponseConstructorContract } from '@ioc:Adonis/Core/Response'
+import schedule from 'node-schedule'
 
 export default class AppProvider {
   constructor (protected container: IocContract) {
@@ -28,7 +29,25 @@ export default class AppProvider {
   }
 
   public async ready () {
+    const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     const Event = (await import('@ioc:Adonis/Core/Event')).default
-    Event.on('db:query', (query: any) => console.log(query.sql))
+    Event.on('db:query', Database.prettyPrint)
+
+    if (process.env.mainApp) {
+      this.startScheduler()
+    }
+  }
+
+  private async startScheduler () {
+    const server = (await import('App/Services/Server/ServerService')).default
+    const rpgParadize = (await import('App/Services/RpgParadizeService')).default
+
+    server.update()
+    rpgParadize.update()
+
+    schedule.scheduleJob('update-server', '* * * * *', function () {
+      server.update()
+      rpgParadize.update()
+    })
   }
 }
