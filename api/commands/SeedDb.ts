@@ -1,4 +1,6 @@
 import { BaseCommand } from '@adonisjs/ace'
+import ms from 'ms'
+import { DateTime } from 'luxon'
 import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class SeedDb extends BaseCommand {
@@ -29,6 +31,8 @@ export default class SeedDb extends BaseCommand {
     const User = (await import('App/Models/User')).default
     const ShopCategory = (await import('App/Models/Shop/Category')).default
     const ShopOffer = (await import('App/Models/Shop/Offer')).default
+    const PromotionalCode = (await import('App/Models/PromotionalCode')).default
+
     const Post = (await import('App/Models/Post')).default
 
     this.logger.info('Seed started.')
@@ -179,6 +183,33 @@ export default class SeedDb extends BaseCommand {
           price: offer?.price,
           version: (offer?.version ? 1 : -1),
         })
+    }
+
+    // Promotional Codes
+    const promos = [
+      {
+        code: 'MOINS20',
+        reduction: 20,
+        duration: '10d',
+        quantity: 5,
+      },
+      {
+        code: 'MOINS30',
+        reduction: 38,
+        duration: '3d',
+        quantity: 2,
+      },
+      {
+        code: 'MOINS40',
+        reduction: 40,
+        duration: '10s',
+        quantity: 5,
+      },
+    ]
+
+    for (const promo of promos) {
+      const expireAt = DateTime.local().plus(ms(promo.duration))
+      await PromotionalCode.create({ code: promo.code, quantity: promo.quantity, reduction: promo.reduction, expireAt })
     }
 
     // News

@@ -1,6 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { randomString } from '@poppinss/utils'
+import { DateTime } from 'luxon'
 import ms from 'ms'
 import PromotionalCode from 'App/Models/PromotionalCode'
 
@@ -14,7 +15,7 @@ export default class PromotionalCodesController {
       }),
     })
 
-    const expireAt = ms(duration)
+    const expireAt = DateTime.local().plus(ms(duration))
     const quantity = request.input('quantity', 1)
 
     if (code === 'random') {
@@ -25,7 +26,7 @@ export default class PromotionalCodesController {
       return response.globalError('La réduction doit être > 0 & < 100')
     }
 
-    const promotionalCode = await PromotionalCode.create({ code: code, quantity: quantity, expireAt: expireAt })
+    const promotionalCode = await PromotionalCode.create({ code, quantity, reduction, expireAt })
     return response.send({ code: promotionalCode.code })
   }
 }
