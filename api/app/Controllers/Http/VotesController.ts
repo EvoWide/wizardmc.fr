@@ -28,13 +28,18 @@ export default class VotesController {
 
   public async confirm ({ request, response, session, auth }: HttpContextContract) {
     const { out, token } = request.post()
-    if (!token || !token || !out || isNaN(out) || !auth.user || Number(out) !== RpgParadizeService.getOut()) {
-      return response.globalError('La valeur out est incorrect.')
+
+    if (!token || !out || isNaN(out)) {
+      return response.globalError('La requête est invalide.')
     }
 
     const currentToken = session.get('vote-token')
-    if (!currentToken || currentToken !== token) {
+    if (currentToken !== token) {
       return response.globalError('Une erreur est survenue, veuillez raffraichir la page.')
+    }
+
+    if (!auth.user || Math.abs(Number(out) - RpgParadizeService.getOut()) >= 3) {
+      return response.globalError('La valeur out est incorrect.')
     }
 
     await Database.insertQuery().table('vote_histories').insert({
