@@ -5,6 +5,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
 import ServerService from 'App/Services/Server/ServerService'
+import PromotionalCode from 'App/Models/PromotionalCode'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
@@ -32,8 +33,28 @@ export default class ShopsController {
       return
     }
 
-    if (offer.price > user.credits) {
-      return response.globalError(`Il vous manque ${offer.price - user.credits} crédit(s) pour effectuer cet achat.`)
+    let price = offer.price
+    let promo: PromotionalCode | null = null
+
+    if (params.promotion) {
+      if (offer.unique || offer.version) {
+        return response.globalError('L\'offre ne permet pas l\'utilisation d\'une promotion.')
+      }
+
+      promo = await PromotionalCode.query().where('code', params.promotion).first()
+      if (!promo) {
+        return response.globalError('La promotion utilisée n\'a pas été trouvé.')
+      }
+
+      if (promo.isExpired() || promo.quantity <= 0) {
+        return response.globalError('La promotion a expirée.')
+      }
+
+      price = Math.round(price * (1 - promo.reduction / 100))
+    }
+
+    if (price > user.credits) {
+      return response.globalError(`Il vous manque ${price - user.credits} crédit(s) pour effectuer cet achat.`)
     }
 
     // if (!ServerService.isOnline(user.username)) {
@@ -48,19 +69,24 @@ export default class ShopsController {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
-    user.credits -= offer.price
+    user.credits -= price
     await user.save()
+
+    if (promo) {
+      promo.quantity--
+      promo.save()
+    }
 
     await Database.insertQuery()
       .table('shop_histories')
       .insert({
         user_id: user.id,
         offer_id: offer.id,
-        price: offer.price,
+        price: price,
         version: (offer.version ? Number(Env.get('SERVER_VERSION')) : -1),
       })
 
-    if(offer.commands) {
+    if (offer.commands) {
       ServerService.execute(offer.commands.replace(/{playerName}/g, user.username))
     }
 

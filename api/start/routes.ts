@@ -38,7 +38,7 @@ Route.group(() => {
   Route.delete('sessions', 'SessionsController.destroy')
 
   // Shop
-  Route.get('shop/buy/:id', 'ShopController.buy')
+  Route.get('shop/buy/:id/:promotion?', 'ShopController.buy')
 
   // Promotional code
   Route.get('promotional-code/:code', 'PromotionalCodesController.view')
