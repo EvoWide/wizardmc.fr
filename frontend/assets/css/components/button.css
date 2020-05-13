@@ -13,7 +13,7 @@
 
 .btn-shop::before,
 .btn-shop::after {
-  @apply absolute bg-no-repeat bg-contain bg-center opacity-0 w-4 h-4;
+  @apply absolute w-4 h-4 bg-center bg-no-repeat bg-contain opacity-0;
   content: '';
   top: 50%;
   background-image: url('~@/assets/img/badge.png');
@@ -44,10 +44,15 @@
    Button Call to Action
 -------------------------- */
 .btn-cta {
-  @apply bg-no-repeat bg-contain;
+  @apply bg-no-repeat bg-contain select-none;
   background-position: center 110%;
 }
 
 .btn-cta:hover {
   background-image: url('~@/assets/img/menu-current.png'), radial-gradient(at 55% 60%, #44337A 0%, #17102C 100%);
+}
+
+.btn-cta-disabled {
+  @apply pointer-events-none;
+  filter: grayscale(80%);
 }

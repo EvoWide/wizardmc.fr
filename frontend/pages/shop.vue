@@ -1,5 +1,6 @@
 <template>
   <main class="container px-4 py-10 mx-auto text-white md:px-0">
+    <OfferModal @close="showModal = false" :open="showModal" :offer="selectedOffer"></OfferModal>
     <div class="flex flex-col items-start md:flex-row md:-mx-4">
       <div class="w-full bg-purple-900 md:w-3/12 md:mx-4 lg:w-1/5">
         <div class="py-2">
@@ -121,12 +122,13 @@
             <div
               v-for="article in displayArticles"
               :key="article.name"
-              class="relative flex flex-col w-full mt-3 cursor-pointer item-shop h-80 sm:mr-3"
-              :class="{'offer-bought pointer-events-none': currentUser.offers.includes(article.id)}"
+              @click="buyOffer(article.id)"
+              :class="{'offer-bought pointer-events-none': logged && currentUser.offers.includes(article.id)}"
+              class="relative flex flex-col w-full mt-3 cursor-pointer select-none item-shop h-80 sm:mr-3"
             >
               <div
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
-              >{{ currentUser.offers.includes(article.id) ? 'Acheté' : `${article.price} $` }}</div>
+              >{{ logged && currentUser.offers.includes(article.id) ? 'Acheté' : `${article.price} $` }}</div>
               <div
                 :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"
@@ -145,10 +147,12 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import OfferModal from '@/components/Shop/OfferModal.vue'
 import ShopRanksTable from '@/components/Shop/ShopRanksTable.vue'
 
 export default {
   components: {
+    OfferModal,
     ShopRanksTable
   },
 
@@ -160,7 +164,9 @@ export default {
 
   data () {
     return {
-      activeTab: 'Grades'
+      activeTab: 'Grades',
+      selectedOfferId: null,
+      showModal: false
     }
   },
 
@@ -168,11 +174,18 @@ export default {
     displayArticles () {
       return this.categories.find(category => category.name === this.activeTab).offers
     },
+    selectedOffer () {
+      return this.displayArticles.find(o => o.id === this.selectedOfferId) || {}
+    },
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
   },
 
   methods: {
+    buyOffer (offerId) {
+      this.selectedOfferId = offerId
+      this.showModal = true
+    },
     changeTab (tab) {
       if (tab === this.activeTab) { return }
 

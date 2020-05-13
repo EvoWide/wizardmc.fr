@@ -1,5 +1,6 @@
 <template>
   <div class="w-full overflow-x-auto">
+    <OfferModal @close="showModal = false" :open="showModal" :offer="selectedRank"></OfferModal>
     <table class="min-w-full text-sm text-white table-fixed ranks-table lg:text-base">
       <thead class="bg-purple-800">
         <tr class="bg-gray-900">
@@ -63,7 +64,9 @@
           </td>
           <td v-for="i in 4" :key="'price-' + i">
             <div class="flex items-center justify-center">
-              <span class="text-base font-semibold lg:text-xl">{{ ranksPrices[ranksDuration][i - 1] }}$</span>
+              <span
+                class="text-base font-semibold lg:text-xl"
+              >{{ ranksPrices[ranksDuration][i - 1] }}$</span>
               <span class="ml-1 text-purple-500">/{{ ranksDuration }}</span>
             </div>
           </td>
@@ -292,16 +295,14 @@
           <td />
           <td v-for="rank in ranks" :key="'buy-' + rank.id">
             <div class="flex items-center justify-center">
-              <span
-                v-if="currentUser.offers.includes(rank.id)"
-              >Possédé</span>
+              <span v-if="logged && currentUser.offers.includes(rank.id)">Possédé</span>
               <button
-                v-else-if="rank.deps === null || currentUser.offers.includes(rank.deps)"
+                v-else-if="rank.deps === null || (logged && currentUser.offers.includes(rank.deps))"
+                @click="buyRank(rank.id)"
                 class="px-4 py-2 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
+                type="button"
               >Acheter</button>
-              <span
-                v-else
-              >Achat impossible</span>
+              <span v-else>Achat impossible</span>
             </div>
           </td>
         </tr>
@@ -312,8 +313,13 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import OfferModal from '@/components/Shop/OfferModal.vue'
 
 export default {
+  components: {
+    OfferModal
+  },
+
   props: {
     ranks: {
       type: Array,
@@ -327,16 +333,25 @@ export default {
       ranksPrices: {
         mois: [500, 800, 1000, 1250],
         version: [1500, 2400, 3000, 3750]
-      }
+      },
+      selectedRankId: null,
+      showModal: false
     }
   },
 
   computed: {
+    selectedRank () {
+      return this.ranks.find(r => r.id === this.selectedRankId) || {}
+    },
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
   },
 
   methods: {
+    buyRank (rankId) {
+      this.selectedRankId = rankId
+      this.showModal = true
+    },
     switchDuration () {
       this.ranksDuration = this.ranksDuration === 'mois' ? 'version' : 'mois'
     }
