@@ -100,8 +100,16 @@
         <div class="mt-2">
           <p>
             Réalisé par
-            <a href="#" class="text-yellow-600 underline-effect">Forsties08</a> et
-            <a href="#" class="text-yellow-600 underline-effect">Valentin Kaelin</a>
+            <a
+              href="https://twitter.com/Forsties08"
+              class="text-yellow-600 underline-effect"
+              target="_blank"
+            >Forsties08</a> et
+            <a
+              href="https://valentinkaelin.ch/"
+              class="text-yellow-600 underline-effect"
+              target="_blank"
+            >Valentin Kaelin</a>
           </p>
         </div>
       </div>
