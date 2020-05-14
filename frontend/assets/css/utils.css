@@ -57,12 +57,3 @@
   transform-origin: bottom left;
   transform: scaleX(1);
 }
-
-.form-input::placeholder {
-  @apply text-purple-300 opacity-100;
-}
-
-.form-input:-ms-input-placeholder,
-.form-input::-ms-input-placeholder {
-  @apply text-purple-300;
-}

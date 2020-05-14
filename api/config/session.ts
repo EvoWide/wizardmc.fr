@@ -45,7 +45,7 @@ const sessionConfig: SessionConfig = {
   | this value to `true` will ignore the `age`.
   |
   */
-  clearWithBrowser: true,
+  clearWithBrowser: false,
 
   /*
   |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ const sessionConfig: SessionConfig = {
   cookie: {
     path: '/',
     httpOnly: true,
-    sameSite: true,
+    sameSite: false,
   },
 
   /*

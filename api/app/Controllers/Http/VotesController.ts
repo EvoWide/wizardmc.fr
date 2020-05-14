@@ -23,7 +23,7 @@ export default class VotesController {
     const token = randomString(16)
     session.put('vote-token', token)
 
-    return response.send({ success: true, token: token })
+    return response.send(token)
   }
 
   public async confirm ({ request, response, session, auth }: HttpContextContract) {

@@ -25,6 +25,7 @@ export default {
   css: [
     '@/assets/css/utils.css',
     '@/assets/css/pages/homepage.css',
+    '@/assets/css/components/form.css',
     '@/assets/css/components/button.css',
     '@/assets/css/components/footer.css',
     '@/assets/css/components/navbar.css'
