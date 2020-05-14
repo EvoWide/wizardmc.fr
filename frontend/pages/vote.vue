@@ -76,7 +76,7 @@
                   </p>
                 </div>
                 <a
-                  @click="currentStep++"
+                  @click="startTimer()"
                   class="inline-flex px-4 py-2 mt-4 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
                   href="https://www.rpg-paradize.com/?page=vote&vote=113062"
                   target="_blank"
@@ -119,10 +119,12 @@
                     placeholder="Clic sortant"
                   />
                   <button
+                    :class="{'btn-cta-disabled':timeBeforeVote > 0 }"
                     class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
                   >
                     <div class="w-6 h-6">
-                      <svg fill="currentColor" viewBox="0 0 20 20">
+                      <div v-if="timeBeforeVote > 0">{{ timeBeforeVote }}</div>
+                      <svg v-else fill="currentColor" viewBox="0 0 20 20">
                         <path
                           d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
                           clip-rule="evenodd"
@@ -205,13 +207,19 @@ export default {
   data () {
     return {
       currentStep: 0,
-      out: null
+      interval: null,
+      out: null,
+      timeBeforeVote: 15
     }
   },
 
   computed: {
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
+  },
+
+  beforeDestroy () {
+    clearInterval(this.interval)
   },
 
   methods: {
@@ -227,6 +235,8 @@ export default {
       return 'text-blue-300'
     },
     async confirmOut () {
+      if (this.timeBeforeVote > 0) { return }
+
       try {
         await this.$axios.$post('vote/confirm', {
           out: this.out,
@@ -236,6 +246,13 @@ export default {
         this.currentStep++
       } catch (e) {
       }
+    },
+    startTimer () {
+      this.interval = setInterval(() => {
+        this.timeBeforeVote--
+      }, 1000)
+
+      this.currentStep++
     }
   }
 }
