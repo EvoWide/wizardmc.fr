@@ -126,7 +126,7 @@
             <form v-if="appliedPromotion === null" @submit.prevent="applyPromo" class="flex">
               <input
                 v-model="promotion"
-                class="block w-full border form-input border-gradient"
+                class="block w-full min-w-0 border form-input border-gradient"
                 type="text"
                 placeholder="Code promo"
               />
