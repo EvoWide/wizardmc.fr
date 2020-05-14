@@ -69,4 +69,7 @@ Route.group(() => {
   // Shop
   Route.get('shop', 'ShopController.index')
   Route.get('shop/:id', 'ShopController.show')
+
+  // Votes Rewards
+  Route.get('votes', 'VotesController.index')
 }).prefix('c')

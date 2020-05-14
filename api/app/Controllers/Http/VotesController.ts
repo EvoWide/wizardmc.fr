@@ -6,8 +6,18 @@ import Item from 'App/Models/Vote/Reward'
 import ServerService from 'App/Services/Server/ServerService'
 import InventoryItem from 'App/Models/Vote/InventoryItem'
 import RpgParadizeService from 'App/Services/RpgParadizeService'
+import Reward from 'App/Models/Vote/Reward'
 
 export default class VotesController {
+  public async index ({ response }: HttpContextContract) {
+    const rewards = await Reward.query()
+      .orderBy('chance', 'asc')
+      .orderBy('name', 'asc')
+      .select('id', 'name', 'chance')
+
+    return response.send(rewards)
+  }
+
   public async initiate ({ request, response, session, auth }: HttpContextContract) {
     const user = auth.user
     if (!user) {
@@ -91,7 +101,7 @@ export default class VotesController {
         builder.where('user_id', user_id)
         builder.orWhere('ip', ip)
       })
-      .where('created_at', '>',this.convertDate(DateTime.local().minus({ hour: 3 }).toISO()))
+      .where('created_at', '>', this.convertDate(DateTime.local().minus({ hour: 3 }).toISO()))
       .orderBy('created_at', 'desc')
       .first()
   }

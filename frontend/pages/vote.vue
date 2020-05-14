@@ -1,6 +1,6 @@
 <template>
   <main class="container px-4 py-10 mx-auto text-white lg:px-0">
-    <div class="flex flex-col lg:flex-row lg:-mx-4">
+    <div class="flex flex-col lg:items-start lg:flex-row lg:-mx-4">
       <!-- Left Content -->
       <div class="w-full lg:w-1/2 lg:mx-4">
         <div class="px-4 py-2 text-center bg-gray-900">
@@ -156,14 +156,31 @@
             <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>pour pouvoir voter.
           </div>
         </div>
+        <!-- TODO: Add leaderboard here -->
       </div>
       <!-- Right content -->
       <div class="w-full mt-5 bg-purple-900 lg:w-1/2 lg:mx-4 lg:mt-0">
-        <div class="h-80">
-          <button @click="currentStep++; currentStep === 4 ? currentStep = 0 : ''">nextStep</button>
+        <div class="px-4 py-4">
+          <h2 class="text-lg font-bold text-purple-200 uppercase font-title">Récompenses possibles</h2>
+          <table class="w-full mt-4 table-auto">
+            <thead>
+              <tr class="text-left border-b-4 border-purple-900 bg-purple-1000">
+                <th class="p-2 lg:px-4">Récompense</th>
+                <th class="p-2 lg:px-4">Chance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="reward in rewards"
+                :key="reward.id"
+                class="bg-purple-800 border-b-4 border-purple-900"
+              >
+                <td class="p-2 lg:px-4">{{ reward.name }}</td>
+                <td :class="chanceColor(reward.chance)" class="p-2 lg:px-4">{{ reward.chance }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="h-80"></div>
-        <div class="h-80"></div>
       </div>
     </div>
   </main>
@@ -174,13 +191,15 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   async asyncData ({ $axios, store }) {
+    let rewards = []
     let token = null
     try {
+      rewards = await $axios.$get('c/votes')
       token = store.getters['auth/logged'] ? await $axios.$get('vote/initiate') : null
     } catch (e) {
 
     }
-    return { token }
+    return { rewards, token }
   },
 
   data () {
@@ -196,6 +215,17 @@ export default {
   },
 
   methods: {
+    chanceColor (chance) {
+      if (chance >= 50) {
+        return 'text-purple-400'
+      } else if (chance >= 30) {
+        return 'text-purple-200'
+      } else if (chance >= 10) {
+        return 'text-yellow-500'
+      }
+
+      return 'text-blue-300'
+    },
     async confirmOut () {
       try {
         await this.$axios.$post('vote/confirm', {

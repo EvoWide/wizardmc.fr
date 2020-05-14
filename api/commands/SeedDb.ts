@@ -240,7 +240,7 @@ export default class SeedDb extends BaseCommand {
         },
         {
           name: '64 obsidian',
-          chance: 40,
+          chance: 60,
           commands: 'give 64 obsidian',
         },
         {
