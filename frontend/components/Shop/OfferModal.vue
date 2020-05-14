@@ -54,9 +54,15 @@ export default {
     }
   },
 
+  data () {
+    return {
+      alreadyBought: false
+    }
+  },
+
   computed: {
     canBuy () {
-      return this.logged && this.currentUser.credits > this.offer.price
+      return !this.alreadyBought && this.logged && this.currentUser.credits > this.offer.price
     },
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
@@ -65,6 +71,7 @@ export default {
   methods: {
     async buyOffer () {
       try {
+        this.alreadyBought = true
         const url = this.promotion ? `shop/buy/${this.offer.id}/${this.promotion.code}` : `shop/buy/${this.offer.id}`
         await this.$axios.$get(url)
 
@@ -78,6 +85,7 @@ export default {
       } catch (e) {
       }
 
+      this.alreadyBought = false
       this.dismiss()
     },
     dismiss () {

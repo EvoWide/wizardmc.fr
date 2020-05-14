@@ -247,10 +247,7 @@ export default {
 
   methods: {
     async applyPromo () {
-      try {
-        this.appliedPromotion = await this.$axios.$get(`promotional-code/${this.promotion}`)
-      } catch (e) {
-      }
+      this.appliedPromotion = await this.$axios.$get(`promotional-code/${this.promotion}`).catch(() => {})
     },
     buyOffer (offerId) {
       this.selectedOfferId = offerId
