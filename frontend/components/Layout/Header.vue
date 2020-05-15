@@ -1,5 +1,6 @@
 <template>
   <div class="absolute left-0 right-0">
+    <!-- Top bar -->
     <div class="h-10 bg-purple-900 border-b border-purple-800">
       <div
         class="container flex items-center justify-between h-full px-4 mx-auto text-lg text-purple-200"
@@ -9,7 +10,7 @@
         >
           <span class="text-yellow-600">666</span> Joueurs en ligne
         </div>
-        <div class="hidden text-sm lg:block">
+        <div class="hidden text-base lg:block">
           <template v-if="logged">
             <Dropdown class="ml-3" btn-classes="group" content-classes="w-48">
               <template v-slot:trigger>
@@ -20,7 +21,7 @@
                     alt="Player head"
                   />
                   <span
-                    class="ml-2 transition duration-100 ease-in group-hover:text-white group-focus:text-white"
+                    class="ml-2 text-base transition duration-100 ease-in group-hover:text-white group-focus:text-white"
                   >{{ currentUser.username }}</span>
                 </div>
               </template>
@@ -39,8 +40,17 @@
             </Dropdown>
           </template>
           <template v-else>
-            <nuxt-link :to="{name: 'login'}" class="hover:text-white">Connexion</nuxt-link>
-            <nuxt-link :to="{name: 'register'}" class="ml-2 hover:text-white">Inscription</nuxt-link>
+            <div class="flex items-center">
+              <nuxt-link
+                :to="{name: 'login'}"
+                class="nav-link nav-link-sm hover:text-white"
+              >Connexion</nuxt-link>
+              <img class="w-3 h-3 mx-3" src="@/assets/img/badge.png" alt="badge" />
+              <nuxt-link
+                :to="{name: 'register'}"
+                class="nav-link nav-link-sm hover:text-white"
+              >Inscription</nuxt-link>
+            </div>
           </template>
         </div>
         <!-- Mobile Nav toggler -->

@@ -35,3 +35,20 @@
 .nav-link.nuxt-link-exact-active::before {
   @apply opacity-100;
 }
+
+.nav-link-sm:before {
+  bottom: -8px;
+}
+
+.nav-link-sm.nuxt-link-exact-active {
+  @apply text-white;
+}
+
+.dropdown-link.nuxt-link-exact-active {
+  @apply text-white bg-purple-800;
+}
+
+.nav-link-sm:hover::before,
+.nav-link-sm.nuxt-link-exact-active::before {
+  @apply opacity-50;
+}
