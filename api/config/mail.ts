@@ -5,6 +5,7 @@
  * file.
  */
 
+import Env from '@ioc:Adonis/Core/Env'
 import { MailerConfigContract } from '@ioc:Adonis/Addons/Mail'
 
 const mailConfig: MailerConfigContract = {
@@ -35,8 +36,13 @@ const mailConfig: MailerConfigContract = {
   mailers: {
     smtp: {
       driver: 'smtp',
-      host: 'smtp.ethereal.email',
-      port: 587,
+      host: Env.get('SMTP_HOST', '127.0.0.1') as string,
+      port: Number(Env.get('SMTP_PORT', '587')),
+      auth: {
+        type: 'login',
+        user: Env.get('SMTP_USER', 'user') as string,
+        pass: Env.get('SMTP_PASS', 'pass') as string,
+      },
     },
   },
 }
