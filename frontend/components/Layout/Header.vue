@@ -149,11 +149,11 @@
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
             >Vote et gagne</nuxt-link>
-            <a
+            <nuxt-link
+              :to="{name: 'forum'}"
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
-            >Forum</a>
-
+            >Forum</nuxt-link>
             <nuxt-link
               :to="{name: 'faq'}"
               class="pl-4 text-sm text-gray-200 nav-link hover:text-white xl:text-base"

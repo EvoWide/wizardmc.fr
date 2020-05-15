@@ -31,10 +31,10 @@
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Classements</span>
             </nuxt-link>
-            <a href="#" class="w-1/2 footer-link sm:w-auto">
+            <nuxt-link :to="{ name: 'forum' }" class="w-1/2 footer-link sm:w-auto">
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Forum</span>
-            </a>
+            </nuxt-link>
             <nuxt-link :to="{ name: 'faq' }" class="w-1/2 footer-link sm:w-auto">
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>FAQ</span>
