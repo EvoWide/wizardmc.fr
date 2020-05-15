@@ -42,6 +42,9 @@ module.exports = {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         title: ['Asul', 'Mirza', ...defaultTheme.fontFamily.sans]
       },
+      fontSize: {
+        '8xl': '6rem'
+      },
       padding: {
         36: '9rem'
       },
