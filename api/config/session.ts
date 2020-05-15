@@ -100,7 +100,7 @@ const sessionConfig: SessionConfig = {
   | must be defined inside `config/redis.ts` file
   |
   */
-  redisConnection: 'session',
+  redisConnection: Env.get('REDIS_CONNECTION', 'local') as 'local',
 }
 
 export default sessionConfig
