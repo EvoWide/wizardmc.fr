@@ -101,7 +101,7 @@ export default class VotesController {
         builder.where('user_id', user_id)
         builder.orWhere('ip', ip)
       })
-      .where('created_at', '>', DateTime.local().minus({ hour: 3 }).toSQL())
+      .where('created_at', '>', DateTime.local().minus({ hour: 3, second: 5 }).toSQL())
       .orderBy('created_at', 'desc')
       .first()
   }
