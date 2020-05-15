@@ -101,14 +101,8 @@ export default class VotesController {
         builder.where('user_id', user_id)
         builder.orWhere('ip', ip)
       })
-      .where('created_at', '>', this.convertDate(DateTime.local().minus({ hour: 3 }).toISO()))
+      .where('created_at', '>', DateTime.local().minus({ hour: 3 }).toSQL())
       .orderBy('created_at', 'desc')
       .first()
-  }
-
-  private convertDate (date: string) {
-    date = date.replace('T', ' ')
-    date = date.substring(0, date.length - 5)
-    return date
   }
 }
