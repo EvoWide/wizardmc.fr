@@ -22,10 +22,13 @@
     "@adonisjs/lucid",
     "@adonisjs/redis",
     "@adonisjs/session",
-    "@adonisjs/auth"
+    "@adonisjs/auth",
+    "@adonisjs/mail",
+    "@adonisjs/view"
   ],
   "metaFiles": [
     ".env",
-    ".adonisrc.json"
+    ".adonisrc.json",
+    "resources/views/**/*.edge"
   ]
 }
