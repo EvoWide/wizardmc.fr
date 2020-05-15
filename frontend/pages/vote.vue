@@ -139,6 +139,10 @@
             <template v-else>
               <div class="mt-4 text-center">
                 <p>Merci d'avoir voté pour WizardMC!</p>
+                <p>
+                  Vous avez gagné
+                  <span class="text-yellow-500">{{ wonReward.name }}</span>.
+                </p>
                 <p class="mt-2">
                   Votre récompense a été ajoutée dans votre
                   <nuxt-link
@@ -154,8 +158,9 @@
             class="px-4 mt-4 text-center"
           >Vous avez déjà voté il y a moins de 3h.</div>
           <div v-else class="px-4 mt-4 text-center">
-            Vous devez vous
-            <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>pour pouvoir voter.
+            <span>Vous devez vous</span>
+            <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+            <span>pour pouvoir voter.</span>
           </div>
         </div>
         <!-- TODO: Add leaderboard here -->
@@ -209,6 +214,7 @@ export default {
       currentStep: 0,
       interval: null,
       out: null,
+      wonReward: null,
       timeBeforeVote: 15
     }
   },
@@ -238,10 +244,10 @@ export default {
       if (this.timeBeforeVote > 0) { return }
 
       try {
-        await this.$axios.$post('vote/confirm', {
+        ({ reward: this.wonReward } = await this.$axios.$post('vote/confirm', {
           out: this.out,
           token: this.token
-        })
+        }))
 
         this.currentStep++
       } catch (e) {

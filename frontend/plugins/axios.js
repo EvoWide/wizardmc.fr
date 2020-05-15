@@ -1,10 +1,10 @@
 export default ({ $axios, store }) => {
   $axios.onResponse((response) => {
-    if (Object.keys(response.data).length === 1 && response.data.success) {
+    if (response.data.globalSuccess) {
       store.dispatch('notification/add', {
         type: 'success',
         title: 'Succès',
-        message: response.data.success
+        message: response.data.globalSuccess
       })
     }
   })

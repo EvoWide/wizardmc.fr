@@ -79,7 +79,7 @@ export default class VotesController {
       }
     }
 
-    return response.globalSuccess(`Vous avez gagné : ${reward.name}`)
+    return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
   }
 
   private async getRandomReward () {
