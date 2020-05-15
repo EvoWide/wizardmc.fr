@@ -25,10 +25,11 @@ export default {
   css: [
     '@/assets/css/utils.css',
     '@/assets/css/pages/homepage.css',
-    '@/assets/css/components/form.css',
     '@/assets/css/components/button.css',
     '@/assets/css/components/footer.css',
-    '@/assets/css/components/navbar.css'
+    '@/assets/css/components/form.css',
+    '@/assets/css/components/navbar.css',
+    '@/assets/css/components/tooltip.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,7 +37,8 @@ export default {
   plugins: [
     { src: '@/plugins/recaptcha', ssr: false },
     '~/plugins/axios.js',
-    '~/plugins/nuxt-client-init.js'
+    '~/plugins/v-tooltip.js',
+    '~/plugins/nuxt-init.js'
   ],
   /*
   ** Nuxt.js dev-modules

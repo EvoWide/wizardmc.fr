@@ -183,10 +183,23 @@
               :class="{'offer-bought pointer-events-none': logged && currentUser.offers.includes(article.id)}"
               class="relative flex flex-col w-full mt-3 cursor-pointer select-none item-shop h-80 sm:mr-3"
             >
-              <div
+              <v-popover
                 v-if="appliedPromotion && !article.season && !article.unique"
-                class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-red-100 bg-red-900 border border-red-700 rounded-full"
-              >{{ Math.round(article.price * (1 - appliedPromotion.reduction / 100)) }} $</div>
+                trigger="hover"
+                placement="bottom"
+                class="absolute top-0 right-0 mt-1 mr-1"
+              >
+                <div
+                  class="px-4 py-2 font-semibold leading-none text-red-100 bg-red-900 border border-red-700 rounded-full"
+                >{{ Math.round(article.price * (1 - appliedPromotion.reduction / 100)) }} $</div>
+
+                <template slot="popover">
+                  <div>
+                    Prix original:
+                    <span class="text-yellow-500">{{ article.price }} $</span>
+                  </div>
+                </template>
+              </v-popover>
               <div
                 v-else
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
@@ -247,7 +260,7 @@ export default {
 
   methods: {
     async applyPromo () {
-      this.appliedPromotion = await this.$axios.$get(`promotional-code/${this.promotion}`).catch(() => {})
+      this.appliedPromotion = await this.$axios.$get(`promotional-code/${this.promotion}`).catch(() => { })
     },
     buyOffer (offerId) {
       this.selectedOfferId = offerId

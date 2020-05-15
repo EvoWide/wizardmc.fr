@@ -302,7 +302,12 @@
                 class="px-4 py-2 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
                 type="button"
               >Acheter</button>
-              <span v-else>Achat impossible</span>
+              <span
+                v-else
+                v-tooltip="{
+                  content: 'Vous devez acheter les grades précédents.',
+                }"
+              >Achat impossible</span>
             </div>
           </td>
         </tr>
