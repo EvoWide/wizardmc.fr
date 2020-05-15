@@ -19,8 +19,8 @@ export default class AppProvider {
           return this.status(code ?? 400).send({ errors: [{ message: error }] })
         }),
 
-        context.macro('globalSuccess', function globalSuccess (message: string) {
-          return this.send({ success: message })
+        context.macro('globalSuccess', function globalSuccess (message: string, data?: object) {
+          return this.send({ ...data, globalSuccess: message })
         })
       },
     )
