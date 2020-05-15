@@ -88,7 +88,7 @@ const sessionConfig: SessionConfig = {
   |
   */
   file: {
-    location: '',
+    location: '/sessions',
   },
 
   /*
