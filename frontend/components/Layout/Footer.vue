@@ -8,9 +8,10 @@
           <nuxt-link :to="{ name: 'index' }">
             <img class="block h-24" src="@/assets/img/logo-letter.png" alt="W logo" />
           </nuxt-link>
-          <p
-            class="mt-2 font-bold text-center text-purple-200"
-          >&copy; WizardMC {{ new Date().getFullYear() }}</p>
+          <p class="mt-2 font-bold text-center text-purple-200">
+            <span class="font-normal">&copy;</span>
+            WizardMC {{ new Date().getFullYear() }}
+          </p>
         </div>
         <div class="flex flex-col sm:justify-between sm:flex-row md:pl-10 lg:pl-20">
           <div class="flex flex-row flex-wrap sm:flex-col sm:pr-4 lg:pr-12">
@@ -94,8 +95,9 @@
     <div class="pt-2 pb-4 mt-8 text-sm text-white bg-purple-1000 md:text-base">
       <div class="container flex flex-wrap justify-between px-4 mx-auto">
         <div class="mt-2 text-white whitespace-no-wrap">
-          <a href="#" class="underline-effect">Mentions légales</a>
-          <a href="#" class="ml-2 underline-effect md:ml-4">Conditions générales</a>
+          <nuxt-link :to="{ name: 'cgu-cgv' }" class="underline-effect">
+            Conditions générales
+          </nuxt-link>
         </div>
         <div class="mt-2">
           <p>
