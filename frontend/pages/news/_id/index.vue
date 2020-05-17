@@ -49,7 +49,7 @@ export default {
   async asyncData ({ $axios, params, error }) {
     const post = await $axios.$get(`c/posts/${params.id}`)
       .catch((e) => {
-        error({ statusCode: 404, message: 'Article non trouvé' })
+        error({ statusCode: 404, customMessage: 'Article non trouvé' })
       })
 
     return { post }

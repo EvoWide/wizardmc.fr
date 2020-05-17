@@ -123,7 +123,7 @@
               <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
               <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
             </div>
-            <form v-if="appliedPromotion === null" @submit.prevent="applyPromo" class="flex">
+            <form v-if="appliedPromotion == null" @submit.prevent="applyPromo" class="flex">
               <input
                 v-model="promotion"
                 class="block w-full min-w-0 border form-input border-gradient"
