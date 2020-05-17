@@ -4,6 +4,7 @@ import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import uuid from '@lukeed/uuid'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
+import Mail from '@ioc:Adonis/Addons/Mail'
 
 export default class PasswordRequestController {
   private readonly DAILY_MAIL_LIMIT = 6
@@ -52,6 +53,16 @@ export default class PasswordRequestController {
         token: token,
       },
       expiresIn: '6h',
+    })
+
+    const origin = request.headers().origin as string
+
+    await Mail.send((message) => {
+      message.to('valikaelin@gmail.com')
+        // .from('noreply@wizardmc.fr')
+        .from('contact@wizardmc.fr')
+        .subject('WizardMC - Réinitialisation de votre mot de passe')
+        .htmlView('emails/reset_password', { url: origin + url, user })
     })
 
     return response.send({ success: true, url: url })
