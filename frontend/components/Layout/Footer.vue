@@ -80,7 +80,11 @@
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Twitter</span>
             </a>
-            <a href="#" class="w-1/2 footer-link sm:w-auto">
+            <a
+              href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA"
+              class="w-1/2 footer-link sm:w-auto"
+              target="_blank"
+            >
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>YouTube</span>
             </a>
@@ -95,9 +99,7 @@
     <div class="pt-2 pb-4 mt-8 text-sm text-white bg-purple-1000 md:text-base">
       <div class="container flex flex-wrap justify-between px-4 mx-auto">
         <div class="mt-2 text-white whitespace-no-wrap">
-          <nuxt-link :to="{ name: 'cgu-cgv' }" class="underline-effect">
-            Conditions générales
-          </nuxt-link>
+          <nuxt-link :to="{ name: 'cgu-cgv' }" class="underline-effect">Conditions générales</nuxt-link>
         </div>
         <div class="mt-2">
           <p>

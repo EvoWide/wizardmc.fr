@@ -138,7 +138,7 @@
                 <a href="https://twitter.com/WizardMC__" target="_blank">
                   <img src="@/assets/img/socials/Twitter.svg" alt="Twitter" />
                 </a>
-                <a href="#">
+                <a href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA" target="_blank">
                   <img src="@/assets/img/socials/YouTube.svg" alt="YouTube" />
                 </a>
               </div>
