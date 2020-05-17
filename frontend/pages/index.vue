@@ -142,7 +142,7 @@
                   <img src="@/assets/img/socials/YouTube.svg" alt="YouTube" />
                 </a>
               </div>
-              <a href="#" class="flex items-center justify-center">
+              <a href="ts3server://ts.wizardmc.fr" class="flex items-center justify-center">
                 <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak" />
                 <span class="pl-4 text-lg text-white uppercase font-bol">ts.wizardmc.fr</span>
               </a>

@@ -84,7 +84,7 @@
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>YouTube</span>
             </a>
-            <a href="#" class="w-1/2 footer-link sm:w-auto">
+            <a href="ts3server://ts.wizardmc.fr" class="w-1/2 footer-link sm:w-auto">
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Teamspeak</span>
             </a>
