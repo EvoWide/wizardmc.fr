@@ -1,16 +1,15 @@
 <template>
-  <div class="flex items-center the-navbar__user-meta" v-if="activeUserInfo.displayName">
+  <div class="flex items-center the-navbar__user-meta" v-if="activeUserInfo.username">
     <div class="hidden leading-tight text-right sm:block">
-      <p class="font-semibold">{{ activeUserInfo.displayName }}</p>
+      <p class="font-semibold">{{ activeUserInfo.username }}</p>
       <small>Available</small>
     </div>
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
       <div class="ml-3 con-img">
         <img
-          v-if="activeUserInfo.photoURL"
           key="onlineImg"
-          :src="activeUserInfo.photoURL"
+          src="https://minotar.net/avatar/Kalane"
           alt="user-img"
           width="40"
           height="40"
@@ -20,12 +19,14 @@
 
       <vs-dropdown-menu class="vx-navbar-dropdown">
         <ul style="min-width: 9rem">
-          <li class="flex px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
-            <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-            <span class="ml-2">Profile</span>
+          <li class="px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
+            <a href="http://localhost:3000" class="flex text-grey">
+              <feather-icon icon="PackageIcon" svgClasses="w-4 h-4" />
+              <span class="ml-2">Site public</span>
+            </a>
           </li>
 
-          <li class="flex px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
+          <!-- <li class="flex px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
             <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Inbox</span>
           </li>
@@ -43,12 +44,12 @@
           <li class="flex px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
             <feather-icon icon="HeartIcon" svgClasses="w-4 h-4" />
             <span class="ml-2">Wish List</span>
-          </li>
+          </li>-->
 
           <vs-divider class="m-1" />
 
           <li
-            class="flex px-4 py-2 cursor-pointer hover:bg-primary hover:text-white"
+            class="flex px-4 py-2 cursor-pointer text-grey hover:bg-primary hover:text-white"
             @click="logout"
           >
             <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4" />
@@ -64,15 +65,16 @@
 export default {
   computed: {
     activeUserInfo () {
-      return this.$store.state.AppActiveUser
+      return this.$store.state.auth.currentUser
     }
   },
   methods: {
-    logout () {
-      localStorage.removeItem('userInfo')
-
-      // This is just for demo Purpose. If user clicks on logout -> redirect
-      this.$router.push('/pages/login').catch(() => { })
+    async logout () {
+      try {
+        await this.$store.dispatch('auth/logout')
+        // this.$router.push('/login')
+        window.location.href = 'http://localhost:3000/login'
+      } catch (e) { }
     }
   }
 }

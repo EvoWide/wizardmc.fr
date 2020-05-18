@@ -30,7 +30,7 @@
 
         <search-bar class="mr-4" />
 
-        <notification-drop-down />
+        <!-- <notification-drop-down /> -->
 
         <profile-drop-down />
       </vs-navbar>
@@ -42,7 +42,7 @@
 <script>
 import Bookmarks from './components/Bookmarks.vue'
 import SearchBar from './components/SearchBar.vue'
-import NotificationDropDown from './components/NotificationDropDown.vue'
+// import NotificationDropDown from './components/NotificationDropDown.vue'
 import ProfileDropDown from './components/ProfileDropDown.vue'
 
 export default {
@@ -56,7 +56,7 @@ export default {
   components: {
     Bookmarks,
     SearchBar,
-    NotificationDropDown,
+    // NotificationDropDown,
     ProfileDropDown
   },
   computed: {

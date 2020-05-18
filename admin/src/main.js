@@ -72,10 +72,19 @@ require('./assets/css/iconfont.css')
 // import 'vue-select/dist/vue-select.css';
 
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+(async () => {
+  try {
+    await store.dispatch('auth/getCurrentUser')
+
+    new Vue({
+      router,
+      store,
+      render: h => h(App)
+    }).$mount('#app')
+  } catch (error) {
+    // Not logged in
+    window.location.href = 'http://localhost:3000/login'
+  }
+})()

@@ -28,12 +28,11 @@
         <div class="flex items-end justify-between header-sidebar" slot="header">
           <!-- Logo -->
           <router-link tag="div" class="flex items-center cursor-pointer vx-logo" to="/">
-            <logo class="w-10 mr-4 fill-current text-primary" />
+            <img class="w-12 mr-4" src="@/assets/images/logo/logo.png" alt="WizardMC">
             <span
               class="vx-logo-text text-primary"
               v-show="isMouseEnter || !reduce"
-              v-if="title"
-            >{{ title }}</span>
+            >Dashboard</span>
           </router-link>
           <!-- /Logo -->
 

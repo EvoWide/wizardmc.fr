@@ -66,7 +66,10 @@ module.exports = {
     'prefer-template': 'error',
 
     // Vue
-    "vue/html-quotes": ["error", "double"]
+    "vue/html-quotes": ["error", "double"],
+
+    // Custom
+    "no-empty": 'off'
   },
   parserOptions: {
     parser: 'babel-eslint',
