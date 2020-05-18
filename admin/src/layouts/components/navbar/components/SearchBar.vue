@@ -1,6 +1,10 @@
 <template>
   <div class="flex">
-    <div class="search-full-container w-full h-full absolute left-0 top-0" :class="{'flex': showFullSearch}" v-show="showFullSearch">
+    <div
+      class="absolute top-0 left-0 w-full h-full search-full-container"
+      :class="{'flex': showFullSearch}"
+      v-show="showFullSearch"
+    >
       <vx-auto-suggest
         ref="navbarSearch"
         :autoFocus="showFullSearch"
@@ -13,38 +17,42 @@
         placeholder="Explore Vuexy..."
         @input="hnd_search_query_update"
         @selected="selected"
-        @closeSearchbar="showFullSearch = false">
-
+        @closeSearchbar="showFullSearch = false"
+      >
         <template v-slot:group="{ group_name }">
           <p class="font-semibold text-primary">{{ group_name | title }}</p>
         </template>
 
         <!-- Pages Suggestion -->
         <template v-slot:pages="{ suggestion }">
-          <div class="flex items-end leading-none py-1">
+          <div class="flex items-end py-1 leading-none">
             <feather-icon :icon="suggestion.icon" svgClasses="h-5 w-5" class="mr-4" />
             <span class="mt-1">{{ suggestion.title }}</span>
           </div>
         </template>
 
         <!-- No Items Slot -->
-        <template v-slot:noResult="{ group_name }">
+        <template v-slot:noResult="{  }">
           <div class="flex items-center">
             <feather-icon icon="InfoIcon" svgClasses="h-5 w-5" class="mr-4" />
             <span>No results found.</span>
           </div>
         </template>
-
       </vx-auto-suggest>
 
-      <div class="absolute right-0 h-full z-50">
+      <div class="absolute right-0 z-50 h-full">
         <feather-icon
           icon="XIcon"
-          class="px-4 cursor-pointer h-full close-search-icon"
-          @click="showFullSearch = false" />
+          class="h-full px-4 cursor-pointer close-search-icon"
+          @click="showFullSearch = false"
+        />
       </div>
     </div>
-    <feather-icon icon="SearchIcon" @click="showFullSearch = true" class="cursor-pointer navbar-fuzzy-search ml-4" />
+    <feather-icon
+      icon="SearchIcon"
+      @click="showFullSearch = true"
+      class="ml-4 cursor-pointer navbar-fuzzy-search"
+    />
   </div>
 </template>
 
@@ -63,7 +71,7 @@ export default {
   },
   methods: {
     selected (item) {
-      if (item.pages) this.$router.push(item.pages.url).catch(() => {})
+      if (item.pages) this.$router.push(item.pages.url).catch(() => { })
       this.showFullSearch = false
     },
     hnd_search_query_update (query) {

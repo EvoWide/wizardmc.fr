@@ -1,14 +1,19 @@
 <template>
   <div class="excel-import">
-    <input type="file" ref="fileInput" class="hidden" accept=".xlsx, .xls" @change="handleClick">
+    <input type="file" ref="fileInput" class="hidden" accept=".xlsx, .xls" @change="handleClick" />
     <div
       @click="$refs.fileInput.click()"
       @drop="handleDrop"
       @dragover="handleDragover"
       @dragenter="handleDragover"
-      class="px-8 py-16 cursor-pointer text-center border-2 border-dashed d-theme-border-grey-light d-theme-dark-bg text-xl">
-      <feather-icon icon="UploadCloudIcon" svgClasses="h-16 w-16 stroke-current text-grey" class="block" />
-      <span>Drop Excel File or </span>
+      class="px-8 py-16 text-xl text-center border-2 border-dashed cursor-pointer d-theme-border-grey-light d-theme-dark-bg"
+    >
+      <feather-icon
+        icon="UploadCloudIcon"
+        svgClasses="h-16 w-16 stroke-current text-grey"
+        class="block"
+      />
+      <span>Drop Excel File or</span>
       <span class="font-medium text-primary" @click.stop="$refs.fileInput.click()">Browse</span>
       <!-- <vs-button type="border" @click.stop="$refs.fileInput.click()">Browse</vs-button> -->
     </div>
@@ -50,7 +55,7 @@ export default {
       for (C = range.s.c; C <= range.e.c; ++C) { /* walk every column in the range */
         const cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
         /* find the cell in the first row */
-        let hdr = `UNKNOWN ${  C}` // <-- replace with your desired default
+        let hdr = `UNKNOWN ${C}` // <-- replace with your desired default
         if (cell && cell.t) hdr = XLSX.utils.format_cell(cell)
         headers.push(hdr)
       }

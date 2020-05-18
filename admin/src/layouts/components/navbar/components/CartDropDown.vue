@@ -1,59 +1,84 @@
 <template>
   <!-- CART DROPDOWN -->
   <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-      <feather-icon icon="ShoppingCartIcon" class="cursor-pointer ml-4 mr-6 mt-1" :badge="cartItems.length" />
-      <vs-dropdown-menu class="cart-dropdown vx-navbar-dropdown" :class="{'dropdown-custom': cartItems.length}">
+    <feather-icon
+      icon="ShoppingCartIcon"
+      class="mt-1 ml-4 mr-6 cursor-pointer"
+      :badge="cartItems.length"
+    />
+    <vs-dropdown-menu
+      class="cart-dropdown vx-navbar-dropdown"
+      :class="{'dropdown-custom': cartItems.length}"
+    >
+      <!-- IF CART HAVE ITEMS: HEADER -->
+      <template v-if="cartItems.length">
+        <div class="p-5 text-center text-white notification-header bg-primary">
+          <h3 class="text-white">
+            {{ cartItems.length }} Item
+            <span v-show="cartItems.length > 1">s</span>
+          </h3>
+          <p class="opacity-75">In Your Cart</p>
+        </div>
 
-          <!-- IF CART HAVE ITEMS: HEADER -->
-          <template v-if="cartItems.length">
-              <div class="notification-header text-center p-5 bg-primary text-white">
-                  <h3 class="text-white">{{ cartItems.length }} Item<span v-show="cartItems.length > 1">s</span></h3>
-                  <p class="opacity-75">In Your Cart</p>
-              </div>
-
-              <!-- CART ITEMS -->
-              <component :is="scrollbarTag" ref="mainSidebarPs" class="scroll-area--cart-items-dropdowm p-0 mb-10" :settings="settings" :key="$vs.rtl">
-              <ul class="bordered-items">
-                  <li
-                    v-for="item in cartItems"
-                    :key="item.objectID"
-                    class="vx-row no-gutter cart-item cursor-pointer"
-                    @click="$router.push({name: 'ecommerce-item-detail-view', params: {item_id: item.objectID }}).catch(() => {})">
-
-                      <!-- IMG COL -->
-                      <div class="vx-col w-1/5 item-img-container bg-white flex items-center justify-center">
-                          <img :src="item.image" alt="item" class="cart-dropdown-item-img p-4">
-                      </div>
-
-                      <!-- INFO COL -->
-                      <div class="vx-col w-4/5 pr-4 pl-2 py-4 flex flex-col justify-center">
-                          <span class="font-medium block cart-item-title truncate">{{ item.name }}</span>
-                          <small class="truncate mb-2">{{ item.description }}</small>
-                          <div class="flex items-center justify-between">
-                              <span class="text-sm font-medium">{{ item.quantity }} <small>x</small> ${{ item.price }}</span>
-                              <feather-icon icon="XIcon" svgClasses="h-4 w-4 cursor-pointer text-danger" class="hover:text-danger" @click.stop="removeItemFromCart(item)" />
-                          </div>
-                      </div>
-                  </li>
-              </ul>
-              </component>
+        <!-- CART ITEMS -->
+        <component
+          :is="scrollbarTag"
+          ref="mainSidebarPs"
+          class="p-0 mb-10 scroll-area--cart-items-dropdowm"
+          :settings="settings"
+          :key="$vs.rtl"
+        >
+          <ul class="bordered-items">
+            <li
+              v-for="item in cartItems"
+              :key="item.objectID"
+              class="cursor-pointer vx-row no-gutter cart-item"
+              @click="$router.push({name: 'ecommerce-item-detail-view', params: {item_id: item.objectID }}).catch(() => {})"
+            >
+              <!-- IMG COL -->
               <div
-                class=" checkout-footer fixed bottom-0 rounded-b-lg text-primary font-semibold w-full p-2 text-center border border-b-0 border-l-0 border-r-0 border-solid d-theme-border-grey-light cursor-pointer"
-                @click="$router.push('/apps/eCommerce/checkout').catch(() => {})">
-
-                <span class="flex items-center justify-center">
-                  <feather-icon icon="ShoppingCartIcon" svgClasses="h-4 w-4" />
-                  <span class="ml-2">Checkout</span>
-                </span>
-
+                class="flex items-center justify-center w-1/5 bg-white vx-col item-img-container"
+              >
+                <img :src="item.image" alt="item" class="p-4 cart-dropdown-item-img" />
               </div>
-          </template>
 
-          <!-- IF CART IS EMPTY -->
-          <template v-else>
-              <p class="p-4">Your Cart Is Empty.</p>
-          </template>
-      </vs-dropdown-menu>
+              <!-- INFO COL -->
+              <div class="flex flex-col justify-center w-4/5 py-4 pl-2 pr-4 vx-col">
+                <span class="block font-medium truncate cart-item-title">{{ item.name }}</span>
+                <small class="mb-2 truncate">{{ item.description }}</small>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-medium">
+                    {{ item.quantity }}
+                    <small>x</small>
+                    ${{ item.price }}
+                  </span>
+                  <feather-icon
+                    icon="XIcon"
+                    svgClasses="h-4 w-4 cursor-pointer text-danger"
+                    class="hover:text-danger"
+                    @click.stop="removeItemFromCart(item)"
+                  />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </component>
+        <div
+          class="fixed bottom-0 w-full p-2 font-semibold text-center border border-b-0 border-l-0 border-r-0 border-solid rounded-b-lg cursor-pointer checkout-footer text-primary d-theme-border-grey-light"
+          @click="$router.push('/apps/eCommerce/checkout').catch(() => {})"
+        >
+          <span class="flex items-center justify-center">
+            <feather-icon icon="ShoppingCartIcon" svgClasses="h-4 w-4" />
+            <span class="ml-2">Checkout</span>
+          </span>
+        </div>
+      </template>
+
+      <!-- IF CART IS EMPTY -->
+      <template v-else>
+        <p class="p-4">Your Cart Is Empty.</p>
+      </template>
+    </vs-dropdown-menu>
   </vs-dropdown>
 </template>
 

@@ -1,7 +1,6 @@
 <template>
   <div class="vx-auto-suggest">
-    <div class="flex items-center relative">
-
+    <div class="relative flex items-center">
       <!-- Input -->
       <vs-input
         ref="input"
@@ -17,57 +16,61 @@
         @keyup.down="increaseIndex"
         @keyup.enter="suggestionSelected"
         @focus="updateInputFocus"
-        @blur="updateInputFocus(false)" />
+        @blur="updateInputFocus(false)"
+      />
     </div>
 
     <!-- Group List -->
     <ul
       ref="scrollContainer"
       :class="{'hidden': !inputFocused}"
-      class="auto-suggest-suggestions-list z-50 rounded-lg mt-2 shadow-lg overflow-x-hidden"
+      class="z-50 mt-2 overflow-x-hidden rounded-lg shadow-lg auto-suggest-suggestions-list"
       @mouseenter="insideSuggestions = true"
       @mouseleave="insideSuggestions = false"
       @focus="updateInputFocus"
       @blur="updateInputFocus(false)"
-      tabindex="-1">
-
+      tabindex="-1"
+    >
       <li
         ref="grp_list"
         v-for="(suggestion_list, grp_name, grp_index) in filteredData"
         :key="grp_index"
-        class="auto-suggest__suggestion-group-container">
+        class="auto-suggest__suggestion-group-container"
+      >
+        <!-- Group Header -->
+        <p class="px-4 pt-3 pb-1 auto-suggest__suggestion-group-title" v-if="!hideGroupTitle">
+          <slot name="group" :group_name="grp_name"></slot>
+        </p>
 
-          <!-- Group Header -->
-          <p class="auto-suggest__suggestion-group-title pt-3 pb-1 px-4" v-if="!hideGroupTitle">
-            <slot name="group" :group_name="grp_name"></slot>
-          </p>
+        <!-- Suggestion List of each group -->
+        <ul>
+          <li
+            v-for="(suggestion, index) in suggestion_list"
+            :key="index"
+            class="px-4 py-3 cursor-pointer auto-suggest__suggestion-group__suggestion"
+            :class="{'vx-auto-suggest__current-selected': currentSelected == `${grp_index}.${index}`}"
+            @mouseenter="currentSelected = `${grp_index}.${index}`"
+            @click="suggestionSelected"
+          >
+            <slot :name="grp_name" :suggestion="suggestion"></slot>
+          </li>
 
-          <!-- Suggestion List of each group -->
-          <ul>
-            <li
-              v-for="(suggestion, index) in suggestion_list"
-              :key="index"
-              class="auto-suggest__suggestion-group__suggestion py-3 px-4 cursor-pointer"
-              :class="{'vx-auto-suggest__current-selected': currentSelected == `${grp_index}.${index}`}"
-              @mouseenter="currentSelected = `${grp_index}.${index}`"
-              @click="suggestionSelected">
-              <slot :name="grp_name" :suggestion="suggestion"></slot>
-            </li>
-
-            <li class="auto-suggest__suggestion-group__suggestion py-3 px-4 no-results" v-if="!suggestion_list.length && searchQuery">
-              <slot name="noResult" :group_name="grp_name">
-                  <p>No Results Found.</p>
-              </slot>
-            </li>
-          </ul>
+          <li
+            class="px-4 py-3 auto-suggest__suggestion-group__suggestion no-results"
+            v-if="!suggestion_list.length && searchQuery"
+          >
+            <slot name="noResult" :group_name="grp_name">
+              <p>No Results Found.</p>
+            </slot>
+          </li>
+        </ul>
       </li>
     </ul>
-
   </div>
 </template>
 
 <script>
-export default{
+export default {
   props: {
     placeholder: {
       type: String,
@@ -148,7 +151,7 @@ export default{
         }
       }
 
-      if (grp_index !== null) this.currentSelected = `${grp_index  }.0`
+      if (grp_index !== null) this.currentSelected = `${grp_index}.0`
     }
   },
   methods: {
@@ -194,7 +197,7 @@ export default{
         const grp_of_selected_item = Object.keys(this.data)[grp_index]
         const selected_item = this.filteredData[grp_of_selected_item][item_index]
 
-        this.$emit('selected', {[grp_of_selected_item]: selected_item})
+        this.$emit('selected', { [grp_of_selected_item]: selected_item })
 
         this.searchQuery = ''
       }
@@ -214,16 +217,16 @@ export default{
       if (val) {
         // If active item is not of last item in grp
         if (active_grp_total_items - 1 > item_i) {
-          this.currentSelected = `${grp_i  }.${   Number(item_i) + 1}`
+          this.currentSelected = `${grp_i}.${Number(item_i) + 1}`
 
-        // If active item grp is not last in grp list
+          // If active item grp is not last in grp list
         } else if (grp_i < grp_arr.length - 1) {
 
           for (let i = Number(grp_i) + 1; i < grp_arr.length; i++) {
 
             // If navigating group have items => Then move in that group
             if (grp_arr[i][1].length > 0) {
-              this.currentSelected = `${Number(i)  }.0`
+              this.currentSelected = `${Number(i)}.0`
               break
             }
           }
@@ -231,16 +234,16 @@ export default{
       } else {
         // If active item is not of first item in grp
         if (Number(item_i)) {
-          this.currentSelected = `${grp_i  }.${   Number(item_i) - 1}`
+          this.currentSelected = `${grp_i}.${Number(item_i) - 1}`
 
-        // If active item grp  is not first in grp list
+          // If active item grp  is not first in grp list
         } else if (Number(grp_i)) {
 
           for (let i = Number(grp_i) - 1; i >= 0; i--) {
 
             // If navigating group have items => Then move in that group
             if (grp_arr[i][1].length > 0) {
-              this.currentSelected = `${i  }.${  grp_arr[i][1].length - 1}`
+              this.currentSelected = `${i}.${grp_arr[i][1].length - 1}`
               break
             }
           }

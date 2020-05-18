@@ -1,11 +1,16 @@
 <template>
-  <div class="navbar-bookmarks flex items-center">
+  <div class="flex items-center navbar-bookmarks">
     <!-- STARRED PAGES - FIRST 10 -->
     <ul class="vx-navbar__starred-pages">
       <draggable v-model="starredPagesLimited" :group="{name: 'pinList'}" class="flex cursor-move">
         <li class="starred-page" v-for="page in starredPagesLimited" :key="page.url">
           <vx-tooltip :text="page.title" position="bottom" delay=".3s">
-            <feather-icon :svgClasses="['h-6 w-6 stroke-current', textColor]" class="p-2 cursor-pointer" :icon="page.icon" @click="$router.push(page.url).catch(() => {})" />
+            <feather-icon
+              :svgClasses="['h-6 w-6 stroke-current', textColor]"
+              class="p-2 cursor-pointer"
+              :icon="page.icon"
+              @click="$router.push(page.url).catch(() => {})"
+            />
           </vx-tooltip>
         </li>
       </draggable>
@@ -14,12 +19,21 @@
     <!-- STARRED PAGES MORE -->
     <div class="vx-navbar__starred-pages--more-dropdown" v-if="starredPagesMore.length">
       <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
-        <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" class="cursor-pointer p-2"></feather-icon>
+        <feather-icon icon="ChevronDownIcon" svgClasses="h-4 w-4" class="p-2 cursor-pointer"></feather-icon>
         <vs-dropdown-menu>
           <ul class="vx-navbar__starred-pages-more--list">
             <draggable v-model="starredPagesMore" :group="{name: 'pinList'}" class="cursor-move">
-              <li class="starred-page--more flex items-center cursor-pointer" v-for="page in starredPagesMore" :key="page.url" @click="$router.push(page.url).catch(() => {})">
-                <feather-icon class="ml-2 mr-1" :icon="page.icon" :svgClasses="['h-5 w-5 stroke-current', textColor]"></feather-icon>
+              <li
+                class="flex items-center cursor-pointer starred-page--more"
+                v-for="page in starredPagesMore"
+                :key="page.url"
+                @click="$router.push(page.url).catch(() => {})"
+              >
+                <feather-icon
+                  class="ml-2 mr-1"
+                  :icon="page.icon"
+                  :svgClasses="['h-5 w-5 stroke-current', textColor]"
+                ></feather-icon>
                 <span class="px-2 pt-2 pb-1">{{ page.title }}</span>
               </li>
             </draggable>
@@ -29,8 +43,17 @@
     </div>
 
     <div class="bookmark-container">
-      <feather-icon icon="StarIcon" :svgClasses="['stoke-current text-warning', textColor]" class="cursor-pointer p-2" @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown" />
-      <div v-click-outside="outside" class="absolute bookmark-list w-1/3 xl:w-1/4 mt-4" v-if="showBookmarkPagesDropdown">
+      <feather-icon
+        icon="StarIcon"
+        :svgClasses="['stoke-current text-warning', textColor]"
+        class="p-2 cursor-pointer"
+        @click.stop="showBookmarkPagesDropdown = !showBookmarkPagesDropdown"
+      />
+      <div
+        v-click-outside="outside"
+        class="absolute w-1/3 mt-4 bookmark-list xl:w-1/4"
+        v-if="showBookmarkPagesDropdown"
+      >
         <vx-auto-suggest
           ref="bookmarkAutoSuggest"
           :autoFocus="true"
@@ -44,22 +67,22 @@
           hideGroupTitle
           background-overlay
           @input="hnd_search_query_update"
-          @selected="selected">
-
+          @selected="selected"
+        >
           <!-- Pages Suggestion -->
           <template v-slot:pages="{ suggestion }">
             <div class="flex items-center justify-between">
-              <div class="flex items-end leading-none py-1">
+              <div class="flex items-end py-1 leading-none">
                 <feather-icon :icon="suggestion.icon" svgClasses="h-5 w-5" class="mr-4" />
                 <span class="mt-1">{{ suggestion.title }}</span>
               </div>
               <feather-icon
                 icon="StarIcon"
                 :svgClasses="[{'text-warning': suggestion.is_bookmarked}, 'h-5 w-5 stroke-current mt-1']"
-                @click.stop="actionClicked(suggestion)" />
+                @click.stop="actionClicked(suggestion)"
+              />
             </div>
           </template>
-
         </vx-auto-suggest>
       </div>
     </div>
@@ -67,7 +90,7 @@
 </template>
 
 <script>
-import draggable     from 'vuedraggable'
+import draggable from 'vuedraggable'
 import VxAutoSuggest from '@/components/vx-auto-suggest/VxAutoSuggest.vue'
 
 export default {
@@ -83,7 +106,7 @@ export default {
   },
   data () {
     return {
-      showBookmarkPagesDropdown : false
+      showBookmarkPagesDropdown: false
     }
   },
   watch: {
@@ -93,7 +116,7 @@ export default {
   },
   computed: {
     navbarSearchAndPinList () {
-      return {pages: this.$store.state.navbarSearchAndPinList['pages']}
+      return { pages: this.$store.state.navbarSearchAndPinList['pages'] }
     },
     starredPages () {
       return this.$store.state.starredPages
@@ -115,14 +138,14 @@ export default {
       }
     },
     textColor () {
-      return {'text-white': this.$store.state.mainLayoutType === 'vertical' && this.navbarColor !== (this.$store.state.theme === 'dark' ? '#10163a' : '#fff') }
+      return { 'text-white': this.$store.state.mainLayoutType === 'vertical' && this.navbarColor !== (this.$store.state.theme === 'dark' ? '#10163a' : '#fff') }
     }
   },
   methods: {
     selected (obj) {
       this.$store.commit('TOGGLE_CONTENT_OVERLAY', false)
       this.showBookmarkPagesDropdown = false
-      this.$router.push(obj.pages.url).catch(() => {})
+      this.$router.push(obj.pages.url).catch(() => { })
     },
     actionClicked (item) {
       this.$store.dispatch('updateStarredPage', { url: item.url, val: !item.is_bookmarked })
@@ -143,7 +166,7 @@ export default {
         const handler = (e) => {
           /* eslint-disable no-mixed-operators */
           if (bubble || !el.contains(e.target) && el !== e.target) {
-          /* eslint-enable no-mixed-operators */
+            /* eslint-enable no-mixed-operators */
             binding.value(e)
           }
         }

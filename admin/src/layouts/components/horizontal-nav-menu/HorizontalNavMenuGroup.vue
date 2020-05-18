@@ -1,66 +1,75 @@
 <template>
   <div
-    class  = "h-nav-group relative"
-    :class = "[
+    class="relative h-nav-group"
+    :class="[
       {'h-nav-group-open'            : openItems        },
       {'h-nav-group-active'          : open             },
       {'disabled-item pointer-events-none': group.isDisabled }
     ]"
-    @mouseover = "mouseover"
-    @mouseleave  = "mouseout">
-
-      <!-- Group Label -->
-      <div class="group-header w-full flex items-center">
-        <span class="flex items-center w-full">
-
-          <!-- Group Icon -->
-          <feather-icon
-            v-if        = "group.icon  || (this.groupIndex > Math.floor(this.groupIndex))"
-            :icon       = "group.icon  || 'CircleIcon'"
-            :svgClasses = "iconClasses" />
-
-          <!-- Group Name -->
-          <span class="truncate mr-3 select-none">{{ group.name }}</span>
-        </span>
-
-        <!-- Group Collapse Icon -->
+    @mouseover="mouseover"
+    @mouseleave="mouseout"
+  >
+    <!-- Group Label -->
+    <div class="flex items-center w-full group-header">
+      <span class="flex items-center w-full">
+        <!-- Group Icon -->
         <feather-icon
-          :class     = "[{'rotate90' : openItems}, 'feather-grp-header-arrow']"
-          :icon       = "bottom ? 'ChevronDownIcon' : $vs.rtl ? 'ChevronLeftIcon' : 'ChevronRightIcon'"
-          svg-classes= "w-4 h-4" />
-      </div>
-      <!-- /Group Label -->
+          v-if="group.icon  || (this.groupIndex > Math.floor(this.groupIndex))"
+          :icon="group.icon  || 'CircleIcon'"
+          :svgClasses="iconClasses"
+        />
 
-      <!-- Group Items -->
-      <transition name="fade-bottom-2x">
-      <ul :style="styleItems" class="h-nav-group-items h-nav-menu-dd absolute shadow-drop py-2" v-show="openItems" ref="childDropdown">
+        <!-- Group Name -->
+        <span class="mr-3 truncate select-none">{{ group.name }}</span>
+      </span>
+
+      <!-- Group Collapse Icon -->
+      <feather-icon
+        :class="[{'rotate90' : openItems}, 'feather-grp-header-arrow']"
+        :icon="bottom ? 'ChevronDownIcon' : $vs.rtl ? 'ChevronLeftIcon' : 'ChevronRightIcon'"
+        svg-classes="w-4 h-4"
+      />
+    </div>
+    <!-- /Group Label -->
+
+    <!-- Group Items -->
+    <transition name="fade-bottom-2x">
+      <ul
+        :style="styleItems"
+        class="absolute py-2 h-nav-group-items h-nav-menu-dd shadow-drop"
+        v-show="openItems"
+        ref="childDropdown"
+      >
         <li v-for="(groupItem, index) in group.submenu" :key="index">
-
           <h-nav-menu-group
-            v-if        = "groupItem.submenu"
-            :group      = "groupItem"
-            :groupIndex = "Number(`${groupIndex}.${index+1}`)"
-            :open       = "isGroupActive(groupItem)"
-            :openHover  = "openHover" />
-
+            v-if="groupItem.submenu"
+            :group="groupItem"
+            :groupIndex="Number(`${groupIndex}.${index+1}`)"
+            :open="isGroupActive(groupItem)"
+            :openHover="openHover"
+          />
 
           <h-nav-menu-item
             v-else
             icon-small
-            :index  = "groupIndex + '.' + index"
-            :to     = "groupItem.slug !== 'external' ? groupItem.url : null"
-            :href   = "groupItem.slug === 'external' ? groupItem.url : null"
-            :icon   = "itemIcon"
-            :slug   = "groupItem.slug"
-            :target = "groupItem.target">
-              <span class="truncate">{{ groupItem.name }}</span>
-              <vs-chip class="ml-auto" :color="groupItem.tagColor" v-if="groupItem.tag">{{ groupItem.tag }}</vs-chip>
+            :index="groupIndex + '.' + index"
+            :to="groupItem.slug !== 'external' ? groupItem.url : null"
+            :href="groupItem.slug === 'external' ? groupItem.url : null"
+            :icon="itemIcon"
+            :slug="groupItem.slug"
+            :target="groupItem.target"
+          >
+            <span class="truncate">{{ groupItem.name }}</span>
+            <vs-chip
+              class="ml-auto"
+              :color="groupItem.tagColor"
+              v-if="groupItem.tag"
+            >{{ groupItem.tag }}</vs-chip>
           </h-nav-menu-item>
-
         </li>
       </ul>
-      </transition>
-      <!-- /Group Items -->
+    </transition>
+    <!-- /Group Items -->
   </div>
 </template>
 
@@ -70,19 +79,19 @@
 import HNavMenuItem from './HorizontalNavMenuItem.vue'
 
 export default {
-  name  : 'h-nav-menu-group',
-  props : {
-    openHover  : { type: Boolean, default: true },
-    open       : { type: Boolean, default: false },
-    group      : { type: Object },
-    groupIndex : { type: Number },
-    bottom     : { type: Boolean, default: false }
+  name: 'h-nav-menu-group',
+  props: {
+    openHover: { type: Boolean, default: true },
+    open: { type: Boolean, default: false },
+    group: { type: Object },
+    groupIndex: { type: Number },
+    bottom: { type: Boolean, default: false }
   },
   components: {
     HNavMenuItem
   },
   data: () => ({
-    openItems : false,
+    openItems: false,
     hovered: false,
     dropLeft: false
   }),
@@ -123,8 +132,8 @@ export default {
     },
     isGroupActive () {
       return (item) => {
-        const path        = this.$route.fullPath
-        let open          = false
+        const path = this.$route.fullPath
+        let open = false
         const routeParent = this.$route.meta ? this.$route.meta.parent : undefined
 
         const func = (item) => {
@@ -190,5 +199,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@/assets/scss/vuexy/components/horizontalNavMenuGroup.scss"
+@import "@/assets/scss/vuexy/components/horizontalNavMenuGroup.scss";
 </style>

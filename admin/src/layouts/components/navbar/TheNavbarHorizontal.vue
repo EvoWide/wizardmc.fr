@@ -10,39 +10,42 @@
 
 
 <template>
-<div class="relative">
-  <div class="vx-navbar-wrapper navbar-full p-0">
-    <vs-navbar class="navbar-custom navbar-skelton" :class="navbarClasses"  :style="navbarStyle" :color="navbarColor">
+  <div class="relative">
+    <div class="p-0 vx-navbar-wrapper navbar-full">
+      <vs-navbar
+        class="navbar-custom navbar-skelton"
+        :class="navbarClasses"
+        :style="navbarStyle"
+        :color="navbarColor"
+      >
+        <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" />
 
-      <bookmarks :navbarColor="navbarColor" v-if="windowWidth >= 992" />
+        <router-link tag="div" to="/" class="flex items-center mx-auto cursor-pointer vx-logo">
+          <logo class="w-10 mr-4 fill-current text-primary" />
+          <span class="vx-logo-text text-primary">Vuexy</span>
+        </router-link>
 
-      <router-link tag="div" to="/" class="vx-logo cursor-pointer mx-auto flex items-center">
-        <logo class="w-10 mr-4 fill-current text-primary" />
-        <span class="vx-logo-text text-primary">Vuexy</span>
-      </router-link>
+        <search-bar class="mr-4" />
 
-      <search-bar class="mr-4" />
+        <notification-drop-down />
 
-      <notification-drop-down />
-
-      <profile-drop-down />
-
-    </vs-navbar>
+        <profile-drop-down />
+      </vs-navbar>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
-import Bookmarks            from './components/Bookmarks.vue'
-import SearchBar            from './components/SearchBar.vue'
+import Bookmarks from './components/Bookmarks.vue'
+import SearchBar from './components/SearchBar.vue'
 import NotificationDropDown from './components/NotificationDropDown.vue'
-import ProfileDropDown      from './components/ProfileDropDown.vue'
-import Logo                 from '../Logo.vue'
+import ProfileDropDown from './components/ProfileDropDown.vue'
+import Logo from '../Logo.vue'
 
 export default {
   name: 'the-navbar-horizontal',
   props: {
-    logo: { type: String                                                                                                          },
+    logo: { type: String },
     navbarType: {
       type: String,
       required: true
@@ -75,12 +78,12 @@ export default {
 
       return color
     },
-    isThemedark ()          { return this.$store.state.theme                                                                       },
-    navbarStyle ()          { return this.navbarType === 'static' ? {transition: 'all .25s ease-in-out'} : {}                      },
-    navbarClasses ()        { return this.scrollY > 5 && this.navbarType === 'static' ? null : 'd-theme-dark-light-bg shadow-none' },
-    scrollY ()              { return this.$store.state.scrollY                                                                     },
-    verticalNavMenuWidth () { return this.$store.state.verticalNavMenuWidth                                                        },
-    windowWidth ()          { return this.$store.state.windowWidth                                                                 }
+    isThemedark () { return this.$store.state.theme },
+    navbarStyle () { return this.navbarType === 'static' ? { transition: 'all .25s ease-in-out' } : {} },
+    navbarClasses () { return this.scrollY > 5 && this.navbarType === 'static' ? null : 'd-theme-dark-light-bg shadow-none' },
+    scrollY () { return this.$store.state.scrollY },
+    verticalNavMenuWidth () { return this.$store.state.verticalNavMenuWidth },
+    windowWidth () { return this.$store.state.windowWidth }
   }
 }
 
