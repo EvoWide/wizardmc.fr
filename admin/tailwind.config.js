@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 
 Tailwind - The Utility-First CSS Framework
@@ -70,7 +71,6 @@ module.exports = {
       'white': '#ffffff',
       'grey': '#b8c2cc',
       'grey-light': '#dae1e7',
-      'red': '#E53E3E',
     },
 
     /*
@@ -290,7 +290,10 @@ module.exports = {
     |
     */
 
-    textColor: theme => theme('colors'),
+    textColor: theme => ({
+      inherit: "inherit",
+      ...theme('colors'),
+    }),
 
 
     /*
@@ -884,3 +887,4 @@ module.exports = {
   }
 
 }
+/* eslint-enable */

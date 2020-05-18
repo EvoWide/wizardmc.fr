@@ -2,7 +2,7 @@
   File Name: main.js
   Description: main vue(js) file
   ----------------------------------------------------------------------------------------
-  Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -14,8 +14,16 @@ import App from './App.vue'
 // Vuesax Component Framework
 import Vuesax from 'vuesax'
 import 'material-icons/iconfont/material-icons.css' //Material Icons
-import 'vuesax/dist/vuesax.css'; // Vuesax
+import 'vuesax/dist/vuesax.css' // Vuesax
 Vue.use(Vuesax)
+
+
+// axios
+import axios from './axios.js'
+Vue.prototype.$http = axios
+
+// Filters
+import './filters/filters.js'
 
 
 // Theme Configurations
@@ -31,7 +39,7 @@ import './assets/scss/main.scss'
 
 
 // Tailwind
-import '@/assets/css/main.css';
+import '@/assets/css/main.css'
 
 
 // Vue Router
@@ -42,17 +50,10 @@ import router from './router'
 import store from './store/store'
 
 
-// Vuesax Admin Filters
-import './filters/filters'
-
-
 // Vuejs - Vue wrapper for hammerjs
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
 
-// Axios
-import VueAxios from './plugins/axios'
-Vue.use(VueAxios)
 
 // PrismJS
 import 'prismjs'
@@ -63,10 +64,15 @@ import 'prismjs/themes/prism-tomorrow.css'
 require('./assets/css/iconfont.css')
 
 
+// Vue select css
+// Note: In latest version you have to add it separately
+// import 'vue-select/dist/vue-select.css';
+
+
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    render: h => h(App)
+  router,
+  store,
+  render: h => h(App)
 }).$mount('#app')

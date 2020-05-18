@@ -1,21 +1,16 @@
-.DS_Store
-node_modules
-/dist
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+.rej
+*.rej
+*.orig
+bin/
+dist/
+node_modules/
+vuesax-laravel-starter/node_modules/
+temp/
+versions/
+*.zip
+/bin
+package-lock.json
+docs/.vuepress/dist/
+yarn.lock
+yarn-error.log
+vuexy-shell-scripts

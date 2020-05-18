@@ -2,7 +2,7 @@
   File Name: store.js
   Description: Vuex store
   ----------------------------------------------------------------------------------------
-  Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+  Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
   Author: Pixinvent
   Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
@@ -15,20 +15,13 @@ import state from "./state"
 import getters from "./getters"
 import mutations from "./mutations"
 import actions from "./actions"
-import user from './modules/user'
-import auth from './modules/auth'
 
 Vue.use(Vuex)
 
-
 export default new Vuex.Store({
-  modules: {
-    user,
-    auth
-  },
-  getters,
-  mutations,
-  state,
-  actions,
-  strict: process.env.NODE_ENV !== 'production'
+    getters,
+    mutations,
+    state,
+    actions,
+    strict: process.env.NODE_ENV !== 'production'
 })

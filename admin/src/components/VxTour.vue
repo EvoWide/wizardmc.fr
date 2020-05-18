@@ -2,13 +2,13 @@
     File Name: VxTour.vue
     Description: Tour Component
     ----------------------------------------------------------------------------------------
-    Item Name: Vuesax Admin - VueJS Dashboard Admin Template
+    Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
       Author: Pixinvent
     Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
 <template>
-    <v-tour name="vuesaxTour" :steps="steps">
+    <v-tour name="vuexyTour" :steps="steps">
         <template slot-scope="tour">
             <transition name="fade">
                 <v-step
@@ -84,21 +84,21 @@
 
 <script>
 export default{
-    name: 'vx-tour',
-    props: {
-        steps: {
-            required: true,
-            type: Array
-        }
-    },
-    watch: {
-      '$route.path'() {
-        this.$tours['vuesaxTour'].stop()
-      }
-    },
-    mounted() {
-        this.$tours['vuesaxTour'].start()
+  name: 'vx-tour',
+  props: {
+    steps: {
+      required: true,
+      type: Array
     }
+  },
+  watch: {
+    '$route.path' () {
+      this.$tours['vuexyTour'].stop()
+    }
+  },
+  mounted () {
+    this.$tours['vuexyTour'].start()
+  }
 }
 </script>
 
