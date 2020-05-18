@@ -9,12 +9,6 @@
         <p
           class="mt-8"
         >Suivez les indications dans l'email reçu pour réinitialiser votre mot de passe.</p>
-
-        <!-- TODO: REMOVE THIS LINK -->
-        <a
-          :href="url"
-          class="text-xs text-white"
-        >Lien temporaire</a>
       </div>
       <div v-else class="text-white">
         <h1 class="text-xl text-center font-title">Mot de passe oublié</h1>
@@ -84,8 +78,7 @@ export default {
         email: null
       },
       emailSent: false,
-      errors: {},
-      url: null
+      errors: {}
     }
   },
 
@@ -97,12 +90,9 @@ export default {
   methods: {
     async askResetPassword () {
       try {
-        const { url } = await this.$axios.$post('password-requests', this.form)
+        await this.$axios.$post('password-requests', this.form)
 
         this.emailSent = true
-
-        // TODO: remove this when emails are sent
-        this.url = url
       } catch (e) {
         this.errors = {}
         for (const error of e.response.data.errors) {
@@ -116,7 +106,6 @@ export default {
       this.errors = {}
       this.form.email = null
       this.emailSent = false
-      this.url = null
     }
   }
 }

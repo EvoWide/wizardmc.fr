@@ -58,14 +58,13 @@ export default class PasswordRequestController {
     const origin = request.headers().origin as string
 
     await Mail.send((message) => {
-      message.to('valikaelin@gmail.com')
-        // .from('noreply@wizardmc.fr')
-        .from('contact@wizardmc.fr')
+      message.to(user.email)
+        .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Réinitialisation de votre mot de passe')
         .htmlView('emails/reset_password', { url: origin + url, user })
     })
 
-    return response.send({ success: true, url: url })
+    return response.globalSuccess('Email envoyé!')
   }
 
   public async update ({ request, response, params }: HttpContextContract) {
