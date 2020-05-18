@@ -85,6 +85,6 @@ Vue.config.productionTip = false;
     }).$mount('#app')
   } catch (error) {
     // Not logged in
-    window.location.href = 'http://localhost:3000/login'
+    window.location.href = `${process.env.VUE_APP_FRONTEND_URL  }/login`
   }
 })()

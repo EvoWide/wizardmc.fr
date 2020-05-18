@@ -20,7 +20,7 @@
       <vs-dropdown-menu class="vx-navbar-dropdown">
         <ul style="min-width: 9rem">
           <li class="px-4 py-2 cursor-pointer hover:bg-primary hover:text-white">
-            <a href="http://localhost:3000" class="flex text-grey">
+            <a :href="$store.state.frontendUrl" class="flex text-grey">
               <feather-icon icon="PackageIcon" svgClasses="w-4 h-4" />
               <span class="ml-2">Site public</span>
             </a>
@@ -68,12 +68,12 @@ export default {
       return this.$store.state.auth.currentUser
     }
   },
+
   methods: {
     async logout () {
       try {
         await this.$store.dispatch('auth/logout')
-        // this.$router.push('/login')
-        window.location.href = 'http://localhost:3000/login'
+        window.location.href = `${process.env.VUE_APP_FRONTEND_URL  }/login`
       } catch (e) { }
     }
   }
