@@ -7,8 +7,9 @@
 }
 .loading-logo{
   position: absolute;
-  left: calc(50% - 45px);
-  top: 40%;
+  left: 50%;
+  transform: translateX(-40%);
+  top: 35%;
 }
 .loading {
   position: absolute;
