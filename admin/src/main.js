@@ -18,10 +18,6 @@ import 'vuesax/dist/vuesax.css' // Vuesax
 Vue.use(Vuesax)
 
 
-// axios
-import axios from './axios.js'
-Vue.prototype.$http = axios
-
 // Filters
 import './filters/filters.js'
 
@@ -54,9 +50,11 @@ import store from './store/store'
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
 
+
 // Axios
 import VueAxios from './plugins/axios'
 Vue.use(VueAxios)
+
 
 // PrismJS
 import 'prismjs'

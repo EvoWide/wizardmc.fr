@@ -32,6 +32,11 @@
                     class="block px-4 py-2 text-sm text-purple-200 dropdown-link hover:bg-purple-900"
                   >Profil</nuxt-link>
                   <a
+                    v-if="currentUser.is_admin"
+                    :href="$store.state.adminUrl"
+                    class="block px-4 py-2 text-sm text-yellow-500 dropdown-link hover:bg-purple-900"
+                  >Administration</a>
+                  <a
                     @click="logout"
                     class="block px-4 py-2 text-sm text-purple-200 cursor-pointer hover:bg-purple-900"
                   >Déconnexion</a>
