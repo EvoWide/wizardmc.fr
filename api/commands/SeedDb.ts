@@ -47,12 +47,14 @@ export default class SeedDb extends BaseCommand {
       password: '12345',
       credits: 5000,
       email: 'kalanehd@gmail.com',
+      isAdmin: true,
     })
     await User.create({
       username: 'Forsties08',
       password: '12345',
       credits: 20000,
       email: 'forsties08@gmail.com',
+      isAdmin: true,
     })
 
     // Shop Categories

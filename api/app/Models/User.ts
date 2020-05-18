@@ -35,6 +35,9 @@ export default class User extends BaseModel {
   public uuid: string
 
   @column()
+  public isAdmin: boolean
+
+  @column()
   public rememberMeToken: string
 
   @hasMany(() => Post, { foreignKey: 'authorId' })
@@ -48,14 +51,14 @@ export default class User extends BaseModel {
 
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {
-    userInstance.password = await Hash.hash(userInstance.password)
+    userInstance.password = await Hash.make(userInstance.password)
     userInstance.uuid = uuid().replace(/-/g, '')
   }
 
   @beforeUpdate()
   public static async beforeUpdateHook (userInstance: User) {
     if (userInstance.$dirty.password) {
-      userInstance.password = await Hash.hash(userInstance.password)
+      userInstance.password = await Hash.make(userInstance.password)
     }
   }
 }
