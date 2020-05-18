@@ -12,12 +12,12 @@
   <div id="ag-grid-demo">
     <vx-card>
       <!-- TABLE ACTION ROW -->
-      <div class="flex flex-wrap justify-between items-center">
+      <div class="flex flex-wrap items-center justify-between">
         <!-- ITEMS PER PAGE -->
-        <div class="mb-4 md:mb-0 mr-4 ag-grid-table-actions-left">
+        <div class="mb-4 mr-4 md:mb-0 ag-grid-table-actions-left">
           <vs-dropdown vs-trigger-click class="cursor-pointer">
             <div
-              class="p-4 border border-solid d-theme-border-grey-light rounded-full d-theme-dark-bg cursor-pointer flex items-center justify-between font-medium"
+              class="flex items-center justify-between p-4 font-medium border border-solid rounded-full cursor-pointer d-theme-border-grey-light d-theme-dark-bg"
             >
               <span
                 class="mr-2"
@@ -45,7 +45,7 @@
         <!-- TABLE ACTION COL-2: SEARCH & EXPORT AS CSV -->
         <div class="flex flex-wrap items-center justify-between ag-grid-table-actions-right">
           <vs-input
-            class="mb-4 md:mb-0 mr-4"
+            class="mb-4 mr-4 md:mb-0"
             v-model="searchQuery"
             @input="updateSearchQuery"
             placeholder="Rechercher..."
@@ -55,7 +55,7 @@
       </div>
       <ag-grid-vue
         :gridOptions="gridOptions"
-        class="ag-theme-material w-100 my-4 ag-grid-table"
+        class="my-4 ag-theme-material w-100 ag-grid-table"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
         :rowData="users"
@@ -81,7 +81,7 @@ export default {
   components: {
     AgGridVue,
   },
-  data () {
+  data() {
     return {
       searchQuery: '',
       gridOptions: {},
@@ -135,7 +135,7 @@ export default {
     }
   },
   watch: {
-    '$store.state.windowWidth' (val) {
+    '$store.state.windowWidth'(val) {
       if (val <= 576) {
         this.maxPageNumbers = 4;
         this.gridOptions.columnApi.setColumnPinned('email', null);
@@ -144,30 +144,30 @@ export default {
     }
   },
   computed: {
-    paginationPageSize () {
+    paginationPageSize() {
       if (this.gridApi) return this.gridApi.paginationGetPageSize()
       else return 50
     },
-    totalPages () {
+    totalPages() {
       if (this.gridApi) return this.gridApi.paginationGetTotalPages()
       else return 0
     },
     currentPage: {
-      get () {
+      get() {
         if (this.gridApi) return this.gridApi.paginationGetCurrentPage() + 1
         else return 1
       },
-      set (val) {
+      set(val) {
         this.gridApi.paginationGoToPage(val - 1);
       }
     }
   },
   methods: {
-    updateSearchQuery (val) {
+    updateSearchQuery(val) {
       this.gridApi.setQuickFilter(val);
     }
   },
-  async mounted () {
+  async mounted() {
     this.gridApi = this.gridOptions.api;
 
     let res = await this.$axios.get('admin/user')

@@ -49,6 +49,12 @@ Route.group(() => {
   Route.post('vote/confirm', 'VotesController.confirm')
 }).middleware('auth')
 
+/* Admin only */
+Route.group(() => {
+  // Users
+  Route.get('users', 'Admin/UsersController.index')
+}).prefix('admin')// .middleware('auth')
+
 /* Rest only */
 Route.group(() => {
   Route.post('users/balance', 'Rest/UsersController.balance')
