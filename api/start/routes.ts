@@ -44,6 +44,7 @@ Route.group(() => {
   Route.get('promotional-code/:code', 'PromotionalCodesController.view')
 
   // Vote
+  Route.get('vote/lastVote', 'VotesController.lastVote')
   Route.get('vote/initiate', 'VotesController.initiate')
   Route.post('vote/confirm', 'VotesController.confirm')
 }).middleware('auth')

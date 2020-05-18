@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-          <div v-if="logged && token !== null" class="px-4">
+          <div v-if="logged && lastVote === ''" class="px-4">
             <template v-if="currentStep === 0">
               <div class="text-center">
                 <div
@@ -199,14 +199,13 @@ import { mapGetters, mapState } from 'vuex'
 export default {
   async asyncData ({ $axios, store }) {
     let rewards = []
-    let token = null
+    let lastVote = ''
     try {
       rewards = await $axios.$get('c/votes')
-      token = store.getters['auth/logged'] ? await $axios.$get('vote/initiate') : null
+      lastVote = store.getters['auth/logged'] ? await $axios.$get('vote/lastVote') : ''
     } catch (e) {
-
     }
-    return { rewards, token }
+    return { rewards, lastVote }
   },
 
   data () {
@@ -215,7 +214,8 @@ export default {
       interval: null,
       out: null,
       wonReward: null,
-      timeBeforeVote: 15
+      timeBeforeVote: 15,
+      token: null
     }
   },
 
@@ -253,7 +253,14 @@ export default {
       } catch (e) {
       }
     },
+    async initiateVote () {
+      if (!this.logged) { return }
+
+      this.token = await this.$axios.$get('vote/initiate')
+    },
     startTimer () {
+      this.initiateVote()
+
       this.interval = setInterval(() => {
         this.timeBeforeVote--
       }, 1000)

@@ -18,6 +18,15 @@ export default class VotesController {
     return response.send(rewards)
   }
 
+  public async lastVote ({ request, response, auth }: HttpContextContract) {
+    if (!auth.user) {
+      return
+    }
+
+    const vote = await this.getLastVote(auth.user.id, request.ip())
+    return response.send(vote)
+  }
+
   public async initiate ({ request, response, session, auth }: HttpContextContract) {
     const user = auth.user
     if (!user) {
