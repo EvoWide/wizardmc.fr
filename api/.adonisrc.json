@@ -24,7 +24,8 @@
     "@adonisjs/session",
     "@adonisjs/auth",
     "@adonisjs/mail",
-    "@adonisjs/view"
+    "@adonisjs/view",
+    "./providers/StripeProvider"
   ],
   "metaFiles": [
     ".env",
