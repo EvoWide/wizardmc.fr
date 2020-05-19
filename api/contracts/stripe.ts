@@ -1,5 +1,5 @@
 declare module '@ioc:Adonis/Addons/Stripe' {
 
-  const stripe: any
-  export default stripe
+  const Stripe: any
+  export default Stripe
 }
