@@ -7,6 +7,7 @@ import { authenticator } from 'otplib'
 export default class SessionsController {
   public async store ({ auth, request, response, session }: HttpContextContract) {
     const data = await request.validate(LoginValidator)
+    const remember = !!request.post().remember
 
     const user = await User.query().preload('security').where('username', data.username).first()
     if (!user || user.username !== data.username || !(await Hash.verify(user.password, data.password))) {
@@ -18,11 +19,12 @@ export default class SessionsController {
         user_id: user.id,
         secret: user.security.secret,
         time: Date.now() + 120,
+        remember: remember,
       })
       return response.json({ security: 'otp' })
     }
 
-    auth.login(user)
+    auth.login(user, remember)
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
@@ -39,7 +41,7 @@ export default class SessionsController {
     }
 
     session.forget('auth-otp')
-    auth.loginViaId(data.user_id)
+    auth.loginViaId(data.user_id, data.remember)
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
