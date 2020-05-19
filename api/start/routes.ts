@@ -47,6 +47,9 @@ Route.group(() => {
   Route.get('vote/lastVote', 'VotesController.lastVote')
   Route.get('vote/initiate', 'VotesController.initiate')
   Route.post('vote/confirm', 'VotesController.confirm')
+
+  // Profil
+  Route.get('profil/history/:type/:page?', 'ProfilController.history')
 }).middleware('auth')
 
 /* Admin only */
