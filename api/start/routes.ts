@@ -27,8 +27,7 @@ Route.group(() => {
   Route.post('sessions/verify', 'SessionsController.check')
   Route.post('users', 'UsersController.store')
 
-  Route.post('password-requests', 'PasswordRequestController.store')
-  Route.post('password-requests/:token', 'PasswordRequestController.update').as('passwordRequest')
+  Route.post('password-requests', 'PasswordRequestController.forget')
 }).middleware('guest')
 
 /* Auth only */
@@ -50,6 +49,9 @@ Route.group(() => {
 
   // Profil
   Route.get('profil/history/:type/:page?', 'ProfilController.history')
+
+  // should we use different route if guest or auth ??
+  Route.get('password-requests', 'PasswordRequestController.change')
 }).middleware('auth')
 
 /* Admin only */
@@ -69,6 +71,9 @@ Route.group(() => {
 }).prefix('rest').middleware('rest')
 
 /* All users */
+
+// Update password (both auth / guest)
+Route.post('password-requests/:token', 'PasswordRequestController.update').as('passwordRequest')
 
 /* Cloudflare cached pages */
 Route.group(() => {

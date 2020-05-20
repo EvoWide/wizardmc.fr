@@ -1,4 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { RequestContract } from '@ioc:Adonis/Core/Request'
+import { ResponseContract } from '@ioc:Adonis/Core/Response'
 import Route from '@ioc:Adonis/Core/Route'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import uuid from '@lukeed/uuid'
@@ -9,7 +11,7 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 export default class PasswordRequestController {
   private readonly DAILY_MAIL_LIMIT = 6
 
-  public async store ({ request, response }: HttpContextContract) {
+  public async forget ({ request, response }: HttpContextContract) {
     const { email } = await request.validate({
       schema: schema.create({
         email: schema.string({}, [
@@ -28,6 +30,18 @@ export default class PasswordRequestController {
       return response.status(422).send({ 'errors': [{ 'field': 'email', 'message': 'Email inconnue.' }] })
     }
 
+    await this.store(request, response, user)
+  }
+
+  public async change ({ request, response, auth }: HttpContextContract) {
+    if (!auth.user) {
+      return
+    }
+
+    await this.store(request, response, auth.user)
+  }
+
+  private async store (request: RequestContract, response: ResponseContract, user: User) {
     const res = await Database.query()
       .count('id as count')
       .from('password_requests')
