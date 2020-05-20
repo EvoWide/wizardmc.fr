@@ -45,7 +45,7 @@ class CacheService {
     if (!currentValue || this.isExpired(currentValue)) {
       return defValue ?? null
     }
-    return currentValue
+    return currentValue.data
   }
 
   private isExpired (value: CacheValue) {
