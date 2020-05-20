@@ -48,7 +48,11 @@ Route.group(() => {
   Route.post('vote/confirm', 'VotesController.confirm')
 
   // Profil
-  Route.get('profil/history/:type/:page?', 'ProfilController.history')
+  Route.get('profile/history/:type/:page?', 'Profile/HistoriesController.index')
+
+  Route.get('profile/security/enable', 'Profile/SecurityController.enable')
+  Route.get('profile/security/store/:token', 'Profile/SecurityController.qrcode').as('enableSecurity')
+  Route.post('profile/security/store/:token', 'Profile/SecurityController.store')
 
   Route.get('password-requests', 'PasswordRequestController.change')
 }).middleware('auth')
