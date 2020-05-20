@@ -36,11 +36,7 @@ export default class PasswordRequestController {
 
   // Method used when user (logged) want to change his password
   public async change ({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
-      return
-    }
-
-    await this.store(request, response, auth.user)
+    await this.store(request, response, auth.user!)
   }
 
   // Private method used by both (guest and logged) methods to send mail 

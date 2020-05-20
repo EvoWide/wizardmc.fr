@@ -19,21 +19,12 @@ export default class VotesController {
   }
 
   public async lastVote ({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
-      return
-    }
-
-    const vote = await this.getLastVote(auth.user.id, request.ip())
+    const vote = await this.getLastVote(auth.user!.id, request.ip())
     return response.send(vote)
   }
 
   public async initiate ({ request, response, session, auth }: HttpContextContract) {
-    const user = auth.user
-    if (!user) {
-      return
-    }
-
-    const data = await this.getLastVote(user.id, request.ip())
+    const data = await this.getLastVote(auth.user!.id, request.ip())
     if (data) {
       // print timeleft
       return response.globalError('Vous avez déjà voté il y a moins de 3 heures !')
@@ -47,6 +38,7 @@ export default class VotesController {
 
   public async confirm ({ request, response, session, auth }: HttpContextContract) {
     const { out, token } = request.post()
+    const user = auth.user!
 
     if (!token || !out || isNaN(out)) {
       return response.globalError('La requête est invalide.')
@@ -57,12 +49,12 @@ export default class VotesController {
       return response.globalError('Une erreur est survenue, veuillez raffraichir la page.')
     }
 
-    if (!auth.user || Math.abs(Number(out) - RpgParadizeService.getOut()) >= 3) {
+    if (Math.abs(Number(out) - RpgParadizeService.getOut()) >= 3) {
       return response.globalError('La valeur out est incorrect.')
     }
 
     await Database.insertQuery().table('vote_histories').insert({
-      user_id: auth.user?.id,
+      user_id: user.id,
       ip: request.ip(),
     })
 
@@ -73,16 +65,16 @@ export default class VotesController {
     }
 
     if (reward.credits > 0) {
-      auth.user.credits += reward.credits
-      auth.user.save()
+      user.credits += reward.credits
+      user.save()
     }
 
     if (reward.commands) {
-      if (ServerService.isOnline(auth.user.username)) {
-        ServerService.execute(reward.commands.replace(/{playerName}/g, auth.user.username))
+      if (ServerService.isOnline(user.username)) {
+        ServerService.execute(reward.commands.replace(/{playerName}/g, user.username))
       } else {
         await InventoryItem.create({
-          userId: auth.user.id,
+          userId: user.id,
           itemId: reward.id,
         })
       }

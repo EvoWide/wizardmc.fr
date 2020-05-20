@@ -6,10 +6,6 @@ import Env from '@ioc:Adonis/Core/Env'
 
 export default class UsersController {
   public async current ({ auth, response, session }: HttpContextContract) {
-    if (!auth.user) {
-      return
-    }
-
     const offersSession = session.get('offers')
     if (offersSession) {
       return response.send({ user: auth.user, offers: offersSession })
@@ -17,7 +13,7 @@ export default class UsersController {
 
     const offers = (await Database
       .from('shop_histories')
-      .where('user_id', auth.user.id)
+      .where('user_id', auth.user!.id)
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
       .where((builder) => {
         builder.where('shop_offers.unique', true)

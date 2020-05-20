@@ -9,12 +9,8 @@ import CacheService from 'App/Services/CacheService'
 export default class SecurityController {
   // Appelé en get sans argument
   public async enable ({ request, response, auth }: HttpContextContract) {
-    if (!auth.user) {
-      return
-    }
-
-    const user = auth.user
-    const security = await auth.user.related('security').query().first()
+    const user = auth.user!
+    const security = await user.related('security').query().first()
     if (security) {
       return response.globalError('La 2FA est déjà activée sur votre compte.')
     }
@@ -48,17 +44,16 @@ export default class SecurityController {
 
   // Appelé en GET suite à la redirection du mail, retourne le qrcode a afficher au joueur
   public async qrcode ({ request, response, params, auth }: HttpContextContract) {
-    if (!auth.user || !request.hasValidSignature()) {
+    if (!request.hasValidSignature()) {
       return response.unauthorized('')
     }
 
-    const user = auth.user
-    const data = CacheService.get(`security-${user.id}-otp`)
+    const data = CacheService.get(`security-${auth.user!.id}-otp`)
     if (!data || data.token !== params.token) {
       return response.globalError('La requête est incorrect.')
     }
 
-    const otpauth = authenticator.keyuri(auth.user.username, 'WizardMC', data.secret)
+    const otpauth = authenticator.keyuri(auth.user!.username, 'WizardMC', data.secret)
     const imageUrl = await new Promise(resolve => {
       qrcode.toDataURL(otpauth, (err, imageURL) => {
         resolve(err ? null : imageURL)
@@ -74,7 +69,7 @@ export default class SecurityController {
 
   // Appelé en POST avec comme argument 'code' qui contient le code entré par l'utilisateur
   public async store ({ request, response, auth, params }: HttpContextContract) {
-    if (!auth.user || !request.hasValidSignature()) {
+    if (!request.hasValidSignature()) {
       return
     }
 
@@ -83,7 +78,7 @@ export default class SecurityController {
       return response.globalError('La code indiqué n\'est pas dans le bon format')
     }
 
-    const user = auth.user
+    const user = auth.user!
     const data = CacheService.get(`security-${user.id}-otp`)
     if (!data || data.token !== params.token) {
       return response.globalError('La requête est incorrect.')
@@ -94,14 +89,14 @@ export default class SecurityController {
       return response.globalError('Le code indiqué est incorrect.')
     }
 
-    const security = await auth.user.related('security').query().first()
+    const security = await user.related('security').query().first()
     if (security) {
       return response.globalError('La 2FA est déjà activée sur votre compte.')
     }
 
     CacheService.remove(`security-${user.id}-otp`)
 
-    await auth.user.related('security').create({ method: 'otp', secret: data.secret })
+    await user.related('security').create({ method: 'otp', secret: data.secret })
     return response.globalSuccess('Le 2FA a bien été activé !')
   }
 }
