@@ -11,6 +11,7 @@
   "devDependencies": {
     "@adonisjs/assembler": "^2.1.2",
     "@types/jsdom": "^16.2.1",
+    "@types/qrcode": "^1.3.4",
     "adonis-preset-ts": "^1.0.4",
     "eslint": "^6.8.0",
     "eslint-plugin-adonis": "^1.0.9",
@@ -38,6 +39,7 @@
     "node-schedule": "^1.3.2",
     "otplib": "^12.0.1",
     "proxy-addr": "^2.0.6",
+    "qrcode": "^1.4.4",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16",
     "stripe": "^8.53.0"
