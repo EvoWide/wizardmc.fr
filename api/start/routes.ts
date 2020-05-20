@@ -50,7 +50,6 @@ Route.group(() => {
   // Profil
   Route.get('profil/history/:type/:page?', 'ProfilController.history')
 
-  // should we use different route if guest or auth ??
   Route.get('password-requests', 'PasswordRequestController.change')
 }).middleware('auth')
 

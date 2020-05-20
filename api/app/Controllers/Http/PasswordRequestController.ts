@@ -11,6 +11,7 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 export default class PasswordRequestController {
   private readonly DAILY_MAIL_LIMIT = 6
 
+  // Method used when user (guest) forgot his password
   public async forget ({ request, response }: HttpContextContract) {
     const { email } = await request.validate({
       schema: schema.create({
@@ -33,6 +34,7 @@ export default class PasswordRequestController {
     await this.store(request, response, user)
   }
 
+  // Method used when user (logged) want to change his password
   public async change ({ request, response, auth }: HttpContextContract) {
     if (!auth.user) {
       return
@@ -41,6 +43,7 @@ export default class PasswordRequestController {
     await this.store(request, response, auth.user)
   }
 
+  // Private method used by both (guest and logged) methods to send mail 
   private async store (request: RequestContract, response: ResponseContract, user: User) {
     const res = await Database.query()
       .count('id as count')
