@@ -5,6 +5,7 @@ import Post from 'App/Models/Post'
 import Hash from '@ioc:Adonis/Core/Hash'
 import UserSecurity from './UserSecurity'
 import InventoryItem from './Vote/InventoryItem'
+import UserRequest from './UserRequest'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -48,6 +49,9 @@ export default class User extends BaseModel {
 
   @hasMany(() => InventoryItem, { foreignKey: 'userId' })
   public inventory: HasMany<typeof InventoryItem>
+
+  @hasMany(() => UserRequest, { foreignKey: 'userId' })
+  public requests: HasMany<typeof UserRequest>
 
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {

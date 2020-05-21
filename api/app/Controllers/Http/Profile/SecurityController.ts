@@ -1,10 +1,8 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { authenticator, totp } from 'otplib'
+import { authenticator } from 'otplib'
 import qrcode from 'qrcode'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Route from '@ioc:Adonis/Core/Route'
-import uuid from '@lukeed/uuid'
-import CacheService from 'App/Services/CacheService'
 
 export default class SecurityController {
   // Appelé en get sans argument
@@ -15,21 +13,20 @@ export default class SecurityController {
       return response.globalError('La 2FA est déjà activée sur votre compte.')
     }
 
-    const token = uuid().replace(/-/g, '')
     const origin = request.headers().origin as string
+    const secret = authenticator.generateSecret()
+
+    const newRequest = await user.related('requests').create({
+      method: 'enable-otp',
+      data: secret,
+    })
 
     const url = Route.makeSignedUrl('enableSecurity', {
       params: {
-        token: token,
+        token: newRequest.token,
       },
       expiresIn: '30m',
     })
-
-    const data = {
-      token: token,
-      secret: authenticator.generateSecret(),
-    }
-    CacheService.put(`security-${user.id}-otp`, data, '30m')
 
     // TODO Changer le mail
     await Mail.send((message) => {
@@ -48,12 +45,17 @@ export default class SecurityController {
       return response.unauthorized('')
     }
 
-    const data = CacheService.get(`security-${auth.user!.id}-otp`)
-    if (!data || data.token !== params.token) {
+    const mailRequest = await auth.user!.related('requests').query()
+      .where('token', params.token)
+      .where('user_id', auth.user!.id)
+      .where('expired', 0)
+      .firstOrFail()
+
+    if (!mailRequest) {
       return response.globalError('La requête est incorrect.')
     }
 
-    const otpauth = authenticator.keyuri(auth.user!.username, 'WizardMC', data.secret)
+    const otpauth = authenticator.keyuri(auth.user!.username, 'WizardMC', mailRequest.data)
     const imageUrl = await new Promise(resolve => {
       qrcode.toDataURL(otpauth, (err, imageURL) => {
         resolve(err ? null : imageURL)
@@ -79,12 +81,17 @@ export default class SecurityController {
     }
 
     const user = auth.user!
-    const data = CacheService.get(`security-${user.id}-otp`)
-    if (!data || data.token !== params.token) {
+    const mailRequest = await auth.user!.related('requests').query()
+      .where('token', params.token)
+      .where('user_id', auth.user!.id)
+      .where('expired', 0)
+      .firstOrFail()
+
+    if (!mailRequest) {
       return response.globalError('La requête est incorrect.')
     }
 
-    const currentToken = authenticator.generate(data.secret)
+    const currentToken = authenticator.generate(mailRequest.data)
     if (currentToken !== code) {
       return response.globalError('Le code indiqué est incorrect.')
     }
@@ -94,9 +101,10 @@ export default class SecurityController {
       return response.globalError('La 2FA est déjà activée sur votre compte.')
     }
 
-    CacheService.remove(`security-${user.id}-otp`)
+    mailRequest.expired = true
+    await mailRequest.save()
 
-    await user.related('security').create({ method: 'otp', secret: data.secret })
+    await user.related('security').create({ method: 'otp', secret: mailRequest.data })
     return response.globalSuccess('Le 2FA a bien été activé !')
   }
 }
