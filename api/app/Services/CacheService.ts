@@ -31,10 +31,10 @@ class CacheService {
   public async remember (key: string, method: () => any, duration: Duration | string) {
     const currentValue = this.get(key)
     if (currentValue) {
-      return currentValue.data
+      return currentValue
     }
 
-    const data = method()
+    const data = await method()
 
     this.put(key, data, duration)
     return data
