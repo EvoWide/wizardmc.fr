@@ -1,11 +1,16 @@
 <template>
   <button
-    :class="status === 'none' ? 'hover:bg-purple-600' : 'cursor-not-allowed'"
+    :class="{
+      'hover:bg-purple-600': status === 'none' && !cta,
+      'cursor-not-allowed': status !== 'none',
+      'text-sm text-purple-200 bg-purple-700 rounded-md font-semibold': !cta,
+      'font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title': cta
+    }"
     :disabled="status !== 'none'"
-    class="px-4 py-2 text-sm font-semibold text-purple-200 bg-purple-700 rounded-md"
+    class="px-4 py-2"
     type="button"
   >
-    <template v-if="status === 'none'">Changer</template>
+    <template v-if="status === 'none'">{{ text }}</template>
     <template v-else-if="status === 'sent'">
       <div class="flex items-center">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -18,7 +23,7 @@
         <span class="ml-1">Envoyé</span>
       </div>
     </template>
-    <template v-else>
+    <template v-else-if="status === 'error'">
       <div class="flex items-center">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
           <path
@@ -36,9 +41,17 @@
 <script>
 export default {
   props: {
+    cta: {
+      type: Boolean,
+      default: false
+    },
     status: {
       type: String,
       required: true
+    },
+    text: {
+      type: String,
+      default: 'Changer'
     }
   }
 }

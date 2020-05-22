@@ -13,7 +13,7 @@
             </div>
             <div class="ml-4">{{ currentUser.email }}</div>
           </div>
-          <ChangeButton @click.native="changeEmail" :status="emailStatus" />
+          <EmailButton @click.native="changeEmail" :status="emailStatus" />
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
@@ -28,7 +28,7 @@
             </div>
             <div>*************</div>
           </div>
-          <ChangeButton @click.native="changePassword" :status="passwordStatus" />
+          <EmailButton @click.native="changePassword" :status="passwordStatus" />
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
@@ -67,9 +67,9 @@
         <div>
           <img class="block mx-auto" src="@/assets/img/line.png" alt="Separator" />
           <div class="flex items-center justify-between mt-6">
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center w-full space-x-4">
               <div v-if="rewards.length">{{ rewards.length }} récompense(s) en attente</div>
-              <div v-else>Vous n'avez pas de récompense en attente.</div>
+              <div v-else class="w-full text-center">Vous n'avez pas de récompense en attente.</div>
             </div>
             <button
               v-if="rewards.length"
@@ -87,11 +87,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import ChangeButton from '@/components/Profile/ChangeButton.vue'
+import EmailButton from '@/components/Profile/EmailButton.vue'
 
 export default {
   components: {
-    ChangeButton
+    EmailButton
   },
 
   props: {
@@ -123,6 +123,7 @@ export default {
     },
     async changePassword () {
       try {
+        this.passwordStatus = 'sending'
         await this.$axios.$get('password-requests')
         this.passwordStatus = 'sent'
       } catch (e) {
