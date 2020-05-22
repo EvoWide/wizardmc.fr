@@ -70,7 +70,7 @@ export default class PasswordRequestController {
 
     const origin = request.headers().origin as string
 
-    await Mail.send((message) => {
+    Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Réinitialisation de votre mot de passe')
