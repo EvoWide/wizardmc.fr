@@ -28,12 +28,11 @@ export default class SecurityController {
       expiresIn: '30m',
     })
 
-    // TODO Changer le mail
-    await Mail.send((message) => {
+    Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Activation de la double authentification')
-        .htmlView('emails/reset_password', { url: origin + url, user })
+        .htmlView('emails/enable_2fa', { url: origin + url, user })
     })
 
     return response.globalSuccess('Un mail a été envoyé')
@@ -58,12 +57,11 @@ export default class SecurityController {
       expiresIn: '30m',
     })
 
-    // TODO Changer le mail
-    await Mail.send((message) => {
+    Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Désactivation de la double authentification')
-        .htmlView('emails/reset_password', { url: origin + url, user })
+        .htmlView('emails/disable_2fa', { url: origin + url, user })
     })
   }
 
