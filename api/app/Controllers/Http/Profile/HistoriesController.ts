@@ -3,7 +3,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class HistoriesController {
   public async index ({ response, auth, params, session }: HttpContextContract) {
-    if (['shop'].includes(params.type)) {
+    if (!['shop'].includes(params.type)) {
       return response.globalError('La page demandée n\'a pas été trouvée', 404)
     }
 
