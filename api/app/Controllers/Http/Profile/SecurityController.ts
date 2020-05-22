@@ -3,6 +3,7 @@ import { authenticator } from 'otplib'
 import qrcode from 'qrcode'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Route from '@ioc:Adonis/Core/Route'
+import UserRequest from 'App/Models/UserRequest'
 
 export default class SecurityController {
   // Appelé en get sans argument
@@ -11,6 +12,10 @@ export default class SecurityController {
     const security = await user.related('security').query().first()
     if (security) {
       return response.globalError('La 2FA est déjà activée sur votre compte.')
+    }
+
+    if (!(await UserRequest.isAllowed(user))) {
+      return response.globalError('Vous avez effectué trop de changement, veuillez patienter.')
     }
 
     const origin = request.headers().origin as string
@@ -41,8 +46,13 @@ export default class SecurityController {
   public async disable ({ request, response, auth }: HttpContextContract) {
     const user = auth.user!
     const security = await user.related('security').query().first()
+
     if (!security || security.method !== 'otp') {
       return response.globalError('La 2FA OTP n\'est pas activé sur votre compte.')
+    }
+
+    if (!(await UserRequest.isAllowed(user))) {
+      return response.globalError('Vous avez effectué trop de changement, veuillez patienter.')
     }
 
     const origin = request.headers().origin as string
