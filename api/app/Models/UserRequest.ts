@@ -36,4 +36,15 @@ export default class UserRequest extends BaseModel {
   public static async beforeCreateHook (requestInstance: UserRequest) {
     requestInstance.token = uuid().replace(/-/g, '')
   }
+
+  // Check if user is allowed to use mail
+  public static async isAllowed (user: User): Promise<boolean> {
+    const result = await this.query()
+      .where('user_id', user.id)
+      .where('created_at', DateTime.local().minus({ hour: 1 }).toSQL())
+      .count('id as count')
+      .first()
+
+    return result['count'] < 4
+  }
 }
