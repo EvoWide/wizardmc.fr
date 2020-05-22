@@ -11,12 +11,20 @@ import CacheService from 'App/Services/CacheService'
 
 export default class VotesController {
   public async index ({ response }: HttpContextContract) {
-    const rewards = await Reward.query()
-      .orderBy('chance', 'asc')
-      .orderBy('name', 'asc')
-      .select('id', 'name', 'chance')
+    const [ranking, rewards] = await CacheService.remember('vote-ranking-rewards', async () => {
+      return Promise.all([
+        await Database.query().from('users')
+          .orderBy('votes', 'desc')
+          .select('username', 'votes')
+          .limit(10),
+        await Reward.query()
+          .orderBy('chance', 'asc')
+          .orderBy('name', 'asc')
+          .select('id', 'name', 'chance'),
+      ])
+    }, '10m')
 
-    return response.send(rewards)
+    return response.send({ rewards, ranking })
   }
 
   public async lastVote ({ request, response, auth }: HttpContextContract) {
@@ -83,15 +91,6 @@ export default class VotesController {
     }
 
     return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
-  }
-
-  public async ranking () {
-    return await CacheService.remember('vote-ranking', async () => {
-      return await Database.query().from('users')
-        .orderBy('votes', 'desc')
-        .select('username', 'votes')
-        .limit(10)
-    }, '10m')
   }
 
   private async getRandomReward () {

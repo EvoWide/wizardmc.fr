@@ -163,7 +163,49 @@
             <span>pour pouvoir voter.</span>
           </div>
         </div>
-        <!-- TODO: Add leaderboard here -->
+        <!-- Leaderboard -->
+        <div class="mt-5 bg-purple-900">
+          <div class="w-full px-4 py-4 overflow-x-auto">
+            <h2 class="text-lg font-bold text-purple-200 uppercase font-title">Meilleurs voteurs</h2>
+            <div class="mt-2 text-sm text-purple-200">
+              <p>Le classement est remis à zéro à chaque fin de mois.</p>
+              <p>
+                Les 10 meilleurs voteurs recoivent leur nombre de votes
+                <span
+                  class="text-yellow-500"
+                >x10</span> en points boutique.
+              </p>
+            </div>
+            <table class="min-w-full mt-4 table-auto">
+              <thead>
+                <tr class="text-left border-b-4 border-purple-900 bg-purple-1000">
+                  <th class="p-2 lg:px-4">Rang</th>
+                  <th class="p-2 lg:px-4">Joueur</th>
+                  <th class="p-2 lg:px-4">Votes</th>
+                  <th class="p-2 lg:px-4">Récompense</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  v-for="(player, index) in ranking"
+                  :key="player.id"
+                  class="bg-purple-800 border-b-4 border-purple-900"
+                >
+                  <td class="p-2 lg:px-4">{{ index + 1 }}</td>
+                  <td class="p-2 lg:px-4">{{ player.username }}</td>
+                  <!-- <td :class="chanceColor(reward.chance)" class="p-2 lg:px-4">{{ reward.chance }}</td> -->
+                  <td class="p-2 lg:px-4">{{ player.votes }}</td>
+                  <td class="p-2 lg:px-4">
+                    <div class="flex items-center leading-none">
+                      <div>{{ player.votes * 10 }}</div>
+                      <div class="ml-2 text-sm text-purple-200 whitespace-no-wrap">points boutique</div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
       <!-- Right content -->
       <div class="w-full mt-5 bg-purple-900 lg:w-1/2 lg:mx-4 lg:mt-0">
@@ -198,14 +240,15 @@ import { mapGetters, mapState } from 'vuex'
 
 export default {
   async asyncData ({ $axios, store }) {
+    let ranking = []
     let rewards = []
     let lastVote = ''
     try {
-      rewards = await $axios.$get('c/votes')
+      ({ ranking, rewards } = await $axios.$get('votes'))
       lastVote = store.getters['auth/logged'] ? await $axios.$get('vote/lastVote') : ''
     } catch (e) {
     }
-    return { rewards, lastVote }
+    return { ranking, rewards, lastVote }
   },
 
   data () {
