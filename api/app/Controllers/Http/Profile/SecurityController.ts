@@ -19,25 +19,26 @@ export default class SecurityController {
     }
 
     const origin = request.headers().origin as string
-    const secret = authenticator.generateSecret()
-
-    const newRequest = await user.related('requests').create({
-      method: 'enable-otp',
-      data: secret,
-    })
+    const token = UserRequest.generateToken()
 
     const url = Route.makeSignedUrl('enableSecurity', {
       params: {
-        token: newRequest.token,
+        token: token,
       },
       expiresIn: '30m',
     })
 
-    Mail.send((message) => {
+    await Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Activation de la double authentification')
         .htmlView('emails/enable_2fa', { url: origin + url, user })
+    })
+
+    await user.related('requests').create({
+      method: 'enable-otp',
+      data: authenticator.generateSecret(),
+      token: token,
     })
 
     return response.globalSuccess('Un mail a été envoyé')
@@ -56,23 +57,28 @@ export default class SecurityController {
     }
 
     const origin = request.headers().origin as string
-    const newRequest = await user.related('requests').create({
-      method: 'disable-otp',
-    })
 
+    const token = UserRequest.generateToken()
     const url = Route.makeSignedUrl('disableSecurity', {
       params: {
-        token: newRequest.token,
+        token: token,
       },
       expiresIn: '30m',
     })
 
-    Mail.send((message) => {
+    await Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Désactivation de la double authentification')
         .htmlView('emails/disable_2fa', { url: origin + url, user })
     })
+
+    await user.related('requests').create({
+      method: 'disable-otp',
+      token: token,
+    })
+
+    return response.globalSuccess('Un mail a été envoyé')
   }
 
   public async delete ({ request, response, params, auth }: HttpContextContract) {

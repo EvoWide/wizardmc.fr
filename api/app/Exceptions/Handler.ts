@@ -34,6 +34,10 @@ export default class ExceptionHandler extends HttpExceptionHandler {
       return ctx.response.globalError('Accès non autorisé.', 401)
     }
 
+    if (error.code === 'EAUTH') {
+      return ctx.response.globalError('Une erreur est survenue, le mail n\'a pas pu être envoyé.')
+    }
+
     return super.handle(error, ctx)
   }
 }

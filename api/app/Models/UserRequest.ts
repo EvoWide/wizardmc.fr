@@ -32,9 +32,8 @@ export default class UserRequest extends BaseModel {
   @belongsTo(() => User, { localKey: 'userId' })
   public user: BelongsTo<typeof User>
 
-  @beforeCreate()
-  public static async beforeCreateHook (requestInstance: UserRequest) {
-    requestInstance.token = uuid().replace(/-/g, '')
+  public static generateToken () {
+    return uuid().replace(/-/g, '')
   }
 
   // Check if user is allowed to use mail
