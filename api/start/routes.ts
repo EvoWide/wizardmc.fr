@@ -48,14 +48,19 @@ Route.group(() => {
   Route.post('vote/confirm', 'VotesController.confirm')
 
   // Profil
-  Route.get('profile/history/:type/:page?', 'Profile/HistoriesController.index')
+  Route.group(() => {
+    Route.get('history/:type/:page?', 'HistoriesController.index')
 
-  Route.get('profile/security/enable', 'Profile/SecurityController.enable')
-  Route.get('profile/security/store/:token', 'Profile/SecurityController.qrcode').as('enableSecurity')
-  Route.post('profile/security/store/:token', 'Profile/SecurityController.store')
+    Route.get('security/enable', 'SecurityController.enable')
+    Route.get('security/store/:token', 'SecurityController.qrcode').as('enableSecurity')
+    Route.post('security/store/:token', 'SecurityController.store')
 
-  Route.get('profile/security/disable', 'Profile/SecurityController.disable')
-  Route.get('profile/security/disable/:token', 'Profile/SecurityController.delete').as('disableSecurity')
+    Route.get('security/disable', 'SecurityController.disable')
+    Route.get('security/disable/:token', 'SecurityController.delete').as('disableSecurity')
+
+    Route.get('inventory', 'InventoryController.index')
+    Route.get('inventory/:id', 'InventoryController.redeem')
+  }).prefix('profile').namespace('App/Controllers/Http/Profile')
 
   Route.get('password-requests', 'PasswordRequestController.change')
 }).middleware('auth')
