@@ -47,8 +47,6 @@ Route.group(() => {
   Route.get('vote/initiate', 'VotesController.initiate')
   Route.post('vote/confirm', 'VotesController.confirm')
 
-  Route.get('vote/ranking', 'VotesController.ranking')
-
   // Profil
   Route.group(() => {
     Route.get('history/:type/:page?', 'HistoriesController.index')
@@ -88,6 +86,9 @@ Route.group(() => {
 // Update password (both auth / guest)
 Route.post('password-requests/:token', 'PasswordRequestController.update').as('passwordRequest')
 
+// Votes Rewards + ranking
+Route.get('votes', 'VotesController.index')
+
 /* Cloudflare cached pages */
 Route.group(() => {
   // Posts
@@ -97,7 +98,4 @@ Route.group(() => {
   // Shop
   Route.get('shop', 'ShopController.index')
   Route.get('shop/:id', 'ShopController.show')
-
-  // Votes Rewards
-  Route.get('votes', 'VotesController.index')
 }).prefix('c')
