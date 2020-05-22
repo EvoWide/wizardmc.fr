@@ -39,6 +39,65 @@ export default class SecurityController {
     return response.globalSuccess('Un mail a été envoyé')
   }
 
+  public async disable ({ request, response, auth }: HttpContextContract) {
+    const user = auth.user!
+    const security = await user.related('security').query().first()
+    if (!security || security.method !== 'otp') {
+      return response.globalError('La 2FA OTP n\'est pas activé sur votre compte.')
+    }
+
+    const origin = request.headers().origin as string
+    const newRequest = await user.related('requests').create({
+      method: 'disable-otp',
+    })
+
+    const url = Route.makeSignedUrl('disableSecurity', {
+      params: {
+        token: newRequest.token,
+      },
+      expiresIn: '30m',
+    })
+
+    // TODO Changer le mail
+    await Mail.send((message) => {
+      message.to(user.email)
+        .from('noreply@wizardmc.fr', 'WizardMC')
+        .subject('WizardMC - Désactivation de la double authentification')
+        .htmlView('emails/reset_password', { url: origin + url, user })
+    })
+  }
+
+  public async delete ({ request, response, params, auth }: HttpContextContract) {
+    const user = auth.user!
+    if (!request.hasValidSignature()) {
+      return response.unauthorized('')
+    }
+
+    const mailRequest = await auth.user!.related('requests').query()
+      .where('token', params.token)
+      .where('user_id', auth.user!.id)
+      .where('expired', 0)
+      .firstOrFail()
+
+    if (!mailRequest) {
+      return response.globalError('La requête est incorrect.')
+    }
+
+    mailRequest.expired = true
+    await mailRequest.save()
+
+    const security = await user.related('security').query()
+      .where('method', 'otp')
+      .first()
+
+    if (!security) {
+      return response.globalError('La 2FA n\'a pas été trouvé.')
+    }
+    await security.delete()
+
+    return response.ok('')
+  }
+
   // Appelé en GET suite à la redirection du mail, retourne le qrcode a afficher au joueur
   public async qrcode ({ request, response, params, auth }: HttpContextContract) {
     if (!request.hasValidSignature()) {
@@ -83,6 +142,7 @@ export default class SecurityController {
     const user = auth.user!
     const mailRequest = await auth.user!.related('requests').query()
       .where('token', params.token)
+      .where('method', 'enable-otp')
       .where('user_id', auth.user!.id)
       .where('expired', 0)
       .firstOrFail()

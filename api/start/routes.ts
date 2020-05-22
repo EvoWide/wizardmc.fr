@@ -54,6 +54,9 @@ Route.group(() => {
   Route.get('profile/security/store/:token', 'Profile/SecurityController.qrcode').as('enableSecurity')
   Route.post('profile/security/store/:token', 'Profile/SecurityController.store')
 
+  Route.get('profile/security/disable', 'Profile/SecurityController.disable')
+  Route.get('profile/security/disable/:token', 'Profile/SecurityController.delete').as('disableSecurity')
+
   Route.get('password-requests', 'PasswordRequestController.change')
 }).middleware('auth')
 
