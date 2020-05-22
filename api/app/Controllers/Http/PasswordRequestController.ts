@@ -53,14 +53,6 @@ export default class PasswordRequestController {
     }
 
     const token = uuid().replace(/-/g, '')
-    await Database.insertQuery()
-      .table('password_requests')
-      .insert({
-        user_id: user.id,
-        token: token,
-        adress: request.ip(),
-      })
-
     const url = Route.makeSignedUrl('passwordRequest', {
       params: {
         token: token,
@@ -69,15 +61,22 @@ export default class PasswordRequestController {
     })
 
     const origin = request.headers().origin as string
-
-    Mail.send((message) => {
+    await Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Réinitialisation de votre mot de passe')
         .htmlView('emails/reset_password', { url: origin + url, user })
     })
 
-    return response.globalSuccess('Email envoyé!')
+    await Database.insertQuery()
+      .table('password_requests')
+      .insert({
+        user_id: user.id,
+        token: token,
+        adress: request.ip(),
+      })
+
+    return response.globalSuccess('Un mail a été envoyé')
   }
 
   public async update ({ request, response, params }: HttpContextContract) {
