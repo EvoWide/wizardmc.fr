@@ -47,6 +47,8 @@ Route.group(() => {
   Route.get('vote/initiate', 'VotesController.initiate')
   Route.post('vote/confirm', 'VotesController.confirm')
 
+  Route.get('vote/ranking', 'VotesController.ranking')
+
   // Profil
   Route.group(() => {
     Route.get('history/:type/:page?', 'HistoriesController.index')

@@ -7,6 +7,7 @@ import ServerService from 'App/Services/Server/ServerService'
 import InventoryItem from 'App/Models/Vote/InventoryItem'
 import RpgParadizeService from 'App/Services/RpgParadizeService'
 import Reward from 'App/Models/Vote/Reward'
+import CacheService from 'App/Services/CacheService'
 
 export default class VotesController {
   public async index ({ response }: HttpContextContract) {
@@ -82,6 +83,15 @@ export default class VotesController {
     }
 
     return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
+  }
+
+  public async ranking () {
+    return await CacheService.remember('vote-ranking', async () => {
+      return await Database.query().from('users')
+        .orderBy('votes', 'desc')
+        .select('username', 'votes')
+        .limit(10)
+    }, '10m')
   }
 
   private async getRandomReward () {
