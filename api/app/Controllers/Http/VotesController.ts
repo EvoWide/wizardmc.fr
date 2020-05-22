@@ -64,10 +64,11 @@ export default class VotesController {
       return response.globalError('Aucune récompense n\'a été trouvée.')
     }
 
+    user.votes++
     if (reward.credits > 0) {
       user.credits += reward.credits
-      user.save()
     }
+    user.save()
 
     if (reward.commands) {
       if (ServerService.isOnline(user.username)) {
