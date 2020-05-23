@@ -1,0 +1,12 @@
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-track {
+  @apply bg-opacity-75 bg-purple-1000;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-purple-400 bg-opacity-75 rounded-lg;
+}

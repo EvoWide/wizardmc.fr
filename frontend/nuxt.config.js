@@ -29,6 +29,7 @@ export default {
     '@/assets/css/components/footer.css',
     '@/assets/css/components/form.css',
     '@/assets/css/components/navbar.css',
+    '@/assets/css/components/scrollbar.css',
     '@/assets/css/components/tooltip.css'
   ],
   /*
