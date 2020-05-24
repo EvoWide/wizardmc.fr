@@ -3,14 +3,12 @@ import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { ResponseContract } from '@ioc:Adonis/Core/Response'
 import Route from '@ioc:Adonis/Core/Route'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
-import uuid from '@lukeed/uuid'
-import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
 import Mail from '@ioc:Adonis/Addons/Mail'
+import { DateTime } from 'luxon'
+import UserRequest from 'App/Models/UserRequest'
 
 export default class PasswordRequestController {
-  private readonly DAILY_MAIL_LIMIT = 6
-
   // Method used when user (guest) forgot his password
   public async forget ({ request, response }: HttpContextContract) {
     const { email } = await request.validate({
@@ -41,23 +39,15 @@ export default class PasswordRequestController {
 
   // Private method used by both (guest and logged) methods to send mail 
   private async store (request: RequestContract, response: ResponseContract, user: User) {
-    const res = await Database.query()
-      .count('id as count')
-      .from('password_requests')
-      .where('user_id', user.id)
-      .orWhere('adress', request.ip())
-
-    const requestToday = res[0]['count'] ?? 0
-    if (requestToday >= this.DAILY_MAIL_LIMIT) {
-      return response.globalError('Vous avez atteint la maximum quotidienne.')
+    if (!(await UserRequest.isAllowed(user))) {
+      return response.globalError('Trop de mail ont été envoyés avec ce mail, veuillez patienter.')
     }
 
-    const token = uuid().replace(/-/g, '')
-    const url = Route.makeSignedUrl('passwordRequest', {
+    const token = UserRequest.generateToken()
+    const url = Route.makeUrl('passwordRequest', {
       params: {
         token: token,
       },
-      expiresIn: '6h',
     })
 
     const origin = request.headers().origin as string
@@ -68,19 +58,19 @@ export default class PasswordRequestController {
         .htmlView('emails/reset_password', { url: origin + url, user })
     })
 
-    await Database.insertQuery()
-      .table('password_requests')
-      .insert({
-        user_id: user.id,
-        token: token,
-        adress: request.ip(),
-      })
+    await user.related('requests').create({
+      method: 'change-password',
+      token: token,
+    })
 
     return response.globalSuccess('Un mail a été envoyé')
   }
 
   public async update ({ request, response, params }: HttpContextContract) {
-    if (!request.hasValidSignature()) {
+    const token: string = params.token as string
+
+    // replace with global helper??
+    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
       return response.globalError('La requête est incorrect.')
     }
 
@@ -95,21 +85,21 @@ export default class PasswordRequestController {
       },
     })
 
-    const passwordRequest = await Database.query()
-      .select('*')
-      .from('password_requests')
-      .where('token', params['token'])
+    const passwordRequest = await UserRequest.query()
+      .where('token', token)
+      .where('created_at', '>', DateTime.local().minus({ hour: 3 }).toSQL())
+      .preload('user')
       .first()
 
-    if (!passwordRequest) {
+    if (!passwordRequest || !passwordRequest.user) {
       return response.globalError('La requête est incorrect.')
     }
 
-    const user = await User.query().where('id', passwordRequest.user_id).firstOrFail()
-    user.password = password
-    await user.save()
+    passwordRequest.user.password = password
+    await passwordRequest.user.save()
 
-    await Database.query().from('password_requests').where('id', passwordRequest.id).delete()
+    passwordRequest.expired = true
+    await passwordRequest.save()
 
     return response.globalSuccess('Le mot de passe a bien été modifié')
   }
