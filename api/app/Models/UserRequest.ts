@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import uuid from '@lukeed/uuid'
 
@@ -29,7 +29,7 @@ export default class UserRequest extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => User, { localKey: 'userId' })
+  @belongsTo(() => User, { foreignKey: 'userId' })
   public user: BelongsTo<typeof User>
 
   public static generateToken () {
