@@ -3,11 +3,11 @@
     :class="{
       'hover:bg-purple-600': status === 'none' && !cta,
       'cursor-not-allowed': status !== 'none',
-      'text-sm text-purple-200 bg-purple-700 rounded-md font-semibold': !cta,
-      'font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title': cta
+      'text-sm text-purple-200 bg-purple-700 rounded-md font-semibold h-10': !cta,
+      'font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title h-12': cta
     }"
     :disabled="status !== 'none'"
-    class="px-4 py-2"
+    class="px-4 py-2 focus:outline-none"
     type="button"
   >
     <template v-if="status === 'none'">{{ text }}</template>
@@ -35,6 +35,16 @@
         <span class="ml-1">Erreur</span>
       </div>
     </template>
+    <template v-else>
+      <div class="flex items-center justify-center">
+        <div :class="{'cta': cta}" class="loader">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </template>
   </button>
 </template>
 
@@ -56,3 +66,43 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.loader {
+  @apply inline-block relative w-5 h-5;
+}
+
+.loader div {
+  @apply box-border block absolute w-4 h-4 rounded-full;
+  margin: 0.125rem;
+  border: 0.125rem solid #e9d8fd;
+  animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #e9d8fd transparent transparent transparent;
+}
+
+.loader.cta div {
+  border: 0.125rem solid #d69e2e;
+  border-color: #d69e2e transparent transparent transparent;
+}
+
+.loader div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+
+.loader div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+
+.loader div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
