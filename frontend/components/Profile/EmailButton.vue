@@ -73,15 +73,13 @@ export default {
 }
 
 .loader div {
-  @apply box-border block absolute w-4 h-4 rounded-full;
-  margin: 0.125rem;
-  border: 0.125rem solid #e9d8fd;
+  @apply box-border block absolute w-4 h-4 rounded-full m-2px border-2 border-purple-200;
   animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #e9d8fd transparent transparent transparent;
 }
 
 .loader.cta div {
-  border: 0.125rem solid #d69e2e;
+  @apply border-2 border-yellow-600;
   border-color: #d69e2e transparent transparent transparent;
 }
 
