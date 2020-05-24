@@ -90,7 +90,8 @@ export default {
   methods: {
     async askResetPassword () {
       try {
-        await this.$axios.$post('password-requests', this.form)
+        const token = await this.recaptcha()
+        await this.$axios.$post('password-requests', { ...this.form, recaptcha: token })
 
         this.emailSent = true
       } catch (e) {
@@ -106,6 +107,10 @@ export default {
       this.errors = {}
       this.form.email = null
       this.emailSent = false
+    },
+    async recaptcha () {
+      await this.$recaptchaLoaded()
+      return await this.$recaptcha('login')
     }
   }
 }

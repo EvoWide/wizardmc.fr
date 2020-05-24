@@ -25,9 +25,8 @@ Route.group(() => {
   // Users
   Route.post('sessions', 'SessionsController.store')
   Route.post('sessions/verify', 'SessionsController.check')
-  Route.post('users', 'UsersController.store')
-
-  Route.post('password-requests', 'PasswordRequestController.forget')
+  Route.post('users', 'UsersController.store').middleware('recaptcha')
+  Route.post('password-requests', 'PasswordRequestController.forget').middleware('recaptcha')
 }).middleware('guest')
 
 /* Auth only */
