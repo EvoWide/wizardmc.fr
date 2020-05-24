@@ -72,15 +72,13 @@ export default {
         password: null,
         passwordConfirmation: null
       },
-      signature: null,
       token: null,
       errors: {}
     }
   },
 
   mounted () {
-    this.token = this.$route.params.token
-    this.signature = this.$route.query.signature
+    this.token = this.$route.query.token
   },
 
   methods: {
@@ -92,7 +90,7 @@ export default {
       }
 
       try {
-        await this.$axios.$post(`password-requests/${this.token}?signature=${this.signature}`, this.form)
+        await this.$axios.$post(`password-requests/${this.token}`, this.form)
 
         this.$router.push({ name: 'login' })
       } catch (e) {

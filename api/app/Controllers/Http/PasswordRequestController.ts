@@ -45,7 +45,7 @@ export default class PasswordRequestController {
     const token = UserRequest.generateToken()
 
     const origin = request.headers().origin as string
-    const url = `/password-requests?token=${token}`
+    const url = `/users/password-requests?token=${token}`
 
     await Mail.send((message) => {
       message.to(user.email)
