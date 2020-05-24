@@ -6,11 +6,14 @@
         <div class="flex items-center">
           <div>Double authentification:</div>
           <div
-            :class="false ? 'text-green-500' : 'text-red-500'"
+            :class="security.length ? 'text-green-500' : 'text-red-500'"
             class="ml-4 font-semibold"
-          >Désactivée</div>
+          >{{ security.length ? 'Activée' : 'Désactivée' }}</div>
         </div>
-        <div class="flex items-center px-4 py-2 mt-2 text-sm text-justify bg-purple-700 rounded-md">
+        <div
+          v-if="!security.length"
+          class="flex items-center px-4 py-2 mt-2 text-sm text-justify bg-purple-700 rounded-md"
+        >
           <svg class="flex-shrink-0 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
             <path
               d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
@@ -25,7 +28,17 @@
         </div>
       </div>
       <div class="mt-4 text-center">
-        <EmailButton @click.native="enable2FA" :cta="true" :status="requestStatus" text="Activer" />
+        <template v-if="security.length">
+          <EmailButton
+            @click.native="disable2FA"
+            :cta="true"
+            :status="disableStatus"
+            text="Désactiver"
+          />
+        </template>
+        <template v-else>
+          <EmailButton @click.native="enable2FA" :cta="true" :status="enableStatus" text="Activer" />
+        </template>
       </div>
     </div>
   </div>
@@ -39,20 +52,37 @@ export default {
     EmailButton
   },
 
+  props: {
+    security: {
+      type: String,
+      default: ''
+    }
+  },
+
   data () {
     return {
-      requestStatus: 'none'
+      disableStatus: 'none',
+      enableStatus: 'none'
     }
   },
 
   methods: {
+    async disable2FA () {
+      try {
+        this.disableStatus = 'sending'
+        await this.$axios.$get('profile/security/disable')
+        this.disableStatus = 'sent'
+      } catch (e) {
+        this.disableStatus = 'error'
+      }
+    },
     async enable2FA () {
       try {
-        this.requestStatus = 'sending'
+        this.enableStatus = 'sending'
         await this.$axios.$get('profile/security/enable')
-        this.requestStatus = 'sent'
+        this.enableStatus = 'sent'
       } catch (e) {
-        this.requestStatus = 'error'
+        this.enableStatus = 'error'
       }
     }
   }

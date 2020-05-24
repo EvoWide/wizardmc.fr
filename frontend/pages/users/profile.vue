@@ -12,7 +12,7 @@
       </div>
       <div class="flex flex-wrap mt-8 -mx-4">
         <Information :rewards="rewards" />
-        <Security />
+        <Security :security="security ? security.method : ''" />
         <div class="w-full px-4 mt-8 lg:mt-0 lg:w-1/3">
           <div class="px-4 py-2 bg-purple-800 border border-gradient">
             <h2 class="font-semibold text-purple-100 uppercase font-title">Apparence</h2>
@@ -41,9 +41,9 @@ export default {
   },
 
   async asyncData ({ $axios }) {
-    const rewards = await $axios.$get('/profile/inventory')
+    const { rewards, security } = await $axios.$get('/profile').catch(() => {})
 
-    return { rewards }
+    return { rewards, security }
   },
 
   computed: {

@@ -48,6 +48,8 @@ Route.group(() => {
 
   // Profil
   Route.group(() => {
+    Route.get('/', 'ProfileController.index')
+
     Route.get('history/:type/:page?', 'HistoriesController.index')
 
     Route.get('security/enable', 'SecurityController.enable')
@@ -57,7 +59,6 @@ Route.group(() => {
     Route.get('security/disable', 'SecurityController.disable')
     Route.get('security/disable/:token', 'SecurityController.delete').as('disableSecurity')
 
-    Route.get('inventory', 'InventoryController.index')
     Route.get('inventory/:id', 'InventoryController.redeem')
   }).prefix('profile').namespace('App/Controllers/Http/Profile')
 
