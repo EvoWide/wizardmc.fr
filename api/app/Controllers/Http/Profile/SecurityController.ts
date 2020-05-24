@@ -142,7 +142,7 @@ export default class SecurityController {
       return response.globalError('Une erreur est survenue pendant la génération du QRCode')
     }
 
-    return response.send({ qrcode: imageUrl })
+    return response.send(imageUrl)
   }
 
   // Appelé en POST avec comme argument 'code' qui contient le code entré par l'utilisateur

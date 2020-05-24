@@ -1,6 +1,6 @@
 <template>
   <div class="container py-10 mx-auto text-justify text-purple-200">
-    <div class="panel">
+    <div class="bg-purple-transparent">
       <div class="py-2 text-center bg-gray-900">
         <div class="inline-block pb-6 text-white bg-bottom bg-no-repeat ornament-lg md:pb-5">
           <h5 class="text-xl font-bold uppercase font-title md:text-3xl">CGU</h5>
@@ -228,7 +228,7 @@
 
     <img class="block px-4 py-4 mx-auto" src="@/assets/img/line.png" alt="Separator" />
 
-    <div class="panel">
+    <div class="bg-purple-transparent">
       <div class="py-2 text-center bg-gray-900">
         <div class="inline-block pb-6 text-white bg-bottom bg-no-repeat ornament-lg md:pb-5">
           <h5 class="text-xl font-bold uppercase font-title md:text-3xl">CGV</h5>
@@ -413,10 +413,6 @@
 </template>
 
 <style scoped>
-.panel {
-  background-color: rgba(68, 51, 122, 0.8);
-}
-
 a {
   @apply text-yellow-500;
 }

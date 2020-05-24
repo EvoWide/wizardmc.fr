@@ -2,7 +2,7 @@
   <main>
     <div class="container px-4 py-10 mx-auto text-center text-white md:px-0">
       <div class="flex flex-col items-start md:flex-row md:-mx-4">
-        <div class="w-full bg-article md:w-1/5 md:mx-4">
+        <div class="w-full bg-purple-transparent md:w-1/5 md:mx-4">
           <img
             :src="post.image"
             class="block object-cover w-full mx-auto border border-gradient md:max-w-sm"
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full mt-4 bg-article md:w-4/5 md:mx-4 md:mt-0">
+        <div class="w-full mt-4 bg-purple-transparent md:w-4/5 md:mx-4 md:mt-0">
           <div class="px-4 py-4 md:px-8">
             <div class="relative inline-block pb-6 bg-bottom bg-no-repeat ornament-lg md:pb-5">
               <h1 class="text-xl font-bold uppercase font-title md:text-3xl">{{ post.title }}</h1>
@@ -56,9 +56,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.bg-article {
-  background-color: rgba(68, 51, 122, 0.8);
-}
-</style>

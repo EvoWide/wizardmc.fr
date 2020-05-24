@@ -57,3 +57,7 @@
   transform-origin: bottom left;
   transform: scaleX(1);
 }
+
+.bg-purple-transparent {
+  background-color: rgba(68, 51, 122, 0.8);
+}
