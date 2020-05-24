@@ -4,6 +4,7 @@ import qrcode from 'qrcode'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import Route from '@ioc:Adonis/Core/Route'
 import UserRequest from 'App/Models/UserRequest'
+import { DateTime } from 'luxon'
 
 export default class SecurityController {
   // Appelé en get sans argument
@@ -21,11 +22,10 @@ export default class SecurityController {
     const origin = request.headers().origin as string
     const token = UserRequest.generateToken()
 
-    const url = Route.makeSignedUrl('enableSecurity', {
+    const url = Route.makeUrl('enableSecurity', {
       params: {
         token: token,
       },
-      expiresIn: '30m',
     })
 
     await Mail.send((message) => {
@@ -59,11 +59,10 @@ export default class SecurityController {
     const origin = request.headers().origin as string
 
     const token = UserRequest.generateToken()
-    const url = Route.makeSignedUrl('disableSecurity', {
+    const url = Route.makeUrl('disableSecurity', {
       params: {
         token: token,
       },
-      expiresIn: '30m',
     })
 
     await Mail.send((message) => {
@@ -83,14 +82,18 @@ export default class SecurityController {
 
   public async delete ({ request, response, params, auth }: HttpContextContract) {
     const user = auth.user!
-    if (!request.hasValidSignature()) {
-      return response.unauthorized('')
+    const token = params.token as string
+
+    // replace with global helper??
+    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+      return response.globalError('La requête est incorrect.')
     }
 
     const mailRequest = await auth.user!.related('requests').query()
       .where('token', params.token)
       .where('user_id', auth.user!.id)
       .where('expired', 0)
+      .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
@@ -113,15 +116,19 @@ export default class SecurityController {
   }
 
   // Appelé en GET suite à la redirection du mail, retourne le qrcode a afficher au joueur
-  public async qrcode ({ request, response, params, auth }: HttpContextContract) {
-    if (!request.hasValidSignature()) {
-      return response.unauthorized('')
+  public async qrcode ({ response, params, auth }: HttpContextContract) {
+    const token = params.token as string
+
+    // replace with global helper??
+    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+      return response.globalError('La requête est incorrect.')
     }
 
     const mailRequest = await auth.user!.related('requests').query()
       .where('token', params.token)
       .where('user_id', auth.user!.id)
       .where('expired', 0)
+      .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
@@ -144,8 +151,11 @@ export default class SecurityController {
 
   // Appelé en POST avec comme argument 'code' qui contient le code entré par l'utilisateur
   public async store ({ request, response, auth, params }: HttpContextContract) {
-    if (!request.hasValidSignature()) {
-      return
+    const token = params.token as string
+
+    // replace with global helper??
+    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+      return response.globalError('La requête est incorrect.')
     }
 
     const { code } = request.post()
@@ -159,6 +169,7 @@ export default class SecurityController {
       .where('method', 'enable-otp')
       .where('user_id', auth.user!.id)
       .where('expired', 0)
+      .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
