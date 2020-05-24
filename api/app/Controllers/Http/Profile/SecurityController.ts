@@ -80,7 +80,7 @@ export default class SecurityController {
     return response.globalSuccess('Un mail a été envoyé')
   }
 
-  public async delete ({ request, response, params, auth }: HttpContextContract) {
+  public async delete ({ response, params, auth }: HttpContextContract) {
     const user = auth.user!
     const token = params.token as string
 
