@@ -37,7 +37,7 @@
     </template>
     <template v-else>
       <div class="flex items-center justify-center">
-        <div :class="{'cta': cta}" class="loader">
+        <div :class="{'cta': cta}" class="relative inline-block w-5 h-5 loader">
           <div></div>
           <div></div>
           <div></div>
@@ -68,10 +68,6 @@ export default {
 </script>
 
 <style scoped>
-.loader {
-  @apply inline-block relative w-5 h-5;
-}
-
 .loader div {
   @apply box-border block absolute w-4 h-4 rounded-full m-2px border-2 border-purple-200;
   animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
