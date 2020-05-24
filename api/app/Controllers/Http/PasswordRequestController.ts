@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { ResponseContract } from '@ioc:Adonis/Core/Response'
-import Route from '@ioc:Adonis/Core/Route'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import User from 'App/Models/User'
 import Mail from '@ioc:Adonis/Addons/Mail'
@@ -44,13 +43,10 @@ export default class PasswordRequestController {
     }
 
     const token = UserRequest.generateToken()
-    const url = Route.makeUrl('passwordRequest', {
-      params: {
-        token: token,
-      },
-    })
 
     const origin = request.headers().origin as string
+    const url = `/password-requests?token=${token}`
+
     await Mail.send((message) => {
       message.to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')

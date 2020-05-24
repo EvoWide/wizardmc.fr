@@ -22,11 +22,7 @@ export default class SecurityController {
     const origin = request.headers().origin as string
     const token = UserRequest.generateToken()
 
-    const url = Route.makeUrl('enableSecurity', {
-      params: {
-        token: token,
-      },
-    })
+    const url = `/users/security/enable?token=${token}`
 
     await Mail.send((message) => {
       message.to(user.email)
