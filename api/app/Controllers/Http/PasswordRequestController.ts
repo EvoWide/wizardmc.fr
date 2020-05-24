@@ -67,7 +67,7 @@ export default class PasswordRequestController {
   }
 
   public async update ({ request, response, params }: HttpContextContract) {
-    const token: string = params.token as string
+    const token = params.token as string
 
     // replace with global helper??
     if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
@@ -88,6 +88,7 @@ export default class PasswordRequestController {
     const passwordRequest = await UserRequest.query()
       .where('token', token)
       .where('created_at', '>', DateTime.local().minus({ hour: 3 }).toSQL())
+      .where('expired', 0)
       .preload('user')
       .first()
 
