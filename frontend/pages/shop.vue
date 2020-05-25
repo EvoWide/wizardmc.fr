@@ -108,9 +108,10 @@
                 class="font-semibold text-yellow-600"
               >{{ currentUser.credits }} {{ currentUser.credits > 1 ? 'points' : 'point' }} boutique</span>
             </p>
-            <button
-              class="px-4 py-2 mt-4 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            >Créditer votre compte</button>
+            <nuxt-link
+              :to="{name: 'credits'}"
+              class="inline-flex px-4 py-2 mt-4 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
+            >Créditer votre compte</nuxt-link>
           </div>
           <div v-else class="px-4 text-center text-purple-200">
             <span>Veuillez vous</span>

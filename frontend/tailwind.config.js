@@ -27,6 +27,17 @@ module.exports = {
             borderColor: theme('colors.yellow.600'),
             boxShadow: undefined
           }
+        },
+        select: {
+          backgroundColor: theme('colors.purple.800'),
+          borderColor: theme('colors.purple.500'),
+          borderRadius: 0,
+          color: theme('colors.purple.200'),
+          '&:focus': {
+            backgroundColor: theme('colors.purple.900'),
+            borderColor: theme('colors.yellow.600'),
+            boxShadow: undefined
+          }
         }
       }
     }),
