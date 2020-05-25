@@ -39,7 +39,7 @@ export default class HistoriesController {
       .where('shop_histories.user_id', user_id)
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
       .limit(4)
-      .offset(page)
+      .offset(page * 4)
       .orderBy('shop_histories.created_at', 'desc')
       .select('shop_offers.name', 'shop_histories.price', 'shop_histories.created_at')
   }

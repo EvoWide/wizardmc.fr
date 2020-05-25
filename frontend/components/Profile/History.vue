@@ -11,7 +11,7 @@
       </template>
       <template v-else>
         <tr class="bg-purple-700 border-b-4 border-purple-800">
-          <td class="p-2 lg:px-4" colspan="3">Aucun élément n'a été trouvé dans cet historique.</td>
+          <td class="p-2 lg:px-4" colspan="10">Aucun élément n'a été trouvé dans cet historique.</td>
         </tr>
       </template>
     </tbody>

@@ -41,11 +41,19 @@
           </template>
           <template v-else-if="currentHistoryKey === 'payments'">
             <tr class="bg-purple-700 border-b-4 border-purple-800">
-              <td class="p-2 lg:px-4" colspan="3">TODO</td>
+              <td class="p-2 lg:px-4" colspan="4">TODO</td>
             </tr>
           </template>
         </template>
       </History>
+      <div class="mt-4 text-center">
+        <button
+          v-if="moreAvailable"
+          @click="loadMore"
+          class="px-4 py-2 text-sm font-semibold text-purple-200 bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none"
+          type="button"
+        >Charger plus</button>
+      </div>
     </div>
   </div>
 </template>
@@ -69,16 +77,36 @@ export default {
     return {
       currentHistory: this.defaultHistory,
       currentHistoryKey: 'shop',
-      page: 0,
+      page: 2,
+      moreAvailable: this.defaultHistory.length > 0,
       headers: {
+        payments: ['Source', 'Prix', 'Points boutique', 'Date'],
         shop: ['Article', 'Prix', 'Date']
       }
     }
   },
 
   methods: {
+    async loadMore () {
+      try {
+        const newElements = await this.$axios.$get(`profile/history/${this.currentHistoryKey}/${this.page}`)
+
+        if (newElements.length) {
+          this.currentHistory = [...this.currentHistory, ...newElements]
+          this.page++
+        } else {
+          this.moreAvailable = false
+        }
+      } catch (e) {
+      }
+    },
     switchTab (newTab) {
       this.currentHistoryKey = newTab
+      this.page = 2
+
+      // TODO: await the new history data and update this.currentHistory
+
+      this.moreAvailable = this.currentHistory.length > 0
     }
   }
 }

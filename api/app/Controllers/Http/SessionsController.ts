@@ -51,8 +51,8 @@ export default class SessionsController {
   public async destroy ({ auth, response, session }: HttpContextContract) {
     await auth.logout()
 
-    // Remove bought Shop offers
-    session.forget('offers')
+    // Remove bought Shop offers, shop histories, ...
+    session.clear()
 
     return response.globalSuccess('Vous vous êtes déconnecté avec succès.')
   }
