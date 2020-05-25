@@ -1,10 +1,16 @@
+import Env from '@ioc:Adonis/Core/Env'
 import got from 'got'
 
 class Dedipass {
-  private readonly url = 'https://api.dedipass.com/v1/pay/rates?key=ca06117fd846ee203543455bc2aea023'
+  private readonly url = 'https://api.dedipass.com/v1/pay/'
+
+  constructor (
+    private privateKey = Env.get('PAYMENT_DEDIPASS_PRIVATE_KEY') as string,
+    private publicKey = Env.get('PAYMENT_DEDIPASS_PUBLIC_KEY') as string
+  ) { }
 
   public async getRates () {
-    const result = await got.get(this.url, {
+    const result = await got.get(`${this.url}rates?key=${this.publicKey}`, {
       responseType: 'json',
     })
 
@@ -26,9 +32,9 @@ class Dedipass {
 
       const formattedRate = {
         rate: rate.rate,
-        user_price: rate.user_price,
+        user_price: Number(rate.user_price),
         user_currency: rate.user_currency,
-        user_earns: rate.user_earns,
+        user_earns: Number(rate.user_earns),
       }
 
       switch (rate.solution) {
@@ -59,6 +65,30 @@ class Dedipass {
     })
 
     return formattedRates
+  }
+
+  public async validate (code: string) {
+    let response: any
+    try {
+      response = await got.get(`${this.url}?public_key=${this.publicKey}&private_key=${this.privateKey}&code=${code}`, { responseType: 'json' })
+    } catch (ex) {
+      return false
+    }
+    return response.body
+  }
+
+  public async getUserPrice (credits: number): Promise<number> {
+    const rates: any = await this.getRates()
+    for (let country of Object.values(rates)) {
+      for (let rateList of Object.values((<any> country).methods)) {
+        for (let rate of (<any> rateList)) {
+          if (rate.user_earns === credits) {
+            return rate.user_price
+          }
+        }
+      }
+    }
+    return -1
   }
 }
 
