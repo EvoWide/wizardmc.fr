@@ -63,6 +63,9 @@ Route.group(() => {
   }).prefix('profile').namespace('App/Controllers/Http/Profile')
 
   Route.get('password-requests', 'PasswordRequestController.change')
+
+  // Payment
+  Route.get('payments/rates', 'PaymentsController.rates')
 }).middleware('auth')
 
 /* Admin only */
