@@ -2,7 +2,6 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { authenticator } from 'otplib'
 import qrcode from 'qrcode'
 import Mail from '@ioc:Adonis/Addons/Mail'
-import Route from '@ioc:Adonis/Core/Route'
 import UserRequest from 'App/Models/UserRequest'
 import { DateTime } from 'luxon'
 
