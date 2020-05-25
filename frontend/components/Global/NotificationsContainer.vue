@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed inset-0 z-40 px-4 py-6 pointer-events-none sm:p-6">
+  <div class="fixed inset-0 px-4 py-6 pointer-events-none sm:p-6" style="z-index: 100;">
     <transition-group
       enter-active-class="transition duration-300 ease-out transform"
       enter-class="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
