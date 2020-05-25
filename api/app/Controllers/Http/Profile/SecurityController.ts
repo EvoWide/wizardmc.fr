@@ -55,11 +55,7 @@ export default class SecurityController {
     const origin = request.headers().origin as string
 
     const token = UserRequest.generateToken()
-    const url = Route.makeUrl('disableSecurity', {
-      params: {
-        token: token,
-      },
-    })
+    const url = `/users/security/disable?token=${token}`
 
     await Mail.send((message) => {
       message.to(user.email)
@@ -104,11 +100,11 @@ export default class SecurityController {
       .first()
 
     if (!security) {
-      return response.globalError('La 2FA n\'a pas été trouvé.')
+      return response.globalError('La double authentification n\'a pas été trouvée.')
     }
     await security.delete()
 
-    return response.ok('')
+    return response.globalSuccess('La double authentification a bien été désactivée !')
   }
 
   // Appelé en GET suite à la redirection du mail, retourne le qrcode a afficher au joueur
@@ -186,6 +182,6 @@ export default class SecurityController {
     await mailRequest.save()
 
     await user.related('security').create({ method: 'otp', secret: mailRequest.data })
-    return response.globalSuccess('Le 2FA a bien été activé !')
+    return response.globalSuccess('La double authentification a bien été activée !')
   }
 }

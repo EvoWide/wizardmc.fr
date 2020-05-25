@@ -57,7 +57,7 @@ Route.group(() => {
     Route.post('security/store/:token', 'SecurityController.store')
 
     Route.get('security/disable', 'SecurityController.disable')
-    Route.get('security/disable/:token', 'SecurityController.delete').as('disableSecurity')
+    Route.delete('security/disable/:token', 'SecurityController.delete').as('disableSecurity')
 
     Route.get('inventory/:id', 'InventoryController.redeem')
   }).prefix('profile').namespace('App/Controllers/Http/Profile')
