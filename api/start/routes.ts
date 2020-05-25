@@ -89,6 +89,10 @@ Route.post('password-requests/:token', 'PasswordRequestController.update').as('p
 // Votes Rewards + ranking
 Route.get('votes', 'VotesController.index')
 
+// Ipn test
+Route.post('payment/notification/paypal', 'NotificationsController.paypal')
+//
+
 /* Cloudflare cached pages */
 Route.group(() => {
   // Posts
