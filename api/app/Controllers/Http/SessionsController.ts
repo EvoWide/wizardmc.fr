@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import LoginValidator from 'App/Validators/User/LoginValidator'
 import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
+import { DateTime } from 'luxon'
 import { authenticator } from 'otplib'
 
 export default class SessionsController {
@@ -18,7 +19,7 @@ export default class SessionsController {
       session.put('auth-otp', {
         user_id: user.id,
         secret: user.security.secret,
-        time: Date.now() + 120,
+        time: DateTime.local().plus({ minute: 2 }),
         remember: remember,
       })
       return response.json({ security: 'otp' })
@@ -41,7 +42,9 @@ export default class SessionsController {
     }
 
     session.forget('auth-otp')
-    auth.loginViaId(data.user_id, data.remember)
+    const user = await User.query().where('id', data.user_id).firstOrFail()
+    auth.login(user, data.remember)
+
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 

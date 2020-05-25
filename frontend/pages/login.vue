@@ -1,6 +1,7 @@
 <template>
   <div class="max-w-lg px-4 py-8 mx-auto">
-    <ForgotPasswordModal @close="showModal = false" :open="showModal" />
+    <ForgotPasswordModal @close="showForgotPasswordModal = false" :open="showForgotPasswordModal" />
+    <Confirm2FAModal @close="show2FAModal = false" :open="show2FAModal" />
     <div class="text-center">
       <div class="inline-block pb-6 text-white bg-bottom bg-no-repeat ornament-lg md:pb-5">
         <h1 class="text-xl font-bold uppercase font-title md:text-3xl">Connexion</h1>
@@ -69,7 +70,7 @@
         </div>
         <div>
           <button
-            @click="showModal = true"
+            @click="showForgotPasswordModal = true"
             class="text-sm leading-5 text-purple-200 hover:text-white focus:text-white focus:outline-none"
             type="button"
           >Mot de passe oublié ?</button>
@@ -89,12 +90,14 @@
 </template>
 
 <script>
+import Confirm2FAModal from '@/components/Auth/Confirm2FAModal.vue'
 import ForgotPasswordModal from '@/components/Auth/ForgotPasswordModal.vue'
 
 export default {
   middleware: 'guest',
 
   components: {
+    Confirm2FAModal,
     ForgotPasswordModal
   },
 
@@ -106,15 +109,20 @@ export default {
         remember: false
       },
       errors: {},
-      showModal: false
+      showForgotPasswordModal: false,
+      show2FAModal: false
     }
   },
 
   methods: {
     async login () {
       try {
-        await this.$store.dispatch('auth/login', this.form)
-        this.$router.push({ name: 'index' })
+        const securityEnabled = await this.$store.dispatch('auth/login', this.form)
+        if (securityEnabled) {
+          this.show2FAModal = true
+        } else {
+          this.$router.push({ name: 'index' })
+        }
       } catch (e) {
         this.errors = {}
         for (const error of e.response.data.errors) {

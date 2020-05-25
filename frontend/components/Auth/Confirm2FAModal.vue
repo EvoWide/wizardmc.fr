@@ -1,40 +1,28 @@
 <template>
   <Modal @close="dismiss()" :default-state="open">
     <template v-slot:content>
-      <div v-if="emailSent" class="text-center text-purple-200">
-        <p>
-          L'email a bien été envoyé à l'adresse
-          <span class="text-yellow-500">{{ form.email }}</span> !
-        </p>
-        <p
-          class="mt-8"
-        >Suivez les indications dans l'email reçu pour réinitialiser votre mot de passe.</p>
-      </div>
-      <div v-else class="text-white">
-        <h1 class="text-xl text-center font-title">Mot de passe oublié</h1>
+      <div class="text-white">
+        <h1 class="text-xl text-center font-title">Double authentification</h1>
         <p
           class="mt-4 text-sm text-purple-200"
-        >Pour réinitialiser votre mot de passe, veuillez entrer votre adresse email:</p>
+        >La double authentification est activée sur votre compte. Veuillez entrer le code généré par votre application mobile.</p>
 
         <form @submit.prevent="askResetPassword" class="mt-4" method="POST">
           <div>
             <div class="flex items-center justify-between">
-              <label
-                for="email"
-                class="block text-sm font-medium leading-5 text-purple-200"
-              >Email</label>
+              <label for="token" class="block text-sm font-medium leading-5 text-purple-200">Code</label>
               <div
-                v-if="errors.email"
+                v-if="errors.token"
                 class="block px-2 mr-1 text-xs leading-5 text-red-100 bg-red-600 rounded-full"
-              >{{ errors.email.message }}</div>
+              >{{ errors.token.message }}</div>
             </div>
             <div class="mt-1 rounded-md shadow-sm">
               <input
-                v-model="form.email"
-                id="email"
-                :class="errors.email ? 'border-red-500': 'border-gradient'"
+                v-model="form.token"
+                id="token"
+                :class="errors.token ? 'border-red-500': 'border-gradient'"
                 class="block w-full form-input focus:bg-purple-900"
-                type="email"
+                type="number"
                 required
               />
             </div>
@@ -44,10 +32,7 @@
             <span class="flex w-full rounded-md shadow-sm">
               <button
                 class="px-4 py-2 mx-auto text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-              >
-                Demander la
-                <br />réinitialisation
-              </button>
+              >Connexion</button>
             </span>
           </div>
         </form>
@@ -75,9 +60,8 @@ export default {
   data () {
     return {
       form: {
-        email: null
+        token: null
       },
-      emailSent: false,
       errors: {}
     }
   },
@@ -90,10 +74,10 @@ export default {
   methods: {
     async askResetPassword () {
       try {
-        const token = await this.recaptcha()
-        await this.$axios.$post('password-requests', { ...this.form, recaptcha: token })
-
-        this.emailSent = true
+        await this.$axios.$post('sessions/verify', this.form)
+        await this.$store.dispatch('auth/getCurrentUser')
+        this.$router.push({ name: 'index' })
+        this.dismiss()
       } catch (e) {
         this.errors = {}
         for (const error of e.response.data.errors) {
@@ -105,12 +89,7 @@ export default {
       this.$emit('close')
 
       this.errors = {}
-      this.form.email = null
-      this.emailSent = false
-    },
-    async recaptcha () {
-      await this.$recaptchaLoaded()
-      return await this.$recaptcha('login')
+      this.form.token = null
     }
   }
 }

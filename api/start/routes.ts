@@ -24,7 +24,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
   // Users
   Route.post('sessions', 'SessionsController.store')
-  Route.post('sessions/verify', 'SessionsController.check')
+  Route.post('sessions/verify', 'SessionsController.verify')
   Route.post('users', 'UsersController.store').middleware('recaptcha')
   Route.post('password-requests', 'PasswordRequestController.forget').middleware('recaptcha')
 }).middleware('guest')
