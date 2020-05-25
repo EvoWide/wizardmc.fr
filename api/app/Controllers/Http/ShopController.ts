@@ -97,6 +97,8 @@ export default class ShopsController {
       session.forget('offers')
     }
 
+    session.forget('history-shop')
+
     return response.globalSuccess('L\'achat a bien été effectué.')
   }
 

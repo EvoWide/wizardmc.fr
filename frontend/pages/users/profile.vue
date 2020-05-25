@@ -20,15 +20,14 @@
         </div>
       </div>
       <!-- Histories -->
-      <div class="h-20 px-4 py-2 mt-8 bg-purple-800 border border-gradient">
-        <h2 class="font-semibold text-purple-100 uppercase font-title">Historiques</h2>
-      </div>
+      <Histories :default-history="shopHistory" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import Histories from '@/components/Profile/Histories.vue'
 import Information from '@/components/Profile/Information.vue'
 import Security from '@/components/Profile/Security.vue'
 
@@ -36,14 +35,16 @@ export default {
   middleware: ['auth'],
 
   components: {
+    Histories,
     Information,
     Security
   },
 
   async asyncData ({ $axios }) {
-    const { rewards, security } = await $axios.$get('/profile').catch(() => {})
+    const { rewards, security } = await $axios.$get('/profile').catch(() => { })
+    const shopHistory = (await $axios.$get('profile/history/shop').catch(() => { })) ?? []
 
-    return { rewards, security }
+    return { rewards, security, shopHistory }
   },
 
   computed: {
