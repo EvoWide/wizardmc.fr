@@ -7,7 +7,7 @@
           class="mt-4 text-sm text-purple-200"
         >La double authentification est activée sur votre compte. Veuillez entrer le code généré par votre application mobile.</p>
 
-        <form @submit.prevent="askResetPassword" class="mt-4" method="POST">
+        <form @submit.prevent="enable2FA" class="mt-4" method="POST">
           <div>
             <div class="flex items-center justify-between">
               <label for="token" class="block text-sm font-medium leading-5 text-purple-200">Code</label>
@@ -72,7 +72,7 @@ export default {
   },
 
   methods: {
-    async askResetPassword () {
+    async enable2FA () {
       try {
         await this.$axios.$post('sessions/verify', this.form)
         await this.$store.dispatch('auth/getCurrentUser')

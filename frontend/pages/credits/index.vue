@@ -1,6 +1,6 @@
 <template>
   <div class="container py-10 mx-auto text-justify text-purple-200">
-    <div class>
+    <div>
       <div class="py-2 text-center bg-gray-900">
         <div class="inline-block pb-6 text-white bg-bottom bg-no-repeat ornament-lg md:pb-5">
           <h5 class="text-xl font-bold uppercase font-title md:text-3xl">Acheter des points boutique</h5>
@@ -95,8 +95,6 @@
             <Dedipass v-if="selectedMethod === 'dedipass'" :rates="rates.dedipass" />
           </div>
         </div>
-        <div class="h-64"></div>
-        <div class="h-64"></div>
       </div>
     </div>
   </div>

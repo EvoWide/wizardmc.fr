@@ -1,5 +1,10 @@
 <template>
   <div>
+    <PaymentModal
+      @close="showModal = false"
+      :open="showModal"
+      :offer="offer"
+    />
     <div class="w-full max-w-xs space-y-4">
       <Select
         v-model="selectedRegionIndex"
@@ -14,16 +19,25 @@
       <Select v-model="selectedOfferIndex" label="Montant" :options="selectedMethodOffersTexts" />
     </div>
     <div class="mt-8">
-      <button>Confirmer</button>
+      <button
+        @click="showModal = true"
+        class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
+        type="button"
+      >
+        <span>Payer</span>
+        <span class="ml-2">{{ offer.user_price.toFixed(2) }} {{ offer.user_currency }}</span>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import PaymentModal from '@/components/Shop/Credits/PaymentModal.vue'
 import Select from '@/components/Common/Select.vue'
 
 export default {
   components: {
+    PaymentModal,
     Select
   },
 
@@ -36,6 +50,7 @@ export default {
 
   data () {
     return {
+      showModal: false,
       selectedRegionIndex: 1,
       selectedMethodIndex: 1,
       selectedOfferIndex: 1
@@ -48,6 +63,9 @@ export default {
       delete rates[0]
       return rates
     },
+    offer () {
+      return this.selectedMethodOffers[this.selectedOfferIndex - 1]
+    },
     selectedRegion () {
       const region = Object.keys(this.choosableRegions)[this.selectedRegionIndex - 1]
       return this.rates[region]
@@ -59,7 +77,7 @@ export default {
       return Object.values(this.selectedRegion.methods)[this.selectedMethodIndex - 1] ?? this.rates[0].methods.Neosurf
     },
     selectedMethodOffersTexts () {
-      return this.selectedMethodOffers.map(offer => `${offer.user_earns} points boutique - ${offer.user_price} ${offer.user_currency}`)
+      return this.selectedMethodOffers.map(offer => `${offer.user_earns} points boutique - ${offer.user_price.toFixed(2)} ${offer.user_currency}`)
     }
   },
 

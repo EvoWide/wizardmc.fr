@@ -124,7 +124,7 @@ export default {
   watch: {
     options (newVal, oldVal) {
       // Options data has changed: reset the selected value
-      if (newVal.sort().toString() !== oldVal.sort().toString()) {
+      if ([...newVal].sort().toString() !== [...oldVal].sort().toString()) {
         this.value = 1
       }
       this.optionCount = this.options.length

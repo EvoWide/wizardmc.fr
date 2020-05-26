@@ -27,7 +27,8 @@
       >
         <div
           v-if="open"
-          class="relative px-4 pt-5 pb-4 overflow-hidden rounded-lg shadow-xl bg-purple-1000 sm:max-w-sm sm:w-full sm:p-6"
+          class="relative px-4 pt-5 pb-4 overflow-hidden rounded-lg shadow-xl bg-purple-1000 sm:p-6"
+          :class="size"
         >
           <slot name="content" />
         </div>
@@ -42,6 +43,10 @@ export default {
     defaultState: {
       type: Boolean,
       default: false
+    },
+    size: {
+      type: String,
+      default: 'sm:max-w-sm sm:w-full'
     }
   },
 
