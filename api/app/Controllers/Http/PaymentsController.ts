@@ -43,6 +43,7 @@ export default class PaymentsController {
         user_id: auth.user!.id,
         method: 'dedipass',
         price: price,
+        payout: dedipassValidation.payout,
         credits: credits,
         data: JSON.stringify({ code: code }),
       })

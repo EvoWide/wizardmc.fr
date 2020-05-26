@@ -9,6 +9,7 @@ export default class UserPayments extends BaseSchema {
       table.integer('user_id').unsigned()
       table.string('method')
       table.decimal('price')
+      table.decimal('payout')
       table.integer('credits')
       table.json('data').nullable()
       table.timestamp('created_at').defaultTo(this.now())

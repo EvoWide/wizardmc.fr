@@ -27,6 +27,8 @@ export default class NotificationsController {
     user.credits += paymentPrice.credits
     await user.save()
 
+    // TEST IF PAYOUT IS CORRECT
+
     await Database
       .insertQuery()
       .table('user_payments')
@@ -34,6 +36,7 @@ export default class NotificationsController {
         user_id: user.id,
         method: 'paypal',
         price: paymentPrice.price,
+        payout: paymentPrice.price - data.mc_fee,
         credits: paymentPrice.credits,
         data: JSON.stringify(data),
       })
