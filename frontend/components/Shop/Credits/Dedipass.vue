@@ -1,15 +1,12 @@
 <template>
   <div>
-    <label class="block max-w-xs">
-      <span class="text-purple-200">Région</span>
-      <select v-model="region" class="block w-full mt-1 form-select">
-        <option
-          v-for="offer in Object.keys(choosableRegions)"
-          :key="offer"
-          :value="offer"
-        >{{ rates[offer].name }}</option>
-      </select>
-    </label>
+    <div class="w-full max-w-xs">
+      <Select
+        v-model="selectedRegionIndex"
+        label="Région"
+        :options="Object.keys(choosableRegions).map(offer => rates[offer].name)"
+      />
+    </div>
     <div class="mt-4">
       <div v-for="[name, offers] in selectedRegionMethods" :key="name">
         <div class="mt-2 text-lg">{{ name }}</div>
@@ -19,11 +16,23 @@
         >{{ offer.user_earns }}PB - {{ offer.user_price }} {{ offer.user_currency }}</div>
       </div>
     </div>
+    <div class="max-w-xs mt-8">
+      <Select
+        label="Offre"
+        :options="['Wade Cooper', 'Arlene Mccoy', 'Devon Webb', 'Tom Cook', 'Tanya Fox', 'Hellen Schmidt', 'Caroline Schultz', 'Mason Heaney', 'Claudie Smitham', 'Emil Schaefer']"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import Select from '@/components/Common/Select.vue'
+
 export default {
+  components: {
+    Select
+  },
+
   props: {
     rates: {
       type: Object,
@@ -33,7 +42,7 @@ export default {
 
   data () {
     return {
-      region: 1
+      selectedRegionIndex: 1
     }
   },
 
@@ -44,7 +53,8 @@ export default {
       return rates
     },
     selectedRegion () {
-      return this.rates[this.region]
+      const region = Object.keys(this.choosableRegions)[this.selectedRegionIndex - 1]
+      return this.rates[region]
     },
     selectedRegionMethods () {
       const methods = Object.entries({ ...this.selectedRegion.methods, ...this.rates[0].methods })
