@@ -91,6 +91,7 @@ export default {
       try {
         if (this.provider === 'dedipass') {
           await this.$axios.$post('payments/dedipass', this.form)
+          this.$store.dispatch('auth/getCurrentUser')
         }
       } catch (e) {
         this.errors = {}
