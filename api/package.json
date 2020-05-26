@@ -42,6 +42,6 @@
     "qrcode": "^1.4.4",
     "reflect-metadata": "^0.1.13",
     "source-map-support": "^0.5.16",
-    "stripe": "^8.53.0"
+    "stripe": "^8.55.0"
   }
 }
