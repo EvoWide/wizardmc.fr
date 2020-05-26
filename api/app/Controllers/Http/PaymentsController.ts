@@ -34,13 +34,15 @@ export default class PaymentsController {
       await auth.user!.save
     }
 
+    const price = await Dedipass.getPrice(dedipassValidation.rate)
+
     await Database
       .insertQuery()
       .table('user_payments')
       .insert({
         user_id: auth.user!.id,
         method: 'dedipass',
-        price: await Dedipass.getUserPrice(credits),
+        price: price,
         credits: credits,
         data: JSON.stringify({ code: code }),
       })

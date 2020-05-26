@@ -77,12 +77,12 @@ class Dedipass {
     return response.body
   }
 
-  public async getUserPrice (credits: number): Promise<number> {
+  public async getPrice (rateUsed: number): Promise<number> {
     const rates: any = await this.getRates()
     for (let country of Object.values(rates)) {
       for (let rateList of Object.values((<any> country).methods)) {
         for (let rate of (<any> rateList)) {
-          if (rate.user_earns === credits) {
+          if (rate.rate === rateUsed) {
             return rate.user_price
           }
         }
