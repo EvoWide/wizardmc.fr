@@ -1,26 +1,20 @@
 <template>
   <div>
-    <div class="w-full max-w-xs">
+    <div class="w-full max-w-xs space-y-4">
       <Select
         v-model="selectedRegionIndex"
-        label="Région"
+        label="Pays"
         :options="Object.keys(choosableRegions).map(offer => rates[offer].name)"
       />
-    </div>
-    <div class="mt-4">
-      <div v-for="[name, offers] in selectedRegionMethods" :key="name">
-        <div class="mt-2 text-lg">{{ name }}</div>
-        <div
-          v-for="offer in offers"
-          :key="offer.rate"
-        >{{ offer.user_earns }}PB - {{ offer.user_price }} {{ offer.user_currency }}</div>
-      </div>
-    </div>
-    <div class="max-w-xs mt-8">
       <Select
-        label="Offre"
-        :options="['Wade Cooper', 'Arlene Mccoy', 'Devon Webb', 'Tom Cook', 'Tanya Fox', 'Hellen Schmidt', 'Caroline Schultz', 'Mason Heaney', 'Claudie Smitham', 'Emil Schaefer']"
+        v-model="selectedMethodIndex"
+        label="Méthode"
+        :options="selectedRegionMethods.map(s => s[0])"
       />
+      <Select v-model="selectedOfferIndex" label="Montant" :options="selectedMethodOffersTexts" />
+    </div>
+    <div class="mt-8">
+      <button>Confirmer</button>
     </div>
   </div>
 </template>
@@ -42,7 +36,9 @@ export default {
 
   data () {
     return {
-      selectedRegionIndex: 1
+      selectedRegionIndex: 1,
+      selectedMethodIndex: 1,
+      selectedOfferIndex: 1
     }
   },
 
@@ -57,11 +53,20 @@ export default {
       return this.rates[region]
     },
     selectedRegionMethods () {
-      const methods = Object.entries({ ...this.selectedRegion.methods, ...this.rates[0].methods })
-      console.log('-----------------')
-      console.log(methods)
+      return Object.entries({ ...this.selectedRegion.methods, ...this.rates[0].methods })
+    },
+    selectedMethodOffers () {
+      return Object.values(this.selectedRegion.methods)[this.selectedMethodIndex - 1] ?? this.rates[0].methods.Neosurf
+    },
+    selectedMethodOffersTexts () {
+      return this.selectedMethodOffers.map(offer => `${offer.user_earns} points boutique - ${offer.user_price} ${offer.user_currency}`)
+    }
+  },
 
-      return methods
+  watch: {
+    selectedRegionIndex () {
+      this.selectedMethodIndex = 1
+      this.selectedOfferIndex = 1
     }
   }
 }

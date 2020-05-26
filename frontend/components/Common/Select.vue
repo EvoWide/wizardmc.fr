@@ -38,7 +38,7 @@
         <div
           v-show="open"
           @blur="onEscape()"
-          class="absolute w-full mt-1 bg-purple-800 shadow-lg"
+          class="absolute z-10 w-full mt-1 bg-purple-800 shadow-lg"
           style="display: none;"
         >
           <ul
@@ -122,6 +122,13 @@ export default {
   },
 
   watch: {
+    options (newVal, oldVal) {
+      // Options data has changed: reset the selected value
+      if (newVal.sort().toString() !== oldVal.sort().toString()) {
+        this.value = 1
+      }
+      this.optionCount = this.options.length
+    },
     selected () {
       if (!this.open) { return }
 
@@ -147,7 +154,7 @@ export default {
 
   mounted () {
     this.$refs.listbox.focus()
-    this.optionCount = this.$refs.listbox.children.length
+    this.optionCount = this.options.length
   },
 
   methods: {
