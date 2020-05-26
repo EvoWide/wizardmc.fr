@@ -53,7 +53,6 @@ class Paysafecard {
   }
 
   public async capture (paymentId: string): Promise<any> {
-    console.log('url: ' + `${this.getUrl()}${paymentId}/capture`)
     let response = await got.post(`${this.getUrl()}${paymentId}/capture`, {
       json: {
         id: paymentId,

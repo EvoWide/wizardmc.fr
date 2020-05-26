@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Paypal from 'App/Services/Payment/Paypal'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
+import Paysafecard from 'App/Services/Payment/Paysafecard'
 
 export default class NotificationsController {
   public async paypal ({ request }: HttpContextContract) {
@@ -27,8 +28,6 @@ export default class NotificationsController {
     user.credits += paymentPrice.credits
     await user.save()
 
-    // TEST IF PAYOUT IS CORRECT
-
     await Database
       .insertQuery()
       .table('user_payments')
@@ -40,5 +39,9 @@ export default class NotificationsController {
         credits: paymentPrice.credits,
         data: JSON.stringify(data),
       })
+  }
+
+  public async paysafecard ({ params }: HttpContextContract) {
+    return await Paysafecard.validate(params.paymentId)
   }
 }

@@ -2,6 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CacheService from 'App/Services/CacheService'
 import Dedipass from 'App/Services/Payment/Dedipass'
 import Database from '@ioc:Adonis/Lucid/Database'
+import Paysafecard from 'App/Services/Payment/Paysafecard'
 
 export default class PaymentsController {
   public async rates ({ response }: HttpContextContract) {
@@ -49,5 +50,47 @@ export default class PaymentsController {
       })
 
     return response.globalSuccess(`Votre compte a bien été débité de ${credits} !`)
+  }
+
+  public async paysafecard ({ request, response, auth }: HttpContextContract) {
+    const { price } = request.post()
+    if (!price || isNaN(price)) {
+      return response.globalError('Le prix est incorrect.')
+    }
+
+    const priceRow = await Database.from('payment_prices')
+      .where('price', price)
+      .where('method', 'paysafecard')
+      .first()
+
+    if (!priceRow) {
+      return response.globalError('Le prix est incorrect.')
+    }
+
+    let payment
+    try {
+      payment = await Paysafecard.initiate(priceRow.price, {
+        id: auth.user!.uuid,
+        ip: request.ip(),
+      })
+    } catch (ex) {
+      return response
+        .globalError('La transaction n\'a pas pu être lancée en raison de problèmes de connexion.')
+    }
+
+    await Database.insertQuery().table('payment_paysafecards').insert({
+      token: payment.id,
+      user_id: auth.user?.id,
+      price: payment.amount,
+    })
+    return response.send({ redirect: payment.redirect.auth_url })
+  }
+
+  // TODO: Test this one with the front
+  public async paysafecardSuccess ({ response, params }: HttpContextContract) {
+    if (!(await Paysafecard.validate(params.paymentId))) {
+      return
+    }
+    return response.globalSuccess('Les crédits ont bien été ajoutés à votre compte !')
   }
 }

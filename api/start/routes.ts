@@ -66,6 +66,8 @@ Route.group(() => {
 
   // Payment
   Route.get('payments/rates', 'PaymentsController.rates')
+  Route.post('payments/paysafecard', 'PaymentsController.paysafecard')
+  Route.get('payments/paysafecard/:paymentId', 'PaymentsController.paysafecardSuccess')
 }).middleware('auth')
 
 /* Admin only */
@@ -92,8 +94,9 @@ Route.post('password-requests/:token', 'PasswordRequestController.update').as('p
 // Votes Rewards + ranking
 Route.get('votes', 'VotesController.index')
 
-// Ipn test
+// Ipn
 Route.post('payment/notification/paypal', 'NotificationsController.paypal')
+Route.post('payment/notification/paysafecard/:paymentId', 'NotificationsController.paysafecard')
 //
 
 /* Cloudflare cached pages */
