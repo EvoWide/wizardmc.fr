@@ -20,7 +20,7 @@ export default class PaymentsController {
 
   public async dedipass ({ request, auth, response }: HttpContextContract) {
     const { code } = request.post()
-    if (!code || !code.math(/^[a-z0-9]+$/i)) {
+    if (!code || !code.match(/^[a-z0-9]+$/i)) {
       return response.globalError('Le code est dans un format incorrect.')
     }
 
@@ -32,7 +32,7 @@ export default class PaymentsController {
     const credits = dedipassValidation.virtual_currency ?? 0
     if (credits) {
       auth.user!.credits += credits
-      await auth.user!.save
+      await auth.user!.save()
     }
 
     const price = await Dedipass.getPrice(dedipassValidation.rate)
@@ -49,7 +49,7 @@ export default class PaymentsController {
         data: JSON.stringify({ code: code }),
       })
 
-    return response.globalSuccess(`Votre compte a bien été débité de ${credits} !`)
+    return response.globalSuccess(`Les ${credits} crédits ont bien été ajoutés à votre compte !`)
   }
 
   public async paysafecard ({ request, response, auth }: HttpContextContract) {

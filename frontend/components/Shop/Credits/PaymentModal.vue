@@ -23,17 +23,17 @@
       <form @submit.prevent="proceedPayement" class="mt-4" method="POST">
         <div>
           <div class="flex items-center justify-between">
-            <label for="token" class="block text-sm font-medium leading-5 text-purple-200">Code</label>
+            <label for="code" class="block text-sm font-medium leading-5 text-purple-200">Code</label>
             <div
-              v-if="errors.token"
+              v-if="errors.code"
               class="block px-2 mr-1 text-xs leading-5 text-red-100 bg-red-600 rounded-full"
-            >{{ errors.token.message }}</div>
+            >{{ errors.code.message }}</div>
           </div>
           <div class="mt-1 rounded-md shadow-sm">
             <input
-              v-model="form.token"
-              id="token"
-              :class="errors.token ? 'border-red-500': 'border-gradient'"
+              v-model="form.code"
+              id="code"
+              :class="errors.code ? 'border-red-500': 'border-gradient'"
               class="block w-full form-input focus:bg-purple-900"
               type="number"
               required
@@ -70,23 +70,33 @@ export default {
     open: {
       type: Boolean,
       required: true
+    },
+    provider: {
+      type: String,
+      required: true
     }
   },
 
   data () {
     return {
       form: {
-        token: null
+        code: null
       },
       errors: {}
     }
   },
 
   methods: {
-    proceedPayement () {
+    async proceedPayement () {
       try {
-        //
+        if (this.provider === 'dedipass') {
+          await this.$axios.$post('payments/dedipass', this.form)
+        }
       } catch (e) {
+        this.errors = {}
+        for (const error of e.response.data.errors) {
+          this.$set(this.errors, error.field, error)
+        }
       }
 
       this.dismiss()
@@ -95,7 +105,7 @@ export default {
       this.$emit('close')
 
       this.errors = {}
-      this.form.token = null
+      this.form.code = null
     }
   }
 }

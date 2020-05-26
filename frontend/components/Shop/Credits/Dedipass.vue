@@ -4,6 +4,7 @@
       @close="showModal = false"
       :open="showModal"
       :offer="offer"
+      provider="dedipass"
     />
     <div class="w-full max-w-xs space-y-4">
       <Select

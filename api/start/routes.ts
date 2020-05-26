@@ -66,6 +66,7 @@ Route.group(() => {
 
   // Payment
   Route.get('payments/rates', 'PaymentsController.rates')
+  Route.post('payments/dedipass', 'PaymentsController.dedipass')
   Route.post('payments/paysafecard', 'PaymentsController.paysafecard')
   Route.get('payments/paysafecard/:paymentId', 'PaymentsController.paysafecardSuccess')
 }).middleware('auth')
