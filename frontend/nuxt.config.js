@@ -23,6 +23,7 @@ export default {
   ** Global CSS
   */
   css: [
+    '@/assets/css/transition.css',
     '@/assets/css/utils.css',
     '@/assets/css/pages/homepage.css',
     '@/assets/css/components/button.css',

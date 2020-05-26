@@ -1,0 +1,18 @@
+/* Fade */
+.fade-enter-active {
+  @apply transition duration-75 ease-in;
+}
+
+.fade-enter,
+.fade-leave-to {
+  @apply transform opacity-0;
+}
+
+.fade-enter-to,
+.fade-leave {
+  @apply transform opacity-100;
+}
+
+.fade-leave-active {
+  @apply transition duration-100 ease-in;
+}
