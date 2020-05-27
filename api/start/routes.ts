@@ -60,6 +60,8 @@ Route.group(() => {
     Route.delete('security/disable/:token', 'SecurityController.delete').as('disableSecurity')
 
     Route.get('inventory/:id', 'InventoryController.redeem')
+
+    Route.post('skin', 'ProfileController.uploadSkin')
   }).prefix('profile').namespace('App/Controllers/Http/Profile')
 
   Route.get('password-requests', 'PasswordRequestController.change')
