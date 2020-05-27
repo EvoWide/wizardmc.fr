@@ -6,15 +6,22 @@ import Paysafecard from 'App/Services/Payment/Paysafecard'
 
 export default class PaymentsController {
   public async rates ({ response }: HttpContextContract) {
-    const dedipassRates = await CacheService.remember('dedipass-rates', async () => {
-      return await Dedipass.getRates()
+    const [dedipass, paypal, paysafecard] = await CacheService.remember('payments-rates', async () => {
+      return Promise.all([
+        await Dedipass.getRates(),
+        await Database.from('payment_prices')
+          .where('method', 'paypal')
+          .select('price', 'credits'),
+        await Database.from('payment_prices')
+          .where('method', 'paysafecard')
+          .select('price', 'credits'),
+      ])
     }, '1h')
 
     return response.send({
-      dedipass: dedipassRates,
-      paypal: await Database.from('payment_prices')
-        .where('method', 'paypal')
-        .select('price', 'credits'),
+      dedipass,
+      paypal,
+      paysafecard,
     })
   }
 

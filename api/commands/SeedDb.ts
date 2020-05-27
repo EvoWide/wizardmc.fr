@@ -214,6 +214,25 @@ export default class SeedDb extends BaseCommand {
       await PromotionalCode.create({ code: promo.code, quantity: promo.quantity, reduction: promo.reduction, expireAt })
     }
 
+    // Payments prices
+    const prices = [2, 10, 20, 25, 50, 100]
+    for (const price of prices) {
+      await Database.insertQuery()
+        .table('payment_prices')
+        .insert({
+          method: 'paypal',
+          price,
+          credits: price * 100,
+        })
+      await Database.insertQuery()
+        .table('payment_prices')
+        .insert({
+          method: 'paysafecard',
+          price,
+          credits: price * 100,
+        })
+    }
+
     // News
     for (let i = 0; i < 20; i++) {
       await Post.create({
