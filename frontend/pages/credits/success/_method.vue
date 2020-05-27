@@ -12,7 +12,10 @@
           Votre paiement par {{ method }} a été réalisé avec
           <span class="text-green-500">succès</span>.
         </p>
-        <p>Vos points boutique ont été ajouté à votre compte.</p>
+        <p
+          v-if="method === 'paypal'"
+        >Vos points boutique peuvent mettre quelques secondes à apparaître sur votre profil."</p>
+        <p v-else>Vos points boutique ont été ajouté à votre compte.</p>
       </div>
 
       <div class="mt-8">
@@ -31,11 +34,10 @@
 export default {
   middleware: 'auth',
 
-  async asyncData ({ $axios, $store, query, params }) {
+  async asyncData ({ $axios, query, params }) {
     try {
       if (params.method === 'paysafecard') {
         await $axios.$get(`payments/paysafecard/${query.payment_id}`)
-        await $store.dispatch('auth/getCurrentUser')
       }
     } catch (e) {
     }

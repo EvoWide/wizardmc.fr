@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PaymentModal
+    <DedipassModal
       @close="showModal = false"
       :open="showModal"
       :offer="offer"
@@ -33,12 +33,12 @@
 </template>
 
 <script>
-import PaymentModal from '@/components/Shop/Credits/PaymentModal.vue'
+import DedipassModal from '@/components/Shop/Credits/DedipassModal.vue'
 import Select from '@/components/Common/Select.vue'
 
 export default {
   components: {
-    PaymentModal,
+    DedipassModal,
     Select
   },
 

@@ -40,9 +40,10 @@ export default {
     Security
   },
 
-  async asyncData ({ $axios }) {
+  async asyncData ({ $axios, store }) {
     const { rewards, security } = await $axios.$get('/profile').catch(() => { })
     const shopHistory = (await $axios.$get('profile/history/shop').catch(() => { })) ?? []
+    await store.dispatch('auth/getCurrentUser')
 
     return { rewards, security, shopHistory }
   },
