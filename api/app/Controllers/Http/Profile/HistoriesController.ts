@@ -53,6 +53,6 @@ export default class HistoriesController {
       .limit(4)
       .offset(page * 4)
       .orderBy('created_at', 'desc')
-      .select('method', 'price', 'credits', 'created_at')
+      .select('method', 'price', 'currency', 'credits', 'created_at')
   }
 }

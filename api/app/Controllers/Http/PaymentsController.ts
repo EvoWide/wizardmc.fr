@@ -42,7 +42,7 @@ export default class PaymentsController {
       await auth.user!.save()
     }
 
-    const price = await Dedipass.getPrice(dedipassValidation.rate)
+    const rate = await Dedipass.getRate(dedipassValidation.rate)
 
     await Database
       .insertQuery()
@@ -50,7 +50,8 @@ export default class PaymentsController {
       .insert({
         user_id: auth.user!.id,
         method: 'dedipass',
-        price: price,
+        price: rate.user_price ?? 0,
+        currency: rate.user_currency ?? 'EUR',
         payout: dedipassValidation.payout,
         credits: credits,
         data: JSON.stringify({ code: code }),
