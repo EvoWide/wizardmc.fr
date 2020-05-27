@@ -37,8 +37,8 @@ class Paysafecard {
         amount: amount,
         currency: 'EUR',
         redirect: {
-          success_url: `${baseUrl}/credits/paysafecard/success?payment_id={payment_id}`,
-          failure_url: `${baseUrl}/credits/paysafecard/failure`,
+          success_url: `${baseUrl}/credits/success/paysafecard?payment_id={payment_id}`,
+          failure_url: `${baseUrl}/credits/failure/paysafecard`,
         },
         notification_url: 'https://f1fca6f9.ngrok.io/payment/notification/paysafecard/{payment_id}',
         customer: customer,

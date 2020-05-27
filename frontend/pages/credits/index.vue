@@ -93,7 +93,8 @@
           </h3>
           <div class="mt-4">
             <Dedipass v-if="selectedMethod === 'dedipass'" :rates="rates.dedipass" />
-            <Paysafecard v-if="selectedMethod === 'paysafecard'" :rates="rates.paysafecard" />
+            <Paysafecard v-else-if="selectedMethod === 'paysafecard'" :rates="rates.paysafecard" />
+            <Paypal v-else-if="selectedMethod === 'paypal'" :rates="rates.paypal" />
           </div>
         </div>
       </div>
@@ -103,6 +104,7 @@
 
 <script>
 import Dedipass from '@/components/Shop/Credits/Dedipass.vue'
+import Paypal from '@/components/Shop/Credits/Paypal.vue'
 import Paysafecard from '@/components/Shop/Credits/Paysafecard.vue'
 
 export default {
@@ -110,6 +112,7 @@ export default {
 
   components: {
     Dedipass,
+    Paypal,
     Paysafecard
   },
 

@@ -9,10 +9,10 @@
     <div class="px-6 py-4 mt-8 border-2 bg-purple-transparent border-gradient">
       <div class="text-purple-200">
         <p>
-          Votre paiement via PaysafeCard a
+          Votre paiement via {{ method }} a
           <span class="text-red-500">échoué</span>.
         </p>
-        <p>Votre carte PaySafeCard n'a pas été débitée.</p>
+        <p>Votre n'avez pas été débité.</p>
       </div>
 
       <div class="mt-8">
@@ -29,6 +29,19 @@
 
 <script>
 export default {
-  middleware: 'auth'
+  middleware: 'auth',
+
+  computed: {
+    method () {
+      switch (this.$route.params.method) {
+        case 'paypal':
+          return 'Paypal'
+        case 'paysafecard':
+          return 'PaysafeCard'
+        default:
+          return 'Paypal'
+      }
+    }
+  }
 }
 </script>

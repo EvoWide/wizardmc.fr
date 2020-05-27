@@ -9,7 +9,7 @@
     <div class="px-6 py-4 mt-8 border-2 bg-purple-transparent border-gradient">
       <div class="text-purple-200">
         <p>
-          Votre paiement par PaysafeCard a été réalisé avec
+          Votre paiement par {{ method }} a été réalisé avec
           <span class="text-green-500">succès</span>.
         </p>
         <p>Vos points boutique ont été ajouté à votre compte.</p>
@@ -31,11 +31,38 @@
 export default {
   middleware: 'auth',
 
-  async asyncData ({ $axios, $store, query }) {
+  async asyncData ({ $axios, $store, query, params }) {
     try {
-      await $axios.$get(`payments/paysafecard/${query.payment_id}`)
-      await $store.dispatch('auth/getCurrentUser')
+      if (params.method === 'paysafecard') {
+        await $axios.$get(`payments/paysafecard/${query.payment_id}`)
+        await $store.dispatch('auth/getCurrentUser')
+      }
     } catch (e) {
+    }
+  },
+
+  data () {
+    return {
+      providers: ['paypal', 'paysafecard']
+    }
+  },
+
+  computed: {
+    method () {
+      switch (this.$route.params.method) {
+        case 'paypal':
+          return 'Paypal'
+        case 'paysafecard':
+          return 'PaysafeCard'
+        default:
+          return ''
+      }
+    }
+  },
+
+  beforeMount () {
+    if (!this.providers.includes(this.$route.params.method)) {
+      this.$router.push({ name: 'index' })
     }
   }
 }
