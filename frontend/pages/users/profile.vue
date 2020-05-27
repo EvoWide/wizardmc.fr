@@ -13,11 +13,7 @@
       <div class="flex flex-wrap mt-8 -mx-4">
         <Information :rewards="rewards" />
         <Security :security="security ? security.method : ''" />
-        <div class="w-full px-4 mt-8 lg:mt-0 lg:w-1/3">
-          <div class="px-4 py-2 bg-purple-800 border border-gradient">
-            <h2 class="font-semibold text-purple-100 uppercase font-title">Apparence</h2>
-          </div>
-        </div>
+        <Appearance />
       </div>
       <!-- Histories -->
       <Histories :default-history="shopHistory" />
@@ -27,6 +23,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import Appearance from '@/components/Profile/Appearance.vue'
 import Histories from '@/components/Profile/Histories.vue'
 import Information from '@/components/Profile/Information.vue'
 import Security from '@/components/Profile/Security.vue'
@@ -35,6 +32,7 @@ export default {
   middleware: ['auth'],
 
   components: {
+    Appearance,
     Histories,
     Information,
     Security
