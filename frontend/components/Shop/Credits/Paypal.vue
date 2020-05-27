@@ -4,7 +4,7 @@
       <Select v-model="offerIndex" label="Offre" :options="offerTexts" />
     </div>
 
-    <form class="mt-8" :action="paypalLink" method="POST">
+    <form ref="paypal-form" @submit.prevent="redirectPaypal" class="mt-8" :action="paypalLink" method="POST">
       <input type="hidden" name="business" value="forsties08-yolo@gmail.com" />
       <input type="hidden" name="cmd" value="_xclick" />
       <input type="hidden" name="item_name" :value="offer.credits + 'Crédits'" />
@@ -19,23 +19,22 @@
       <input type="hidden" name="custom" :value="currentUser.id" />
       <input type="hidden" name="amount" :value="offer.price" />
 
-      <button
-        class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-        type="submit"
-      >
+      <LoadingButton :submit="true" :status="buttonStatus" :cta="true">
         <span>Payer</span>
         <span class="ml-2">{{ offer.price.toFixed(2) }} EUR</span>
-      </button>
+      </LoadingButton>
     </form>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 import Select from '@/components/Common/Select.vue'
 
 export default {
   components: {
+    LoadingButton,
     Select
   },
 
@@ -48,6 +47,7 @@ export default {
 
   data () {
     return {
+      buttonStatus: 'none',
       offerIndex: 1
     }
   },
@@ -72,6 +72,13 @@ export default {
       return `${process.env.FRONTEND_URL}/credits/success/paypal`
     },
     ...mapState('auth', ['currentUser'])
+  },
+
+  methods: {
+    redirectPaypal (form) {
+      this.buttonStatus = 'loading'
+      form.target.submit()
+    }
   }
 }
 </script>

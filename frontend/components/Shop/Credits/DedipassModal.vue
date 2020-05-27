@@ -42,11 +42,10 @@
         </div>
 
         <div class="mt-5 sm:mt-6">
-          <span class="flex w-full rounded-md shadow-sm">
-            <button
-              :class="{'btn-cta-disabled': !true}"
-              class="px-4 py-2 mx-auto text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-            >Envoyer</button>
+          <span class="flex justify-center w-full rounded-md shadow-sm">
+            <LoadingButton :submit="true" :status="buttonStatus" :cta="true">
+              Envoyer
+            </LoadingButton>
           </span>
         </div>
       </form>
@@ -55,10 +54,12 @@
 </template>
 
 <script>
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 import Modal from '@/components/Common/Modal.vue'
 
 export default {
   components: {
+    LoadingButton,
     Modal
   },
 
@@ -79,6 +80,7 @@ export default {
 
   data () {
     return {
+      buttonStatus: 'none',
       form: {
         code: null
       },
@@ -88,6 +90,7 @@ export default {
 
   methods: {
     async proceedPayement () {
+      this.buttonStatus = 'loading'
       try {
         if (this.provider === 'dedipass') {
           await this.$axios.$post('payments/dedipass', this.form)
@@ -107,6 +110,7 @@ export default {
 
       this.errors = {}
       this.form.code = null
+      this.buttonStatus = 'none'
     }
   }
 }

@@ -4,22 +4,21 @@
       <Select v-model="offerIndex" label="Offre" :options="offerTexts" />
     </div>
     <form @submit.prevent="proceedPayment" class="mt-8">
-      <button
-        class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-        type="submit"
-      >
+      <LoadingButton :submit="true" :status="buttonStatus" :cta="true">
         <span>Payer</span>
         <span class="ml-2">{{ offer.price.toFixed(2) }} EUR</span>
-      </button>
+      </LoadingButton>
     </form>
   </div>
 </template>
 
 <script>
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 import Select from '@/components/Common/Select.vue'
 
 export default {
   components: {
+    LoadingButton,
     Select
   },
 
@@ -32,6 +31,7 @@ export default {
 
   data () {
     return {
+      buttonStatus: 'none',
       offerIndex: 1
     }
   },
@@ -47,6 +47,7 @@ export default {
 
   methods: {
     async proceedPayment () {
+      this.buttonStatus = 'loading'
       try {
         const { redirect } = await this.$axios.$post('payments/paysafecard', { price: this.offer.price })
         window.location.href = redirect

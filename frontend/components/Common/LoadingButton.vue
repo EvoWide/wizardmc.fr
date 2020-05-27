@@ -8,9 +8,11 @@
     }"
     :disabled="status !== 'none'"
     class="px-4 py-2 focus:outline-none"
-    type="button"
+    :type="submit ? 'submit' : 'button'"
   >
-    <template v-if="status === 'none'">{{ text }}</template>
+    <template v-if="status === 'none'">
+      <slot />
+    </template>
     <template v-else-if="status === 'sent'">
       <div class="flex items-center">
         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -55,13 +57,13 @@ export default {
       type: Boolean,
       default: false
     },
+    submit: {
+      type: Boolean,
+      default: false
+    },
     status: {
       type: String,
       required: true
-    },
-    text: {
-      type: String,
-      default: 'Changer'
     }
   }
 }

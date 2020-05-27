@@ -29,15 +29,18 @@
       </div>
       <div class="mt-4 text-center">
         <template v-if="security.length">
-          <EmailButton
+          <LoadingButton
             @click.native="disable2FA"
             :cta="true"
             :status="disableStatus"
-            text="Désactiver"
-          />
+          >
+            Désactiver
+          </LoadingButton>
         </template>
         <template v-else>
-          <EmailButton @click.native="enable2FA" :cta="true" :status="enableStatus" text="Activer" />
+          <LoadingButton @click.native="enable2FA" :cta="true" :status="enableStatus">
+            Activer
+          </LoadingButton>
         </template>
       </div>
     </div>
@@ -45,11 +48,11 @@
 </template>
 
 <script>
-import EmailButton from '@/components/Profile/EmailButton.vue'
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 
 export default {
   components: {
-    EmailButton
+    LoadingButton
   },
 
   props: {

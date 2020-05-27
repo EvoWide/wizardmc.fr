@@ -13,7 +13,9 @@
             </div>
             <div class="ml-4">{{ currentUser.email }}</div>
           </div>
-          <EmailButton @click.native="changeEmail" :status="emailStatus" />
+          <LoadingButton @click.native="changeEmail" :status="emailStatus">
+            Changer
+          </LoadingButton>
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
@@ -28,7 +30,9 @@
             </div>
             <div>*************</div>
           </div>
-          <EmailButton @click.native="changePassword" :status="passwordStatus" />
+          <LoadingButton @click.native="changePassword" :status="passwordStatus">
+            Changer
+          </LoadingButton>
         </div>
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-4">
@@ -87,11 +91,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import EmailButton from '@/components/Profile/EmailButton.vue'
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 
 export default {
   components: {
-    EmailButton
+    LoadingButton
   },
 
   props: {
