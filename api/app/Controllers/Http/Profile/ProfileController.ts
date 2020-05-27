@@ -2,10 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Application from '@ioc:Adonis/Core/Application'
 import Database from '@ioc:Adonis/Lucid/Database'
 import UserSecurity from 'App/Models/UserSecurity'
-import sharp from 'sharp'
-import { imageSize } from 'image-size'
-import { promisify } from 'util'
-import fs from 'fs'
+import Jimp from 'jimp'
 
 export default class ProfileController {
   public async index ({ auth, response }: HttpContextContract) {
@@ -33,24 +30,32 @@ export default class ProfileController {
       return response.globalError('Le skin utilisé est invalide.')
     }
 
-    const dims = await promisify(imageSize)(skin.tmpPath!)
-    if (!dims || dims.width !== 64 || dims.height !== 32) {
+    const image = await Jimp.read(skin.tmpPath!)
+    if (!image) {
+      return response.globalError('Le skin utilisé est invalide.')
+    }
+
+    const { width, height } = image.bitmap
+
+    if (
+      !(image.bitmap.width === 64 && image.bitmap.height === 32) &&
+      !(image.bitmap.width === 128 && image.bitmap.height === 64)
+    ) {
       return response.globalError('Les dimensions du skin sont invalides : 32x64')
     }
 
     skin.fieldName = auth.user!.username,
     await skin.move(Application.publicPath('cloud/skin'))
 
-    if (!(await promisify(fs.exists)(Application.publicPath('cloud/head')))) {
-      await promisify(fs.mkdir)(Application.publicPath('cloud/head'))
-    }
+    const newImage = await Jimp.read(`${Application.publicPath('cloud/skin')}\\${skin.fieldName}.${skin.extname}`)
 
-    await sharp(`${Application.publicPath('cloud/skin')}\\${skin.fieldName}.${skin.extname}`)
-      .extract({ left: 8, top: 8, width: 8, height: 8 })
-      .resize(80, 80, {
-        kernel: sharp.kernel.nearest,
-      })
-      .toFile(`${Application.publicPath('cloud/head')}\\${auth.user!.username}.png`)
+    const avatarWidthAndX = width / 8
+    const avatarHeightAndY = height / 4
+
+    await newImage
+      .crop(avatarWidthAndX, avatarHeightAndY, avatarWidthAndX, avatarHeightAndY)
+      .resize(80, 80, Jimp.RESIZE_NEAREST_NEIGHBOR)
+      .writeAsync(`${Application.publicPath('cloud/head')}\\${auth.user!.username}.png`)
 
     return response.globalSuccess('Le skin a bien été mis à jour !')
   }
