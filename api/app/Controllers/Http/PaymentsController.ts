@@ -80,7 +80,7 @@ export default class PaymentsController {
         id: auth.user!.uuid,
         ip: request.ip(),
       })
-    } catch (ex) {
+    } catch (e) {
       return response
         .globalError('La transaction n\'a pas pu être lancée en raison de problèmes de connexion.')
     }
@@ -93,7 +93,6 @@ export default class PaymentsController {
     return response.send({ redirect: payment.redirect.auth_url })
   }
 
-  // TODO: Test this one with the front
   public async paysafecardSuccess ({ response, params }: HttpContextContract) {
     if (!(await Paysafecard.validate(params.paymentId))) {
       return

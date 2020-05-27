@@ -30,14 +30,15 @@ class Paysafecard {
   ) { }
 
   public async initiate (amount: number, customer: {}) {
+    const baseUrl = Env.get('FRONTEND_URL') as string
     const response = await got.post(this.getUrl(), {
       json: {
         type: 'PAYSAFECARD',
         amount: amount,
         currency: 'EUR',
         redirect: {
-          success_url: 'https://wizardmc.fr',
-          failure_url: 'https://wizardmc.fr',
+          success_url: `${baseUrl}/credits/paysafecard/success?payment_id={payment_id}`,
+          failure_url: `${baseUrl}/credits/paysafecard/failure`,
         },
         notification_url: 'https://f1fca6f9.ngrok.io/payment/notification/paysafecard/{payment_id}',
         customer: customer,
