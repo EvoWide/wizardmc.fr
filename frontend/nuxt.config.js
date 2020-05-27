@@ -49,7 +49,8 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/nuxt-tailwindcss
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Nuxt.js modules
@@ -72,6 +73,12 @@ export default {
     google: {
       families: ['Inter:400,500,600,700,800,900', 'Asul:400,700']
     }
+  },
+
+  env: {
+    FRONTEND_URL: process.env.FRONTEND_URL,
+    API_URL: process.env.API_URL,
+    ADMIN_URL: process.env.ADMIN_URL
   },
   /*
   ** Build configuration

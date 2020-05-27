@@ -33,7 +33,7 @@
                   >Profil</nuxt-link>
                   <a
                     v-if="currentUser.is_admin"
-                    :href="$store.state.adminUrl"
+                    :href="adminUrl"
                     class="block px-4 py-2 text-sm text-yellow-500 dropdown-link hover:bg-purple-900"
                   >Administration</a>
                   <a
@@ -201,6 +201,9 @@ export default {
   },
 
   computed: {
+    adminUrl () {
+      return process.env.ADMIN_URL
+    },
     ...mapState('auth', ['currentUser']),
     ...mapGetters('auth', ['logged'])
   },
