@@ -44,6 +44,18 @@ export default class ProfileController {
       return response.globalError('Les dimensions du skin sont invalides : 32x64')
     }
 
+    let alphaCount = 0
+    image.scan(0, 0, image.bitmap.width, image.bitmap.height, function (idx) {
+      if (this.bitmap.data[idx + 3] >= 40) {
+        alphaCount++
+      }
+    })
+
+    const maxAlpha = image.bitmap.width * image.bitmap.height * 0.6
+    if (alphaCount >= maxAlpha) {
+      return response.globalError('Le skin contient trop de pixel transparent.')
+    }
+
     skin.fieldName = auth.user!.username,
     await skin.move(Application.publicPath('cloud/skin'))
 
