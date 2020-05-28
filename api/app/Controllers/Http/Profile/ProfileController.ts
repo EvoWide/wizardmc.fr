@@ -3,6 +3,7 @@ import Application from '@ioc:Adonis/Core/Application'
 import Database from '@ioc:Adonis/Lucid/Database'
 import UserSecurity from 'App/Models/UserSecurity'
 import Jimp from 'jimp'
+import Env from '@ioc:Adonis/Core/Env'
 
 export default class ProfileController {
   public async index ({ auth, response }: HttpContextContract) {
@@ -56,10 +57,14 @@ export default class ProfileController {
       return response.globalError('Le skin contient trop de pixel transparent.')
     }
 
-    skin.fieldName = auth.user!.username,
-    await skin.move(Application.publicPath('cloud/skin'))
+    const configPath = Env.get('CLOUD_DESTINATION') as string
+    const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
 
-    const newImage = await Jimp.read(`${Application.publicPath('cloud/skin')}\\${skin.fieldName}.${skin.extname}`)
+    skin.fieldName = auth.user!.username,
+
+    await skin.move(`${cloudPath}/skin`)
+
+    const newImage = await Jimp.read(`${cloudPath}/skin/${skin.fieldName}.${skin.extname}`)
 
     const avatarWidthAndX = width / 8
     const avatarHeightAndY = height / 4
@@ -67,7 +72,7 @@ export default class ProfileController {
     await newImage
       .crop(avatarWidthAndX, avatarHeightAndY, avatarWidthAndX, avatarHeightAndY)
       .resize(80, 80, Jimp.RESIZE_NEAREST_NEIGHBOR)
-      .writeAsync(`${Application.publicPath('cloud/head')}\\${auth.user!.username}.png`)
+      .writeAsync(`${cloudPath}/head/${auth.user!.username}.png`)
 
     return response.globalSuccess('Le skin a bien été mis à jour !')
   }
