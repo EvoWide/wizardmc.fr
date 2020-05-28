@@ -20,7 +20,7 @@
       </div>
       <div class="mt-4 text-center">
         <LoadingButton
-          @click.native="clickSkinInputFile"
+          @click.native="clickInputFile('skin')"
           :cta="true"
           :status="skinStatus"
         >Changer de skin</LoadingButton>
@@ -49,11 +49,11 @@
             fill-rule="evenodd"
           />
         </svg>
-        <p class="ml-3">Vous devez utiliser une cape au format 64x32!</p>
+        <p class="ml-3">Vous devez utiliser une cape au format 64x32 ou 64x128!</p>
       </div>
       <div class="mt-4 text-center">
         <LoadingButton
-          @click.native="clickCapeInputFile"
+          @click.native="clickInputFile('cape')"
           :cta="true"
           :status="capeStatus"
         >Changer de cape</LoadingButton>
@@ -87,11 +87,8 @@ export default {
   },
 
   methods: {
-    clickCapeInputFile () {
-      this.$refs['upload-cape'].click()
-    },
-    clickSkinInputFile () {
-      this.$refs['upload-skin'].click()
+    clickInputFile (type) {
+      this.$refs[`upload-${type}`].click()
     },
     handleCapeUpload (event) {
       this.handleFileUpload(event, 'cape')
