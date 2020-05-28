@@ -2,7 +2,7 @@
   <div class="container px-4 py-10 mx-auto text-white lg:px-0">
     <div class="px-4 py-4 bg-purple-900">
       <div class="flex items-center">
-        <img class="w-20 h-20" src="https://minotar.net/avatar/Kalane" alt="Tête du skin" />
+        <img class="w-20 h-20" :src="headUrl" alt="Tête du skin" />
         <div class="ml-20">
           <h1 class="text-2xl font-semibold leading-7">{{ currentUser.username }}</h1>
           <p
@@ -47,6 +47,9 @@ export default {
   },
 
   computed: {
+    headUrl () {
+      return `${process.env.CLOUD_URL}/head/${this.currentUser.username}.png`
+    },
     ...mapState('auth', ['currentUser'])
   }
 }
