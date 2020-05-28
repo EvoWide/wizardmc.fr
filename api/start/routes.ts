@@ -100,6 +100,7 @@ Route.get('votes', 'VotesController.index')
 // Ipn
 Route.post('payment/notification/paypal', 'NotificationsController.paypal')
 Route.post('payment/notification/paysafecard/:paymentId', 'NotificationsController.paysafecard')
+Route.post('payment/notification/stripe', 'NotificationsController.stripe')
 //
 
 /* Cloudflare cached pages */
