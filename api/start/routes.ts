@@ -61,7 +61,7 @@ Route.group(() => {
 
     Route.get('inventory/:id', 'InventoryController.redeem')
 
-    Route.post('skin', 'ProfileController.uploadSkin')
+    Route.post('upload/:type', 'ProfileController.upload')
   }).prefix('profile').namespace('App/Controllers/Http/Profile')
 
   Route.get('password-requests', 'PasswordRequestController.change')

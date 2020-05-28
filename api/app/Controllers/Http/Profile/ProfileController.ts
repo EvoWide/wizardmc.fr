@@ -21,19 +21,24 @@ export default class ProfileController {
     return response.json({ rewards, security })
   }
 
-  public async uploadSkin ({ request, response, auth }: HttpContextContract) {
-    const skin = request.file('skin', {
+  public async upload ({ request, response, auth, params }: HttpContextContract) {
+    if (!['skin', 'cape'].includes(params.type)) {
+      return response.badRequest('')
+    }
+
+    const type = params.type
+    const file = request.file(type, {
       size: '3mb',
       extnames: ['png'],
     })
 
-    if (!skin) {
-      return response.globalError('Le skin utilisé est invalide.')
+    if (!file) {
+      return response.globalError('L\'image utilisée est invalide.')
     }
 
-    const image = await Jimp.read(skin.tmpPath!)
+    const image = await Jimp.read(file.tmpPath!)
     if (!image) {
-      return response.globalError('Le skin utilisé est invalide.')
+      return response.globalError('L\'image utilisée est invalide.')
     }
 
     const { width, height } = image.bitmap
@@ -42,36 +47,42 @@ export default class ProfileController {
       !(image.bitmap.width === 64 && image.bitmap.height === 32) &&
       !(image.bitmap.width === 128 && image.bitmap.height === 64)
     ) {
-      return response.globalError('Les dimensions du skin sont invalides : 32x64')
+      return response.globalError('Les dimensions de l\'image sont invalides : 32x64 | 64x128')
     }
 
-    let alphaCount = 0
-    image.scan(0, 0, image.bitmap.width, image.bitmap.height, function (idx) {
-      if (this.bitmap.data[idx + 3] >= 40) {
-        alphaCount++
-      }
-    })
+    // On vérifie le nombre de pixel transparent uniquement sur le skin
+    if (type === 'skin') {
+      let alphaCount = 0
+      image.scan(0, 0, image.bitmap.width, image.bitmap.height, function (idx) {
+        if (this.bitmap.data[idx + 3] >= 40) {
+          alphaCount++
+        }
+      })
 
-    const maxAlpha = image.bitmap.width * image.bitmap.height * 0.6
-    if (alphaCount >= maxAlpha) {
-      return response.globalError('Le skin contient trop de pixel transparent.')
+      const maxAlpha = image.bitmap.width * image.bitmap.height * 0.6
+      if (alphaCount >= maxAlpha) {
+        return response.globalError('Le skin contient trop de pixel transparent.')
+      }
     }
 
     const configPath = Env.get('CLOUD_DESTINATION') as string
     const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
 
-    await skin.move(`${cloudPath}/skin`, {name: `${auth.user!.username}.png`})
+    await file.move(`${cloudPath}/${type}`, {name: `${auth.user!.username}.png`})
 
-    const newImage = await Jimp.read(`${cloudPath}/skin/${auth.user!.username}.png`)
+    // si c'est le changement du skin, on génère l'avatar
+    if (type === 'skin') {
+      const newImage = await Jimp.read(`${cloudPath}/${type}/${auth.user!.username}.png`)
 
-    const avatarWidthAndX = width / 8
-    const avatarHeightAndY = height / 4
+      const avatarWidthAndX = width / 8
+      const avatarHeightAndY = height / 4
 
-    await newImage
-      .crop(avatarWidthAndX, avatarHeightAndY, avatarWidthAndX, avatarHeightAndY)
-      .resize(80, 80, Jimp.RESIZE_NEAREST_NEIGHBOR)
-      .writeAsync(`${cloudPath}/head/${auth.user!.username}.png`)
+      await newImage
+        .crop(avatarWidthAndX, avatarHeightAndY, avatarWidthAndX, avatarHeightAndY)
+        .resize(80, 80, Jimp.RESIZE_NEAREST_NEIGHBOR)
+        .writeAsync(`${cloudPath}/head/${auth.user!.username}.png`)
+    }
 
-    return response.globalSuccess('Le skin a bien été mis à jour !')
+    return response.globalSuccess(`Le ${type} a bien été mis à jour !`)
   }
 }
