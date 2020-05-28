@@ -8,7 +8,7 @@ class Skin {
     new Part(0, 16, 55, 16),
   ]
 
-  public async isInside (x: number, y: number, factor?: number): Promise<boolean> {
+  public isInside (x: number, y: number, factor?: number): boolean {
     if (!factor) {
       factor = 1
     }

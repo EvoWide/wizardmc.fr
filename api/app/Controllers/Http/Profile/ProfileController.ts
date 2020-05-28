@@ -57,8 +57,8 @@ export default class ProfileController {
       let alphaCount = 0
       const factor = image.bitmap.width / 64
 
-      await image.scan(0, 0, image.bitmap.width, image.bitmap.height, async function (x, y, idx) {
-        if (this.bitmap.data[idx + 3] < 200 && (await SkinService.isInside(x, y, factor))) {
+      image.scan(0, 0, image.bitmap.width, image.bitmap.height, function (x, y, idx) {
+        if (this.bitmap.data[idx + 3] < 200 && SkinService.isInside(x, y, factor)) {
           alphaCount++
         }
       })
