@@ -15,9 +15,16 @@
           <p class="ml-3">Vous devez utiliser un Skin 1.7 au format 64x32!</p>
         </div>
       </div>
-      <form @submit.prevent="uploadSkin" class="mt-4 text-center">
-        <input @change="handleFileUpload" type="file" name="skin" />
-        <LoadingButton class="mt-4" :submit="true" :cta="true" :status="skinStatus">Changer</LoadingButton>
+      <div class="text-center">
+        <LoadingButton
+          @click.native="clickInputFile"
+          class="mt-4"
+          :cta="true"
+          :status="skinStatus"
+        >Changer de skin</LoadingButton>
+      </div>
+      <form>
+        <input ref="upload-input" @change="handleFileUpload" type="file" name="skin" class="hidden" />
       </form>
     </div>
   </div>
@@ -33,24 +40,22 @@ export default {
 
   data () {
     return {
-      skin: null,
       skinStatus: 'none'
     }
   },
 
   methods: {
-    handleFileUpload (event) {
-      this.skin = event.target.files[0]
+    clickInputFile () {
+      this.$refs['upload-input'].click()
     },
-    async uploadSkin () {
+    async handleFileUpload (event) {
       this.skinStatus = 'loading'
       const data = new FormData()
-      data.append('skin', this.skin)
+      data.append('skin', event.target.files[0])
       try {
         await this.$axios.$post('/profile/skin', data)
         this.skinStatus = 'none'
       } catch (e) {
-
       }
     }
   }
