@@ -4,6 +4,7 @@ import CacheService from '../CacheService'
 import { DateTime } from 'luxon'
 import Database from '@ioc:Adonis/Lucid/Database'
 import User from 'App/Models/User'
+import { SessionContract } from '@ioc:Adonis/Addons/Session'
 
 class Paysafecard {
   private readonly production_url = 'https://api.paysafecard.com/v1/payments/'
@@ -77,7 +78,7 @@ class Paysafecard {
     return response.body
   }
 
-  public async validate (paymentId: string): Promise<boolean> {
+  public async validate (paymentId: string, session: SessionContract): Promise<boolean> {
     const paymentRetrieve = await this.retrieve(paymentId)
     if (!paymentRetrieve || paymentRetrieve.status !== 'AUTHORIZED') {
       return paymentRetrieve && paymentRetrieve.status === 'SUCCESS'
@@ -127,6 +128,7 @@ class Paysafecard {
         payout: payout,
         credits: priceRow.credits,
       })
+    session.forget('history-payments')
     return true
   }
 

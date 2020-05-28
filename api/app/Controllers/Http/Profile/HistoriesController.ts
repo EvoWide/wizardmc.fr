@@ -3,7 +3,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class HistoriesController {
   public async index ({ response, auth, params, session }: HttpContextContract) {
-    if (!['shop', 'payment'].includes(params.type)) {
+    if (!['shop', 'payments'].includes(params.type)) {
       return response.globalError('La page demandée n\'a pas été trouvée', 404)
     }
 
@@ -25,8 +25,8 @@ export default class HistoriesController {
       case 'shop':
         data = await this.historyShop(auth.user!.id, page)
         break
-      case 'payment':
-        data = await this.historyPayment(auth.user!.id, page)
+      case 'payments':
+        data = await this.historyPayments(auth.user!.id, page)
         break
     }
 
@@ -47,7 +47,7 @@ export default class HistoriesController {
       .select('shop_offers.name', 'shop_histories.price', 'shop_histories.created_at')
   }
 
-  private async historyPayment (user_id: number, page: number): Promise<any[]> {
+  private async historyPayments (user_id: number, page: number): Promise<any[]> {
     return await Database.from('user_payments')
       .where('user_id', user_id)
       .limit(4)

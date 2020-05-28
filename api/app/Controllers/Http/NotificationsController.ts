@@ -6,7 +6,7 @@ import Paysafecard from 'App/Services/Payment/Paysafecard'
 import Stripe from 'App/Services/Payment/Stripe'
 
 export default class NotificationsController {
-  public async paypal ({ request }: HttpContextContract) {
+  public async paypal ({ request, session }: HttpContextContract) {
     const data = request.post()
     if (!(await Paypal.verify(data))) {
       return
@@ -40,13 +40,15 @@ export default class NotificationsController {
         credits: paymentPrice.credits,
         data: JSON.stringify(data),
       })
+
+    session.forget('history-payments')
   }
 
-  public async paysafecard ({ params }: HttpContextContract) {
-    return await Paysafecard.validate(params.paymentId)
+  public async paysafecard ({ params, session }: HttpContextContract) {
+    return await Paysafecard.validate(params.paymentId, session)
   }
 
-  public async stripe ({ request, response }: HttpContextContract) {
-    return await Stripe.validate(request, response)
+  public async stripe ({ request, response, session }: HttpContextContract) {
+    return await Stripe.validate(request, response, session)
   }
 }

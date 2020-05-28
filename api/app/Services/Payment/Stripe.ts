@@ -4,6 +4,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import { ResponseContract } from '@ioc:Adonis/Core/Response'
 import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { Stripe as stripe } from 'stripe'
+import { SessionContract } from '@ioc:Adonis/Addons/Session'
 
 class Stripe {
   constructor (
@@ -11,7 +12,7 @@ class Stripe {
     private webhook = Env.get('PAYMENT_STRIPE_WEBHOOK') as string
   ) { }
 
-  public async validate (request: RequestContract, response: ResponseContract) {
+  public async validate (request: RequestContract, response: ResponseContract, adonisSession: SessionContract) {
     const stripeInstance = new stripe(this.privateKey, {
       apiVersion: '2020-03-02',
       typescript: true,
@@ -58,6 +59,8 @@ class Stripe {
         payout: paymentPrice.price - fee,
         credits: paymentPrice.credits,
       })
+
+    adonisSession.forget('history-payments')
   }
 }
 
