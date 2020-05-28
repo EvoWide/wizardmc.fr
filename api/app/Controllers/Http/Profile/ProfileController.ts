@@ -60,11 +60,9 @@ export default class ProfileController {
     const configPath = Env.get('CLOUD_DESTINATION') as string
     const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
 
-    skin.fieldName = auth.user!.username,
+    await skin.move(`${cloudPath}/skin`, {name: `${auth.user!.username}.png`})
 
-    await skin.move(`${cloudPath}/skin`)
-
-    const newImage = await Jimp.read(`${cloudPath}/skin/${skin.fieldName}.${skin.extname}`)
+    const newImage = await Jimp.read(`${cloudPath}/skin/${auth.user!.username}.png`)
 
     const avatarWidthAndX = width / 8
     const avatarHeightAndY = height / 4
