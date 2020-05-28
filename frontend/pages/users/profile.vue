@@ -13,7 +13,7 @@
       <div class="flex flex-wrap mt-8 -mx-4">
         <Information :rewards="rewards" />
         <Security :security="security ? security.method : ''" />
-        <Appearance />
+        <Appearance @upload="changeSkin" />
       </div>
       <!-- Histories -->
       <Histories :default-history="shopHistory" />
@@ -51,6 +51,14 @@ export default {
       return `${process.env.CLOUD_URL}/head/${this.currentUser.username}.png`
     },
     ...mapState('auth', ['currentUser'])
+  },
+
+  methods: {
+    changeSkin (type) {
+      if (type === 'skin') {
+        location.reload()
+      }
+    }
   }
 }
 </script>

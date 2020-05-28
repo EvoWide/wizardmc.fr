@@ -104,7 +104,9 @@ export default {
       try {
         await this.$axios.$post(`/profile/upload/${type}`, data)
         this[typeStatus] = 'none'
+        this.$emit('upload', type)
       } catch (e) {
+        this[typeStatus] = 'none'
       }
     }
   }
