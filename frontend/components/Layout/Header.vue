@@ -17,7 +17,7 @@
                 <div class="flex items-center max-w-xs text-sm">
                   <img
                     class="w-8 h-8 border-2 border-yellow-600 rounded-full group-focus:border-yellow-500"
-                    :src="headUrl"
+                    :src="$store.state.userHead"
                     alt="Player head"
                   />
                   <span
@@ -112,7 +112,7 @@
         <div class="flex items-center justify-center py-4">
           <img
             class="w-8 h-8 border-2 border-yellow-600 rounded-full"
-            :src="headUrl"
+            :src="$store.state.userHead"
             alt="Player head"
           />
           <span class="ml-2">{{ currentUser.username }}</span>
@@ -203,12 +203,6 @@ export default {
   computed: {
     adminUrl () {
       return process.env.ADMIN_URL
-    },
-    headUrl () {
-      if (!this.currentUser) {
-        return ''
-      }
-      return `${process.env.CLOUD_URL}/head/${this.currentUser.username}.png`
     },
     ...mapState('auth', ['currentUser']),
     ...mapGetters('auth', ['logged'])

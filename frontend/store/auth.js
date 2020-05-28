@@ -18,10 +18,11 @@ export const mutations = {
 }
 
 export const actions = {
-  async getCurrentUser ({ commit }) {
+  async getCurrentUser ({ commit, dispatch }) {
     const data = await this.$axios.$get('me')
 
     commit('SET_AUTHENTICATE_USER', data)
+    dispatch('updateUserHead', {}, { root: true })
   },
   async login ({ dispatch }, { username, password, remember }) {
     const { security } = await this.$axios.$post('sessions', {
