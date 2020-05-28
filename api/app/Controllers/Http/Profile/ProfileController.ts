@@ -4,6 +4,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import UserSecurity from 'App/Models/UserSecurity'
 import Jimp from 'jimp'
 import Env from '@ioc:Adonis/Core/Env'
+import CloudflareService from 'App/Services/CloudflareService'
 
 export default class ProfileController {
   public async index ({ auth, response }: HttpContextContract) {
@@ -69,6 +70,13 @@ export default class ProfileController {
     const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
 
     await file.move(`${cloudPath}/${type}`, {name: `${auth.user!.username}.png`})
+
+    const cacheUrls = [`https://cloud.wizardmc.fr/${type}/${auth.user!.username}.png`]
+    if (type === 'skin') {
+      cacheUrls.push(`https://cloud.wizardmc.fr/head/${type}.png`)
+    }
+
+    await CloudflareService.clear(cacheUrls)
 
     // si c'est le changement du skin, on génère l'avatar
     if (type === 'skin') {
