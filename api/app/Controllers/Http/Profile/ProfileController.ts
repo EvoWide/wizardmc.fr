@@ -5,6 +5,7 @@ import UserSecurity from 'App/Models/UserSecurity'
 import Jimp from 'jimp'
 import Env from '@ioc:Adonis/Core/Env'
 import CloudflareService from 'App/Services/CloudflareService'
+import SkinService from 'App/Services/SkinService'
 
 export default class ProfileController {
   public async index ({ auth, response }: HttpContextContract) {
@@ -54,13 +55,15 @@ export default class ProfileController {
     // On vérifie le nombre de pixel transparent uniquement sur le skin
     if (type === 'skin') {
       let alphaCount = 0
-      image.scan(0, 0, image.bitmap.width, image.bitmap.height, function (idx) {
-        if (this.bitmap.data[idx + 3] >= 40) {
+      const factor = image.bitmap.width / 64
+
+      await image.scan(0, 0, image.bitmap.width, image.bitmap.height, async function (x, y, idx) {
+        if (this.bitmap.data[idx + 3] < 200 && (await SkinService.isInside(x, y, factor))) {
           alphaCount++
         }
       })
 
-      const maxAlpha = image.bitmap.width * image.bitmap.height * 0.6
+      const maxAlpha = image.bitmap.width * image.bitmap.height * 0.2
       if (alphaCount >= maxAlpha) {
         return response.globalError('Le skin contient trop de pixel transparent.')
       }
@@ -69,7 +72,7 @@ export default class ProfileController {
     const configPath = Env.get('CLOUD_DESTINATION') as string
     const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
 
-    await file.move(`${cloudPath}/${type}`, {name: `${auth.user!.username}.png`})
+    await file.move(`${cloudPath}/${type}`, { name: `${auth.user!.username}.png` })
 
     const cacheUrls = [`https://cloud.wizardmc.fr/${type}/${auth.user!.username}.png`]
     if (type === 'skin') {
