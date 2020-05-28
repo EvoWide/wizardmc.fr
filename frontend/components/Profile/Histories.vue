@@ -40,8 +40,20 @@
             </tr>
           </template>
           <template v-else-if="currentHistoryKey === 'payments'">
-            <tr class="bg-purple-700 border-b-4 border-purple-800">
-              <td class="p-2 lg:px-4" colspan="4">TODO</td>
+            <tr
+              v-for="(payment) in currentHistory"
+              :key="payment.id"
+              class="bg-purple-700 border-b-4 border-purple-800"
+            >
+              <td class="p-2 capitalize whitespace-no-wrap lg:px-4">{{ payment.method }}</td>
+              <td class="p-2 whitespace-no-wrap lg:px-4">{{ payment.price }} {{ payment.currency }}</td>
+              <td class="p-2 lg:px-4">
+                <div class="flex items-center leading-none">
+                  <div>{{ payment.credits }}</div>
+                  <div class="ml-2 text-sm text-purple-200 whitespace-no-wrap">points boutique</div>
+                </div>
+              </td>
+              <td class="p-2 lg:px-4">{{ new Date(payment.created_at).toLocaleDateString() }}</td>
             </tr>
           </template>
         </template>
@@ -100,11 +112,10 @@ export default {
       } catch (e) {
       }
     },
-    switchTab (newTab) {
+    async switchTab (newTab) {
+      this.currentHistory = await this.$axios.$get(`profile/history/${newTab}`).catch(() => { })
       this.currentHistoryKey = newTab
       this.page = 2
-
-      // TODO: await the new history data and update this.currentHistory
 
       this.moreAvailable = this.currentHistory.length > 0
     }
