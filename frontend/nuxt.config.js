@@ -81,7 +81,8 @@ export default {
     API_URL: process.env.API_URL,
     ADMIN_URL: process.env.ADMIN_URL,
     CLOUD_URL: process.env.CLOUD_URL,
-    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY
+    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY,
+    RECAPTCHA_PUBLIC_KEY: process.env.RECAPTCHA_PUBLIC_KEY
   },
   /*
   ** Build configuration
