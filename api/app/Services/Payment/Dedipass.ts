@@ -47,10 +47,6 @@ class Dedipass {
           formattedRate['keyword'] = rate.keyword
           formattedRate['shortcode'] = rate.shortcode
           formattedRate['mention'] = rate.mention
-          formattedRate['graphic'] = {
-            shortcode: rate.legal_graphic.shortcode,
-            footer: rate.legal_graphic.footer,
-          }
           break
         }
 
