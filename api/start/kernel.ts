@@ -23,7 +23,6 @@ import Server from '@ioc:Adonis/Core/Server'
 Server.middleware.register([
   'Adonis/Core/BodyParserMiddleware',
   'App/Middleware/SilentAuth',
-  'App/Middleware/Visit',
 ])
 
 /*
@@ -47,4 +46,5 @@ Server.middleware.registerNamed({
   guest: 'App/Middleware/Guest',
   recaptcha: 'App/Middleware/Recaptcha',
   rest: 'App/Middleware/Rest',
+  visit: 'App/Middleware/Visit',
 })
