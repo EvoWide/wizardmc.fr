@@ -8,8 +8,6 @@ export default class Statistics extends BaseSchema {
       table.increments('id')
       table.string('name')
       table.integer('count').defaultTo(0)
-      table.timestamp('created_at').defaultTo(this.now())
-      table.timestamp('updated_at').defaultTo(this.now())
     })
   }
 
