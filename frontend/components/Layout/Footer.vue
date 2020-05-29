@@ -47,19 +47,19 @@
             <p class="w-full pb-3 font-bold text-yellow-600 uppercase">Statistiques</p>
             <p class="flex items-center w-1/2 py-1 sm:w-auto">
               <img class="w-6 pr-2" src="@/assets/img/icons/users.svg" alt="Inscrits" />
-              40'000 inscrits
+              {{ stats.registered }} inscrits
             </p>
             <p class="flex items-center w-1/2 py-1 sm:w-auto">
               <img class="w-6 pr-2" src="@/assets/img/icons/globe.svg" alt="Connectés actuellement" />
-              <span>666 connectés</span>
+              <span>{{ stats.players }} connectés</span>
             </p>
             <p class="flex items-center w-1/2 py-1 sm:w-auto">
               <img class="w-6 pr-2" src="@/assets/img/icons/eye.svg" alt="Visiteurs" />
-              99'000 visiteurs
+              {{ stats.visits }} visites
             </p>
             <p class="flex items-center w-1/2 py-1 sm:w-auto">
               <img class="w-6 pr-2" src="@/assets/img/icons/crown.svg" alt="Connectés maximum" />
-              800 connectés max
+              {{ stats.maxPlayers }} connectés max
             </p>
           </div>
           <div class="flex flex-row flex-wrap mt-5 sm:flex-col sm:mt-0 sm:pl-4 lg:pl-12">
@@ -120,3 +120,13 @@
     </div>
   </footer>
 </template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['stats'])
+  }
+}
+</script>

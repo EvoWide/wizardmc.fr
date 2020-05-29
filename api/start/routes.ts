@@ -97,6 +97,9 @@ Route.post('password-requests/:token', 'PasswordRequestController.update').as('p
 // Votes Rewards + ranking
 Route.get('votes', 'VotesController.index')
 
+// Stats
+Route.get('stats', 'StatsController.index')
+
 // Ipn
 Route.post('payment/notification/paypal', 'NotificationsController.paypal')
 Route.post('payment/notification/paysafecard/:paymentId', 'NotificationsController.paysafecard')

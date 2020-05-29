@@ -7,7 +7,7 @@ export default class Visit {
       ctx.session.put('hasVisited', true)
       await Database.from('statistics')
         .where('name', 'visits')
-        .increment('count')
+        .increment('count', 1)
     }
     await next()
   }

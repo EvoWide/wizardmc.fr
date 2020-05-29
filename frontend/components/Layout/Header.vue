@@ -8,7 +8,7 @@
         <div
           class="py-2 text-sm font-bold text-gray-100 uppercase bg-bottom bg-no-repeat ornament font-title"
         >
-          <span class="text-yellow-600">666</span> Joueurs en ligne
+          <span class="text-yellow-600">{{ stats.players }}</span> Joueurs en ligne
         </div>
         <div class="hidden text-base lg:block">
           <template v-if="logged">
@@ -205,7 +205,8 @@ export default {
       return process.env.ADMIN_URL
     },
     ...mapState('auth', ['currentUser']),
-    ...mapGetters('auth', ['logged'])
+    ...mapGetters('auth', ['logged']),
+    ...mapState(['stats'])
   },
 
   watch: {
