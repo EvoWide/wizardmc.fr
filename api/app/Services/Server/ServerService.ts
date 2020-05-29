@@ -32,8 +32,9 @@ class ServerService {
       const result = await Database.from('statistics')
         .where('name', 'max_players')
         .select('count')
+        .first()
 
-      this.maxPlayerCount = Number(result[0]['count']) ?? 0
+      this.maxPlayerCount = result ? result['count'] : 0
     }
 
     this.playerCount = await this.minecraft.getPlayerCount()
