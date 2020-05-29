@@ -79,7 +79,8 @@ export default {
     FRONTEND_URL: process.env.FRONTEND_URL,
     API_URL: process.env.API_URL,
     ADMIN_URL: process.env.ADMIN_URL,
-    CLOUD_URL: process.env.CLOUD_URL
+    CLOUD_URL: process.env.CLOUD_URL,
+    STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY
   },
   /*
   ** Build configuration
