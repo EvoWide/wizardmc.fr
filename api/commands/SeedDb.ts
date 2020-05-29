@@ -1,7 +1,6 @@
 import { BaseCommand } from '@adonisjs/ace'
 import ms from 'ms'
 import { DateTime } from 'luxon'
-import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class SeedDb extends BaseCommand {
   public static commandName = 'seed:db'
@@ -28,6 +27,7 @@ export default class SeedDb extends BaseCommand {
   }
 
   public async handle () {
+    const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     const User = (await import('App/Models/User')).default
     const ShopCategory = (await import('App/Models/Shop/Category')).default
     const ShopOffer = (await import('App/Models/Shop/Offer')).default
