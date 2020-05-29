@@ -14,7 +14,7 @@ export default ({ $axios, store }) => {
       return
     }
 
-    if (!error.response.data.errors.length) {
+    if (!error.response.data.errors || !error.response.data.errors.length) {
       return
     }
 
