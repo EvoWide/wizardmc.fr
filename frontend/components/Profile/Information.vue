@@ -130,13 +130,6 @@ export default {
   },
 
   methods: {
-    changeEmail () {
-      // TODO: change this when backend email are done
-      this.$store.dispatch('notification/add', {
-        type: 'Error',
-        message: 'La modification d\'email n\'est pas encore possible.'
-      })
-    },
     async changePassword () {
       try {
         this.passwordStatus = 'sending'
