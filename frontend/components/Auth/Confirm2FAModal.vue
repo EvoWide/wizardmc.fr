@@ -42,7 +42,6 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
 import Modal from '@/components/Common/Modal.vue'
 
 export default {
@@ -64,11 +63,6 @@ export default {
       },
       errors: {}
     }
-  },
-
-  computed: {
-    ...mapGetters('auth', ['logged']),
-    ...mapState('auth', ['currentUser'])
   },
 
   methods: {
