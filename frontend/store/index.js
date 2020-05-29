@@ -7,11 +7,13 @@ export const mutations = {
   SET_STATS (state, stats) {
     state.stats = stats
   },
-  UPDATE_USER_HEAD (state, user) {
-    // TODO: change default value in production
-    const username = user ? user.username : 'Kalane'
-    const random = Date.now()
-    state.userHead = `${process.env.CLOUD_URL}/head/${username}.png?t=${random}`
+  UPDATE_USER_HEAD (state, { user, skinChanged }) {
+    let skinUrl = `${process.env.CLOUD_URL}/head/${user.username}.png`
+    if (skinChanged) {
+      const random = Date.now()
+      skinUrl += `?t=${random}`
+    }
+    state.userHead = skinUrl
   }
 }
 
@@ -28,8 +30,8 @@ export const actions = {
     const stats = await this.$axios.$get('stats')
     commit('SET_STATS', stats)
   },
-  updateUserHead ({ commit }) {
+  updateUserHead ({ commit }, { skinChanged = false }) {
     const user = this.state.auth.currentUser
-    commit('UPDATE_USER_HEAD', user)
+    commit('UPDATE_USER_HEAD', { user, skinChanged })
   }
 }

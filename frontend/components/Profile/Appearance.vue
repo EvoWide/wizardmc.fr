@@ -106,7 +106,7 @@ export default {
         this[typeStatus] = 'none'
 
         if (type === 'skin') {
-          this.$store.dispatch('updateUserHead')
+          this.$store.dispatch('updateUserHead', { skinChanged: true })
         }
       } catch (e) {
         this[typeStatus] = 'none'
