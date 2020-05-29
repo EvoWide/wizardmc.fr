@@ -1,5 +1,4 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class Statistics extends BaseSchema {
   protected tableName = 'statistics'
@@ -12,19 +11,6 @@ export default class Statistics extends BaseSchema {
       table.timestamp('created_at').defaultTo(this.now())
       table.timestamp('updated_at').defaultTo(this.now())
     })
-
-    this.defer(async () => {
-      await Database.insertQuery().table(this.tableName)
-        .multiInsert([
-          {
-            name: 'visits',
-          },
-          {
-            name: 'max_players',
-          },
-        ])
-    })
-    await Database.manager.closeAll()
   }
 
   public async down () {
