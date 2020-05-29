@@ -5,7 +5,7 @@ import ServerService from 'App/Services/Server/ServerService'
 
 export default class StatsController {
   public async index ({ response }: HttpContextContract) {
-    const [registered, visitsAndMaxPlayers] = await CacheService.remember('vote-ranking-rewards', async () => {
+    const [registered, visitsAndMaxPlayers] = await CacheService.remember('stats', async () => {
       return Promise.all([
         await Database.from('users').count('id as count').first(),
         await Database.from('statistics')
