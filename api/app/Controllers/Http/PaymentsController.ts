@@ -3,10 +3,11 @@ import CacheService from 'App/Services/CacheService'
 import Dedipass from 'App/Services/Payment/Dedipass'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Paysafecard from 'App/Services/Payment/Paysafecard'
+import Stripe from 'App/Services/Payment/Stripe'
 
 export default class PaymentsController {
   public async rates ({ response }: HttpContextContract) {
-    const [dedipass, paypal, paysafecard] = await CacheService.remember('payments-rates', async () => {
+    const [dedipass, paypal, paysafecard, stripe] = await CacheService.remember('payments-rates', async () => {
       return Promise.all([
         await Dedipass.getRates(),
         await Database.from('payment_prices')
@@ -15,6 +16,7 @@ export default class PaymentsController {
         await Database.from('payment_prices')
           .where('method', 'paysafecard')
           .select('price', 'credits'),
+        await Stripe.getProducts(),
       ])
     }, '1h')
 
@@ -22,6 +24,7 @@ export default class PaymentsController {
       dedipass,
       paypal,
       paysafecard,
+      stripe,
     })
   }
 
