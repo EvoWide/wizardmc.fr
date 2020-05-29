@@ -2,6 +2,17 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Post from 'App/Models/Post'
 
 export default class PostsController {
+  public async all ({ response }: HttpContextContract) {
+    const posts = await Post.query()
+      .preload('author', (builder) => {
+        builder.select('username')
+      })
+      .orderBy('id', 'asc')
+      .where('hidden', false)
+
+    return response.send(posts)
+  }
+
   public async index ({ response, request }: HttpContextContract) {
     const page = Number(request.input('page', 1))
 
