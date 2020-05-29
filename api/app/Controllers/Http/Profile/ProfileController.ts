@@ -76,7 +76,7 @@ export default class ProfileController {
 
     const cacheUrls = [`https://cloud.wizardmc.fr/${type}/${auth.user!.username}.png`]
     if (type === 'skin') {
-      cacheUrls.push(`https://cloud.wizardmc.fr/head/${type}.png`)
+      cacheUrls.push(`https://cloud.wizardmc.fr/head/${auth.user!.username}.png`)
     }
 
     await CloudflareService.clear(cacheUrls)

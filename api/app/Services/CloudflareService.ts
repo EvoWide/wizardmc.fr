@@ -14,7 +14,7 @@ class CloudflareService {
       return
     }
 
-    const response = await got.post(`${this.apiUrl}client/v4/zones/${this.zone}/purge_cache`, {
+    const response = await got.delete(`${this.apiUrl}client/v4/zones/${this.zone}/purge_cache`, {
       headers: {
         'X-Auth-Email': this.email,
         'X-Auth-Key': this.key,
