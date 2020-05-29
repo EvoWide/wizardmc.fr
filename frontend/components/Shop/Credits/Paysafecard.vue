@@ -6,7 +6,7 @@
     <form @submit.prevent="proceedPayment" class="mt-8">
       <LoadingButton :submit="true" :status="buttonStatus" :cta="true">
         <span>Payer</span>
-        <span class="ml-2">{{ offer.price.toFixed(2) }} EUR</span>
+        <span class="ml-2">{{ offer.price }} EUR</span>
       </LoadingButton>
     </form>
   </div>
@@ -41,7 +41,7 @@ export default {
       return this.rates[this.offerIndex - 1]
     },
     offerTexts () {
-      return this.rates.map(offer => `${offer.credits} points boutique - ${offer.price.toFixed(2)} EUR`)
+      return this.rates.map(offer => `${offer.credits} points boutique - ${offer.price} EUR`)
     }
   },
 

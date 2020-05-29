@@ -21,7 +21,7 @@
 
       <LoadingButton :submit="true" :status="buttonStatus" :cta="true">
         <span>Payer</span>
-        <span class="ml-2">{{ offer.price.toFixed(2) }} EUR</span>
+        <span class="ml-2">{{ offer.price }} EUR</span>
       </LoadingButton>
     </form>
   </div>
@@ -63,7 +63,7 @@ export default {
       return process.env.NODE_ENV === 'development' ? 'https://116e8eaf.ngrok.io/payment/notification/paypal' : 'https://wizardmc.fr/payment/notification/paypal'
     },
     offerTexts () {
-      return this.rates.map(offer => `${offer.credits} points boutique - ${offer.price.toFixed(2)} EUR`)
+      return this.rates.map(offer => `${offer.credits} points boutique - ${offer.price} EUR`)
     },
     paypalLink () {
       return process.env.NODE_ENV === 'development' ? 'https://www.sandbox.paypal.com/cgi-bin/webscr' : 'https://www.paypal.com/cgi-bin/webscr'
