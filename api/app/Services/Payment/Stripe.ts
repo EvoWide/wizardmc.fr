@@ -53,7 +53,7 @@ class Stripe {
         }
 
         returnedPrices.push({
-          id: product.id,
+          id: price.id,
           price: price.unit_amount! / 100,
           currency: price.currency,
           credits: product.metadata.credits,
