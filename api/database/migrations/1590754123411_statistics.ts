@@ -24,6 +24,7 @@ export default class Statistics extends BaseSchema {
           },
         ])
     })
+    await Database.manager.closeAll()
   }
 
   public async down () {
