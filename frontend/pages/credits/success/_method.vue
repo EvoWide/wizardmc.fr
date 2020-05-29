@@ -45,7 +45,7 @@ export default {
 
   data () {
     return {
-      providers: ['paypal', 'paysafecard']
+      providers: ['paypal', 'paysafecard', 'stripe']
     }
   },
 
@@ -56,6 +56,8 @@ export default {
           return 'Paypal'
         case 'paysafecard':
           return 'PaysafeCard'
+        case 'stripe':
+          return 'Stripe'
         default:
           return ''
       }

@@ -60,6 +60,8 @@ class Stripe {
         })
       }
 
+      returnedPrices.sort((a:any, b:any) => a.price - b.price)
+
       return returnedPrices
     }, '1h')
   }

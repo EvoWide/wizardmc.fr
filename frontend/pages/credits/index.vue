@@ -93,8 +93,9 @@
           </h3>
           <div class="mt-4">
             <Dedipass v-if="selectedMethod === 'dedipass'" :rates="rates.dedipass" />
-            <Paysafecard v-else-if="selectedMethod === 'paysafecard'" :rates="rates.paysafecard" />
+            <Stripe v-else-if="selectedMethod === 'stripe'" :rates="rates.stripe" :stripe="stripe" />
             <Paypal v-else-if="selectedMethod === 'paypal'" :rates="rates.paypal" />
+            <Paysafecard v-else-if="selectedMethod === 'paysafecard'" :rates="rates.paysafecard" />
           </div>
         </div>
       </div>
@@ -103,9 +104,11 @@
 </template>
 
 <script>
+import { loadStripe } from '@stripe/stripe-js'
 import Dedipass from '@/components/Shop/Credits/Dedipass.vue'
 import Paypal from '@/components/Shop/Credits/Paypal.vue'
 import Paysafecard from '@/components/Shop/Credits/Paysafecard.vue'
+import Stripe from '@/components/Shop/Credits/Stripe.vue'
 
 export default {
   middleware: ['auth'],
@@ -113,7 +116,8 @@ export default {
   components: {
     Dedipass,
     Paypal,
-    Paysafecard
+    Paysafecard,
+    Stripe
   },
 
   async asyncData ({ $axios }) {
@@ -125,8 +129,13 @@ export default {
   data () {
     return {
       methods: ['dedipass', 'stripe', 'paypal', 'paysafecard'],
-      selectedMethod: null
+      selectedMethod: null,
+      stripe: null
     }
+  },
+
+  async beforeMount () {
+    this.stripe = await loadStripe(process.env.STRIPE_PUBLIC_KEY)
   },
 
   methods: {

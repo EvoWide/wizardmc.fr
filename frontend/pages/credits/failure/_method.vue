@@ -38,6 +38,8 @@ export default {
           return 'Paypal'
         case 'paysafecard':
           return 'PaysafeCard'
+        case 'stripe':
+          return 'Stripe'
         default:
           return 'Paypal'
       }
