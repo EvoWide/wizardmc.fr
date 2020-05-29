@@ -15,7 +15,7 @@ export default class SeedProduction extends BaseCommand {
     await Database.insertQuery().table('statistics')
       .multiInsert([
         { name: 'visits' },
-        { name: 'may_players' },
+        { name: 'max_players' },
       ])
 
     await Database.manager.closeAll()
