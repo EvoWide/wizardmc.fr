@@ -37,7 +37,7 @@
               <img
                 class="h-6 ml-4"
                 src="@/assets/img/providers/dedipass-text-white.png"
-                alt="Stripe"
+                alt="Dedipass"
               />
             </div>
           </div>
