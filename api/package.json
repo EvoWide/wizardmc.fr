@@ -17,7 +17,6 @@
     "eslint": "^6.8.0",
     "eslint-plugin-adonis": "^1.0.9",
     "pino-pretty": "^4.0.0",
-    "sqlite3": "^4.2.0",
     "typescript": "^3.8.3",
     "youch": "^2.0.10",
     "youch-terminal": "^1.0.0"
