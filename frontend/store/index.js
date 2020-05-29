@@ -1,6 +1,6 @@
 export const state = () => ({
   userHead: null,
-  stats: null
+  stats: {}
 })
 
 export const mutations = {
@@ -18,7 +18,9 @@ export const mutations = {
 export const actions = {
   async nuxtClientInit ({ dispatch }, { app }) {
     try {
-      await dispatch('getStats')
+      if (process.client) {
+        await dispatch('getStats')
+      }
       await dispatch('auth/getCurrentUser')
     } catch (e) { }
   },
