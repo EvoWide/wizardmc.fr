@@ -106,7 +106,7 @@ export default class ShopsController {
     return (await Database.query().from('shop_histories')
       .where('user_id', user.id)
       .where('offer_id', offer_id)
-      .whereIn('version', ['-1', Env.get('SERVER_VERSION') as string])
+      .whereIn('version', [-1, Number(Env.get('SERVER_VERSION')))
       .limit(1)).length > 0
   }
 }
