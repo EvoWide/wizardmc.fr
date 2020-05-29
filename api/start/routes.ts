@@ -110,6 +110,7 @@ Route.post('payment/notification/stripe', 'NotificationsController.stripe')
 Route.group(() => {
   // Posts
   Route.get('posts', 'PostsController.index')
+  Route.get('posts/all', 'PostsController.all')
   Route.get('posts/:id', 'PostsController.show')
 
   // Shop

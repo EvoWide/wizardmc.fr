@@ -1,3 +1,4 @@
+import axios from 'axios'
 
 export default {
   mode: 'universal',
@@ -96,6 +97,20 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+    }
+  },
+  generate: {
+    routes () {
+      axios.defaults.baseURL = 'https://api.wizardmc.fr/'
+      return axios.get('c/posts/all')
+        .then((res) => {
+          return res.data.map((post) => {
+            return {
+              route: '/news/' + post.id,
+              payload: post
+            }
+          })
+        })
     }
   }
 }
