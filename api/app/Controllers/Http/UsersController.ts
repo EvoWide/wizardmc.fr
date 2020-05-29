@@ -17,7 +17,7 @@ export default class UsersController {
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
       .where((builder) => {
         builder.where('shop_offers.unique', true)
-        builder.orWhere('shop_histories.version', Env.get('SERVER_VERSION') as string)
+        builder.orWhere('shop_histories.version', Number(Env.get('SERVER_VERSION')))
       })
       .select('shop_offers.id'))
       .map(o => o.id)
