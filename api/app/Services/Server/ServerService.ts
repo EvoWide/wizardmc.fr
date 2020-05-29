@@ -1,9 +1,12 @@
 import Minecraft from 'App/Services/Server/Minecraft'
 import Env from '@ioc:Adonis/Core/Env'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 class ServerService {
   private playersName: string[] = []
   private playerCount: number = 0
+
+  private maxPlayerCount: number = -1
 
   private readonly minecraft: Minecraft = new Minecraft({
     host: Env.get('JSONAPI_HOST') as string,
@@ -25,8 +28,25 @@ class ServerService {
   }
 
   public async update () {
+    if (this.maxPlayerCount === -1) {
+      const result = await Database.from('statistics')
+        .where('name', 'max_players')
+        .select('count')
+
+      this.maxPlayerCount = Number(result[0]['count']) ?? 0
+    }
+
     this.playerCount = await this.minecraft.getPlayerCount()
     this.playersName = await this.minecraft.getPlayerNames()
+
+    if (this.playerCount > this.maxPlayerCount) {
+      this.maxPlayerCount = this.playerCount
+      await Database.from('statistics')
+        .where('name', 'max_players')
+        .update({
+          count: this.maxPlayerCount,
+        })
+    }
   }
 }
 
