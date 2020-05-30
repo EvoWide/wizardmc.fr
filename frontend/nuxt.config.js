@@ -102,28 +102,34 @@ export default {
     }
   },
   generate: {
-    routes () {
+    async routes () {
       axios.defaults.baseURL = 'https://api.wizardmc.fr/'
-      return axios.get('c/posts/all')
-        .then((res) => {
-          const routes = res.data.map((post) => {
-            return {
-              route: '/news/' + slugify(`${post.id}-${post.title}`),
-              payload: post
-            }
-          })
+      let routes = []
 
-          routes.push(
-            '/credits/success/paypal',
-            '/credits/success/paysafecard',
-            '/credits/success/stripe',
-            '/credits/failure/paypal',
-            '/credits/failure/paysafecard',
-            '/credits/failure/stripe'
-          )
+      let [
+        posts
+      ] = await Promise.all([
+        await axios.get('c/posts/all')
+      ])
 
-          return routes
-        })
+      posts = posts.data.map((post) => {
+        return {
+          route: '/news/' + slugify(`${post.id}-${post.title}`),
+          payload: post
+        }
+      })
+
+      const others = [
+        '/credits/success/paypal',
+        '/credits/success/paysafecard',
+        '/credits/success/stripe',
+        '/credits/failure/paypal',
+        '/credits/failure/paysafecard',
+        '/credits/failure/stripe'
+      ]
+
+      routes = [...routes, ...posts, ...others]
+      return routes
     }
   }
 }
