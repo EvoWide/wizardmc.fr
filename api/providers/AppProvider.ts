@@ -47,8 +47,11 @@ export default class AppProvider {
     server.update()
     rpgParadize.update()
 
-    schedule.scheduleJob('update-server', '* * * * *', function () {
+    schedule.scheduleJob('update-server', '*/30 * * * * *', function () {
       server.update()
+    })
+
+    schedule.scheduleJob('update-rpg', '* * * * *', function () {
       rpgParadize.update()
     })
   }

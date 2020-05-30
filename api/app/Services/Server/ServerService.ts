@@ -37,8 +37,8 @@ class ServerService {
       this.maxPlayerCount = result ? result['count'] : 0
     }
 
-    this.playerCount = await this.minecraft.getPlayerCount()
     this.playersName = await this.minecraft.getPlayerNames()
+    this.playerCount = this.playersName.length
 
     if (this.playerCount > this.maxPlayerCount) {
       this.maxPlayerCount = this.playerCount
