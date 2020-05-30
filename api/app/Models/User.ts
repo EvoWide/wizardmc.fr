@@ -6,6 +6,7 @@ import Hash from '@ioc:Adonis/Core/Hash'
 import UserSecurity from './UserSecurity'
 import InventoryItem from './Vote/InventoryItem'
 import UserRequest from './UserRequest'
+import CacheService from 'App/Services/CacheService'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -63,6 +64,10 @@ export default class User extends BaseModel {
   public static async beforeUpdateHook (userInstance: User) {
     if (userInstance.$dirty.password) {
       userInstance.password = await Hash.make(userInstance.password)
+    }
+
+    if (userInstance.$dirty.credits) {
+      CacheService.remove(`user${userInstance.id}-history-payments`)
     }
   }
 }

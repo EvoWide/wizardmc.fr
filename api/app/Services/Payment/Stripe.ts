@@ -107,8 +107,6 @@ class Stripe {
         payout: payout,
         credits: credits,
       })
-
-    adonisSession.forget('history-payments')
   }
 }
 

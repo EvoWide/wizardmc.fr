@@ -59,9 +59,6 @@ export default class PaymentsController {
         credits: credits,
         data: JSON.stringify({ code: code }),
       })
-
-    session.forget('history-payments')
-
     return response.globalSuccess(`Les ${credits} crédits ont bien été ajoutés à votre compte !`)
   }
 

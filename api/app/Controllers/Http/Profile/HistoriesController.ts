@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
+import CacheService from 'App/Services/CacheService'
 
 export default class HistoriesController {
   public async index ({ response, auth, params, session }: HttpContextContract) {
@@ -13,8 +14,9 @@ export default class HistoriesController {
     }
     page -= 1
 
+    const cacheKey = `user-${auth.user!.id}-history-${params.type}`
     if (page === 0) {
-      const currentValue = session.get(`history-${params.type}`)
+      const currentValue = CacheService.get(cacheKey)
       if (currentValue) {
         return currentValue
       }
@@ -31,7 +33,7 @@ export default class HistoriesController {
     }
 
     if (page === 0) {
-      session.put(`history-${params.type}`, data)
+      CacheService.put(cacheKey, data, '30m')
     }
 
     return data

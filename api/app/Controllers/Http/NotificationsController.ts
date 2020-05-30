@@ -40,8 +40,6 @@ export default class NotificationsController {
         credits: paymentPrice.credits,
         data: JSON.stringify(data),
       })
-
-    session.forget('history-payments')
   }
 
   public async paysafecard ({ params, session }: HttpContextContract) {

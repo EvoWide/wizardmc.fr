@@ -128,7 +128,6 @@ class Paysafecard {
         payout: payout,
         credits: priceRow.credits,
       })
-    session.forget('history-payments')
     return true
   }
 
