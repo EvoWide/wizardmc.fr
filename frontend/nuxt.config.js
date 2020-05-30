@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { slugify } from './helpers/functions.js'
 
 export default {
   mode: 'universal',
@@ -107,7 +108,7 @@ export default {
         .then((res) => {
           return res.data.map((post) => {
             return {
-              route: '/news/' + post.id,
+              route: '/news/' + slugify(`${post.id}-${post.title}`),
               payload: post
             }
           })

@@ -49,7 +49,8 @@ export default {
   async asyncData ({ $axios, params, payload, error }) {
     if (payload) { return { post: payload } }
 
-    const post = await $axios.$get(`c/posts/${params.id}`)
+    const postId = params.slug.split('-')[0]
+    const post = await $axios.$get(`c/posts/${postId}`)
       .catch((e) => {
         error({ statusCode: 404, customMessage: 'Article non trouvé' })
       })

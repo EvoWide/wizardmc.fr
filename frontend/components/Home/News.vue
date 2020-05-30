@@ -1,7 +1,7 @@
 <template>
   <div :class="!last ? 'pb-8 mb-8 border-b border-gray-700' : ''">
     <nuxt-link
-      :to="{name: 'news-id', params: { id: data.id}}"
+      :to="{name: 'news-slug', params: { slug: slugify(`${data.id}-${data.title}`)}}"
       class="flex flex-col transition-transform duration-150 ease-in-out transform md:flex-row hover:translate-x-2"
     >
       <img
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { slugify } from '@/helpers/functions.js'
+
 export default {
   props: {
     data: {
@@ -39,6 +41,10 @@ export default {
     excerpt () {
       return this.data.content.length > 240 ? `${this.data.content.slice(0, 240)}...` : this.data.content
     }
+  },
+
+  methods: {
+    slugify
   }
 }
 </script>
