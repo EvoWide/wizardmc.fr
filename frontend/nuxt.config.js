@@ -106,12 +106,23 @@ export default {
       axios.defaults.baseURL = 'https://api.wizardmc.fr/'
       return axios.get('c/posts/all')
         .then((res) => {
-          return res.data.map((post) => {
+          const routes = res.data.map((post) => {
             return {
               route: '/news/' + slugify(`${post.id}-${post.title}`),
               payload: post
             }
           })
+
+          routes.push(
+            '/credits/success/paypal',
+            '/credits/success/paysafecard',
+            '/credits/success/stripe',
+            '/credits/failure/paypal',
+            '/credits/failure/paysafecard',
+            '/credits/failure/stripe'
+          )
+
+          return routes
         })
     }
   }
