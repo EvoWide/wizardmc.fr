@@ -5,7 +5,7 @@
     </div>
 
     <form ref="paypal-form" @submit.prevent="redirectPaypal" class="mt-8" :action="paypalLink" method="POST">
-      <input type="hidden" name="business" value="forsties08-yolo@gmail.com" />
+      <input type="hidden" name="business" :value="businessMail" />
       <input type="hidden" name="cmd" value="_xclick" />
       <input type="hidden" name="item_name" :value="offer.credits + 'Crédits'" />
       <input type="hidden" name="currency_code" value="EUR" />
@@ -70,6 +70,9 @@ export default {
     },
     successLink () {
       return `${process.env.FRONTEND_URL}/credits/success/paypal`
+    },
+    businessMail () {
+      return process.env.NODE_ENV === 'development' ? 'forsties08-yolo@gmail.com' : 'dehoux.kevin@gmail.com'
     },
     ...mapState('auth', ['currentUser'])
   },
