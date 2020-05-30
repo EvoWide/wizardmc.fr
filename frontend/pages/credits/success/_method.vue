@@ -36,7 +36,7 @@ export default {
 
   async asyncData ({ $axios, query, params }) {
     try {
-      if (params.method === 'paysafecard') {
+      if (params.method === 'paysafecard' && query.payment_id) {
         await $axios.$get(`payments/paysafecard/${query.payment_id}`)
       }
     } catch (e) {
