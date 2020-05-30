@@ -10,7 +10,11 @@ export default ({ $axios, store }) => {
   })
 
   $axios.onError((error) => {
-    if (error.response.config.url === 'me') {
+    if (!error.response) {
+      return
+    }
+
+    if (error.response.config && error.response.config.url === 'me') {
       return
     }
 
