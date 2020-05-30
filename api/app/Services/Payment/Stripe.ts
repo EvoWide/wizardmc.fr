@@ -4,7 +4,6 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import { ResponseContract } from '@ioc:Adonis/Core/Response'
 import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { Stripe as stripe } from 'stripe'
-import { SessionContract } from '@ioc:Adonis/Addons/Session'
 import CacheService from '../CacheService'
 
 class Stripe {
@@ -60,13 +59,13 @@ class Stripe {
         })
       }
 
-      returnedPrices.sort((a:any, b:any) => a.price - b.price)
+      returnedPrices.sort((a: any, b: any) => a.price - b.price)
 
       return returnedPrices
     }, '1h')
   }
 
-  public async validate (request: RequestContract, response: ResponseContract, adonisSession: SessionContract) {
+  public async validate (request: RequestContract, response: ResponseContract) {
     const sig = request.headers()['stripe-signature'] as string
 
     let event

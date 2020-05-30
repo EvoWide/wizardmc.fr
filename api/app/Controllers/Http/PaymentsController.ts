@@ -28,7 +28,7 @@ export default class PaymentsController {
     })
   }
 
-  public async dedipass ({ request, auth, response, session }: HttpContextContract) {
+  public async dedipass ({ request, auth, response }: HttpContextContract) {
     const { code } = request.post()
     if (!code || !code.match(/^[a-z0-9]+$/i)) {
       return response.globalError('Le code est dans un format incorrect.')
@@ -96,8 +96,8 @@ export default class PaymentsController {
     return response.send({ redirect: payment.redirect.auth_url })
   }
 
-  public async paysafecardSuccess ({ response, params, session }: HttpContextContract) {
-    if (!(await Paysafecard.validate(params.paymentId, session))) {
+  public async paysafecardSuccess ({ response, params }: HttpContextContract) {
+    if (!(await Paysafecard.validate(params.paymentId))) {
       return
     }
     return response.globalSuccess('Les crédits ont bien été ajoutés à votre compte !')
