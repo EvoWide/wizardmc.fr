@@ -67,7 +67,7 @@ export default class User extends BaseModel {
     }
 
     if (userInstance.$dirty.credits) {
-      CacheService.remove(`user${userInstance.id}-history-payments`)
+      CacheService.remove(`user-${userInstance.id}-history-payments`)
     }
   }
 }
