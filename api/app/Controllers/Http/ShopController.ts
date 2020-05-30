@@ -60,9 +60,9 @@ export default class ShopsController {
       return response.globalError(`Il vous manque ${price - user.credits} crédit(s) pour effectuer cet achat.`)
     }
 
-    // if (!ServerService.isOnline(user.username)) {
-    //   return response.globalError('Vous devez être connecté sur le serveur pour effectuer cet achat')
-    // }
+    if (!ServerService.isOnline(user.username)) {
+      return response.globalError('Vous devez être connecté sur le serveur pour effectuer cet achat')
+    }
 
     if (offer.deps && !(await this.hasBuy(user, offer.deps))) {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
