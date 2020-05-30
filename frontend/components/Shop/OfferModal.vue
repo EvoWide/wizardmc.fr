@@ -76,7 +76,7 @@ export default {
         await this.$axios.$get(url)
 
         // Update offers bought for the frontend
-        if (this.offer.unique === 1 || this.offer.version === 1) {
+        if (!!this.offer.unique || !!this.offer.version) {
           this.$store.dispatch('auth/getCurrentUser')
         } else {
           const purchase = this.promotion ? Math.round(this.offer.price * (1 - this.promotion.reduction / 100)) : this.offer.price
