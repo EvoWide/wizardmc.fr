@@ -60,7 +60,7 @@ export default {
       return `${process.env.FRONTEND_URL}/credits/failure/paypal`
     },
     notifyLink () {
-      return process.env.NODE_ENV === 'development' ? 'https://116e8eaf.ngrok.io/payment/notification/paypal' : 'https://wizardmc.fr/payment/notification/paypal'
+      return process.env.NODE_ENV === 'development' ? 'https://116e8eaf.ngrok.io/payment/notification/paypal' : 'https://api.wizardmc.fr/payment/notification/paypal'
     },
     offerTexts () {
       return this.rates.map(offer => `${offer.credits} points boutique - ${offer.price} EUR`)
