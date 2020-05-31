@@ -65,10 +65,11 @@ import 'prismjs/themes/prism-tomorrow.css'
 require('./assets/css/iconfont.css')
 
 
-// Vue select css
+// Vue select
+import vSelect from 'vue-select'
 // Note: In latest version you have to add it separately
-// import 'vue-select/dist/vue-select.css';
-
+// import 'vue-select/dist/vue-select.css'
+Vue.component('v-select', vSelect)
 
 Vue.config.productionTip = false;
 

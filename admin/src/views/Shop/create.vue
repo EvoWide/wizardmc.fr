@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="categories">
     <div class="flex items-center justify-between">
       <h2 class="justify-between">Créer une offre boutique</h2>
       <span>
@@ -57,6 +57,16 @@
             />
           </div>
         </div>
+        <div class="mb-6 vx-row">
+          <div class="w-full vx-col">
+            <label class="vs-input--label">Catégorie</label>
+            <v-select
+              :options="categories"
+              :reduce="category => category.code"
+              v-model="form.category"
+            />
+          </div>
+        </div>
         <div class="mb-2 vx-row">
           <div class="w-full vx-col">
             <vs-checkbox class="inline-flex" v-model="form.unique">Unique</vs-checkbox>
@@ -97,6 +107,7 @@ export default {
   },
   data () {
     return {
+      categories: null,
       debug: false,
       form: {
         category: null,
@@ -116,6 +127,19 @@ export default {
   watch: {
     description () {
       console.log(this.description)
+    }
+  },
+
+  async created () {
+    try {
+      const categories = await this.$axios.get('admin/shop/categories')
+      this.categories = categories.data.map(c => {
+        const newCat = {}
+        newCat.label = c.name
+        newCat.code = c.id
+        return newCat
+      })
+    } catch (e) {
     }
   },
 

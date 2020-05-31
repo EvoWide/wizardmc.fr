@@ -77,6 +77,9 @@ Route.group(() => {
 Route.group(() => {
   // Users
   Route.get('users', 'Admin/UsersController.index')
+
+  // Shop
+  Route.get('shop/categories', 'Admin/ShopController.categories')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
