@@ -43,7 +43,7 @@
             />
           </div>
         </div>
-        <div class="mb-6 vx-row">
+        <div class="mb-2 vx-row">
           <div class="w-full vx-col">
             <vs-input
               v-model="form.command"
@@ -72,9 +72,20 @@
             <vs-checkbox class="inline-flex" v-model="form.unique">Unique</vs-checkbox>
           </div>
         </div>
-        <div class="mb-6 vx-row">
+        <div class="mb-2 vx-row">
           <div class="w-full vx-col">
             <vs-checkbox class="inline-flex" v-model="form.version">Version</vs-checkbox>
+          </div>
+        </div>
+        <div class="mb-6 vx-row">
+          <div class="w-full vx-col">
+            <vs-upload
+              @on-success="successUpload"
+              :action="uploadImageUrl"
+              :limit="1"
+              text="Image de l'offre"
+              fileName="image"
+            />
           </div>
         </div>
         <div class="mb-6 vx-row">
@@ -105,6 +116,7 @@ export default {
     quillEditor,
     Prism
   },
+
   data () {
     return {
       categories: null,
@@ -124,6 +136,13 @@ export default {
       errors: {}
     }
   },
+
+  computed: {
+    uploadImageUrl () {
+      return `${process.env.VUE_APP_API_URL}/admin/shop/storeImage`
+    }
+  },
+
   watch: {
     description () {
       console.log(this.description)
@@ -146,6 +165,12 @@ export default {
   methods: {
     createOffer () {
       console.log('create offer')
+    },
+    successUpload (event) {
+      this.$vs.notify({ color: 'success', title: 'Succès', icon: 'check_box', text: 'Image de l\'offre upload avec succès!' })
+
+      const response = JSON.parse(event.target.response)
+      this.form.image = response.url
     }
   }
 }
