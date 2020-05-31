@@ -42,6 +42,7 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
+  admin: 'App/Middleware/Admin',
   auth: 'App/Middleware/Auth',
   guest: 'App/Middleware/Guest',
   recaptcha: 'App/Middleware/Recaptcha',
