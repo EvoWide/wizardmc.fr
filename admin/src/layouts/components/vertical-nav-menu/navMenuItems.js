@@ -20,5 +20,23 @@ export default [
     name: 'Users',
     slug: 'users',
     icon: 'UsersIcon'
+  },
+  {
+    url: null,
+    name: 'Shop',
+    slug: 'shop',
+    icon: 'ShoppingCartIcon',
+    submenu: [
+      {
+        url: '/shop',
+        name: 'List',
+        slug: 'shopList'
+      },
+      {
+        url: '/shop/create',
+        name: 'Create',
+        slug: 'shopCreate'
+      }
+    ]
   }
 ]

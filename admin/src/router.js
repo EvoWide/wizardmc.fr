@@ -40,6 +40,16 @@ const router = new Router({
           path: '/users',
           name: 'users',
           component: () => import('./views/Users.vue')
+        },
+        {
+          path: '/shop',
+          name: 'shop',
+          component: () => import('./views/Shop/index.vue')
+        },
+        {
+          path: '/shop/create',
+          name: 'shop-create',
+          component: () => import('./views/Shop/create.vue')
         }
       ]
     },

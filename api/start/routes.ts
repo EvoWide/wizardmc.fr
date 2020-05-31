@@ -77,7 +77,7 @@ Route.group(() => {
 Route.group(() => {
   // Users
   Route.get('users', 'Admin/UsersController.index')
-}).prefix('admin').middleware('auth').middleware('admin')
+}).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
 Route.group(() => {
