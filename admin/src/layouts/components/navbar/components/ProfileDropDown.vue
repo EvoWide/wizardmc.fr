@@ -2,14 +2,14 @@
   <div class="flex items-center the-navbar__user-meta" v-if="activeUserInfo.username">
     <div class="hidden leading-tight text-right sm:block">
       <p class="font-semibold">{{ activeUserInfo.username }}</p>
-      <small>Available</small>
+      <small>Admin</small>
     </div>
 
     <vs-dropdown vs-custom-content vs-trigger-click class="cursor-pointer">
       <div class="ml-3 con-img">
         <img
           key="onlineImg"
-          src="https://minotar.net/avatar/Kalane"
+          :src="`https://cloud.wizardmc.fr/head/${activeUserInfo.username}.png`"
           alt="user-img"
           width="40"
           height="40"
@@ -73,7 +73,7 @@ export default {
     async logout () {
       try {
         await this.$store.dispatch('auth/logout')
-        window.location.href = `${process.env.VUE_APP_FRONTEND_URL  }/login`
+        window.location.href = `${process.env.VUE_APP_FRONTEND_URL}/login`
       } catch (e) { }
     }
   }
