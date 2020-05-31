@@ -22,7 +22,7 @@ export default class RegisterValidator {
    */
   public schema = schema.create({
     username: schema.string({ escape: true, trim: true }, [
-      rules.unique({ table: 'users', column: 'username' }),
+      //rules.unique({ table: 'users', column: 'username' }),
       rules.minLength(5),
       rules.maxLength(16),
     ]),
@@ -31,9 +31,11 @@ export default class RegisterValidator {
       rules.minLength(5),
     ]),
 
-    email: schema.string({ escape: true, trim: true}, [
-      rules.email(),
-      rules.unique({ table: 'users', column: 'email' }),
+    email: schema.string({ escape: true, trim: true }, [
+      rules.email({
+        sanitize: true,
+      }),
+      //rules.unique({ table: 'users', column: 'email' }),
     ]),
   })
 

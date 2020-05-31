@@ -29,6 +29,15 @@ export default class UsersController {
 
   public async store ({ auth, request, response }: HttpContextContract) {
     const data = await request.validate(RegisterValidator)
+    const alreadyExist = await User.query()
+      .whereRaw('LOWER(username) LIKE ?', [data.username.toLowerCase()])
+      .orWhere('email', data.email)
+      .first()
+
+    if (alreadyExist) {
+      return response.globalError('L\'adresse email ou le pseudo est déjà utilisé.')
+    }
+
     await User.create(data)
 
     await auth.attempt(data.username, data.password)

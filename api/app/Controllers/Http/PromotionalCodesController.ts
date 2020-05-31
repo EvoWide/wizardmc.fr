@@ -4,7 +4,7 @@ import PromotionalCode from 'App/Models/PromotionalCode'
 export default class PromotionalCodesController {
   public async view ({ response, params }: HttpContextContract) {
     const promotionalCode = await PromotionalCode.query()
-      .whereRaw('LOWER(code) LIKE ?', params.code.toLowerCase())
+      .whereRaw('LOWER(code) LIKE ?', [params.code.toLowerCase()])
       .first()
 
     if (!promotionalCode) {
