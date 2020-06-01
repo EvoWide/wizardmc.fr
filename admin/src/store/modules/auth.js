@@ -24,6 +24,11 @@ const actions = {
     const user = await axios.get('me')
 
     commit('SET_AUTHENTICATE_USER', user.data)
+
+    // User is not admin
+    if (!user.data.is_admin) {
+      window.location.href = `${process.env.VUE_APP_FRONTEND_URL  }/login`
+    }
   },
   async login ({ dispatch }, { username, password, remember }) {
     await axios.post('sessions', {
