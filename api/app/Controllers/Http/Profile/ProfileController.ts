@@ -6,6 +6,8 @@ import Jimp from 'jimp'
 import Env from '@ioc:Adonis/Core/Env'
 import CloudflareService from 'App/Services/CloudflareService'
 import SkinService from 'App/Services/SkinService'
+import Schema from '@ioc:Adonis/Lucid/Schema'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ProfileController {
   public async index ({ auth, response }: HttpContextContract) {
@@ -27,13 +29,23 @@ export default class ProfileController {
     if (!['skin', 'cape'].includes(params.type)) {
       return response.badRequest('')
     }
-
     const type = params.type
-    const file = request.file(type, {
-      size: '3mb',
-      extnames: ['png'],
-    })
 
+    const data = await request.validate({
+      schema: schema.create({
+        [type]: schema.file({
+          size: '2mb',
+          extnames: ['png'],
+        }),
+      }),
+      messages: {
+        'skin.file.extname': 'Le format de l\'image est incorrect.',
+        'skin.file.size': 'La taille de l\'image ne peut pas dépasser 2MB.',
+        'cape.file.extname': 'Le format de l\'image est incorrect.',
+        'cape.file.size': 'La taille de l\'image ne peut pas dépasser 2MB.',
+      },
+    })
+    const file = data[type]
     if (!file) {
       return response.globalError('L\'image utilisée est invalide.')
     }
