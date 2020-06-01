@@ -71,6 +71,7 @@ module.exports = {
       'white': '#ffffff',
       'grey': '#b8c2cc',
       'grey-light': '#dae1e7',
+      'error': '#F56565'
     },
 
     /*

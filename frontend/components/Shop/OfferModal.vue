@@ -14,7 +14,7 @@
           <span class="text-yellow-500">{{ offer.price }} $</span>
         </template>
       </p>
-      <p>{{ offer.description }}</p>
+      <div v-html="offer.description" class="mt-4"></div>
 
       <div class="mt-5 sm:mt-6">
         <span class="flex w-full rounded-md shadow-sm">

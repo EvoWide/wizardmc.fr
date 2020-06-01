@@ -7,13 +7,7 @@
       </span>
     </div>
     <vx-card class="mt-6">
-      <form @submit.prevent="createOffer">
-        <!-- <vs-input
-        :danger="true"
-        danger-text="The password does not meet the standards"
-        placeholder="Password Danger"
-        v-model="value2"
-        />-->
+      <form @submit.prevent>
         <div class="mb-2 vx-row">
           <div class="w-full vx-col">
             <vs-input
@@ -46,14 +40,14 @@
         <div class="mb-2 vx-row">
           <div class="w-full vx-col">
             <vs-input
-              v-model="form.command"
-              :danger="errors.command"
-              :danger-text="errors.command ? errors.command.message : ''"
+              v-model="form.commands"
+              :danger="errors.commands"
+              :danger-text="errors.commands ? errors.commands.message : ''"
               class="w-full"
               icon-pack="feather"
               icon="icon-terminal"
               icon-no-border
-              label="Commande"
+              label="Commandes"
             />
           </div>
         </div>
@@ -63,8 +57,12 @@
             <v-select
               :options="categories"
               :reduce="category => category.code"
-              v-model="form.category"
+              v-model="form.category_id"
             />
+            <div
+              v-if="errors.category_id"
+              class="pl-2 text-xs italic text-error"
+            >{{ errors.category_id.message }}</div>
           </div>
         </div>
         <div class="mb-2 vx-row">
@@ -81,11 +79,16 @@
           <div class="w-full vx-col">
             <vs-upload
               @on-success="successUpload"
+              @on-error="errorUpload"
               :action="uploadImageUrl"
               :limit="1"
               text="Image de l'offre"
               fileName="image"
             />
+            <div
+              v-if="errors.image"
+              class="pl-2 text-xs italic text-error"
+            >{{ errors.image.message }}</div>
           </div>
         </div>
         <div class="mb-6 vx-row">
@@ -96,7 +99,7 @@
         </div>
         <div class="vx-row">
           <div class="w-full vx-col">
-            <vs-button class="mb-2 mr-3">Créer</vs-button>
+            <vs-button @click="createOffer" class="mb-2 mr-3">Créer</vs-button>
           </div>
         </div>
       </form>
@@ -122,7 +125,7 @@ export default {
       categories: null,
       debug: false,
       form: {
-        category: null,
+        category_id: null,
         commands: null,
         description: `
 <h2><span class="ql-font-serif">Description de l'offre [A MODIFIER]</span></h2><br />
@@ -143,12 +146,6 @@ export default {
     }
   },
 
-  watch: {
-    description () {
-      console.log(this.description)
-    }
-  },
-
   async created () {
     try {
       const categories = await this.$axios.get('admin/shop/categories')
@@ -163,8 +160,19 @@ export default {
   },
 
   methods: {
-    createOffer () {
-      console.log('create offer')
+    async createOffer () {
+      try {
+        await this.$axios.post('admin/shop/store', this.form)
+        this.$router.push({ name: 'shop' })
+      } catch (e) {
+        this.errors = {}
+        for (const error of e.response.data.errors) {
+          this.$set(this.errors, error.field, error)
+        }
+      }
+    },
+    errorUpload () {
+      this.$vs.notify({ color: 'danger', title: 'Erreur', icon: 'error', text: 'L\'upload a échoué!' })
     },
     successUpload (event) {
       this.$vs.notify({ color: 'success', title: 'Succès', icon: 'check_box', text: 'Image de l\'offre upload avec succès!' })

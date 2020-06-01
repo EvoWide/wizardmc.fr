@@ -3,6 +3,8 @@ import Env from '@ioc:Adonis/Core/Env'
 import Application from '@ioc:Adonis/Core/Application'
 import Category from 'App/Models/Shop/Category'
 import { randomString } from '@poppinss/utils'
+import ShopValidator from 'App/Validators/Admin/ShopValidator'
+import Offer from 'App/Models/Shop/Offer'
 
 export default class ShopController {
   public async categories ({ response }: HttpContextContract) {
@@ -28,5 +30,13 @@ export default class ShopController {
 
     const filePath = `${cloudPath}/shop/${fileName}`
     return response.json({ url: filePath })
+  }
+
+  public async store ({ request, response }: HttpContextContract) {
+    const data = await request.validate(ShopValidator)
+
+    await Offer.create(data)
+
+    return response.globalSuccess('Offre boutique créée!')
   }
 }
