@@ -110,6 +110,9 @@ Route.post('payment/notification/paysafecard/:paymentId', 'NotificationsControll
 Route.post('payment/notification/stripe', 'NotificationsController.stripe')
 //
 
+// Launcher
+Route.get('launcher', 'LauncherController.index')
+
 /* Cloudflare cached pages */
 Route.group(() => {
   // Posts
