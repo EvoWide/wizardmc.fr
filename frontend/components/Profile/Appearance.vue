@@ -33,6 +33,7 @@
             class="hidden"
           />
         </form>
+        <div v-if="errors.skin" class="text-xs text-red-500">{{ errors.skin.message }}</div>
       </div>
 
       <img class="block mx-auto my-4" src="@/assets/img/line.png" alt="Separator" />
@@ -66,6 +67,7 @@
             class="hidden"
           />
         </form>
+        <div v-if="errors.cape" class="text-xs text-red-500">{{ errors.cape.message }}</div>
       </div>
     </div>
   </div>
@@ -82,7 +84,8 @@ export default {
   data () {
     return {
       capeStatus: 'none',
-      skinStatus: 'none'
+      skinStatus: 'none',
+      errors: {}
     }
   },
 
@@ -97,6 +100,8 @@ export default {
       this.handleFileUpload(event, 'skin')
     },
     async handleFileUpload (event, type) {
+      this.errors = {}
+
       const typeStatus = `${type}Status`
       this[typeStatus] = 'loading'
       const data = new FormData()
@@ -110,6 +115,9 @@ export default {
         }
       } catch (e) {
         this[typeStatus] = 'none'
+        for (const error of e.response.data.errors) {
+          this.$set(this.errors, error.field, error)
+        }
       }
     }
   }
