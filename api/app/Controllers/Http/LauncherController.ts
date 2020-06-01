@@ -7,23 +7,25 @@ export default class LauncherController {
   public async index () {
     return await CacheService.remember('launcher-info', async () => {
       return {
-        posts: await this.getRecentPosts(3),
+        post: await this.getLastPost(),
         shop: await this.getMostBoughtOffers(3),
       }
     }, '1h')
   }
 
-  private async getRecentPosts (limit: number) {
+  private async getLastPost () {
     const queryResult = await Database.from('posts')
       .select('id', 'image', 'title')
       .where('hidden', false)
       .orderBy('id', 'asc')
-      .limit(limit)
+      .first()
 
-    for (const result of queryResult) {
-      result.url = `https://wizardmc.fr/news/${result.id}-${slugify(result.title)}`
-      delete result.id
+    if (!queryResult) {
+      return {}
     }
+
+    queryResult.url = `https://wizardmc.fr/news/${queryResult.id}-${slugify(queryResult.title)}`
+    delete queryResult.id
 
     return queryResult
   }

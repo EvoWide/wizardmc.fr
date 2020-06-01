@@ -6,7 +6,6 @@ import Jimp from 'jimp'
 import Env from '@ioc:Adonis/Core/Env'
 import CloudflareService from 'App/Services/CloudflareService'
 import SkinService from 'App/Services/SkinService'
-import Schema from '@ioc:Adonis/Lucid/Schema'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ProfileController {
