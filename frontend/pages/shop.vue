@@ -249,14 +249,29 @@ export default {
   },
 
   computed: {
+    allArticles () {
+      return this.categories.reduce((agg, category) => {
+        return [...agg, ...category.offers]
+      }, [])
+    },
     displayArticles () {
       return this.categories.find(category => category.name === this.activeTab).offers
     },
     selectedOffer () {
-      return this.displayArticles.find(o => o.id === this.selectedOfferId) || {}
+      return this.allArticles.find(article => article.id === this.selectedOfferId) || {}
     },
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
+  },
+
+  created () {
+    const id = Number(this.$route.query.id)
+    const exists = this.allArticles.find(article => article.id === id)
+
+    if (id && exists) {
+      this.selectedOfferId = id
+      this.showModal = true
+    }
   },
 
   methods: {
