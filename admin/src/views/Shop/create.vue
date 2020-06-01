@@ -12,7 +12,7 @@
           <div class="w-full vx-col">
             <vs-input
               v-model="form.name"
-              :danger="errors.name"
+              :danger="!!errors.name"
               :danger-text="errors.name ? errors.name.message : ''"
               class="w-full"
               icon-pack="feather"
@@ -26,7 +26,7 @@
           <div class="w-full vx-col">
             <vs-input
               v-model="form.price"
-              :danger="errors.price"
+              :danger="!!errors.price"
               :danger-text="errors.price ? errors.price.message : ''"
               type="number"
               class="w-full"
@@ -41,7 +41,7 @@
           <div class="w-full vx-col">
             <vs-input
               v-model="form.commands"
-              :danger="errors.commands"
+              :danger="!!errors.commands"
               :danger-text="errors.commands ? errors.commands.message : ''"
               class="w-full"
               icon-pack="feather"
