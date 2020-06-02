@@ -18,12 +18,12 @@
           :data="history"
         >
           <template slot="thead">
-            <vs-th sort-key="users.username">User</vs-th>
+            <vs-th sort-key="users.username">Utilisateur</vs-th>
             <vs-th sort-key="method">Méthode</vs-th>
             <vs-th sort-key="price">Prix</vs-th>
             <vs-th sort-key="payout">Reversé</vs-th>
             <vs-th sort-key="credits">Crédits</vs-th>
-            <vs-th sort-key="created_at">Date</vs-th>
+            <vs-th sort-key="created_at">Création</vs-th>
           </template>
 
           <template slot-scope="{data}">

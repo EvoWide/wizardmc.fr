@@ -19,9 +19,9 @@
         >
           <template slot="thead">
             <vs-th sort-key="shop_offers.name">Offre</vs-th>
-            <vs-th sort-key="users.username">User</vs-th>
+            <vs-th sort-key="users.username">Utilisateur</vs-th>
             <vs-th sort-key="shop_histories.price">Prix</vs-th>
-            <vs-th sort-key="shop_histories.created_at">Date</vs-th>
+            <vs-th sort-key="shop_histories.created_at">Création</vs-th>
           </template>
 
           <template slot-scope="{data}">
