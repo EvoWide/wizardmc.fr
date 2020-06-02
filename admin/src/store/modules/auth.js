@@ -27,7 +27,7 @@ const actions = {
 
     // User is not admin
     if (!user.data.is_admin) {
-      window.location.href = `${process.env.VUE_APP_FRONTEND_URL  }/login`
+      window.location.href = process.env.VUE_APP_FRONTEND_URL
     }
   },
   async login ({ dispatch }, { username, password, remember }) {
