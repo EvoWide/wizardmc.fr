@@ -14,7 +14,7 @@
         class="w-full"
         inputClassses="w-full vs-input-no-border vs-input-no-shdow-focus"
         icon="SearchIcon"
-        placeholder="Explore Vuexy..."
+        placeholder="Rechercher une page..."
         @input="hnd_search_query_update"
         @selected="selected"
         @closeSearchbar="showFullSearch = false"

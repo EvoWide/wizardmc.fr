@@ -60,7 +60,7 @@
           :data="navbarSearchAndPinList"
           :initalData="{pages: starredPagesLimited.concat(starredPagesMore)}"
           :searchLimit="5"
-          placeholder="Explore Vuexy..."
+          placeholder="Chercher des favoris à ajouter..."
           inputClassses="w-full"
           show-action
           show-pinned
