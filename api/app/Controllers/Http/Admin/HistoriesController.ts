@@ -5,7 +5,7 @@ export default class HistoriesController {
   public async purchases ({ request }: HttpContextContract) {
     const page = Number(request.input('page', 1))
     const search = request.input('search', '')
-    const sort = request.input('sort', 'created_at desc')
+    const sort = request.input('sort', 'shop_histories.created_at desc')
 
     return await Database.from('shop_histories')
       .innerJoin('users', 'users.id', 'shop_histories.user_id')
@@ -32,7 +32,7 @@ export default class HistoriesController {
   public async payments ({ request }: HttpContextContract) {
     const page = Number(request.input('page', 1))
     const search = request.input('search', '')
-    const sort = request.input('sort', 'created_at desc')
+    const sort = request.input('sort', 'user_payments.created_at desc')
 
     return await Database.from('user_payments')
       .innerJoin('users', 'users.id', 'user_payments.user_id')

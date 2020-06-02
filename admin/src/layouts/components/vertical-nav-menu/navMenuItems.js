@@ -59,8 +59,8 @@ export default [
   },
   {
     url: null,
-    name: 'Historique',
-    slug: 'historique',
+    name: 'Historiques',
+    slug: 'historiques',
     icon: 'BarChart2Icon',
     submenu: [
       {

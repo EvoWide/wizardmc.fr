@@ -47,7 +47,7 @@ export default {
       sstQuery: {
         page: 1,
         search: '',
-        sort: 'created_at desc'
+        sort: 'shop_histories.created_at desc'
       }
     }
   },
@@ -65,7 +65,7 @@ export default {
       if (active !== null) {
         this.sstQuery.sort = `${key} ${active}`
       } else {
-        this.sstQuery.sort = 'created_at desc'
+        this.sstQuery.sort = 'shop_histories.created_at desc'
       }
       this.update()
     },

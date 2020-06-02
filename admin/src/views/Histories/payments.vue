@@ -51,7 +51,7 @@ export default {
       sstQuery: {
         page: 1,
         search: '',
-        sort: 'created_at desc'
+        sort: 'user_payments.created_at desc'
       }
     }
   },
@@ -69,7 +69,7 @@ export default {
       if (active !== null) {
         this.sstQuery.sort = `${key} ${active}`
       } else {
-        this.sstQuery.sort = 'created_at desc'
+        this.sstQuery.sort = 'user_payments.created_at desc'
       }
       this.update()
     },
