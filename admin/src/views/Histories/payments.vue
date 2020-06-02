@@ -1,7 +1,7 @@
 <template>
   <div v-if="history">
     <div class="flex justify-between items center">
-      <h1>Historique des achats</h1>
+      <h1>Historique des paiements</h1>
     </div>
     <vx-card class="mt-6">
       <div class="space-y-6">
@@ -18,17 +18,21 @@
           :data="history"
         >
           <template slot="thead">
-            <vs-th sort-key="shop_offers.name">Offre</vs-th>
             <vs-th sort-key="users.username">User</vs-th>
-            <vs-th sort-key="shop_histories.price">Prix</vs-th>
-            <vs-th sort-key="shop_histories.created_at">Date</vs-th>
+            <vs-th sort-key="method">Méthode</vs-th>
+            <vs-th sort-key="price">Prix</vs-th>
+            <vs-th sort-key="payout">Reversé</vs-th>
+            <vs-th sort-key="credits">Crédits</vs-th>
+            <vs-th sort-key="created_at">Date</vs-th>
           </template>
 
           <template slot-scope="{data}">
             <vs-tr :key="i" v-for="(tr, i) in data">
-              <vs-td :data="data[i].name">{{data[i].name}}</vs-td>
               <vs-td :data="data[i].user">{{data[i].user}}</vs-td>
-              <vs-td :data="data[i].price">{{data[i].price}}</vs-td>
+              <vs-td :data="data[i].method">{{data[i].method}}</vs-td>
+              <vs-td :data="data[i].price">{{data[i].price}} {{data[i].currency}}</vs-td>
+              <vs-td :data="data[i].payout">{{data[i].payout}} {{data[i].currency}}</vs-td>
+              <vs-td :data="data[i].credits">{{data[i].credits}}</vs-td>
               <vs-td :data="data[i].created_at">{{ new Date(data[i].created_at).toLocaleString()}}</vs-td>
             </vs-tr>
           </template>
@@ -71,7 +75,7 @@ export default {
     },
     async update () {
       const params = new URLSearchParams(this.sstQuery)
-      const response = await this.$axios.get(`admin/history/purchases?${params}`)
+      const response = await this.$axios.get(`admin/history/payments?${params}`)
 
       const newData = []
       const { last_page, current_page } = response.data.meta

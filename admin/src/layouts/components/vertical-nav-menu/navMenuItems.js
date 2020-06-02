@@ -67,6 +67,11 @@ export default [
         url: '/history/purchases',
         name: 'Achats',
         slug: 'achats'
+      },
+      {
+        url: '/history/payments',
+        name: 'Paiements',
+        slug: 'paiements'
       }
     ]
   }

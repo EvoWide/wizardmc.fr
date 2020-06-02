@@ -65,6 +65,11 @@ const router = new Router({
           path: '/history/purchases',
           name: 'history-purchases',
           component: () => import('./views/Histories/purchases.vue')
+        },
+        {
+          path: '/history/payments',
+          name: 'history-payments',
+          component: () => import('./views/Histories/payments.vue')
         }
       ]
     },

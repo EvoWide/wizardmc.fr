@@ -10,6 +10,7 @@ export default {
       { title: 'Créer une récompense', url: '/rewards/create', icon: 'GiftIcon', is_bookmarked: false },
       { title: 'Récompenses', url: '/rewards', icon: 'GiftIcon', is_bookmarked: false },
       { title: 'Historique des achats', url: '/history/purchases', icon: 'BarChart2Icon', is_bookmarked: false },
+      { title: 'Historique des paiements', url: '/history/payments', icon: 'BarChart2Icon', is_bookmarked: false },
     ]
   }
 }

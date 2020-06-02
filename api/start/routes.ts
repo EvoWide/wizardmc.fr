@@ -90,6 +90,7 @@ Route.group(() => {
 
   // History
   Route.get('history/purchases', 'Admin/HistoriesController.purchases')
+  Route.get('history/payments', 'Admin/HistoriesController.payments')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
