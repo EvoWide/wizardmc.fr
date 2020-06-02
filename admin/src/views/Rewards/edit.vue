@@ -1,6 +1,6 @@
 <template>
  <div>
-   <RewardForm :update="false" />
+   <RewardForm :update="true" />
  </div>
 </template>
 

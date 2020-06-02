@@ -88,7 +88,10 @@ Route.group(() => {
 
   // Rewards
   Route.get('rewards', 'Admin/RewardsController.index')
-  Route.post('rewards/store', 'Admin/RewardsController.store')
+  Route.post('rewards', 'Admin/RewardsController.store')
+  Route.get('rewards/:id', 'Admin/RewardsController.show')
+  Route.delete('rewards/:id', 'Admin/RewardsController.destroy')
+  Route.put('rewards/:id', 'Admin/RewardsController.update')
 
   // History
   Route.get('history/purchases', 'Admin/HistoriesController.purchases')

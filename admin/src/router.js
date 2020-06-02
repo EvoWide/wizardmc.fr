@@ -67,6 +67,11 @@ const router = new Router({
           component: () => import('./views/Rewards/create.vue')
         },
         {
+          path: '/rewards/edit/:id',
+          name: 'rewards-edit',
+          component: () => import('./views/Rewards/edit.vue')
+        },
+        {
           path: '/history/purchases',
           name: 'history-purchases',
           component: () => import('./views/Histories/purchases.vue')

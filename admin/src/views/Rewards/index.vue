@@ -21,8 +21,18 @@
               <vs-td :data="data[i].credits">{{data[i].credits}}</vs-td>
               <vs-td>
                 <div class="flex items-center space-x-2">
-                  <vs-button color="primary" type="filled" icon="edit"></vs-button>
-                  <vs-button color="danger" type="filled" icon="delete"></vs-button>
+                  <vs-button
+                    :to="{ name: 'rewards-edit', params: { id: data[i].id } }"
+                    color="primary"
+                    type="filled"
+                    icon="edit"
+                  ></vs-button>
+                  <vs-button
+                    @click="openDeleteConfirm(data[i])"
+                    color="danger"
+                    type="filled"
+                    icon="delete"
+                  ></vs-button>
                 </div>
               </vs-td>
             </vs-tr>
@@ -46,6 +56,25 @@ export default {
       const resp = await this.$axios.get('admin/rewards')
       this.rewards = resp.data
     } catch (e) {
+    }
+  },
+
+  methods: {
+    async deleteReward (reward) {
+      try {
+        await this.$axios.delete(`admin/rewards/${reward.id}`).catch(() => { })
+        this.rewards = this.rewards.filter(r => r.id !== reward.id)
+      } catch (e) {
+      }
+    },
+    openDeleteConfirm (reward) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: 'Attention',
+        text: `Confirmer la suppression de la récompense vote ${reward.name}`,
+        accept: () => this.deleteReward(reward)
+      })
     }
   }
 }
