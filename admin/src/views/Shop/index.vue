@@ -37,7 +37,12 @@
               <vs-td>
                 <div class="flex items-center space-x-2">
                   <vs-button color="primary" type="filled" icon="edit"></vs-button>
-                  <vs-button color="danger" type="filled" icon="delete"></vs-button>
+                  <vs-button
+                    @click="openDeleteConfirm(data[i])"
+                    color="danger"
+                    type="filled"
+                    icon="delete"
+                  ></vs-button>
                 </div>
               </vs-td>
             </vs-tr>
@@ -61,6 +66,26 @@ export default {
       const resp = await this.$axios.get('c/shop')
       this.categories = resp.data
     } catch (e) {
+    }
+  },
+
+  methods: {
+    async deleteOffer (offer) {
+      try {
+        await this.$axios.delete(`admin/shop/${offer.id}`).catch(() => { })
+        const categoryIndex = this.categories.findIndex(c => c.id === offer.category_id)
+        this.categories[categoryIndex].offers = this.categories[categoryIndex].offers.filter(o => o.id !== offer.id)
+      } catch (e) {
+      }
+    },
+    openDeleteConfirm (offer) {
+      this.$vs.dialog({
+        type: 'confirm',
+        color: 'danger',
+        title: 'Attention',
+        text: `Confirmer la suppression de l'offre boutique ${offer.name}`,
+        accept: () => this.deleteOffer(offer)
+      })
     }
   }
 }

@@ -82,6 +82,7 @@ Route.group(() => {
   Route.get('shop/categories', 'Admin/ShopController.categories')
   Route.post('shop/storeImage', 'Admin/ShopController.storeImage')
   Route.post('shop/store', 'Admin/ShopController.store')
+  Route.delete('shop/:id', 'Admin/ShopController.destroy')
 
   // Rewards
   Route.get('rewards', 'Admin/RewardsController.index')

@@ -39,4 +39,10 @@ export default class ShopController {
 
     return response.globalSuccess('Offre boutique créée!')
   }
+
+  public async destroy ({ params, response }: HttpContextContract) {
+    await Offer.query().where('id', params.id).delete()
+
+    return response.globalSuccess('Offre boutique supprimée!')
+  }
 }
