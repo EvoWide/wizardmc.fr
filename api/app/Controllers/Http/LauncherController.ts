@@ -17,7 +17,7 @@ export default class LauncherController {
     const queryResult = await Database.from('posts')
       .select('id', 'image', 'title')
       .where('hidden', false)
-      .orderBy('id', 'asc')
+      .orderBy('id', 'desc')
       .first()
 
     if (!queryResult) {
