@@ -38,5 +38,23 @@ export default [
         slug: 'shopCreate'
       }
     ]
+  },
+  {
+    url: null,
+    name: 'Récompenses',
+    slug: 'recompenses',
+    icon: 'GiftIcon',
+    submenu: [
+      {
+        url: '/rewards',
+        name: 'Liste',
+        slug: 'rewards'
+      },
+      {
+        url: '/rewards/create',
+        name: 'Créer',
+        slug: 'rewardsCreate'
+      }
+    ]
   }
 ]

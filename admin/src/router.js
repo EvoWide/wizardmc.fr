@@ -50,6 +50,16 @@ const router = new Router({
           path: '/shop/create',
           name: 'shop-create',
           component: () => import('./views/Shop/create.vue')
+        },
+        {
+          path: '/rewards',
+          name: 'rewards',
+          component: () => import('./views/Rewards/index.vue')
+        },
+        {
+          path: '/rewards/create',
+          name: 'rewards-create',
+          component: () => import('./views/Rewards/create.vue')
         }
       ]
     },

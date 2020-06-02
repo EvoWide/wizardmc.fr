@@ -82,6 +82,10 @@ Route.group(() => {
   Route.get('shop/categories', 'Admin/ShopController.categories')
   Route.post('shop/storeImage', 'Admin/ShopController.storeImage')
   Route.post('shop/store', 'Admin/ShopController.store')
+
+  // Rewards
+  Route.get('rewards', 'Admin/RewardsController.index')
+  Route.post('rewards/store', 'Admin/RewardsController.store')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
