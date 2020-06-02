@@ -11,30 +11,30 @@
 export default [
   {
     url: '/',
-    name: 'Home',
-    slug: 'home',
+    name: 'Accueil',
+    slug: 'accueil',
     icon: 'HomeIcon'
   },
   {
     url: '/users',
-    name: 'Users',
-    slug: 'users',
+    name: 'Utilisateurs',
+    slug: 'utilisateurs',
     icon: 'UsersIcon'
   },
   {
     url: null,
-    name: 'Shop',
-    slug: 'shop',
+    name: 'Boutique',
+    slug: 'boutique',
     icon: 'ShoppingCartIcon',
     submenu: [
       {
         url: '/shop',
-        name: 'List',
+        name: 'Liste',
         slug: 'shopList'
       },
       {
         url: '/shop/create',
-        name: 'Create',
+        name: 'Créer',
         slug: 'shopCreate'
       }
     ]
