@@ -57,3 +57,7 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+.th-center .vs-table-text  {
+  justify-content: center;
+}
