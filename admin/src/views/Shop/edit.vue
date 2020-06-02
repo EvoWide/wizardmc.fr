@@ -1,6 +1,6 @@
 <template>
   <div>
-    <OfferForm :update="false"/>
+    <OfferForm :update="true"/>
   </div>
 </template>
 

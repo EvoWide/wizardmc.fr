@@ -36,7 +36,12 @@
               </vs-td>
               <vs-td>
                 <div class="flex items-center space-x-2">
-                  <vs-button color="primary" type="filled" icon="edit"></vs-button>
+                  <vs-button
+                    :to="{ name: 'shop-edit', params: { id: data[i].id } }"
+                    color="primary"
+                    type="filled"
+                    icon="edit"
+                  ></vs-button>
                   <vs-button
                     @click="openDeleteConfirm(data[i])"
                     color="danger"

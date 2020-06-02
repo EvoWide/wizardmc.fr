@@ -32,6 +32,14 @@ export default class ShopController {
     return response.json({ url: filePath })
   }
 
+  public async show ({ response, params }: HttpContextContract) {
+    const offer = await Offer.query()
+      .where('id', params.id)
+      .firstOrFail()
+
+    response.send(offer)
+  }
+
   public async store ({ request, response }: HttpContextContract) {
     const data = await request.validate(ShopValidator)
 
@@ -44,5 +52,13 @@ export default class ShopController {
     await Offer.query().where('id', params.id).delete()
 
     return response.globalSuccess('Offre boutique supprimée!')
+  }
+
+  public async update ({params, request, response}:HttpContextContract) {
+    const data = await request.validate(ShopValidator)
+
+    await Offer.query().where('id', params.id).update(data)
+
+    return response.globalSuccess('Offre boutique modifiée!')
   }
 }
