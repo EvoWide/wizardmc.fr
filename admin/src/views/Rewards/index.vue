@@ -6,7 +6,7 @@
     </div>
     <vx-card class="mt-6">
       <div class="space-y-6">
-        <vs-table max-items="6" pagination search :data="rewards">
+        <vs-table max-items="8" hoverFlat pagination search :data="rewards">
           <template slot="thead">
             <vs-th sort-key="name">Nom</vs-th>
             <vs-th sort-key="chance">Chance</vs-th>

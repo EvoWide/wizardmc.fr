@@ -9,17 +9,18 @@
         <vs-table
           v-for="category in categories"
           :key="category.id"
+          search
           hoverFlat
           :data="category.offers"
         >
           <template slot="header">
-            <h4 class="mb-1">{{ category.name }}</h4>
+            <h4>{{ category.name }}</h4>
           </template>
           <template slot="thead">
-            <vs-th>Nom</vs-th>
-            <vs-th>Prix</vs-th>
-            <vs-th class="th-center">Unique</vs-th>
-            <vs-th class="th-center">Version</vs-th>
+            <vs-th sort-key="name">Nom</vs-th>
+            <vs-th sort-key="price">Prix</vs-th>
+            <vs-th sort-key="unique" class="th-center">Unique</vs-th>
+            <vs-th sort-key="version" class="th-center">Version</vs-th>
             <vs-th>Actions</vs-th>
           </template>
 
