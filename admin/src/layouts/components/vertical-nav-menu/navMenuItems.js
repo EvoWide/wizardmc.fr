@@ -56,5 +56,18 @@ export default [
         slug: 'rewardsCreate'
       }
     ]
+  },
+  {
+    url: null,
+    name: 'Historique',
+    slug: 'historique',
+    icon: 'BarChart2Icon',
+    submenu: [
+      {
+        url: '/history/purchases',
+        name: 'Achats',
+        slug: 'achats'
+      }
+    ]
   }
 ]

@@ -60,6 +60,11 @@ const router = new Router({
           path: '/rewards/create',
           name: 'rewards-create',
           component: () => import('./views/Rewards/create.vue')
+        },
+        {
+          path: '/history/purchases',
+          name: 'history-purchases',
+          component: () => import('./views/Histories/purchases.vue')
         }
       ]
     },

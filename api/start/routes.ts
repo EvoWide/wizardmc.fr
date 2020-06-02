@@ -87,6 +87,9 @@ Route.group(() => {
   // Rewards
   Route.get('rewards', 'Admin/RewardsController.index')
   Route.post('rewards/store', 'Admin/RewardsController.store')
+
+  // History
+  Route.get('history/purchases', 'Admin/HistoriesController.purchases')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
