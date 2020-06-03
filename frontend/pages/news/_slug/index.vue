@@ -36,7 +36,7 @@
             <div class="relative inline-block pb-6 bg-bottom bg-no-repeat ornament-lg md:pb-5">
               <h1 class="text-xl font-bold uppercase font-title md:text-3xl">{{ post.title }}</h1>
             </div>
-            <div v-html="post.content" class="mt-8 text-justify" />
+            <div v-html="post.content" class="mt-8 text-justify ql-editor" />
           </div>
         </div>
       </div>

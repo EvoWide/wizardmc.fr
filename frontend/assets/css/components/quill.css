@@ -1,0 +1,7 @@
+.ql-editor a {
+  @apply text-yellow-500;
+}
+
+.ql-editor a:hover {
+  @apply text-yellow-600;
+}
