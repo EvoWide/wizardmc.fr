@@ -13,7 +13,7 @@ export default class StatsController {
           .sum('count as count')
           .first(),
         await Database.from('statistics')
-          .where('type_id', 0)
+          .where('type_id', 1)
           .max('count as max')
           .first(),
       ])
