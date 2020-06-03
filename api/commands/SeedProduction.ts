@@ -1,4 +1,5 @@
 import { BaseCommand } from '@adonisjs/ace'
+import { DateTime } from 'luxon'
 
 export default class SeedProduction extends BaseCommand {
   public static commandName = 'seed:production'
@@ -13,10 +14,13 @@ export default class SeedProduction extends BaseCommand {
     this.logger.info('Seed production started.')
 
     await Database.insertQuery().table('statistics')
-      .multiInsert([
-        { name: 'visits' },
-        { name: 'max_players' },
-      ])
+      .insert({
+        type_id: 0,
+        count: 0,
+        created_at: DateTime.local()
+          .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+          .toSQL(),
+      })
 
     await Database.manager.closeAll()
 
