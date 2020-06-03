@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import RewardForm from '@/components/Rewards/RewardForm.vue'
+import RewardForm from '@/components/Forms/RewardForm.vue'
 
 export default {
   components: {

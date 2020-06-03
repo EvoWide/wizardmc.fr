@@ -23,6 +23,24 @@ export default [
   },
   {
     url: null,
+    name: 'Articles',
+    slug: 'articles',
+    icon: 'FileTextIcon',
+    submenu: [
+      {
+        url: '/posts',
+        name: 'Liste',
+        slug: 'listeArticles'
+      },
+      {
+        url: '/posts/create',
+        name: 'Créer',
+        slug: 'creerArticles'
+      }
+    ]
+  },
+  {
+    url: null,
     name: 'Boutique',
     slug: 'boutique',
     icon: 'ShoppingCartIcon',
@@ -30,12 +48,12 @@ export default [
       {
         url: '/shop',
         name: 'Liste',
-        slug: 'shopList'
+        slug: 'listeBoutique'
       },
       {
         url: '/shop/create',
         name: 'Créer',
-        slug: 'shopCreate'
+        slug: 'creerBoutique'
       }
     ]
   },
@@ -53,7 +71,7 @@ export default [
       {
         url: '/rewards/create',
         name: 'Créer',
-        slug: 'rewardsCreate'
+        slug: 'creerRecompenseVote'
       }
     ]
   },

@@ -27,7 +27,12 @@
           <template slot-scope="{data}">
             <vs-tr :key="i" v-for="(tr, i) in data">
               <vs-td :data="data[i].name">{{data[i].name}}</vs-td>
-              <vs-td :data="data[i].user">{{data[i].user}}</vs-td>
+              <vs-td :data="data[i].user">
+                <router-link
+                  :to="{ name: 'users-edit', params: { id: data[i].user_id } }"
+                  class="text-grey-theme"
+                >{{data[i].user}}</router-link>
+              </vs-td>
               <vs-td :data="data[i].price">{{data[i].price}}</vs-td>
               <vs-td :data="data[i].created_at">{{ new Date(data[i].created_at).toLocaleString()}}</vs-td>
             </vs-tr>

@@ -96,6 +96,10 @@ Route.group(() => {
   // History
   Route.get('history/purchases', 'Admin/HistoriesController.purchases')
   Route.get('history/payments', 'Admin/HistoriesController.payments')
+
+  // Posts
+  Route.resource('posts', 'Admin/PostsController').apiOnly()
+  Route.post('posts/image', 'Admin/PostsController.storeImage')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */

@@ -39,7 +39,27 @@ const router = new Router({
         {
           path: '/users',
           name: 'users',
-          component: () => import('./views/Users.vue')
+          component: () => import('./views/Users/index.vue')
+        },
+        {
+          path: '/users/edit/:id',
+          name: 'users-edit',
+          component: () => import('./views/Users/edit.vue')
+        },
+        {
+          path: '/posts',
+          name: 'posts',
+          component: () => import('./views/Posts/index.vue')
+        },
+        {
+          path: '/posts/create',
+          name: 'posts-create',
+          component: () => import('./views/Posts/create.vue')
+        },
+        {
+          path: '/posts/edit/:id',
+          name: 'posts-edit',
+          component: () => import('./views/Posts/edit.vue')
         },
         {
           path: '/shop',

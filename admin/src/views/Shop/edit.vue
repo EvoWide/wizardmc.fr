@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import OfferForm from '@/components/Shop/OfferForm.vue'
+import OfferForm from '@/components/Forms/OfferForm.vue'
 
 export default {
   components: {
