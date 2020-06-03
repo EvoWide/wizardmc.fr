@@ -5,17 +5,25 @@ import ServerService from 'App/Services/Server/ServerService'
 
 export default class StatsController {
   public async index ({ response }: HttpContextContract) {
-    const [registered, visitsAndMaxPlayers] = await CacheService.remember('stats', async () => {
+    const [registered, visits, maxPlayers] = await CacheService.remember('stats', async () => {
       return Promise.all([
         await Database.from('users').count('id as count').first(),
         await Database.from('statistics')
-          .select('name', 'count'),
+          .where('type_id', 0)
+          .sum('count as count')
+          .first(),
+        await Database.from('statistics')
+          .where('type_id', 0)
+          .max('count as max')
+          .first(),
       ])
     }, '5m')
-    const players = ServerService.getPlayersCount()
-    const visits = visitsAndMaxPlayers.find(x => x.name === 'visits').count
-    const maxPlayers = visitsAndMaxPlayers.find(x => x.name === 'max_players').count
 
-    return response.send({ registered: registered.count, players, visits, maxPlayers })
+    return response.send({
+      registered: registered.count,
+      players: ServerService.getPlayersCount(),
+      visits: visits.count ?? 0,
+      maxPlayers: maxPlayers.max ?? 0,
+    })
   }
 }

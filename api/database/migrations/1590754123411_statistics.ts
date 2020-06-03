@@ -6,8 +6,9 @@ export default class Statistics extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('name')
+      table.integer('type_id') // 0 = visites, 1 = players
       table.integer('count').defaultTo(0)
+      table.timestamp('created_at')
     })
   }
 

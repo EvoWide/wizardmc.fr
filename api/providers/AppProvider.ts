@@ -2,6 +2,7 @@ import { IocContract } from '@adonisjs/fold'
 import { ResponseConstructorContract } from '@ioc:Adonis/Core/Response'
 import Application from '@ioc:Adonis/Core/Application'
 import schedule from 'node-schedule'
+import { DateTime } from 'luxon'
 
 export default class AppProvider {
   constructor (protected container: IocContract) {
@@ -43,6 +44,7 @@ export default class AppProvider {
   private async startScheduler () {
     const server = (await import('App/Services/Server/ServerService')).default
     const rpgParadize = (await import('App/Services/RpgParadizeService')).default
+    const Database = (await import('@ioc:Adonis/Lucid/Database')).default
 
     server.update()
     rpgParadize.update()
@@ -53,6 +55,25 @@ export default class AppProvider {
 
     schedule.scheduleJob('update-rpg', '* * * * *', function () {
       rpgParadize.update()
+    })
+
+    schedule.scheduleJob('statistics-player', '*/15 * * * *', async function () {
+      await Database.insertQuery().table('statistics').insert({
+        type_id: 1,
+        count: server.getAndResetMaxPlayers(),
+        created_at: DateTime.local().set({ second: 0, millisecond: 0 }).toSQL(),
+      })
+    })
+
+    schedule.scheduleJob('statistics-visits', '0 0 * * *', async function () {
+      await Database.insertQuery().table('statistics').insert({
+        type_id: 0,
+        count: 0,
+        created_at: DateTime.local()
+          .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+          .plus({ day: 1 })
+          .toSQL(),
+      })
     })
   }
 }
