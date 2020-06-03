@@ -8,17 +8,15 @@
         :src="data.image"
         class="flex-shrink-0 block object-cover max-w-sm mx-auto border border-gradient"
         alt="Image de l'article"
-      >
+      />
       <div class="mt-2 md:pl-6 md:mt-0">
-        <h3 class="text-xl font-bold uppercase font-title text-gradient">
-          {{ data.title }}
-        </h3>
-        <p class="text-base text-justify text-white">
-          {{ excerpt }}
-        </p>
+        <h3 class="text-xl font-bold uppercase font-title text-gradient">{{ data.title }}</h3>
+        <p v-html="excerpt" class="text-base text-justify text-white"></p>
         <p class="mt-2 text-sm italic text-right text-gray-500">
           Publié le {{ new Date(data.created_at).toLocaleDateString() }} par
-          <span class="text-yellow-600">{{ data.author.username }}</span>
+          <span
+            class="text-yellow-600"
+          >{{ data.author.username }}</span>
         </p>
       </div>
     </nuxt-link>
@@ -39,7 +37,10 @@ export default {
 
   computed: {
     excerpt () {
-      return this.data.content.length > 240 ? `${this.data.content.slice(0, 240)}...` : this.data.content
+      return this.stripedContent.length > 240 ? `${this.stripedContent.slice(0, 240)}...` : this.stripedContent
+    },
+    stripedContent () {
+      return this.data.content.replace(/(<([^>]+)>)/ig, '')
     }
   },
 
