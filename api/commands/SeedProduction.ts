@@ -13,14 +13,27 @@ export default class SeedProduction extends BaseCommand {
     const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     this.logger.info('Seed production started.')
 
-    await Database.insertQuery().table('statistics')
-      .insert({
-        type_id: 0,
-        count: 0,
-        created_at: DateTime.local()
-          .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
-          .toSQL(),
-      })
+    const currentDate = DateTime.local()
+      .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+      .toSQL()
+
+    const row = await Database.from('statistics')
+      .where('type_id', 0)
+      .where('created_at', currentDate)
+      .first()
+
+    if (!row) {
+      await Database.insertQuery().table('statistics')
+        .insert({
+          type_id: 0,
+          count: 0,
+          created_at: DateTime.local()
+            .set({ hour: 0, minute: 0, second: 0, millisecond: 0 })
+            .toSQL(),
+        })
+    } else {
+      this.logger.warn('Row already exist in database.')
+    }
 
     await Database.manager.closeAll()
 
