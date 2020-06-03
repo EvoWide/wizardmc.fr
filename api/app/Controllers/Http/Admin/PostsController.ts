@@ -35,11 +35,12 @@ export default class PostsController {
     }
 
     const configPath = Env.get('CLOUD_DESTINATION') as string
-    const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
+    const serverPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
     const fileName = `${randomString(32)}.${file.extname}`
-    await file.move(`${cloudPath}/posts`, { name: fileName })
+    await file.move(`${serverPath}/posts`, { name: fileName })
 
-    const filePath = `${cloudPath}/posts/${fileName}`
+    const cloudDomain = process.env.NODE_ENV === 'development' ? 'http://localhost:3333/cloud' : 'https://cloud.wizardmc.fr'
+    const filePath = `${cloudDomain}/posts/${fileName}`
     return response.json({ url: filePath })
   }
 
