@@ -14,8 +14,7 @@ export default {
       { hid: 'description', name: 'description', content: 'WizardMC est serveur factions minecraft sous launcher.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://cdn.quilljs.com/1.0.0/quill.core.css' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
   /*
@@ -35,7 +34,8 @@ export default {
     '@/assets/css/components/navbar.css',
     '@/assets/css/components/quill.css',
     '@/assets/css/components/scrollbar.css',
-    '@/assets/css/components/tooltip.css'
+    '@/assets/css/components/tooltip.css',
+    'quill/dist/quill.core.css'
   ],
   /*
   ** Plugins to load before mounting the App
