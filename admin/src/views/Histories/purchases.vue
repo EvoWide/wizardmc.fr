@@ -75,8 +75,9 @@ export default {
 
       const newData = []
       const { last_page, current_page } = response.data.meta
+      let y = (current_page - 1) * 8
 
-      for (let i = 0; i < (current_page - 1); i++) {
+      for (let i = 0; i < y; i++) {
         newData.push({})
       }
 
@@ -84,7 +85,8 @@ export default {
         newData.push(history)
       }
 
-      for (let i = 0; i < (last_page - current_page); i++) {
+      y = (last_page - current_page) * 8
+      for (let i = 0; i < y; i++) {
         newData.push({})
       }
 
