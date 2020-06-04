@@ -92,5 +92,11 @@ export default [
         slug: 'paiements'
       }
     ]
+  },
+  {
+    url: '/commands',
+    name: 'Commandes',
+    slug: 'commandes',
+    icon: 'TerminalIcon'
   }
 ]

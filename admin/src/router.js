@@ -100,6 +100,11 @@ const router = new Router({
           path: '/history/payments',
           name: 'history-payments',
           component: () => import('./views/Histories/payments.vue')
+        },
+        {
+          path: '/commands',
+          name: 'commands',
+          component: () => import('./views/Commands/index.vue')
         }
       ]
     },

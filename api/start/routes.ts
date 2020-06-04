@@ -100,6 +100,9 @@ Route.group(() => {
   // Posts
   Route.resource('posts', 'Admin/PostsController').apiOnly()
   Route.post('posts/image', 'Admin/PostsController.storeImage')
+
+  // Commands
+  Route.get('commands/deploy/:app', 'Admin/CommandsController.deploy')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */
