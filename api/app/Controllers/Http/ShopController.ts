@@ -6,6 +6,7 @@ import User from 'App/Models/User'
 import Env from '@ioc:Adonis/Core/Env'
 import ServerService from 'App/Services/Server/ServerService'
 import PromotionalCode from 'App/Models/PromotionalCode'
+import { DateTime } from 'luxon'
 
 export default class ShopsController {
   public async index ({ response }: HttpContextContract) {
@@ -64,11 +65,11 @@ export default class ShopsController {
       return response.globalError('Vous devez être connecté sur le serveur pour effectuer cet achat')
     }
 
-    if (offer.deps && !(await this.hasBuy(user, offer.deps))) {
+    if (offer.deps && !(await this.hasBuy(user, offer.deps, (offer.unique || offer.version)))) {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
-    if ((offer.unique || offer.version) && (await this.hasBuy(user, offer.id))) {
+    if ((offer.unique || offer.version || offer.categoryId === 1) && (await this.hasBuy(user, offer.id, (offer.unique || offer.version)))) {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
@@ -102,11 +103,17 @@ export default class ShopsController {
     return response.globalSuccess('L\'achat a bien été effectué.')
   }
 
-  private async hasBuy (user: User, offer_id: number) {
+  private async hasBuy (user: User, offer_id: number, versionOrUnique: boolean) {
     return (await Database.query().from('shop_histories')
       .where('user_id', user.id)
       .where('offer_id', offer_id)
-      .whereIn('version', [-1, Number(Env.get('SERVER_VERSION'))])
+      .where(builder => {
+        if (versionOrUnique) {
+          builder.whereIn('version', [-1, Number(Env.get('SERVER_VERSION'))])
+        } else {
+          builder.where('created_at', '>=', DateTime.local().minus({ month: 1 }).toSQL())
+        }
+      })
       .limit(1)).length > 0
   }
 }
