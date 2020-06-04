@@ -81,7 +81,7 @@ export default class ShopsController {
 
     if (promo) {
       promo.quantity--
-      promo.save()
+      await promo.save()
     }
 
     await Database.insertQuery()
