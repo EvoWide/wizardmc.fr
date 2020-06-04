@@ -97,7 +97,7 @@ export default class ShopsController {
       ServerService.execute(offer.commands.replace(/{playerName}/g, user.username))
     }
 
-    if (offer.unique || offer.version) {
+    if (offer.unique || offer.version || offer.categoryId === 1) {
       session.forget('offers')
     }
 

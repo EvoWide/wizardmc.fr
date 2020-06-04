@@ -119,7 +119,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         commands: 'say le joueur {playerName} vient dacheter le grade archimage',
         price: 800,
-        deps: 1,
+        deps: 5,
       },
       {
         name: 'Grade Mage',
@@ -128,7 +128,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         commands: 'say le joueur {playerName} vient dacheter le grade mage',
         price: 1000,
-        deps: 2,
+        deps: 6,
       },
       {
         name: 'Grade Sorcier',
@@ -137,7 +137,7 @@ export default class SeedDb extends BaseCommand {
         image: 'https://i.imgur.com/nxLRdsx.png',
         commands: 'say le joueur {playerName} vient dacheter le grade sorcier',
         price: 1250,
-        deps: 3,
+        deps: 7,
       },
       {
         name: 'Kit alchimiste',
