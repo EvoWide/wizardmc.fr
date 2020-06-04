@@ -98,76 +98,78 @@
             <span class="ml-2">Autres</span>
           </div>
           <img class="block px-4 py-4 mx-auto" src="@/assets/img/line.png" alt="Separator" />
-          <div v-if="logged" class="px-4 text-center">
-            <h2
-              class="text-lg font-bold leading-none text-purple-200 uppercase font-title"
-            >Points boutique</h2>
-            <p class="mt-2 text-sm leading-snug">
-              Vous avez actuellement
-              <span
-                class="font-semibold text-yellow-600"
-              >{{ currentUser.credits }} {{ currentUser.credits > 1 ? 'points' : 'point' }} boutique</span>
-            </p>
-            <nuxt-link
-              :to="{name: 'credits'}"
-              class="inline-flex px-4 py-2 mt-4 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            >Créditer votre compte</nuxt-link>
-          </div>
-          <div v-else class="px-4 text-center text-purple-200">
-            <span>Veuillez vous</span>
-            <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
-            <span>pour avoir un accès complet à la boutique.</span>
-          </div>
-          <div v-if="logged" class="px-4 text-purple-200">
-            <div class="flex items-center justify-center my-6 space-x-2">
-              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
-              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
-              <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+          <ClientOnly>
+            <div v-if="logged" class="px-4 text-center">
+              <h2
+                class="text-lg font-bold leading-none text-purple-200 uppercase font-title"
+              >Points boutique</h2>
+              <p class="mt-2 text-sm leading-snug">
+                Vous avez actuellement
+                <span
+                  class="font-semibold text-yellow-600"
+                >{{ currentUser.credits }} {{ currentUser.credits > 1 ? 'points' : 'point' }} boutique</span>
+              </p>
+              <nuxt-link
+                :to="{name: 'credits'}"
+                class="inline-flex px-4 py-2 mt-4 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
+              >Créditer votre compte</nuxt-link>
             </div>
-            <form v-if="appliedPromotion == null" @submit.prevent="applyPromo" class="flex">
-              <input
-                v-model="promotion"
-                class="block w-full min-w-0 border form-input border-gradient"
-                type="text"
-                placeholder="Code promo"
-              />
-              <button
-                class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
-              >
-                <div class="w-6 h-6">
-                  <svg fill="currentColor" viewBox="0 0 20 20">
+            <div v-else class="px-4 text-center text-purple-200">
+              <span>Veuillez vous</span>
+              <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+              <span>pour avoir un accès complet à la boutique.</span>
+            </div>
+            <div v-if="logged" class="px-4 text-purple-200">
+              <div class="flex items-center justify-center my-6 space-x-2">
+                <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+                <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+                <img class="w-4 h-4" src="@/assets/img/badge.png" alt="badge" />
+              </div>
+              <form v-if="appliedPromotion == null" @submit.prevent="applyPromo" class="flex">
+                <input
+                  v-model="promotion"
+                  class="block w-full min-w-0 border form-input border-gradient"
+                  type="text"
+                  placeholder="Code promo"
+                />
+                <button
+                  class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
+                >
+                  <div class="w-6 h-6">
+                    <svg fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </form>
+              <div v-else class="relative py-2 text-center bg-purple-800 rounded-md">
+                <button
+                  @click="removePromo"
+                  class="absolute top-0 right-0 mt-1 mr-1 hover:text-white"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                     <path
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                       clip-rule="evenodd"
                       fill-rule="evenodd"
                     />
                   </svg>
-                </div>
-              </button>
-            </form>
-            <div v-else class="relative py-2 text-center bg-purple-800 rounded-md">
-              <button
-                @click="removePromo"
-                class="absolute top-0 right-0 mt-1 mr-1 hover:text-white"
-              >
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <p class="text-lg font-semibold font-title">Promotion activée</p>
-              <p class="text-yellow-500">{{ appliedPromotion.code }}</p>
-              <p>
-                Réduction:
-                <span
-                  class="font-semibold text-yellow-500"
-                >-{{ appliedPromotion.reduction }}%</span>
-              </p>
+                </button>
+                <p class="text-lg font-semibold font-title">Promotion activée</p>
+                <p class="text-yellow-500">{{ appliedPromotion.code }}</p>
+                <p>
+                  Réduction:
+                  <span
+                    class="font-semibold text-yellow-500"
+                  >-{{ appliedPromotion.reduction }}%</span>
+                </p>
+              </div>
             </div>
-          </div>
+          </ClientOnly>
         </div>
       </div>
       <!-- Main Content -->

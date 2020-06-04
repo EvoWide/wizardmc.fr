@@ -10,54 +10,56 @@
         >
           <span class="text-yellow-600">{{ stats.players }}</span> Joueurs en ligne
         </div>
-        <div class="hidden text-base lg:block">
-          <template v-if="logged">
-            <Dropdown class="ml-3" btn-classes="group" content-classes="w-48">
-              <template v-slot:trigger>
-                <div class="flex items-center max-w-xs text-sm">
-                  <img
-                    class="w-8 h-8 border-2 border-yellow-600 rounded-full group-focus:border-yellow-500"
-                    :src="$store.state.userHead"
-                    alt="Player head"
-                  />
-                  <span
-                    class="ml-2 text-base transition duration-100 ease-in group-hover:text-white group-focus:text-white"
-                  >{{ currentUser.username }}</span>
-                </div>
-              </template>
-              <template>
-                <div class="py-2 rounded-md shadow-xs bg-purple-1000">
-                  <nuxt-link
-                    :to="{name: 'users-profile'}"
-                    class="block px-4 py-2 text-sm text-purple-200 dropdown-link hover:bg-purple-900"
-                  >Profil</nuxt-link>
-                  <a
-                    v-if="currentUser.is_admin"
-                    :href="adminUrl"
-                    class="block px-4 py-2 text-sm text-yellow-500 dropdown-link hover:bg-purple-900"
-                  >Administration</a>
-                  <a
-                    @click="logout"
-                    class="block px-4 py-2 text-sm text-purple-200 cursor-pointer hover:bg-purple-900"
-                  >Déconnexion</a>
-                </div>
-              </template>
-            </Dropdown>
-          </template>
-          <template v-else>
-            <div class="flex items-center">
-              <nuxt-link
-                :to="{name: 'login'}"
-                class="nav-link nav-link-sm hover:text-white"
-              >Connexion</nuxt-link>
-              <img class="w-3 h-3 mx-3" src="@/assets/img/badge.png" alt="badge" />
-              <nuxt-link
-                :to="{name: 'register'}"
-                class="nav-link nav-link-sm hover:text-white"
-              >Inscription</nuxt-link>
-            </div>
-          </template>
-        </div>
+        <ClientOnly>
+          <div class="hidden text-base lg:block">
+            <template v-if="logged">
+              <Dropdown class="ml-3" btn-classes="group" content-classes="w-48">
+                <template v-slot:trigger>
+                  <div class="flex items-center max-w-xs text-sm">
+                    <img
+                      class="w-8 h-8 border-2 border-yellow-600 rounded-full group-focus:border-yellow-500"
+                      :src="$store.state.userHead"
+                      alt="Player head"
+                    />
+                    <span
+                      class="ml-2 text-base transition duration-100 ease-in group-hover:text-white group-focus:text-white"
+                    >{{ currentUser.username }}</span>
+                  </div>
+                </template>
+                <template>
+                  <div class="py-2 rounded-md shadow-xs bg-purple-1000">
+                    <nuxt-link
+                      :to="{name: 'users-profile'}"
+                      class="block px-4 py-2 text-sm text-purple-200 dropdown-link hover:bg-purple-900"
+                    >Profil</nuxt-link>
+                    <a
+                      v-if="currentUser.is_admin"
+                      :href="adminUrl"
+                      class="block px-4 py-2 text-sm text-yellow-500 dropdown-link hover:bg-purple-900"
+                    >Administration</a>
+                    <a
+                      @click="logout"
+                      class="block px-4 py-2 text-sm text-purple-200 cursor-pointer hover:bg-purple-900"
+                    >Déconnexion</a>
+                  </div>
+                </template>
+              </Dropdown>
+            </template>
+            <template v-else>
+              <div class="flex items-center">
+                <nuxt-link
+                  :to="{name: 'login'}"
+                  class="nav-link nav-link-sm hover:text-white"
+                >Connexion</nuxt-link>
+                <img class="w-3 h-3 mx-3" src="@/assets/img/badge.png" alt="badge" />
+                <nuxt-link
+                  :to="{name: 'register'}"
+                  class="nav-link nav-link-sm hover:text-white"
+                >Inscription</nuxt-link>
+              </div>
+            </template>
+          </div>
+        </ClientOnly>
         <!-- Mobile Nav toggler -->
         <button @click="toggleSide" class="block focus:outline-none lg:hidden">
           <svg
@@ -108,31 +110,33 @@
           <nuxt-link :to="{name: 'vote'}" class="underline-effect">FAQ</nuxt-link>
         </div>
       </nav>
-      <template v-if="logged">
-        <div class="flex items-center justify-center py-4">
-          <img
-            class="w-8 h-8 border-2 border-yellow-600 rounded-full"
-            :src="$store.state.userHead"
-            alt="Player head"
-          />
-          <span class="ml-2">{{ currentUser.username }}</span>
-        </div>
-        <div class="py-2">
-          <nuxt-link :to="{name: 'users-profile'}" class="underline-effect">Profil</nuxt-link>
-        </div>
-        <div class="py-2">
-          <a @click="logout" class="underline-effect">Déconnexion</a>
-        </div>
-      </template>
-      <template v-else>
-        <img class="block w-32 py-3 mx-auto" src="@/assets/img/line.png" alt="Separator" />
-        <div class="py-2">
-          <nuxt-link :to="{name: 'login'}" class="underline-effect">Connexion</nuxt-link>
-        </div>
-        <div class="py-2">
-          <nuxt-link :to="{name: 'register'}" class="underline-effect">Inscription</nuxt-link>
-        </div>
-      </template>
+      <ClientOnly>
+        <template v-if="logged">
+          <div class="flex items-center justify-center py-4">
+            <img
+              class="w-8 h-8 border-2 border-yellow-600 rounded-full"
+              :src="$store.state.userHead"
+              alt="Player head"
+            />
+            <span class="ml-2">{{ currentUser.username }}</span>
+          </div>
+          <div class="py-2">
+            <nuxt-link :to="{name: 'users-profile'}" class="underline-effect">Profil</nuxt-link>
+          </div>
+          <div class="py-2">
+            <a @click="logout" class="underline-effect">Déconnexion</a>
+          </div>
+        </template>
+        <template v-else>
+          <img class="block w-32 py-3 mx-auto" src="@/assets/img/line.png" alt="Separator" />
+          <div class="py-2">
+            <nuxt-link :to="{name: 'login'}" class="underline-effect">Connexion</nuxt-link>
+          </div>
+          <div class="py-2">
+            <nuxt-link :to="{name: 'register'}" class="underline-effect">Inscription</nuxt-link>
+          </div>
+        </template>
+      </ClientOnly>
     </div>
     <div v-show="isOpen" @click="toggleSide" class="fixed inset-0 z-10 bg-black bg-opacity-75" />
 
