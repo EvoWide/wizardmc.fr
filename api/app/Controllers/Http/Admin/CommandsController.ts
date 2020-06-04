@@ -37,8 +37,10 @@ export default class CommandsController {
   }
 
   public async generate ({ response }: HttpContextContract) {
+    const frontendFolder = Env.get('FRONTEND_FOLDER') as string
+
     async function generateNuxt () {
-      const { stdout, stderr } = await exec('npm run generate', { cwd: '../../frontend' })
+      const { stdout, stderr } = await exec('npm run generate', { cwd: frontendFolder })
       return { stdout, stderr }
     }
 
