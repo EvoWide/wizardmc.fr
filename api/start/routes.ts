@@ -103,6 +103,7 @@ Route.group(() => {
 
   // Commands
   Route.get('commands/deploy/:app', 'Admin/CommandsController.deploy')
+  Route.get('commands/generate', 'Admin/CommandsController.generate')
 }).prefix('admin').middleware(['auth', 'admin'])
 
 /* Rest only */

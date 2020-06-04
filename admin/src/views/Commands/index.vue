@@ -3,13 +3,15 @@
     <h1>Commandes</h1>
     <vx-card class="mt-6">
       <div class="flex items-center space-x-4">
-        <vs-button type="filled" color="primary">Générer frontend</vs-button>
+        <vs-button @click="deployApp('generate')" type="filled" color="primary">Générer frontend</vs-button>
         <vs-button @click="deployApp('frontend')" type="filled" color="primary">Déployer frontend</vs-button>
         <vs-button @click="deployApp('admin')" type="filled" color="primary">Déployer dashoard admin</vs-button>
       </div>
-      <div v-if="output" class="mt-6">
-        <span>Code: {{ code }}</span>
-        <prism language="bash" class="rounded-lg">{{ output }}</prism>
+      <div v-if="stdout || stderr" class="mt-6">
+        <span>stdout</span>
+        <prism language="bash" class="rounded-lg">{{ stdout }}</prism>
+        <span class="mt-4">stderr</span>
+        <prism language="bash" class="rounded-lg">{{ stderr }}</prism>
       </div>
     </vx-card>
   </div>
@@ -26,24 +28,24 @@ export default {
 
   data () {
     return {
-      code: null,
-      output: null
+      stdout: null,
+      stderr: null
     }
   },
 
   methods: {
     async deployApp (app) {
       this.$vs.loading()
-      this.code = null
-      this.output = null
+      this.stdout = null
+      this.stderr = null
 
       try {
-        const resp = await this.$axios.get(`admin/commands/deploy/${app}`)
+        const resp = app === 'generate' ? await this.$axios.get('admin/commands/generate') : await this.$axios.get(`admin/commands/deploy/${app}`)
 
-        this.code = resp.data.code
-        this.output = resp.data.output
+        this.stdout = resp.data.output.stdout
+        this.stderr = resp.data.output.stderr
       } catch (e) {
-        console.log(e)
+        this.stderr = e
       }
 
       this.$vs.loading.close()
