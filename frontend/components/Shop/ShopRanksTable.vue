@@ -62,11 +62,9 @@
               >Version</div>
             </div>
           </td>
-          <td v-for="i in 4" :key="'price-' + i">
+          <td v-for="rank in displayedRanks" :key="'price-' + rank.id">
             <div class="flex items-center justify-center">
-              <span
-                class="text-base font-semibold lg:text-xl"
-              >{{ ranksPrices[ranksDuration][i - 1] }}$</span>
+              <span class="text-base font-semibold lg:text-xl">{{ rank.price }}$</span>
               <span class="ml-1 text-purple-500">/{{ ranksDuration }}</span>
             </div>
           </td>
@@ -293,7 +291,7 @@
         </tr>
         <tr>
           <td />
-          <td v-for="rank in ranks" :key="'buy-' + rank.id">
+          <td v-for="rank in displayedRanks" :key="'buy-' + rank.id">
             <div class="flex items-center justify-center">
               <span v-if="logged && currentUser.offers.includes(rank.id)">Possédé</span>
               <button
@@ -335,16 +333,17 @@ export default {
   data () {
     return {
       ranksDuration: 'mois',
-      ranksPrices: {
-        mois: [500, 800, 1000, 1250],
-        version: [1500, 2400, 3000, 3750]
-      },
       selectedRankId: null,
       showModal: false
     }
   },
 
   computed: {
+    displayedRanks () {
+      const filtered = this.ranksDuration === 'version' ? this.ranks.filter(r => r.version) : this.ranks.filter(r => !r.version)
+
+      return filtered.sort((a, b) => a.price - b.price)
+    },
     selectedRank () {
       return this.ranks.find(r => r.id === this.selectedRankId) || {}
     },
