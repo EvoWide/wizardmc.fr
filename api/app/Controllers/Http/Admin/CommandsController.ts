@@ -3,12 +3,12 @@ const util = require('util')
 // const exec = util.promisify(require('child_process').exec)
 const execFile = util.promisify(require('child_process').execFile)
 import Env from '@ioc:Adonis/Core/Env'
+const stripAnsi = require('strip-ansi')
 
 export default class CommandsController {
   public async deploy ({ params, response }: HttpContextContract) {
     const files = {
       'frontend': 'deploy-wizardmc.sh',
-      'api': 'deploy-api.wizardmc.sh',
       'admin': 'deploy-admin.wizardmc.sh',
     }
     const file = files[params.app]
@@ -29,7 +29,7 @@ export default class CommandsController {
     try {
       const { stdout, stderr } = await getVersion()
       const code = stderr ? 'error' : 'success'
-      const output = stderr ? stderr : stdout
+      const output = stderr ? stripAnsi(stderr) : stripAnsi(stdout)
       return response.json({ code, output })
     } catch (e) {
       return response.json({ code: 'error', output: e })
