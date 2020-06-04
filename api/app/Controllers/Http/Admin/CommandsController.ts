@@ -13,7 +13,6 @@ export default class CommandsController {
     }
     const file = files[params.app]
     const scriptsFolder = Env.get('SCRIPTS_FOLDER') as string
-    console.log(scriptsFolder)
 
     if (!file) {
       return response.globalError('App spécifiée non existante.')
@@ -22,10 +21,18 @@ export default class CommandsController {
     async function getVersion () {
       // const { stdout } = await execFile('node', ['--version'])
       // const { stdout } = await execFile(file)
-      const { stdout } = await execFile('bash', [file], { cwd: scriptsFolder })
+      const { stdout, stderr } = await execFile('bash', [file], { cwd: scriptsFolder })
       // const { stdout } = await exec('cd')
-      return stdout
+      return { stdout, stderr }
     }
-    return response.json({ output: await getVersion() })
+
+    try {
+      const { stdout, stderr } = await getVersion()
+      const code = stderr ? 'error' : 'success'
+      const output = stderr ? stderr : stdout
+      return response.json({ code, output })
+    } catch (e) {
+      return response.json({ code: 'error', output: e })
+    }
   }
 }

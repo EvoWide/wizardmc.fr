@@ -7,7 +7,8 @@
         <vs-button @click="deployApp('api')" type="filled" color="primary">Deployer API</vs-button>
         <vs-button @click="deployApp('admin')" type="filled" color="primary">Deployer dashoard admin</vs-button>
       </div>
-      <div v-if="output"  class="mt-6">
+      <div v-if="output" class="mt-6">
+        <span>Code: {{ code }}</span>
         <prism class="rounded-lg">{{ output }}</prism>
       </div>
     </vx-card>
@@ -24,10 +25,11 @@ export default {
 
   data () {
     return {
+      code: null,
       output: null
     }
   },
-  
+
   methods: {
     async deployApp (app) {
       this.$vs.loading()
@@ -35,6 +37,7 @@ export default {
       try {
         const resp = await this.$axios.get(`admin/commands/deploy/${app}`)
 
+        this.code = resp.data.code
         this.output = resp.data.output
       } catch (e) {
         console.log(e)
