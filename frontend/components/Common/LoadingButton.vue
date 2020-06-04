@@ -4,10 +4,13 @@
       'hover:bg-purple-600': status === 'none' && !cta,
       'cursor-not-allowed': status !== 'none',
       'text-sm text-purple-200 bg-purple-700 rounded-md font-semibold h-10': !cta,
-      'font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title h-12': cta
+      'font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title h-12': cta,
+      'px-4 py-2': !xl,
+      'px-5 py-3': xl,
+      'h-14': xl && cta,
     }"
     :disabled="status !== 'none'"
-    class="px-4 py-2 focus:outline-none"
+    class="focus:outline-none"
     :type="submit ? 'submit' : 'button'"
   >
     <template v-if="status === 'none'">
@@ -64,12 +67,20 @@ export default {
     status: {
       type: String,
       required: true
+    },
+    xl: {
+      type: Boolean,
+      default: false
     }
   }
 }
 </script>
 
 <style scoped>
+.h-14 {
+  height: 3.25rem;
+}
+
 .loader div {
   @apply box-border block absolute w-4 h-4 rounded-full m-2px border-2 border-purple-200;
   animation: loader 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;

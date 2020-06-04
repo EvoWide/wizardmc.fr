@@ -79,10 +79,12 @@
 
       <div class="mt-8">
         <div class="w-full text-center rounded-md shadow-sm">
-          <button
-            class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            type="submit"
-          >Connexion</button>
+          <LoadingButton
+            :cta="true"
+            :submit="true"
+            :status="buttonStatus"
+            :xl="true"
+          >Connexion</LoadingButton>
         </div>
       </div>
     </form>
@@ -92,17 +94,20 @@
 <script>
 import Confirm2FAModal from '@/components/Auth/Confirm2FAModal.vue'
 import ForgotPasswordModal from '@/components/Auth/ForgotPasswordModal.vue'
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 
 export default {
   middleware: 'guest',
 
   components: {
     Confirm2FAModal,
-    ForgotPasswordModal
+    ForgotPasswordModal,
+    LoadingButton
   },
 
   data () {
     return {
+      buttonStatus: 'none',
       form: {
         username: null,
         password: null,
@@ -116,6 +121,7 @@ export default {
 
   methods: {
     async login () {
+      this.buttonStatus = 'loading'
       try {
         const securityEnabled = await this.$store.dispatch('auth/login', this.form)
         if (securityEnabled) {
@@ -129,6 +135,7 @@ export default {
           this.$set(this.errors, error.field, error)
         }
       }
+      this.buttonStatus = 'none'
     }
   }
 }

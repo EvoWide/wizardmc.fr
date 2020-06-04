@@ -110,10 +110,12 @@
 
       <div class="mt-8">
         <div class="w-full text-center rounded-md shadow-sm">
-          <button
-            class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            type="submit"
-          >Inscription</button>
+          <LoadingButton
+            :cta="true"
+            :submit="true"
+            :status="buttonStatus"
+            :xl="true"
+          >Inscription</LoadingButton>
         </div>
       </div>
     </form>
@@ -121,11 +123,18 @@
 </template>
 
 <script>
+import LoadingButton from '@/components/Common/LoadingButton.vue'
+
 export default {
   middleware: 'guest',
 
+  components: {
+    LoadingButton
+  },
+
   data () {
     return {
+      buttonStatus: 'none',
       form: {
         email: null,
         username: null,
@@ -145,13 +154,16 @@ export default {
       return await this.$recaptcha('login')
     },
     async register () {
+      this.buttonStatus = 'loading'
       this.errors = {}
 
       if (this.form.password !== this.form.passwordConfirmation) {
+        this.buttonStatus = 'none'
         return this.$set(this.errors, 'password', { message: 'Les mots de passes doivent être identiques' })
       }
 
       if (!this.form.status) {
+        this.buttonStatus = 'none'
         return this.$store.dispatch('notification/add', {
           type: 'error',
           title: 'Erreur!',
@@ -168,6 +180,7 @@ export default {
           this.$set(this.errors, error.field, error)
         }
       }
+      this.buttonStatus = 'none'
     }
   }
 }
