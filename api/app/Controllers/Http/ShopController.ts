@@ -69,7 +69,10 @@ export default class ShopsController {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
-    if ((offer.unique || offer.version || offer.categoryId === 1) && (await this.hasBuy(user, offer.id, (offer.unique || offer.version)))) {
+    if (
+      (offer.unique || offer.version || offer.categoryId === 1) &&
+      (await this.hasBuy(user, offer.id, (offer.unique || offer.version)))
+    ) {
       return response.globalError('Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.')
     }
 
