@@ -74,7 +74,7 @@
                   </svg>
                   <p
                     class="ml-3 md:ml-5"
-                  >Les récompenses de vote en attente seront remises à zéro avant l'ouverture du serveur pour éviter une différence de stuff trop importante.</p>
+                  >Les récompenses de vote sont remplacées par des points boutique avant l'ouverture pour éviter une différence de stuff trop importante.</p>
                 </div>
                 <div
                   class="flex items-center px-4 py-2 text-sm text-justify bg-purple-800 rounded-md md:px-6 md:py-4"
@@ -212,7 +212,6 @@
                 >
                   <td class="p-2 lg:px-4">{{ index + 1 }}</td>
                   <td class="p-2 lg:px-4">{{ player.username }}</td>
-                  <!-- <td :class="chanceColor(reward.chance)" class="p-2 lg:px-4">{{ reward.chance }}</td> -->
                   <td class="p-2 lg:px-4">{{ player.votes }}</td>
                   <td class="p-2 lg:px-4">
                     <div class="flex items-center leading-none">
@@ -244,7 +243,7 @@
                 class="bg-purple-800 border-b-4 border-purple-900"
               >
                 <td class="p-2 lg:px-4">{{ reward.name }}</td>
-                <td :class="chanceColor(reward.chance)" class="p-2 lg:px-4">{{ reward.chance }}</td>
+                <td :class="chanceColor(reward.chance)" class="p-2 lg:px-4">{{ reward.chance }}%</td>
               </tr>
             </tbody>
           </table>
