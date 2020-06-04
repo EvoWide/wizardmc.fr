@@ -30,6 +30,8 @@ export default class CommandsController {
       const { stdout, stderr } = await getVersion()
       const code = stderr ? 'error' : 'success'
       const output = stderr ? stripAnsi(stderr) : stripAnsi(stdout)
+      console.log(stderr)
+      console.log(stderr.length)
       return response.json({ code, output })
     } catch (e) {
       return response.json({ code: 'error', output: e })

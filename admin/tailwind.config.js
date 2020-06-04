@@ -50,6 +50,10 @@ module.exports = {
   // prefix: '',
   // separator: ':',
 
+  purge: {
+    enabled: false,
+  },
+
   theme: {
 
     /*
