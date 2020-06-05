@@ -42,17 +42,10 @@ export default {
   },
 
   async asyncData ({ $axios, store }) {
-    if (process.server) { return }
-    console.log('server:', process.server)
-    try {
-      const { rewards, security } = await $axios.$get('/profile')
-      const shopHistory = (await $axios.$get('profile/history/shop')) ?? []
-      await store.dispatch('auth/getCurrentUser')
-
-      return { rewards, security, shopHistory }
-    } catch (e) {
-      console.log(e)
-    }
+    const { rewards, security } = await $axios.$get('/profile').catch(() => { })
+    const shopHistory = (await $axios.$get('profile/history/shop').catch(() => { })) ?? []
+    await store.dispatch('auth/getCurrentUser')
+    return { rewards, security, shopHistory }
   },
 
   computed: {
