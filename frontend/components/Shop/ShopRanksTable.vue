@@ -216,7 +216,7 @@
           </td>
           <td>
             <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
             </div>
           </td>
           <td>
@@ -239,7 +239,7 @@
           </td>
           <td>
             <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
             </div>
           </td>
           <td>
