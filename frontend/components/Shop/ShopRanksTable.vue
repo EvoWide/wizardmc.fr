@@ -291,23 +291,25 @@
         </tr>
         <tr>
           <td />
-          <td v-for="rank in displayedRanks" :key="'buy-' + rank.id">
-            <div class="flex items-center justify-center">
-              <span v-if="logged && currentUser.offers.includes(rank.id)">Possédé</span>
-              <button
-                v-else-if="rank.deps === null || (logged && currentUser.offers.includes(rank.deps))"
-                @click="buyRank(rank.id)"
-                class="px-4 py-2 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-                type="button"
-              >Acheter</button>
-              <span
-                v-else
-                v-tooltip="{
-                  content: 'Vous devez acheter les grades précédents.',
-                }"
-              >Achat impossible</span>
-            </div>
-          </td>
+          <ClientOnly>
+            <td v-for="rank in displayedRanks" :key="'buy-' + rank.id">
+              <div class="flex items-center justify-center">
+                <span v-if="logged && currentUser.offers.includes(rank.id)">Possédé</span>
+                <button
+                  v-else-if="rank.deps === null || (logged && currentUser.offers.includes(rank.deps))"
+                  @click="buyRank(rank.id)"
+                  class="px-4 py-2 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
+                  type="button"
+                >Acheter</button>
+                <span
+                  v-else
+                  v-tooltip="{
+                    content: 'Vous devez acheter les grades précédents.',
+                  }"
+                >Achat impossible</span>
+              </div>
+            </td>
+          </ClientOnly>
         </tr>
       </tbody>
     </table>

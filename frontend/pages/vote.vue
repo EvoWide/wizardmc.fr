@@ -54,133 +54,135 @@
               </div>
             </div>
           </div>
-          <div v-if="logged && lastVote === ''" class="px-4">
-            <template v-if="currentStep === 0">
-              <div class="text-center">
-                <!-- TODO: Remove it before server opens -->
-                <div
-                  class="flex items-center px-4 py-2 mb-4 text-sm text-justify text-yellow-500 bg-purple-800 border border-red-600 rounded-md md:px-6 md:py-4"
-                >
-                  <svg
-                    class="flex-shrink-0 w-6 h-6 text-red-600"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
+          <ClientOnly>
+            <div v-if="logged && lastVote === ''" class="px-4">
+              <template v-if="currentStep === 0">
+                <div class="text-center">
+                  <!-- TODO: Remove it before server opens -->
+                  <div
+                    class="flex items-center px-4 py-2 mb-4 text-sm text-justify text-yellow-500 bg-purple-800 border border-red-600 rounded-md md:px-6 md:py-4"
                   >
-                    <path
-                      fill-rule="evenodd"
-                      d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  <p
-                    class="ml-3 md:ml-5"
-                  >Les récompenses de vote sont remplacées par des points boutique avant l'ouverture pour éviter une différence de stuff trop importante.</p>
+                    <svg
+                      class="flex-shrink-0 w-6 h-6 text-red-600"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <p
+                      class="ml-3 md:ml-5"
+                    >Les récompenses de vote sont remplacées par des points boutique avant l'ouverture pour éviter une différence de stuff trop importante.</p>
+                  </div>
+                  <div
+                    class="flex items-center px-4 py-2 text-sm text-justify bg-purple-800 rounded-md md:px-6 md:py-4"
+                  >
+                    <svg class="flex-shrink-0 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="ml-3 md:ml-5">
+                      La première étape consiste à cliquer sur le bouton ci-dessous pour voter sur le site
+                      <span
+                        class="text-yellow-500"
+                      >RPG Paradize</span>.
+                      Une fois chose faite, revenez sur le site pour passer à l'étape suivante.
+                    </p>
+                  </div>
+                  <a
+                    @click="startTimer()"
+                    class="inline-flex px-4 py-2 mt-4 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
+                    href="https://www.rpg-paradize.com/?page=vote&vote=113062"
+                    target="_blank"
+                  >Voter</a>
                 </div>
-                <div
-                  class="flex items-center px-4 py-2 text-sm text-justify bg-purple-800 rounded-md md:px-6 md:py-4"
-                >
-                  <svg class="flex-shrink-0 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clip-rule="evenodd"
-                      fill-rule="evenodd"
+              </template>
+              <template v-else-if="currentStep === 1">
+                <div class="text-center">
+                  <div
+                    class="flex items-center px-4 py-2 text-sm text-justify bg-purple-800 rounded-md md:px-6 md:py-4"
+                  >
+                    <svg class="flex-shrink-0 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                    <p class="ml-3 md:ml-5">
+                      La deuxième étape consiste à confirmer
+                      <span
+                        class="text-yellow-500"
+                      >le nombre d'OUT</span> sur RPG Paradize.
+                      Il s'agit du nombre de
+                      <span
+                        class="italic"
+                      >Clic sortant</span> disponible sur
+                      <a
+                        class="font-semibold text-yellow-500 hover:text-yellow-600"
+                        href="https://www.rpg-paradize.com/site-wizardmc-113062"
+                        target="_blank"
+                      >notre page</a>.
+                    </p>
+                  </div>
+                  <form @submit.prevent="confirmOut" class="flex max-w-xs mx-auto mt-4">
+                    <input
+                      v-model="out"
+                      class="block w-full min-w-0 border form-input border-gradient"
+                      type="number"
+                      placeholder="Clic sortant"
                     />
-                  </svg>
-                  <p class="ml-3 md:ml-5">
-                    La première étape consiste à cliquer sur le bouton ci-dessous pour voter sur le site
-                    <span
-                      class="text-yellow-500"
-                    >RPG Paradize</span>.
-                    Une fois chose faite, revenez sur le site pour passer à l'étape suivante.
+                    <button
+                      :class="{'btn-cta-disabled':timeBeforeVote > 0 }"
+                      class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
+                    >
+                      <div class="w-6 h-6">
+                        <div v-if="timeBeforeVote > 0">{{ timeBeforeVote }}</div>
+                        <svg v-else fill="currentColor" viewBox="0 0 20 20">
+                          <path
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clip-rule="evenodd"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </button>
+                  </form>
+                </div>
+              </template>
+              <template v-else>
+                <div class="mt-4 text-center">
+                  <p>Merci d'avoir voté pour WizardMC!</p>
+                  <p>
+                    Vous avez gagné
+                    <span class="text-yellow-500">{{ wonReward.name }}</span>.
+                  </p>
+                  <p class="mt-2">
+                    Votre récompense a été ajoutée dans votre
+                    <nuxt-link
+                      :to="{name: 'users-profile'}"
+                      class="text-yellow-500 hover:text-yellow-600"
+                    >profil</nuxt-link>.
                   </p>
                 </div>
-                <a
-                  @click="startTimer()"
-                  class="inline-flex px-4 py-2 mt-4 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-                  href="https://www.rpg-paradize.com/?page=vote&vote=113062"
-                  target="_blank"
-                >Voter</a>
-              </div>
-            </template>
-            <template v-else-if="currentStep === 1">
-              <div class="text-center">
-                <div
-                  class="flex items-center px-4 py-2 text-sm text-justify bg-purple-800 rounded-md md:px-6 md:py-4"
-                >
-                  <svg class="flex-shrink-0 w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                      clip-rule="evenodd"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                  <p class="ml-3 md:ml-5">
-                    La deuxième étape consiste à confirmer
-                    <span
-                      class="text-yellow-500"
-                    >le nombre d'OUT</span> sur RPG Paradize.
-                    Il s'agit du nombre de
-                    <span
-                      class="italic"
-                    >Clic sortant</span> disponible sur
-                    <a
-                      class="font-semibold text-yellow-500 hover:text-yellow-600"
-                      href="https://www.rpg-paradize.com/site-wizardmc-113062"
-                      target="_blank"
-                    >notre page</a>.
-                  </p>
-                </div>
-                <form @submit.prevent="confirmOut" class="flex max-w-xs mx-auto mt-4">
-                  <input
-                    v-model="out"
-                    class="block w-full min-w-0 border form-input border-gradient"
-                    type="number"
-                    placeholder="Clic sortant"
-                  />
-                  <button
-                    :class="{'btn-cta-disabled':timeBeforeVote > 0 }"
-                    class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
-                  >
-                    <div class="w-6 h-6">
-                      <div v-if="timeBeforeVote > 0">{{ timeBeforeVote }}</div>
-                      <svg v-else fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                          clip-rule="evenodd"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </button>
-                </form>
-              </div>
-            </template>
-            <template v-else>
-              <div class="mt-4 text-center">
-                <p>Merci d'avoir voté pour WizardMC!</p>
-                <p>
-                  Vous avez gagné
-                  <span class="text-yellow-500">{{ wonReward.name }}</span>.
-                </p>
-                <p class="mt-2">
-                  Votre récompense a été ajoutée dans votre
-                  <nuxt-link
-                    :to="{name: 'users-profile'}"
-                    class="text-yellow-500 hover:text-yellow-600"
-                  >profil</nuxt-link>.
-                </p>
-              </div>
-            </template>
-          </div>
-          <div
-            v-else-if="logged"
-            class="px-4 mt-4 text-center"
-          >Vous avez déjà voté il y a moins de 3h.</div>
-          <div v-else class="px-4 mt-4 text-center">
-            <span>Vous devez vous</span>
-            <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
-            <span>pour pouvoir voter.</span>
-          </div>
+              </template>
+            </div>
+            <div
+              v-else-if="logged"
+              class="px-4 mt-4 text-center"
+            >Vous avez déjà voté il y a moins de 3h.</div>
+            <div v-else class="px-4 mt-4 text-center">
+              <span>Vous devez vous</span>
+              <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+              <span>pour pouvoir voter.</span>
+            </div>
+          </ClientOnly>
         </div>
         <!-- Leaderboard -->
         <div class="mt-5 bg-purple-900">
