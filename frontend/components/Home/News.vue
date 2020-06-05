@@ -6,7 +6,7 @@
     >
       <img
         :src="data.image"
-        class="flex-shrink-0 block object-cover max-w-sm mx-auto border border-gradient"
+        class="flex-shrink-0 block object-cover w-full max-w-sm mx-auto border md:w-64 md:h-40 md:m-0 border-gradient"
         alt="Image de l'article"
       />
       <div class="mt-2 md:pl-6 md:mt-0">
