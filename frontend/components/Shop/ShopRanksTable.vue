@@ -31,12 +31,12 @@
           <th class="px-4 py-2">
             <div
               class="inline-block px-2 py-1 font-normal leading-snug bg-purple-600 border border-purple-500 rounded-full"
-            >Archimage</div>
+            >Mage</div>
           </th>
           <th class="px-4 py-2">
             <div
               class="inline-block px-2 py-1 font-normal leading-snug bg-purple-600 border border-purple-500 rounded-full"
-            >Mage</div>
+            >Archimage</div>
           </th>
           <th class="px-4 py-2">
             <div
@@ -208,7 +208,7 @@
           </td>
         </tr>
         <tr>
-          <td class="text-left">Kit archimage</td>
+          <td class="text-left">Kit mage</td>
           <td>
             <div class="flex items-center justify-center">
               <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
@@ -216,7 +216,7 @@
           </td>
           <td>
             <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
             </div>
           </td>
           <td>
@@ -231,7 +231,7 @@
           </td>
         </tr>
         <tr>
-          <td class="text-left">Kit mage</td>
+          <td class="text-left">Kit archimage</td>
           <td>
             <div class="flex items-center justify-center">
               <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
@@ -239,7 +239,7 @@
           </td>
           <td>
             <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
             </div>
           </td>
           <td>
