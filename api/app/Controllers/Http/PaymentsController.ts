@@ -12,10 +12,12 @@ export default class PaymentsController {
         await Dedipass.getRates(),
         await Database.from('payment_prices')
           .where('method', 'paypal')
-          .select('price', 'credits'),
+          .select('price', 'credits')
+          .orderBy('price', 'asc'),
         await Database.from('payment_prices')
           .where('method', 'paysafecard')
-          .select('price', 'credits'),
+          .select('price', 'credits')
+          .orderBy('price', 'asc'),
         await Stripe.getProducts(),
       ])
     }, '1h')
