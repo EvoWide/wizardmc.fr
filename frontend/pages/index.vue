@@ -90,7 +90,7 @@
                 :data-aos-delay="200 * index"
               />
             </div>
-            <div v-if="posts.meta.total > 1" class="flex items-center justify-center mt-3">
+            <div v-if="posts.meta.total > posts.meta.per_page" class="flex items-center justify-center mt-3">
               <button
                 @click="switchPostPage(posts.meta.previous_page_url)"
                 class="focus:outline-none"
