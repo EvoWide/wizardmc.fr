@@ -51,6 +51,7 @@ export default {
     { src: '~/plugins/recaptcha', ssr: false },
     { src: '~/plugins/axios.js', ssr: false },
     { src: '~/plugins/v-tooltip.js', ssr: false },
+    { src: '~/plugins/lazyload.js', ssr: false },
     { src: '~/plugins/nuxt-init.js', ssr: false }
   ],
   serverMiddleware: ['~/serverMiddlewares/selectiveSSR.js'],

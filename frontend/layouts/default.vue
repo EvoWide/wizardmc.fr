@@ -4,7 +4,7 @@
 
     <div class="relative font-sans">
       <div
-        :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-1.jpg')})` }"
+        v-lazy:background-image="'/images/backgrounds/bg-home-1.jpg'"
         :class="$route.name === 'index' ? 'md:h-screen' : 'h-full bg-fixed'"
         class="absolute inset-0 bg-center bg-no-repeat bg-cover"
       />

@@ -27,10 +27,12 @@
     </div>
     <!-- What is WizardMC -->
     <div
+      v-lazy:background-image="'/images/backgrounds/bg-home-2.jpg'"
       class="bg-center bg-no-repeat bg-cover border-t-2 border-b-2 border-yellow-600 about-section"
-      :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-2.jpg')})` }"
     >
-      <div class="container relative px-4 pt-10 pb-20 mx-auto text-center sm:text-left">
+      <div
+        class="container relative px-4 pt-10 pb-20 mx-auto text-center sm:text-left"
+      >
         <div
           data-aos="fade-right"
           data-aos-anchor=".about-section"
@@ -54,11 +56,11 @@
           </p>
         </div>
         <img
+          v-lazy="'/images/renders/render-1.png'"
           data-aos="fade-centered"
           data-aos-delay="400"
           data-aos-anchor=".about-section"
           class="render-1"
-          src="@/assets/img/renders/render-4.png"
           alt="Render de skin décoratif 1"
           style="top: 50%"
         />
@@ -67,8 +69,8 @@
 
     <!-- News -->
     <div
+      v-lazy:background-image="'/images/backgrounds/bg-home-3.jpg'"
       class="min-h-screen bg-center bg-no-repeat bg-cover news-section"
-      :style="{ backgroundImage: `url(${require('@/assets/img/backgrounds/bg-home-3.jpg')})` }"
     >
       <div class="container px-4 py-10 mx-auto">
         <h2
@@ -161,11 +163,11 @@
               </a>
             </div>
             <img
+              v-lazy="'/images/renders/render-2.png'"
               data-aos="fade-up"
               data-aos-delay="400"
               data-aos-anchor=".news-section"
               class="hidden -mt-8 lg:block"
-              src="@/assets/img/renders/render-2.png"
               alt="Render de skin décoratif 2"
             />
           </div>
