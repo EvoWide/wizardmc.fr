@@ -79,12 +79,7 @@
 
       <div class="mt-8">
         <div class="w-full text-center rounded-md shadow-sm">
-          <LoadingButton
-            :cta="true"
-            :submit="true"
-            :status="buttonStatus"
-            :xl="true"
-          >Connexion</LoadingButton>
+          <LoadingButton :cta="true" :submit="true" :status="buttonStatus" :xl="true">Connexion</LoadingButton>
         </div>
       </div>
     </form>

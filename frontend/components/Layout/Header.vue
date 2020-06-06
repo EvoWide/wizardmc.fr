@@ -41,7 +41,7 @@
                     <button
                       @click="logout"
                       type="button"
-                      class="block w-full px-4 py-2 text-sm text-left text-purple-200 cursor-pointer hover:bg-purple-900"
+                      class="block w-full px-4 py-2 text-sm text-left text-purple-200 cursor-pointer hover:bg-purple-900 focus:outline-none"
                     >Déconnexion</button>
                   </div>
                 </template>
@@ -64,6 +64,7 @@
         </ClientOnly>
         <!-- Mobile Nav toggler -->
         <button @click="toggleSide" class="block focus:outline-none lg:hidden" type="button">
+          <div class="sr-only">Ouvrir le menu</div>
           <svg
             class="w-6 fill-current hover:text-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +82,7 @@
       :class="isOpen ? 'open' : ''"
     >
       <button @click="toggleSide" class="focus:outline-none" type="button">
+        <div class="sr-only">Fermer le menu</div>
         <img
           class="absolute top-0 left-0 w-5 mt-4 ml-4"
           src="@/assets/img/icons/close.svg"

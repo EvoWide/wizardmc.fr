@@ -99,6 +99,7 @@
                 class="focus:outline-none"
                 type="button"
               >
+                <div class="sr-only">Page précédente</div>
                 <img
                   class="duration-200 ease-in-out transform hover:scale-125"
                   src="@/assets/img/chevron-left.svg"
@@ -115,6 +116,7 @@
                 class="focus:outline-none"
                 type="button"
               >
+                <div class="sr-only">Page suivante</div>
                 <img
                   class="duration-200 ease-in-out transform hover:scale-125"
                   src="@/assets/img/chevron-right.svg"

@@ -37,6 +37,7 @@
               @click="deleteNotification"
               class="inline-flex text-yellow-600 transition duration-150 ease-in-out hover:text-yellow-500 focus:outline-none focus:text-yellow-500"
             >
+              <div class="sr-only">Supprimer la notification</div>
               <svg class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
                 <path
                   fill-rule="evenodd"

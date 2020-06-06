@@ -144,6 +144,7 @@
                       :class="{'btn-cta-disabled':timeBeforeVote > 0 }"
                       class="flex items-center justify-center p-2 ml-2 border btn-cta bg-gradient border-gradient"
                     >
+                      <div class="sr-only">Temps restant avant le vote</div>
                       <div class="w-6 h-6">
                         <div v-if="timeBeforeVote > 0">{{ timeBeforeVote }}</div>
                         <svg v-else fill="currentColor" viewBox="0 0 20 20">

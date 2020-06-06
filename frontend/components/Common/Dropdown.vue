@@ -2,6 +2,7 @@
   <div class="relative">
     <div>
       <button @click="isOpen = !isOpen" :class="btnClasses" class="block focus:outline-none">
+        <div class="sr-only">Ouvrir le dropdown</div>
         <slot name="trigger"></slot>
       </button>
     </div>
