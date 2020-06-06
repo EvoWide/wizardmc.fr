@@ -116,7 +116,10 @@
             </div>
             <div v-else class="px-4 text-center text-purple-200">
               <span>Veuillez vous</span>
-              <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+              <nuxt-link
+                :to="{name: 'login'}"
+                class="text-yellow-500 hover:text-yellow-600"
+              >connecter</nuxt-link>
               <span>pour avoir un accès complet à la boutique.</span>
             </div>
             <div v-if="logged" class="px-4 text-purple-200">

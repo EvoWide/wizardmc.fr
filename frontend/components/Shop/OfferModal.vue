@@ -62,7 +62,26 @@ export default {
 
   computed: {
     canBuy () {
-      return !this.alreadyBought && this.logged && this.currentUser.credits > this.offer.price
+      if (!this.logged) {
+        return false
+      }
+
+      // Unique offers
+      if (this.currentUser.offers.includes(this.offer.id)) {
+        return false
+      }
+
+      // Not enough credits
+      if (this.alreadyBought || this.currentUser.credits < this.offer.price) {
+        return false
+      }
+
+      // Does not have the rank deps
+      if (this.offer.category_id === 1 && this.offer.deps !== null && !this.currentUser.offers.includes(this.offer.deps)) {
+        return false
+      }
+
+      return true
     },
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
