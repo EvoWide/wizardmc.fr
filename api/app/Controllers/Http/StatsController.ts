@@ -23,7 +23,7 @@ export default class StatsController {
       registered: registered.count,
       players: ServerService.getPlayersCount(),
       visits: visits.count ?? 0,
-      maxPlayers: maxPlayers.max ?? 0,
+      maxPlayers: Math.max(maxPlayers.max ?? 0, ServerService.getMaxPlayers()),
     })
   }
 }
