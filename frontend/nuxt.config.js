@@ -115,7 +115,7 @@ export default {
       let [
         posts
       ] = await Promise.all([
-        await axios.get('c/posts/all')
+        await axios.get('posts/all')
       ])
 
       posts = posts.data.map((post) => {

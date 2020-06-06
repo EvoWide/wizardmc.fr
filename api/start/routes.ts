@@ -118,6 +118,14 @@ Route.group(() => {
 
 /* All users */
 
+// Posts
+Route.get('posts', 'PostsController.index')
+Route.get('posts/all', 'PostsController.all')
+Route.get('posts/:id', 'PostsController.show')
+
+// Shop
+Route.get('shop', 'ShopController.index')
+
 // Update password (both auth / guest)
 Route.post('password-requests/:token', 'PasswordRequestController.update').as('passwordRequest')
 
@@ -131,19 +139,6 @@ Route.get('stats', 'StatsController.index').middleware('visit')
 Route.post('payment/notification/paypal', 'NotificationsController.paypal')
 Route.post('payment/notification/paysafecard/:paymentId', 'NotificationsController.paysafecard')
 Route.post('payment/notification/stripe', 'NotificationsController.stripe')
-//
 
 // Launcher
 Route.get('launcher', 'LauncherController.index')
-
-/* Cloudflare cached pages */
-Route.group(() => {
-  // Posts
-  Route.get('posts', 'PostsController.index')
-  Route.get('posts/all', 'PostsController.all')
-  Route.get('posts/:id', 'PostsController.show')
-
-  // Shop
-  Route.get('shop', 'ShopController.index')
-  Route.get('shop/:id', 'ShopController.show')
-}).prefix('c')

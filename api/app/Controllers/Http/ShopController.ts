@@ -18,15 +18,6 @@ export default class ShopsController {
     }, '1h')
   }
 
-  public async show ({ response, params }: HttpContextContract) {
-    const offer = await Offer.query()
-      .where('id', params.id)
-      .select('id', 'name', 'image', 'description', 'price', 'unique', 'version')
-      .firstOrFail()
-
-    response.send(offer)
-  }
-
   public async buy ({ params, response, auth, session }: HttpContextContract) {
     const offer = await Offer.query().where('id', params.id).firstOrFail()
     const { user } = auth

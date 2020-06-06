@@ -68,7 +68,7 @@ export default {
 
   async created () {
     try {
-      const resp = await this.$axios.get('c/shop')
+      const resp = await this.$axios.get('shop')
       this.categories = resp.data
     } catch (e) {
     }

@@ -238,7 +238,7 @@ export default {
   },
 
   async asyncData ({ $axios }) {
-    const categories = await $axios.$get('c/shop')
+    const categories = await $axios.$get('shop')
 
     return { categories }
   },

@@ -172,7 +172,7 @@ export default {
   },
 
   async asyncData ({ $axios }) {
-    const posts = await $axios.$get('c/posts')
+    const posts = await $axios.$get('posts')
 
     return { posts }
   },
@@ -190,7 +190,7 @@ export default {
     async switchPostPage (newPageUrl) {
       if (!newPageUrl) { return }
 
-      this.posts = await this.$axios.$get(`c/posts${newPageUrl}`)
+      this.posts = await this.$axios.$get(`posts${newPageUrl}`)
     }
   }
 }

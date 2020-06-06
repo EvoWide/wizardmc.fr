@@ -50,7 +50,7 @@ export default {
     if (payload) { return { post: payload } }
 
     const postId = params.slug.split('-')[0]
-    const post = await $axios.$get(`c/posts/${postId}`)
+    const post = await $axios.$get(`posts/${postId}`)
       .catch((e) => {
         error({ statusCode: 404, customMessage: 'Article non trouvé' })
       })
