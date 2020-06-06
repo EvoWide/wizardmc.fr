@@ -17,13 +17,13 @@ export default class UsersController {
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
       .where('shop_histories.user_id', auth.user!.id)
       .andWhere(builder => {
-        builder.where(builder => {
-          builder
+        builder.where(subBuilder => {
+          subBuilder
             .where('shop_offers.unique', true)
             .orWhere('shop_histories.version', Number(Env.get('SERVER_VERSION')))
         })
-        builder.orWhere(builder => {
-          builder
+        builder.orWhere(subBuilder => {
+          subBuilder
             .where('shop_offers.category_id', 1)
             .where('shop_offers.unique', false)
             .where('shop_offers.version', false)
