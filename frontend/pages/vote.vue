@@ -262,19 +262,18 @@ export default {
   async asyncData ({ $axios, store }) {
     let ranking = []
     let rewards = []
-    let lastVote = ''
     try {
       ({ ranking, rewards } = await $axios.$get('votes'))
-      lastVote = store.getters['auth/logged'] ? await $axios.$get('vote/lastVote') : ''
     } catch (e) {
     }
-    return { ranking, rewards, lastVote }
+    return { ranking, rewards }
   },
 
   data () {
     return {
       currentStep: 0,
       interval: null,
+      lastVote: '',
       out: null,
       wonReward: null,
       timeBeforeVote: 15,
@@ -285,6 +284,10 @@ export default {
   computed: {
     ...mapGetters('auth', ['logged']),
     ...mapState('auth', ['currentUser'])
+  },
+
+  async beforeMount () {
+    this.lastVote = await this.$axios.$get('vote/lastVote').catch(() => {})
   },
 
   beforeDestroy () {
