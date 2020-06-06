@@ -178,104 +178,186 @@
           <td>150 blocs</td>
           <td>200 blocs</td>
         </tr>
-        <tr>
-          <td
-            class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"
-            colspan="5"
-          >Kits</td>
-        </tr>
-        <tr>
-          <td class="text-left">Kit enchanteur</td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">Kit mage</td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">Kit archimage</td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="text-left">Kit sorcier</td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-          <td>
-            <div class="flex items-center justify-center">
-              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-            </div>
-          </td>
-        </tr>
+        <ClientOnly>
+          <tr>
+            <td
+              class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"
+              colspan="5"
+            >Kits</td>
+          </tr>
+          <tr>
+            <td class="text-left">Kit enchanteur</td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[0].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[0].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[0].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[0].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Kit mage</td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[1].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[1].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[1].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Kit archimage</td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[2].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[2].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="text-left">Kit sorcier</td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+              </div>
+            </td>
+            <td>
+              <div class="flex items-center justify-center">
+                <v-popover trigger="hover" placement="bottom">
+                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+                  <template slot="popover">
+                    <div
+                      v-html="displayedRanks[3].description"
+                      class="ql-editor ql-editor-no-padding"
+                    ></div>
+                  </template>
+                </v-popover>
+              </div>
+            </td>
+          </tr>
+        </ClientOnly>
         <tr>
           <td
             class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"
@@ -290,8 +372,8 @@
           <td>6</td>
         </tr>
         <tr>
-          <td />
           <ClientOnly>
+            <td />
             <td v-for="rank in displayedRanks" :key="'buy-' + rank.id">
               <div class="flex items-center justify-center">
                 <span v-if="logged && currentUser.offers.includes(rank.id)">Possédé</span>
