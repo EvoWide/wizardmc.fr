@@ -5,7 +5,7 @@
       class="flex flex-col transition-transform duration-150 ease-in-out transform md:flex-row hover:translate-x-2"
     >
       <img
-        :src="data.image"
+        v-lazy="data.image"
         class="flex-shrink-0 block object-cover w-full max-w-sm mx-auto border md:w-64 md:h-40 md:m-0 border-gradient"
         alt="Image de l'article"
       />

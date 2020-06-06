@@ -30,9 +30,7 @@
       v-lazy:background-image="'/images/backgrounds/bg-home-2.jpg'"
       class="bg-center bg-no-repeat bg-cover border-t-2 border-b-2 border-yellow-600 about-section"
     >
-      <div
-        class="container relative px-4 pt-10 pb-20 mx-auto text-center sm:text-left"
-      >
+      <div class="container relative px-4 pt-10 pb-20 mx-auto text-center sm:text-left">
         <div
           data-aos="fade-right"
           data-aos-anchor=".about-section"
@@ -140,17 +138,17 @@
                 class="flex items-center justify-around max-w-md px-4 py-8 mx-auto md:px-12"
               >
                 <a href="https://discord.gg/a8qf5AD" target="_blank" rel="noreferrer">
-                  <img src="@/assets/img/socials/Discord.svg" alt="Discord" />
+                  <img v-lazy="'/images/socials/Discord.svg'" alt="Discord" />
                 </a>
                 <a href="https://twitter.com/WizardMC__" target="_blank" rel="noreferrer">
-                  <img src="@/assets/img/socials/Twitter.svg" alt="Twitter" />
+                  <img v-lazy="'/images/socials/Twitter.svg'" alt="Twitter" />
                 </a>
                 <a
                   href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img src="@/assets/img/socials/YouTube.svg" alt="YouTube" />
+                  <img v-lazy="'/images/socials/Youtube.svg'" alt="YouTube" />
                 </a>
               </div>
               <a
@@ -158,7 +156,7 @@
                 class="flex items-center justify-center"
                 rel="noreferrer"
               >
-                <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak" />
+                <img v-lazy="'/images/socials/Teamspeak.svg'" alt="Teamspeak" />
                 <span class="pl-4 text-lg text-white uppercase font-bol">ts.wizardmc.fr</span>
               </a>
             </div>
