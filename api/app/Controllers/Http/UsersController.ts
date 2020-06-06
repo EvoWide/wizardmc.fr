@@ -14,19 +14,21 @@ export default class UsersController {
 
     const offers = (await Database
       .from('shop_histories')
-      .where('user_id', auth.user!.id)
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
-      .where(builder => {
-        builder
-          .where('shop_offers.unique', true)
-          .orWhere('shop_histories.version', Number(Env.get('SERVER_VERSION')))
-      })
-      .orWhere(builder => {
-        builder
-          .where('shop_offers.category_id', 1)
-          .where('shop_offers.unique', false)
-          .where('shop_offers.version', false)
-          .where('shop_histories.created_at', '>=', DateTime.local().minus({ month: 1 }).toSQL())
+      .where('shop_histories.user_id', auth.user!.id)
+      .andWhere(builder => {
+        builder.where(builder => {
+          builder
+            .where('shop_offers.unique', true)
+            .orWhere('shop_histories.version', Number(Env.get('SERVER_VERSION')))
+        })
+        builder.orWhere(builder => {
+          builder
+            .where('shop_offers.category_id', 1)
+            .where('shop_offers.unique', false)
+            .where('shop_offers.version', false)
+            .where('shop_histories.created_at', '>=', DateTime.local().minus({ month: 1 }).toSQL())
+        })
       })
       .select('shop_offers.id'))
       .map(o => o.id)
