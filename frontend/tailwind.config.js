@@ -47,6 +47,10 @@ module.exports = {
           ...defaultTheme.colors.purple,
           780: '#593ea2',
           1000: '#33295b'
+        },
+        yellow: {
+          ...defaultTheme.colors.yellow,
+          550: '#e1b43d'
         }
       },
       fontFamily: {

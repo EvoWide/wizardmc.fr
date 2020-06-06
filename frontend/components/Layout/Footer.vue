@@ -15,7 +15,7 @@
         </div>
         <div class="flex flex-col sm:justify-between sm:flex-row md:pl-10 lg:pl-20">
           <div class="flex flex-row flex-wrap sm:flex-col sm:pr-4 lg:pr-12">
-            <p class="w-full pb-3 font-bold text-yellow-600 uppercase">Le site</p>
+            <p class="w-full pb-3 font-bold uppercase text-yellow-550">Le site</p>
             <nuxt-link :to="{ name: 'join' }" class="w-1/2 footer-link sm:w-auto">
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Nous rejoindre</span>
@@ -44,7 +44,7 @@
           <div
             class="flex flex-row flex-wrap mt-5 text-purple-100 sm:flex-col sm:mt-0 sm:px-4 lg:px-12"
           >
-            <p class="w-full pb-3 font-bold text-yellow-600 uppercase">Statistiques</p>
+            <p class="w-full pb-3 font-bold uppercase text-yellow-550">Statistiques</p>
             <p class="flex items-center w-1/2 py-1 sm:w-auto">
               <img class="w-6 pr-2" src="@/assets/img/icons/users.svg" alt="Inscrits" />
               {{ stats.registered }} inscrits
@@ -63,7 +63,7 @@
             </p>
           </div>
           <div class="flex flex-row flex-wrap mt-5 sm:flex-col sm:mt-0 sm:pl-4 lg:pl-12">
-            <p class="w-full pb-3 font-bold text-yellow-600 uppercase">Réseaux sociaux</p>
+            <p class="w-full pb-3 font-bold uppercase text-yellow-550">Réseaux sociaux</p>
             <a
               href="https://discord.gg/a8qf5AD"
               class="w-1/2 footer-link sm:w-auto"
