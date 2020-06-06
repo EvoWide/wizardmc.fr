@@ -178,19 +178,25 @@
           <td>150 blocs</td>
           <td>200 blocs</td>
         </tr>
-        <ClientOnly>
-          <tr>
-            <td
-              class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"
-              colspan="5"
-            >Kits</td>
-          </tr>
-          <tr>
-            <td class="text-left">Kit enchanteur</td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+        <tr>
+          <td
+            class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"
+            colspan="5"
+          >Kits</td>
+        </tr>
+        <tr>
+          <td class="text-left">
+            <div class="flex items-center justify-between">
+              <span>Kit enchanteur</span>
+              <ClientOnly>
+                <v-popover trigger="hover" placement="right" class="flex items-center">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                   <template slot="popover">
                     <div
                       v-html="displayedRanks[0].description"
@@ -198,59 +204,43 @@
                     ></div>
                   </template>
                 </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[0].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[0].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[0].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">Kit mage</td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+              </ClientOnly>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">
+            <div class="flex items-center justify-between">
+              <span>Kit mage</span>
+              <ClientOnly>
+                <v-popover trigger="hover" placement="right" class="flex items-center">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                   <template slot="popover">
                     <div
                       v-html="displayedRanks[1].description"
@@ -258,51 +248,43 @@
                     ></div>
                   </template>
                 </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[1].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[1].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">Kit archimage</td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+              </ClientOnly>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">
+            <div class="flex items-center justify-between">
+              <span>Kit archimage</span>
+              <ClientOnly>
+                <v-popover trigger="hover" placement="right" class="flex items-center">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                   <template slot="popover">
                     <div
                       v-html="displayedRanks[2].description"
@@ -310,43 +292,43 @@
                     ></div>
                   </template>
                 </v-popover>
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
-                  <template slot="popover">
-                    <div
-                      v-html="displayedRanks[2].description"
-                      class="ql-editor ql-editor-no-padding"
-                    ></div>
-                  </template>
-                </v-popover>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="text-left">Kit sorcier</td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
-              </div>
-            </td>
-            <td>
-              <div class="flex items-center justify-center">
-                <v-popover trigger="hover" placement="bottom">
-                  <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+              </ClientOnly>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-left">
+            <div class="flex items-center justify-between">
+              <span>Kit sorcier</span>
+              <ClientOnly>
+                <v-popover trigger="hover" placement="right" class="flex items-center">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                   <template slot="popover">
                     <div
                       v-html="displayedRanks[3].description"
@@ -354,10 +336,30 @@
                     ></div>
                   </template>
                 </v-popover>
-              </div>
-            </td>
-          </tr>
-        </ClientOnly>
+              </ClientOnly>
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/times-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+          <td>
+            <div class="flex items-center justify-center">
+              <img src="@/assets/img/icons/check-circle.svg" class="w-5 h-5" />
+            </div>
+          </td>
+        </tr>
         <tr>
           <td
             class="px-4 py-3 text-xl font-semibold text-left bg-purple-900 separator font-title"

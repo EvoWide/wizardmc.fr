@@ -42,10 +42,11 @@ export default {
   */
   plugins: [
     // '~/plugins/axios.js',
-    '~/plugins/v-tooltip.js',
+    // '~/plugins/v-tooltip.js',
     // '~/plugins/nuxt-init.js',
     { src: '~/plugins/recaptcha', ssr: false },
     { src: '~/plugins/axios.js', ssr: false },
+    { src: '~/plugins/v-tooltip.js', ssr: false },
     { src: '~/plugins/nuxt-init.js', ssr: false }
   ],
   serverMiddleware: ['~/serverMiddlewares/selectiveSSR.js'],
