@@ -135,17 +135,25 @@
                 data-aos-anchor=".news-section"
                 class="flex items-center justify-around max-w-md px-4 py-8 mx-auto md:px-12"
               >
-                <a href="https://discord.gg/a8qf5AD" target="_blank">
+                <a href="https://discord.gg/a8qf5AD" target="_blank" rel="noreferrer">
                   <img src="@/assets/img/socials/Discord.svg" alt="Discord" />
                 </a>
-                <a href="https://twitter.com/WizardMC__" target="_blank">
+                <a href="https://twitter.com/WizardMC__" target="_blank" rel="noreferrer">
                   <img src="@/assets/img/socials/Twitter.svg" alt="Twitter" />
                 </a>
-                <a href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA" target="_blank">
+                <a
+                  href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img src="@/assets/img/socials/YouTube.svg" alt="YouTube" />
                 </a>
               </div>
-              <a href="ts3server://ts.wizardmc.fr" class="flex items-center justify-center">
+              <a
+                href="ts3server://ts.wizardmc.fr"
+                class="flex items-center justify-center"
+                rel="noreferrer"
+              >
                 <img src="@/assets/img/socials/Teamspeak.svg" alt="Teamspeak" />
                 <span class="pl-4 text-lg text-white uppercase font-bol">ts.wizardmc.fr</span>
               </a>

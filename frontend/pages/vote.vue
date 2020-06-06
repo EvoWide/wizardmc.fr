@@ -100,6 +100,7 @@
                     class="inline-flex px-4 py-2 mt-4 font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
                     href="https://www.rpg-paradize.com/?page=vote&vote=113062"
                     target="_blank"
+                    rel="noreferrer"
                   >Voter</a>
                 </div>
               </template>
@@ -128,6 +129,7 @@
                         class="font-semibold text-yellow-500 hover:text-yellow-600"
                         href="https://www.rpg-paradize.com/site-wizardmc-113062"
                         target="_blank"
+                        rel="noreferrer"
                       >notre page</a>.
                     </p>
                   </div>

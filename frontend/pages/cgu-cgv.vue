@@ -23,9 +23,9 @@
           <strong>Propriétaire</strong> : Kévin Dehoux
           <br />
           <strong>Créateurs</strong> :
-          <a href="https://valentinkaelin.ch/">Valentin Kaelin</a>
+          <a href="https://valentinkaelin.ch/" target="_blank" rel="noreferrer">Valentin Kaelin</a>
           <span>et</span>
-          <a href="https://twitter.com/Forsties08">Quentin Fialon</a>
+          <a href="https://twitter.com/Forsties08" target="_blank" rel="noreferrer">Quentin Fialon</a>
           <br />
           <strong>Siren</strong> : 829 601 574
           <strong style="margin-left: 30px;">Siret</strong> : 82960157400017
@@ -51,6 +51,7 @@
                 target="_blank"
                 href="http://www.subdelirium.com/generateur-de-mentions-legales/"
                 alt="rédaction des mentions légales"
+                rel="noreferrer"
               >Générateur de mentions légales</a>
             </i>
           </small>
@@ -64,10 +65,12 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> implique l’acceptation pleine et entière des conditions générales d’utilisation ci-après décrites. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment, les utilisateurs du site
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> sont donc invités à les consulter de manière régulière.
         </p>
         <p>Ce site est normalement accessible à tout moment aux utilisateurs. Une interruption pour raison de maintenance technique peut être toutefois décidée par WizardMC, qui s’efforcera alors de communiquer préalablement aux utilisateurs les dates et heures de l’intervention.</p>
@@ -76,6 +79,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> est mis à jour régulièrement par WizardMC. De la même façon, les mentions légales peuvent être modifiées à tout moment : elles s’imposent néanmoins à l’utilisateur qui est invité à s’y référer le plus souvent possible afin d’en prendre connaissance.
         </p>
         <h3 class="flex items-center">
@@ -87,6 +91,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> a pour objet de fournir une information concernant l’ensemble des activités de la société.
         </p>
         <p>
@@ -94,6 +99,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> des informations aussi précises que possible. Toutefois, il ne pourra être tenue responsable des omissions, des inexactitudes et des carences dans la mise à jour, qu’elles soient de son fait ou du fait des tiers partenaires qui lui fournissent ces informations.
         </p>
         <p>
@@ -101,10 +107,12 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> sont données à titre indicatif, et sont susceptibles d’évoluer. Par ailleurs, les renseignements figurant sur le site
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> ne sont pas exhaustifs. Ils sont donnés sous réserve de modifications ayant été apportées depuis leur mise en ligne.
         </p>
         <h3 class="flex items-center">
@@ -130,6 +138,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>.
         </p>
         <p>Des espaces interactifs (possibilité de poser des questions dans l’espace contact) sont à la disposition des utilisateurs. WizardMC se réserve le droit de supprimer, sans mise en demeure préalable, tout contenu déposé dans cet espace qui contreviendrait à la législation applicable en France, en particulier aux dispositions relatives à la protection des données. Le cas échéant, WizardMC se réserve également la possibilité de mettre en cause la responsabilité civile et/ou pénale de l’utilisateur, notamment en cas de message à caractère raciste, injurieux, diffamant, ou pornographique, quel que soit le support utilisé (texte, photographie…).</p>
@@ -143,10 +152,12 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>, peuvent êtres recueillies : l'URL des liens par l'intermédiaire desquels l'utilisateur a accédé au site
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>, le fournisseur d'accès de l'utilisateur, l'adresse de protocole Internet (IP) de l'utilisateur.
         </p>
         <p>
@@ -154,10 +165,12 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>. L'utilisateur fournit ces informations en toute connaissance de cause, notamment lorsqu'il procède par lui-même à leur saisie. Il est alors précisé à l'utilisateur du site
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> l’obligation ou non de fournir ces informations.
         </p>
         <p>Conformément aux dispositions des articles 38 et suivants de la loi 78-17 du 6 janvier 1978 relative à l’informatique, aux fichiers et aux libertés, tout utilisateur dispose d’un droit d’accès, de rectification et d’opposition aux données personnelles le concernant, en effectuant sa demande écrite et signée, accompagnée d’une copie du titre d’identité avec signature du titulaire de la pièce, en précisant l’adresse à laquelle la réponse doit être envoyée.</p>
@@ -166,10 +179,12 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> n'est publiée à l'insu de l'utilisateur, échangée, transférée, cédée ou vendue sur un support quelconque à des tiers. Seule l'hypothèse du rachat de WizardMC et de ses droits permettrait la transmission des dites informations à l'éventuel acquéreur qui serait à son tour tenu de la même obligation de conservation et de modification des données vis à vis de l'utilisateur du site
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>.
         </p>
         <p>Le site n'est pas déclaré à la CNIL car il ne recueille pas d'informations personnelles. .</p>
@@ -183,6 +198,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> contient un certain nombre de liens hypertextes vers d’autres sites, mis en place avec l’autorisation de WizardMC. Cependant, WizardMC n’a pas la possibilité de vérifier le contenu des sites ainsi visités, et n’assumera en conséquence aucune responsabilité de ce fait.
         </p>
         <p>
@@ -190,6 +206,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> est susceptible de provoquer l’installation de cookie(s) sur l’ordinateur de l’utilisateur. Un cookie est un fichier de petite taille, qui ne permet pas l’identification de l’utilisateur, mais qui enregistre des informations relatives à la navigation d’un ordinateur sur un site. Les données ainsi obtenues visent à faciliter la navigation ultérieure sur le site, et ont également vocation à permettre diverses mesures de fréquentation.
         </p>
         <p>Le refus d’installation d’un cookie peut entraîner l’impossibilité d’accéder à certains services. L’utilisateur peut toutefois configurer son ordinateur de la manière suivante, pour refuser l’installation des cookies :</p>
@@ -209,6 +226,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> est soumis au droit français. Il est fait attribution exclusive de juridiction aux tribunaux compétents de Paris.
         </p>
         <h3 class="flex items-center">
@@ -240,6 +258,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> et le Joueur, et les conditions applicables à tout achat effectué sur le site. L’acquisition d'un bien ou d'un service à travers le présent site implique une acceptation sans réserve par le Joueur des présentes conditions de vente.
         </p>
         <h3 class="flex items-center">
@@ -251,6 +270,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> et le Joueur, et les conditions applicables à tout achat effectué sur le site. L’acquisition d'un bien ou d'un service à travers le présent site implique une acceptation sans réserve par le Joueur des présentes conditions de vente.
         </p>
         <h3 class="flex items-center">
@@ -262,6 +282,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>
           <br />Chaque produit est accompagné d’un descriptif, ainsi que de son prix.
         </p>
@@ -311,28 +332,36 @@
               <div class="px-4 py-2 mx-2 bg-purple-900 border border-gradient">
                 <div class="text-lg text-purple-100">Stripe</div>
                 <div class="text-sm">proposé par Stripe</div>
-                <a class="block mt-2" href="https://stripe.com">https://stripe.com</a>
+                <a class="block mt-2" href="https://stripe.com" rel="noreferrer">https://stripe.com</a>
               </div>
             </div>
             <div class="w-full mt-4 sm:mt-0 sm:w-1/2 lg:w-1/4">
               <div class="px-4 py-2 mx-2 bg-purple-900 border border-gradient">
                 <div class="text-lg text-purple-100">Paypal</div>
                 <div class="text-sm">proposé par PayPal Pte. Ltd.</div>
-                <a class="block mt-2" href="https://paypal.com">https://paypal.com</a>
+                <a class="block mt-2" href="https://paypal.com" rel="noreferrer">https://paypal.com</a>
               </div>
             </div>
             <div class="w-full mt-4 sm:w-1/2 lg:mt-0 lg:w-1/4">
               <div class="px-4 py-2 mx-2 bg-purple-900 border border-gradient">
                 <div class="text-lg text-purple-100">PaySafeCard</div>
                 <div class="text-sm">proposé par Paysafe Group</div>
-                <a class="block mt-2" href="https://paysafecard.com">https://paysafecard.com</a>
+                <a
+                  class="block mt-2"
+                  href="https://paysafecard.com"
+                  rel="noreferrer"
+                >https://paysafecard.com</a>
               </div>
             </div>
             <div class="w-full mt-4 sm:w-1/2 lg:mt-0 lg:w-1/4">
               <div class="px-4 py-2 mx-2 bg-purple-900 border border-gradient">
                 <div class="text-lg text-purple-100">Dedipass</div>
                 <div class="text-sm">proposé par Dedigroup Ltd.</div>
-                <a class="block mt-2" href="https://dedipass.com">https://dedipass.com</a>
+                <a
+                  class="block mt-2"
+                  href="https://dedipass.com"
+                  rel="noreferrer"
+                >https://dedipass.com</a>
               </div>
             </div>
           </div>
@@ -346,6 +375,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>, vous attestez de manière ferme et sous votre propre et unique responsabilité que :
           <ul class="ml-4">
             <li>• Vous avez pleine capacité de jouissance et d’exercice pour contracter avec nous.</li>
@@ -363,6 +393,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a> est livrée immédiatement à compter du moment où l'argent virtuel a été débité du compte du Joueur concerné.
           <br />WizardMC s’engage à livrer les commandes passées par le joueur dans les délais prévus. Si les dits articles n’ont pas été livrés dans un délai de sept (7) jours à compter de la date de livraison prévue lors de la commande, et si ce dépassement n’est pas lié à un cas de force majeure, le Joueur pourra procéder à la résolution de la vente, en contactant WizardMC.
           <br />Les sommes réglées par le Joueur lui seront alors intégralement remboursées en argent virtuel.
@@ -404,6 +435,7 @@
           <a
             href="https://wizardmc.fr/"
             title="WizardMC - https://wizardmc.fr"
+            rel="noreferrer"
           >https://wizardmc.fr</a>
           <br />Joueur : Le joueur est toute personne physique ou morale qui utilise le Site ou l'un des services proposés par WizardMC.
         </p>

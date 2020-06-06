@@ -101,21 +101,24 @@
             type="checkbox"
           />
           <label for="status" class="block ml-2 text-sm leading-5 text-purple-200">
-            J'accepte les
-            <a href="#" class="font-semibold text-yellow-500 hover:text-yellow-600">CGU</a> et les
-            <a href="#" class="font-semibold text-yellow-500 hover:text-yellow-600">CGV</a> de WizardMC.
+            <span>J'accepte les</span>
+            <nuxt-link
+              :to="{name: 'cgu-cgv'}"
+              class="font-semibold text-yellow-500 hover:text-yellow-600"
+            >CGU</nuxt-link>
+            <span>et les</span>
+            <nuxt-link
+              :to="{name: 'cgu-cgv'}"
+              class="font-semibold text-yellow-500 hover:text-yellow-600"
+            >CGV</nuxt-link>
+            <span>de WizardMC.</span>
           </label>
         </div>
       </div>
 
       <div class="mt-8">
         <div class="w-full text-center rounded-md shadow-sm">
-          <LoadingButton
-            :cta="true"
-            :submit="true"
-            :status="buttonStatus"
-            :xl="true"
-          >Inscription</LoadingButton>
+          <LoadingButton :cta="true" :submit="true" :status="buttonStatus" :xl="true">Inscription</LoadingButton>
         </div>
       </div>
     </form>

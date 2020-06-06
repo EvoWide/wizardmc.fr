@@ -68,6 +68,7 @@
               href="https://discord.gg/a8qf5AD"
               class="w-1/2 footer-link sm:w-auto"
               target="_blank"
+              rel="noreferrer"
             >
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Discord</span>
@@ -76,6 +77,7 @@
               href="https://twitter.com/WizardMC__"
               class="w-1/2 footer-link sm:w-auto"
               target="_blank"
+              rel="noreferrer"
             >
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Twitter</span>
@@ -84,11 +86,16 @@
               href="https://www.youtube.com/channel/UCAtQ2E-jyK3Pyu_5LYNxAPA"
               class="w-1/2 footer-link sm:w-auto"
               target="_blank"
+              rel="noreferrer"
             >
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>YouTube</span>
             </a>
-            <a href="ts3server://ts.wizardmc.fr" class="w-1/2 footer-link sm:w-auto">
+            <a
+              href="ts3server://ts.wizardmc.fr"
+              class="w-1/2 footer-link sm:w-auto"
+              rel="noreferrer"
+            >
               <img src="@/assets/img/chevron-right.svg" alt="Chevron" />
               <span>Teamspeak</span>
             </a>
@@ -108,11 +115,13 @@
               href="https://twitter.com/Forsties08"
               class="text-yellow-600 underline-effect"
               target="_blank"
+              rel="noreferrer"
             >Forsties08</a> et
             <a
               href="https://valentinkaelin.ch/"
               class="text-yellow-600 underline-effect"
               target="_blank"
+              rel="noreferrer"
             >Valentin Kaelin</a>
           </p>
         </div>

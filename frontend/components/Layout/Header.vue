@@ -35,12 +35,14 @@
                     <a
                       v-if="currentUser.is_admin"
                       :href="adminUrl"
+                      rel="noreferrer"
                       class="block px-4 py-2 text-sm text-yellow-500 dropdown-link hover:bg-purple-900"
                     >Administration</a>
-                    <a
+                    <button
                       @click="logout"
-                      class="block px-4 py-2 text-sm text-purple-200 cursor-pointer hover:bg-purple-900"
-                    >Déconnexion</a>
+                      type="button"
+                      class="block w-full px-4 py-2 text-sm text-left text-purple-200 cursor-pointer hover:bg-purple-900"
+                    >Déconnexion</button>
                   </div>
                 </template>
               </Dropdown>
@@ -61,7 +63,7 @@
           </div>
         </ClientOnly>
         <!-- Mobile Nav toggler -->
-        <button @click="toggleSide" class="block focus:outline-none lg:hidden">
+        <button @click="toggleSide" class="block focus:outline-none lg:hidden" type="button">
           <svg
             class="w-6 fill-current hover:text-white"
             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +80,7 @@
       class="fixed top-0 left-0 z-40 max-w-xl min-h-screen px-8 py-4 text-lg font-bold text-white uppercase side-nav bg-purple-1000 font-title"
       :class="isOpen ? 'open' : ''"
     >
-      <button @click="toggleSide" class="focus:outline-none">
+      <button @click="toggleSide" class="focus:outline-none" type="button">
         <img
           class="absolute top-0 left-0 w-5 mt-4 ml-4"
           src="@/assets/img/icons/close.svg"
@@ -104,10 +106,10 @@
           <nuxt-link :to="{name: 'vote'}" class="underline-effect">Vote et gagne</nuxt-link>
         </div>
         <div class="py-2">
-          <a href="#" class="underline-effect">Forum</a>
+          <nuxt-link :to="{name: 'forum'}" class="underline-effect">Vote et gagne</nuxt-link>
         </div>
         <div class="py-2">
-          <nuxt-link :to="{name: 'vote'}" class="underline-effect">FAQ</nuxt-link>
+          <nuxt-link :to="{name: 'faq'}" class="underline-effect">FAQ</nuxt-link>
         </div>
       </nav>
       <ClientOnly>
@@ -124,7 +126,11 @@
             <nuxt-link :to="{name: 'users-profile'}" class="underline-effect">Profil</nuxt-link>
           </div>
           <div class="py-2">
-            <a @click="logout" class="underline-effect">Déconnexion</a>
+            <button
+              @click="logout"
+              class="font-bold uppercase underline-effect focus:outline-none"
+              type="button"
+            >Déconnexion</button>
           </div>
         </template>
         <template v-else>
