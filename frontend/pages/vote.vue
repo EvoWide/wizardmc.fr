@@ -287,7 +287,7 @@ export default {
   },
 
   async beforeMount () {
-    this.lastVote = await this.$axios.$get('vote/lastVote').catch(() => {})
+    this.lastVote = this.logged ? await this.$axios.$get('vote/lastVote').catch(() => {}) : ''
   },
 
   beforeDestroy () {
