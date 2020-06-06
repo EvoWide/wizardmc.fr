@@ -40,6 +40,11 @@ export default class UsersController {
 
   public async store ({ auth, request, response }: HttpContextContract) {
     const data = await request.validate(RegisterValidator)
+
+    if (!(/^[a-z](?:_?[a-z0-9])*$/i.test(data.username)) || (data.username.match(/_/g) || []).length > 1) {
+      return response.globalError('Le format du pseudo est incorrect: a-Z et un seul _ !')
+    }
+
     const alreadyExist = await User.query()
       .whereRaw('LOWER(username) LIKE ?', [data.username.toLowerCase()])
       .orWhere('email', data.email)

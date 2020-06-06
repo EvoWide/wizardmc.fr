@@ -23,7 +23,7 @@ export default class RegisterValidator {
   public schema = schema.create({
     username: schema.string({ escape: true, trim: true }, [
       //rules.unique({ table: 'users', column: 'username' }),
-      rules.minLength(5),
+      rules.minLength(3),
       rules.maxLength(16),
     ]),
 
