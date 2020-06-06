@@ -142,6 +142,15 @@ export default {
     chooseMethod (method) {
       this.selectedMethod = this.selectedMethod === method ? null : method
     }
+  },
+
+  head () {
+    return {
+      title: 'Créditer votre compte',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Achetez des points boutique depuis la plateforme de votre choix: cartes bancaires, Paypal, appels, SMS, Paysafecard ou encore Neosurf.' }
+      ]
+    }
   }
 }
 </script>

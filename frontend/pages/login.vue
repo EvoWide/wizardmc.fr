@@ -137,6 +137,15 @@ export default {
       }
       this.buttonStatus = 'none'
     }
+  },
+
+  head () {
+    return {
+      title: 'Connexion',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Connectez-vous à votre compte pour intéragir avec la communauté du serveur ou modifier vos informations.' }
+      ]
+    }
   }
 }
 </script>

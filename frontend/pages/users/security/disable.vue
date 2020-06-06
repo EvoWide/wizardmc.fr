@@ -33,6 +33,15 @@ export default {
       } catch (e) {
       }
     }
+  },
+
+  head () {
+    return {
+      title: 'Désactiver la 2FA',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Pourquoi voudriez-vous enlever cette sécurité ? Soit, c\'est fait!' }
+      ]
+    }
   }
 }
 </script>

@@ -44,6 +44,15 @@ export default {
           return 'Paypal'
       }
     }
+  },
+
+  head () {
+    return {
+      title: 'Paiement échoué',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Votre paiement a été annulé. Vous n\'navez pas été débité de la moindre somme.' }
+      ]
+    }
   }
 }
 </script>

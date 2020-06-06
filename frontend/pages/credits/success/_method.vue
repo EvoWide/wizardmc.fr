@@ -68,6 +68,15 @@ export default {
     if (!this.providers.includes(this.$route.params.method)) {
       this.$router.push({ name: 'index' })
     }
+  },
+
+  head () {
+    return {
+      title: 'Paiement réussi',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Votre paiement a été réalisé avec succès. Les points boutique seront accessibles tout soudainement sur votre compte.' }
+      ]
+    }
   }
 }
 </script>

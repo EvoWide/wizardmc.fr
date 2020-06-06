@@ -179,7 +179,10 @@
             >Vous avez déjà voté il y a moins de 3h.</div>
             <div v-else class="px-4 mt-4 text-center">
               <span>Vous devez vous</span>
-              <nuxt-link :to="{name: 'login'}" class="text-yellow-500 hover:text-yellow-600">connecter</nuxt-link>
+              <nuxt-link
+                :to="{name: 'login'}"
+                class="text-yellow-500 hover:text-yellow-600"
+              >connecter</nuxt-link>
               <span>pour pouvoir voter.</span>
             </div>
           </ClientOnly>
@@ -287,7 +290,7 @@ export default {
   },
 
   async beforeMount () {
-    this.lastVote = this.logged ? await this.$axios.$get('vote/lastVote').catch(() => {}) : ''
+    this.lastVote = this.logged ? await this.$axios.$get('vote/lastVote').catch(() => { }) : ''
   },
 
   beforeDestroy () {
@@ -332,6 +335,15 @@ export default {
       }, 1000)
 
       this.currentStep++
+    }
+  },
+
+  head () {
+    return {
+      title: 'Voter',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Voter toutes les 3 heures pour WizardMC vous permet de recevoir de nombreuses récompenses directement en jeu.' }
+      ]
     }
   }
 }

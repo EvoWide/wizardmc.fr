@@ -90,7 +90,10 @@
                 :data-aos-delay="200 * index"
               />
             </div>
-            <div v-if="posts.meta.total > posts.meta.per_page" class="flex items-center justify-center mt-3">
+            <div
+              v-if="posts.meta.total > posts.meta.per_page"
+              class="flex items-center justify-center mt-3"
+            >
               <button
                 @click="switchPostPage(posts.meta.previous_page_url)"
                 class="focus:outline-none"
@@ -191,6 +194,15 @@ export default {
       if (!newPageUrl) { return }
 
       this.posts = await this.$axios.$get(`posts${newPageUrl}`)
+    }
+  },
+
+  head () {
+    return {
+      title: 'Accueil',
+      meta: [
+        { hid: 'description', name: 'description', content: 'WizardMC est serveur factions minecraft sous launcher 1.7.10. Rejoignez l\'aventure et devenez le meilleur joueur!' }
+      ]
     }
   }
 }

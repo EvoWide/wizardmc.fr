@@ -7,7 +7,11 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      lang: 'fr'
+    },
     title: 'WizardMC',
+    titleTemplate: '%s - WizardMC',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

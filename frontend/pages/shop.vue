@@ -299,6 +299,15 @@ export default {
       this.appliedPromotion = null
       this.promotion = null
     }
+  },
+
+  head () {
+    return {
+      title: 'Boutique',
+      meta: [
+        { hid: 'description', name: 'description', content: 'La boutique du serveur vous propose divers articles permettant d\'aider le financement du serveur contre des récompenses en jeu.' }
+      ]
+    }
   }
 }
 </script>

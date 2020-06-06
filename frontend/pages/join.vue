@@ -58,3 +58,16 @@
     </div>
   </main>
 </template>
+
+<script>
+export default {
+  head () {
+    return {
+      title: 'Nous rejoindre',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Téléchargez le launcher pour rejoindre le serveur sur votre plateforme préférée.' }
+      ]
+    }
+  }
+}
+</script>

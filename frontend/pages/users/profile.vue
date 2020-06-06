@@ -50,6 +50,15 @@ export default {
 
   computed: {
     ...mapState('auth', ['currentUser'])
+  },
+
+  head () {
+    return {
+      title: 'Votre profil',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Votre profil vous permet de modifier toutes les informations relatives à votre compte ainsi que de visionner vos divers historiques.' }
+      ]
+    }
   }
 }
 </script>

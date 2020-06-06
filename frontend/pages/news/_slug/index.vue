@@ -56,6 +56,15 @@ export default {
       })
 
     return { post }
+  },
+
+  head () {
+    return {
+      title: this.post.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.post.content.slice(0, 150) }
+      ]
+    }
   }
 }
 </script>

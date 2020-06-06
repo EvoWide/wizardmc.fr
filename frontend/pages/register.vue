@@ -182,6 +182,15 @@ export default {
       }
       this.buttonStatus = 'none'
     }
+  },
+
+  head () {
+    return {
+      title: 'Inscription',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Rejoignez dès maintenant le serveur WizardMC et tentez de dominer les autres factions!' }
+      ]
+    }
   }
 }
 </script>

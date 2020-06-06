@@ -138,6 +138,15 @@ export default {
         }
       }
     }
+  },
+
+  head () {
+    return {
+      title: 'Activer la 2FA',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Activer la double authentification offre à votre compte une protection complète contre les hacks.' }
+      ]
+    }
   }
 }
 </script>

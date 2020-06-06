@@ -412,6 +412,19 @@
   </div>
 </template>
 
+<script>
+export default {
+  head () {
+    return {
+      title: 'Conditions générales',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Conditions générales d\'utilisation et de vente du serveur WizardMC propulsé par l\'entreprise EvoSmart.' }
+      ]
+    }
+  }
+}
+</script>
+
 <style scoped>
 a {
   @apply text-yellow-500;
