@@ -14,7 +14,7 @@
           <span class="text-yellow-500">{{ offer.price }} $</span>
         </template>
       </p>
-      <div v-html="offer.description" class="mt-4 ql-editor"></div>
+      <div v-html="offer.description" class="mt-4 ql-editor ql-editor-no-padding"></div>
 
       <div class="mt-5 sm:mt-6">
         <span class="flex w-full rounded-md shadow-sm">

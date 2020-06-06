@@ -1,3 +1,7 @@
+.ql-editor.ql-editor-no-padding {
+  padding: 0;
+}
+
 .ql-editor a {
   @apply text-yellow-500;
 }
