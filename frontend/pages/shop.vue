@@ -197,19 +197,19 @@
               >
                 <div
                   class="px-4 py-2 font-semibold leading-none text-red-100 bg-red-900 border border-red-700 rounded-full"
-                >{{ Math.round(article.price * (1 - appliedPromotion.reduction / 100)) }} $</div>
+                >{{ Math.round(article.price * (1 - appliedPromotion.reduction / 100)) }} PB</div>
 
                 <template slot="popover">
                   <div>
                     Prix original:
-                    <span class="text-yellow-500">{{ article.price }} $</span>
+                    <span class="text-yellow-500">{{ article.price }} PB</span>
                   </div>
                 </template>
               </v-popover>
               <div
                 v-else
                 class="absolute top-0 right-0 px-4 py-2 mt-1 mr-1 font-semibold leading-none text-purple-100 bg-purple-900 border border-purple-700 rounded-full"
-              >{{ logged && currentUser.offers.includes(article.id) ? 'Acheté' : article.price + ' $' }}</div>
+              >{{ logged && currentUser.offers.includes(article.id) ? 'Acheté' : article.price + ' PB' }}</div>
               <div
                 :style="{ backgroundImage: `url(${article.image})` }"
                 class="flex-1 bg-center bg-no-repeat bg-cover"

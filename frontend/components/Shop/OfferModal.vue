@@ -5,13 +5,13 @@
       <p class="mt-4">
         Prix:
         <template v-if="promotion">
-          <span class="text-red-500 line-through">{{ offer.price }} $</span>
+          <span class="text-red-500 line-through">{{ offer.price }} PB</span>
           <span
             class="ml-2 text-yellow-500"
-          >{{ Math.round(offer.price * (1 - promotion.reduction / 100)) }} $</span>
+          >{{ Math.round(offer.price * (1 - promotion.reduction / 100)) }} PB</span>
         </template>
         <template v-else>
-          <span class="text-yellow-500">{{ offer.price }} $</span>
+          <span class="text-yellow-500">{{ offer.price }} PB</span>
         </template>
       </p>
       <div v-html="offer.description" class="mt-4 ql-editor ql-editor-no-padding"></div>

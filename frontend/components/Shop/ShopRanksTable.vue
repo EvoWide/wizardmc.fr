@@ -64,7 +64,7 @@
           </td>
           <td v-for="rank in displayedRanks" :key="'price-' + rank.id">
             <div class="flex items-center justify-center">
-              <span class="text-base font-semibold lg:text-xl">{{ rank.price }}$</span>
+              <span class="text-base font-semibold lg:text-xl">{{ rank.price }} PB</span>
               <span class="ml-1 text-purple-500">/{{ ranksDuration }}</span>
             </div>
           </td>
