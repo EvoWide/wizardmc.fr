@@ -4,6 +4,7 @@ import Post from 'App/Models/Post'
 import PostValidator from 'App/Validators/Admin/PostValidator'
 import { randomString } from '@poppinss/utils'
 import Application from '@ioc:Adonis/Core/Application'
+import CacheService from 'App/Services/CacheService'
 
 export default class PostsController {
   public async index ({ response }: HttpContextContract) {
@@ -49,12 +50,14 @@ export default class PostsController {
     data.author_id = auth.user!.id
 
     await Post.create(data)
+    CacheService.remove('posts-page-1')
 
     return response.globalSuccess('Article créé!')
   }
 
   public async destroy ({ params, response }: HttpContextContract) {
     await Post.query().where('id', params.id).delete()
+    CacheService.remove('posts-page-1')
 
     return response.globalSuccess('Article supprimé!')
   }
@@ -63,6 +66,7 @@ export default class PostsController {
     const data = await request.validate(PostValidator)
 
     await Post.query().where('id', params.id).update(data)
+    CacheService.remove('posts-page-1')
 
     return response.globalSuccess('Article modifié!')
   }

@@ -5,6 +5,7 @@ import Category from 'App/Models/Shop/Category'
 import { randomString } from '@poppinss/utils'
 import ShopValidator from 'App/Validators/Admin/ShopValidator'
 import Offer from 'App/Models/Shop/Offer'
+import CacheService from 'App/Services/CacheService'
 
 export default class ShopController {
   public async categories ({ response }: HttpContextContract) {
@@ -45,12 +46,14 @@ export default class ShopController {
     const data = await request.validate(ShopValidator)
 
     await Offer.create(data)
+    CacheService.remove('shop-index')
 
     return response.globalSuccess('Offre boutique créée!')
   }
 
   public async destroy ({ params, response }: HttpContextContract) {
     await Offer.query().where('id', params.id).delete()
+    CacheService.remove('shop-index')
 
     return response.globalSuccess('Offre boutique supprimée!')
   }
@@ -59,6 +62,7 @@ export default class ShopController {
     const data = await request.validate(ShopValidator)
 
     await Offer.query().where('id', params.id).update(data)
+    CacheService.remove('shop-index')
 
     return response.globalSuccess('Offre boutique modifiée!')
   }
