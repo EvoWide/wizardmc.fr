@@ -40,6 +40,10 @@ class ServerService {
     this.maxPlayerCount = 0
     return tmp
   }
+
+  public getMaxPlayers () {
+    return this.maxPlayerCount
+  }
 }
 
 export default new ServerService()
