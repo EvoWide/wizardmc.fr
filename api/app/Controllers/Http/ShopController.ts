@@ -7,14 +7,15 @@ import Env from '@ioc:Adonis/Core/Env'
 import ServerService from 'App/Services/Server/ServerService'
 import PromotionalCode from 'App/Models/PromotionalCode'
 import { DateTime } from 'luxon'
+import CacheService from 'App/Services/CacheService'
 
 export default class ShopsController {
-  public async index ({ response }: HttpContextContract) {
-    const categories = await Category.query().select('id', 'name').preload('offers', (builder) => {
-      builder.select('id', 'name', 'image', 'price', 'unique', 'version', 'deps', 'description')
-    })
-
-    response.send(categories)
+  public async index () {
+    return await CacheService.remember('shop-index', async () => {
+      return await Category.query().select('id', 'name').preload('offers', (builder) => {
+        builder.select('id', 'name', 'image', 'price', 'unique', 'version', 'deps', 'description')
+      })
+    }, '1h')
   }
 
   public async show ({ response, params }: HttpContextContract) {
