@@ -60,7 +60,7 @@ export default class ProfileController {
       !(image.bitmap.width === 64 && image.bitmap.height === 32) &&
       !(image.bitmap.width === 128 && image.bitmap.height === 64)
     ) {
-      return response.globalError('Les dimensions de l\'image sont invalides : 32x64 | 64x128')
+      return response.globalError('Les dimensions de l\'image sont invalides : 64x32 | 128x64')
     }
 
     // On vérifie le nombre de pixel transparent uniquement sur le skin
