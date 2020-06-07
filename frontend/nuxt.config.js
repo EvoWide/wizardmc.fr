@@ -72,7 +72,9 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/sitemap',
-    '@nuxtjs/robots',
+    ['@nuxtjs/robots', {
+      Sitemap: 'https://wizardmc.fr/sitemap.xml'
+    }],
     'nuxt-webfontloader'
   ],
   /*
