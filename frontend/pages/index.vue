@@ -58,7 +58,7 @@
           data-aos="fade-centered"
           data-aos-delay="400"
           data-aos-anchor=".about-section"
-          class="render-1"
+          class="select-none render-1"
           alt="Render de skin décoratif 1"
           style="top: 50%"
         />
@@ -165,7 +165,7 @@
               data-aos="fade-up"
               data-aos-delay="400"
               data-aos-anchor=".news-section"
-              class="hidden -mt-8 lg:block"
+              class="hidden -mt-8 select-none lg:block"
               alt="Render de skin décoratif 2"
             />
           </div>
