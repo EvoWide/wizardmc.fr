@@ -108,7 +108,7 @@
           <nuxt-link :to="{name: 'vote'}" class="underline-effect">Vote et gagne</nuxt-link>
         </div>
         <div class="py-2">
-          <nuxt-link :to="{name: 'forum'}" class="underline-effect">Vote et gagne</nuxt-link>
+          <nuxt-link :to="{name: 'forum'}" class="underline-effect">Forum</nuxt-link>
         </div>
         <div class="py-2">
           <nuxt-link :to="{name: 'faq'}" class="underline-effect">FAQ</nuxt-link>

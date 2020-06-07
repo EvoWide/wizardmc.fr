@@ -148,7 +148,7 @@
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img v-lazy="'/images/socials/Youtube.svg'" alt="YouTube" />
+                  <img v-lazy="'/images/socials/YouTube.svg'" alt="YouTube" />
                 </a>
               </div>
               <a
