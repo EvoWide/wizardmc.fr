@@ -13,7 +13,9 @@ export default class PasswordRequestController {
     const { email } = await request.validate({
       schema: schema.create({
         email: schema.string({}, [
-          rules.email(),
+          rules.email({
+            sanitize: true,
+          }),
         ]),
       }),
       messages: {
