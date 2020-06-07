@@ -19,10 +19,7 @@
         <form @submit.prevent="askResetPassword" class="mt-4" method="POST">
           <div>
             <div class="flex items-center justify-between">
-              <label
-                for="email"
-                class="block text-sm font-medium leading-5 text-purple-200"
-              >Email</label>
+              <label for="email" class="block text-sm font-medium leading-5 text-purple-200">Email</label>
               <div
                 v-if="errors.email"
                 class="block px-2 mr-1 text-xs leading-5 text-red-100 bg-red-600 rounded-full"
@@ -40,15 +37,8 @@
             </div>
           </div>
 
-          <div class="mt-5 sm:mt-6">
-            <span class="flex w-full rounded-md shadow-sm">
-              <button
-                class="px-4 py-2 mx-auto text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title"
-              >
-                Demander la
-                <br />réinitialisation
-              </button>
-            </span>
+          <div class="mt-5 text-center sm:mt-6">
+            <LoadingButton :cta="true" :submit="true" :status="buttonStatus">Réinitialiser</LoadingButton>
           </div>
         </form>
       </div>
@@ -57,10 +47,12 @@
 </template>
 
 <script>
+import LoadingButton from '@/components/Common/LoadingButton.vue'
 import Modal from '@/components/Common/Modal.vue'
 
 export default {
   components: {
+    LoadingButton,
     Modal
   },
 
@@ -73,6 +65,7 @@ export default {
 
   data () {
     return {
+      buttonStatus: 'none',
       form: {
         email: null
       },
@@ -83,16 +76,19 @@ export default {
 
   methods: {
     async askResetPassword () {
+      this.buttonStatus = 'loading'
       try {
         const token = await this.recaptcha()
         await this.$axios.$post('password-requests', { ...this.form, recaptcha: token })
 
         this.emailSent = true
+        this.buttonStatus = 'sent'
       } catch (e) {
         this.errors = {}
         for (const error of e.response.data.errors) {
           this.$set(this.errors, error.field, error)
         }
+        this.buttonStatus = 'none'
       }
     },
     dismiss () {
@@ -101,6 +97,7 @@ export default {
       this.errors = {}
       this.form.email = null
       this.emailSent = false
+      this.buttonStatus = 'none'
     },
     async recaptcha () {
       await this.$recaptchaLoaded()

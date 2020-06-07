@@ -52,10 +52,7 @@
 
       <div class="mt-8">
         <div class="w-full text-center rounded-md shadow-sm">
-          <button
-            class="px-5 py-3 text-sm font-bold text-yellow-600 uppercase border-2 btn-cta bg-gradient border-gradient font-title lg:text-base"
-            type="submit"
-          >Réinitialiser</button>
+          <LoadingButton :cta="true" :submit="true" :status="buttonStatus" :xl="true">Réinitialiser</LoadingButton>
         </div>
       </div>
     </form>
@@ -63,9 +60,16 @@
 </template>
 
 <script>
+import LoadingButton from '@/components/Common/LoadingButton.vue'
+
 export default {
+  components: {
+    LoadingButton
+  },
+
   data () {
     return {
+      buttonStatus: 'none',
       form: {
         password: null,
         passwordConfirmation: null
@@ -87,6 +91,8 @@ export default {
         return this.$set(this.errors, 'password', { message: 'Les mots de passes doivent être identiques' })
       }
 
+      this.buttonStatus = 'loading'
+
       try {
         await this.$axios.$post(`password-requests/${this.token}`, this.form)
 
@@ -96,6 +102,7 @@ export default {
           this.$set(this.errors, error.field, error)
         }
       }
+      this.buttonStatus = 'none'
     },
 
     head () {
