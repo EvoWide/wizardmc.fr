@@ -18,7 +18,13 @@ export default {
       { hid: 'description', name: 'description', content: 'WizardMC est serveur factions minecraft sous launcher.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://wizardmc.fr' },
+      { rel: 'preconnect', href: 'https://api.wizardmc.fr' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'dns-prefetch', href: 'https://wizardmc.fr' },
+      { rel: 'dns-prefetch', href: 'https://api.wizardmc.fr' },
+      { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }
     ]
   },
   /*
