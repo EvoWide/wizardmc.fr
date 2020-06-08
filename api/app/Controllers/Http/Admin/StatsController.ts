@@ -17,4 +17,27 @@ export default class StatsController {
 
     return response.json(visits)
   }
+
+  public async registrations ({ response }: HttpContextContract) {
+    const registrations = await Database
+      .rawQuery('SELECT DATE(created_at) as registerDate, COUNT(id) as count FROM Users GROUP BY registerDate')
+
+    return response.json(registrations)
+  }
+
+  public async players ({ response }: HttpContextContract) {
+    let players = await Database.from('statistics')
+      .where('type_id', 1)
+      .select(
+        'id',
+        'count',
+        'created_at',
+      )
+      .orderBy('created_at', 'desc')
+      .limit(96) // 24h
+
+    players.sort((a, b) => a.id - b.id)
+
+    return response.json(players)
+  }
 }
