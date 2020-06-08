@@ -75,6 +75,9 @@ Route.group(() => {
 
 /* Admin only */
 Route.group(() => {
+  // Stats
+  Route.get('stats/visits', 'Admin/StatsController.visits')
+
   // Users
   Route.get('users', 'Admin/UsersController.index')
 

@@ -1,0 +1,90 @@
+
+// Charts : Apex Chart
+.apexcharts-canvas {
+  .apexcharts-tooltip {
+    background: $table-dark-stripe;
+    border-color: $table-light-stripe;
+
+    .apexcharts-tooltip-title {
+      background: $table-dark-stripe;
+    }
+  }
+
+  .apexcharts-xaxistooltip {
+    background: $table-dark-stripe;
+    border-color: $table-light-stripe;
+    color: $white;
+
+    &:before,
+    &:after {
+      border-bottom-color: $table-dark-stripe;
+    }
+  }
+
+  .apexcharts-yaxistooltip {
+    background: $table-dark-stripe;
+    border-color: $table-light-stripe;
+    color: $white;
+
+    &:before,
+    &:after {
+      border-left-color: $table-dark-stripe;
+    }
+  }
+
+  text {
+    fill: $white !important;
+  }
+
+  .apexcharts-pie-series {
+    path {
+      stroke: $table-light-stripe;
+    }
+  }
+
+  .apexcharts-legend {
+    .apexcharts-legend-series {
+      .apexcharts-legend-text {
+        color: $grey !important;
+      }
+    }
+  }
+
+  .apexcharts-toolbar {
+    .apexcharts-menu {
+      background: $table-light-stripe;
+      border-color: $table-light-stripe;
+
+      .apexcharts-menu-item {
+        background: $table-dark-stripe;
+      }
+    }
+  }
+
+  .apexcharts-radar-series {
+    polygon {
+      fill: $content-dark-bg;
+      stroke: $table-dark-stripe;
+    }
+  }
+
+  .apexcharts-track {
+    path {
+      stroke: $table-light-stripe;
+    }
+  }
+
+  .apexcharts-selection-icon:not(.selected):hover svg,
+  .apexcharts-zoom-icon:not(.selected):hover svg,
+  .apexcharts-zoom-in-icon:hover svg,
+  .apexcharts-zoom-out-icon:hover svg,
+  .apexcharts-reset-zoom-icon:hover svg,
+  .apexcharts-menu-icon:hover svg {
+    fill: $white;
+  }
+
+  // grid color
+  .apexcharts-gridline {
+    stroke: $theme-dark-border-color;
+  }
+}
