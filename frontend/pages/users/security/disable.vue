@@ -39,6 +39,7 @@ export default {
     return {
       title: 'Désactiver la 2FA',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Pourquoi voudriez-vous enlever cette sécurité ? Soit, c\'est fait!' },
         { hid: 'description', name: 'description', content: 'Pourquoi voudriez-vous enlever cette sécurité ? Soit, c\'est fait!' }
       ]
     }

@@ -191,6 +191,7 @@ export default {
     return {
       title: 'Inscription',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Rejoignez dès maintenant le serveur WizardMC et tentez de dominer les autres factions!' },
         { hid: 'description', name: 'description', content: 'Rejoignez dès maintenant le serveur WizardMC et tentez de dominer les autres factions!' }
       ]
     }

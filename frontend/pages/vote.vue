@@ -345,6 +345,7 @@ export default {
     return {
       title: 'Voter',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Voter toutes les 3 heures pour WizardMC vous permet de recevoir de nombreuses récompenses directement en jeu.' },
         { hid: 'description', name: 'description', content: 'Voter toutes les 3 heures pour WizardMC vous permet de recevoir de nombreuses récompenses directement en jeu.' }
       ]
     }

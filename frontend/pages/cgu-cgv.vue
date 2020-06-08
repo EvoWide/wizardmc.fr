@@ -450,6 +450,7 @@ export default {
     return {
       title: 'Conditions générales',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Conditions générales d\'utilisation et de vente du serveur WizardMC propulsé par l\'entreprise EvoSmart.' },
         { hid: 'description', name: 'description', content: 'Conditions générales d\'utilisation et de vente du serveur WizardMC propulsé par l\'entreprise EvoSmart.' }
       ]
     }

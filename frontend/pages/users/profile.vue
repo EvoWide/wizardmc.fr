@@ -56,6 +56,7 @@ export default {
     return {
       title: 'Votre profil',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Votre profil vous permet de modifier toutes les informations relatives à votre compte ainsi que de visionner vos divers historiques.' },
         { hid: 'description', name: 'description', content: 'Votre profil vous permet de modifier toutes les informations relatives à votre compte ainsi que de visionner vos divers historiques.' }
       ]
     }

@@ -74,6 +74,7 @@ export default {
     return {
       title: 'Paiement réussi',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Votre paiement a été réalisé avec succès. Les points boutique seront accessibles tout soudainement sur votre compte.' },
         { hid: 'description', name: 'description', content: 'Votre paiement a été réalisé avec succès. Les points boutique seront accessibles tout soudainement sur votre compte.' }
       ]
     }

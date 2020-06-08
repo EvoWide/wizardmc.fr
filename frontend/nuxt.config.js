@@ -15,6 +15,9 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'og:title', name: 'og:title', content: 'WizardMC' },
+      { hid: 'og:site_name', name: 'og:site_name', content: 'WizardMC' },
+      { hid: 'apple-mobile-web-app-title', name: 'apple-mobile-web-app-title', content: 'WizardMC' },
       { hid: 'description', name: 'description', content: 'WizardMC est serveur factions minecraft sous launcher.' },
       { name: 'msapplication-TileColor', content: '#44337a' },
       { name: 'theme-color', content: '#44337a' }

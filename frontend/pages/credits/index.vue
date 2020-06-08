@@ -148,6 +148,7 @@ export default {
     return {
       title: 'Créditer votre compte',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Achetez des points boutique depuis la plateforme de votre choix: cartes bancaires, Paypal, appels, SMS, Paysafecard ou encore Neosurf.' },
         { hid: 'description', name: 'description', content: 'Achetez des points boutique depuis la plateforme de votre choix: cartes bancaires, Paypal, appels, SMS, Paysafecard ou encore Neosurf.' }
       ]
     }

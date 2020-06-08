@@ -65,6 +65,7 @@ export default {
     return {
       title: 'Nous rejoindre',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Téléchargez le launcher pour rejoindre le serveur sur votre plateforme préférée.' },
         { hid: 'description', name: 'description', content: 'Téléchargez le launcher pour rejoindre le serveur sur votre plateforme préférée.' }
       ]
     }

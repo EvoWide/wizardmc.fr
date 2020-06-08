@@ -109,6 +109,7 @@ export default {
       return {
         title: 'Changement de mot de passe',
         meta: [
+          { hid: 'og:description', name: 'og:description', content: 'Changer votre mot de passe en cas de soucis avec l\'ancien n\'a jamais été aussi facile.' },
           { hid: 'description', name: 'description', content: 'Changer votre mot de passe en cas de soucis avec l\'ancien n\'a jamais été aussi facile.' }
         ]
       }

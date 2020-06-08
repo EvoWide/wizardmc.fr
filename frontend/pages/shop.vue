@@ -306,6 +306,7 @@ export default {
     return {
       title: 'Boutique',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'La boutique du serveur vous propose divers articles permettant d\'aider le financement du serveur contre des récompenses en jeu.' },
         { hid: 'description', name: 'description', content: 'La boutique du serveur vous propose divers articles permettant d\'aider le financement du serveur contre des récompenses en jeu.' }
       ]
     }

@@ -138,6 +138,7 @@ export default {
     return {
       title: 'Connexion',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Connectez-vous à votre compte pour intéragir avec la communauté du serveur ou modifier vos informations.' },
         { hid: 'description', name: 'description', content: 'Connectez-vous à votre compte pour intéragir avec la communauté du serveur ou modifier vos informations.' }
       ]
     }

@@ -50,6 +50,7 @@ export default {
     return {
       title: 'Paiement échoué',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'Votre paiement a été annulé. Vous n\'navez pas été débité de la moindre somme.' },
         { hid: 'description', name: 'description', content: 'Votre paiement a été annulé. Vous n\'navez pas été débité de la moindre somme.' }
       ]
     }

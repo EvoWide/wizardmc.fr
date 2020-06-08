@@ -69,6 +69,7 @@ export default {
     return {
       title: 'Accueil',
       meta: [
+        { hid: 'og:description', name: 'og:description', content: 'WizardMC est serveur factions minecraft sous launcher 1.7.10. Rejoignez l\'aventure et devenez le meilleur joueur!' },
         { hid: 'description', name: 'description', content: 'WizardMC est serveur factions minecraft sous launcher 1.7.10. Rejoignez l\'aventure et devenez le meilleur joueur!' }
       ]
     }

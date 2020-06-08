@@ -62,6 +62,7 @@ export default {
     return {
       title: this.post.title,
       meta: [
+        { hid: 'og:description', name: 'og:description', content: this.post.content.slice(0, 150) },
         { hid: 'description', name: 'description', content: this.post.content.slice(0, 150) }
       ]
     }
