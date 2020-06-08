@@ -79,7 +79,7 @@ export default {
       const resp = await this.$axios.get('admin/stats/registrations')
 
       this.columnChart.series[0].data = resp.data.map(x => x.count)
-      this.columnChart.chartOptions.xaxis.categories = resp.data.map(x => new Date(x.registerDate).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }))
+      this.columnChart.chartOptions.xaxis.categories = resp.data.map(x => new Date(x.registerdate).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }))
     } catch (e) {
     }
 
