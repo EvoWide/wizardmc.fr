@@ -61,6 +61,8 @@ export default {
     try {
       const resp = await this.$axios.get('admin/stats/players')
 
+      console.log('players', resp.data)
+
       this.lineAreaChartSpline.series[0].data = resp.data.map(x => x.count)
       this.lineAreaChartSpline.chartOptions.xaxis.categories = resp.data.map(x => x.created_at)
     } catch (e) {
