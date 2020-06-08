@@ -5,6 +5,7 @@ export default class StatsController {
   public async visits ({ response }: HttpContextContract) {
     let visits = await Database.from('statistics')
       .where('type_id', 0)
+      .where('count', '>', 0)
       .select(
         'id',
         'count',
