@@ -81,7 +81,7 @@ export default {
       console.log('registrations', resp.data)
 
       this.columnChart.series[0].data = resp.data.map(x => x.count)
-      this.columnChart.chartOptions.xaxis.categories = resp.data.map(x => new Date(x.registerdate).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }))
+      this.columnChart.chartOptions.xaxis.categories = resp.data.map(x => new Date(x.created_at).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }))
     } catch (e) {
     }
 
