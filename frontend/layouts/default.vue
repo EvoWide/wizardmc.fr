@@ -11,26 +11,32 @@
       <div class="relative flex flex-col justify-between min-h-screen">
         <div>
           <!-- Header -->
-          <Header />
+          <LazyHydrate when-idle>
+            <Header />
+          </LazyHydrate>
 
           <div class="pt-10 lg:pt-36">
             <nuxt />
           </div>
         </div>
         <!-- Footer -->
-        <Footer />
+        <LazyHydrate when-visible>
+          <Footer />
+        </LazyHydrate>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import LazyHydrate from 'vue-lazy-hydration'
 import Header from '@/components/Layout/Header.vue'
 import Footer from '@/components/Layout/Footer.vue'
 import NotificationsContainer from '@/components/Global/NotificationsContainer.vue'
 
 export default {
   components: {
+    LazyHydrate,
     Header,
     Footer,
     NotificationsContainer
