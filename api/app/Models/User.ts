@@ -7,6 +7,7 @@ import UserSecurity from './UserSecurity'
 import InventoryItem from './Vote/InventoryItem'
 import UserRequest from './UserRequest'
 import CacheService from 'App/Services/CacheService'
+import XenforoService from 'App/Services/XenforoService'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -42,6 +43,9 @@ export default class User extends BaseModel {
   @column()
   public rememberMeToken: string
 
+  @column()
+  public forumId: number
+
   @hasMany(() => Post, { foreignKey: 'authorId' })
   public posts: HasMany<typeof Post>
 
@@ -56,6 +60,12 @@ export default class User extends BaseModel {
 
   @beforeCreate()
   public static async beforeCreateHook (userInstance: User) {
+    const createForumUser: any = await XenforoService
+      .register(userInstance.username, userInstance.email, userInstance.password)
+    if (createForumUser) {
+      userInstance.forumId = createForumUser.id
+    }
+
     userInstance.password = await Hash.make(userInstance.password)
     userInstance.uuid = uuid().replace(/-/g, '')
   }
@@ -63,7 +73,14 @@ export default class User extends BaseModel {
   @beforeUpdate()
   public static async beforeUpdateHook (userInstance: User) {
     if (userInstance.$dirty.password) {
+      if (userInstance.forumId) {
+        await XenforoService.changePassword(userInstance.username, userInstance.password)
+      }
       userInstance.password = await Hash.make(userInstance.password)
+    }
+
+    if (userInstance.$dirty.email && userInstance.forumId) {
+      await XenforoService.changeEmail(userInstance.username, userInstance.email)
     }
 
     if (userInstance.$dirty.credits) {

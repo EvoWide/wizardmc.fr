@@ -4,6 +4,7 @@ import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { DateTime } from 'luxon'
 import { authenticator } from 'otplib'
+import XenforoService from 'App/Services/XenforoService'
 
 export default class SessionsController {
   public async store ({ auth, request, response, session }: HttpContextContract) {
@@ -13,6 +14,14 @@ export default class SessionsController {
     const user = await User.query().preload('security').where('username', data.username).first()
     if (!user || user.username !== data.username || !(await Hash.verify(user.password, data.password))) {
       return response.globalError('Identifiants invalides.', 422)
+    }
+
+    if (!user.forumId) {
+      const createForumUser: any = await XenforoService.register(user.username, user.email, data.password)
+      if (createForumUser) {
+        user.forumId = createForumUser.id
+        await user.save()
+      }
     }
 
     if (user.security && user.security.method === 'otp') {
