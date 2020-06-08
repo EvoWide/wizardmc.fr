@@ -27,10 +27,20 @@ export default {
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#44337a' },
       { rel: 'preconnect', href: 'https://wizardmc.fr' },
       { rel: 'preconnect', href: 'https://api.wizardmc.fr' },
+      { rel: 'preconnect', href: 'https://cloud.wizardmc.fr' },
       { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://www.gstatic.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
+      { rel: 'preconnect', href: 'https://ajax.cloudflare.com' },
+      { rel: 'preconnect', href: 'https://js.stripe.com' },
       { rel: 'dns-prefetch', href: 'https://wizardmc.fr' },
       { rel: 'dns-prefetch', href: 'https://api.wizardmc.fr' },
-      { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' }
+      { rel: 'dns-prefetch', href: 'https://cloud.wizardmc.fr' },
+      { rel: 'dns-prefetch', href: 'https://fonts.googleapis.com' },
+      { rel: 'dns-prefetch', href: 'https://www.gstatic.com' },
+      { rel: 'dns-prefetch', href: 'https://fonts.gstatic.com' },
+      { rel: 'dns-prefetch', href: 'https://ajax.cloudflare.com' },
+      { rel: 'dns-prefetch', href: 'https://js.stripe.com' }
     ]
   },
   /*
