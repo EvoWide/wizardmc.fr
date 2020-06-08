@@ -43,14 +43,21 @@ export default {
           },
           colors: this.colors,
           xaxis: {
+            labels: {
+              datetimeUTC: false
+            },
             type: 'datetime',
             categories: []
           },
           tooltip: {
             x: {
               format: 'dd/MM/yy HH:mm'
+            },
+            y: {
+              formatter (val) {
+                return Math.round(val)
+              }
             }
-
           }
         }
       }
