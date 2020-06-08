@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "WizardMC",
+    "short_name": "WizardMC",
     "icons": [
         {
             "src": "/android-chrome-144x144.png",
@@ -8,7 +8,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff",
+    "theme_color": "#44337a",
+    "background_color": "#44337a",
     "display": "standalone"
 }
