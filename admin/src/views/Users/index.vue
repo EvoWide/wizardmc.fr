@@ -25,6 +25,7 @@
             <vs-th sort-key="votes">Votes</vs-th>
             <vs-th sort-key="is_admin">Administrateur</vs-th>
             <vs-th sort-key="created_at">Création</vs-th>
+            <vs-th>Actions</vs-th>
           </template>
 
           <template slot-scope="{data}">
@@ -36,6 +37,16 @@
               <vs-td :data="data[i].votes">{{data[i].votes}}</vs-td>
               <vs-td :data="data[i].is_admin">{{data[i].is_admin ? 'Oui' : 'Non'}}</vs-td>
               <vs-td :data="data[i].created_at">{{ new Date(data[i].created_at).toLocaleString()}}</vs-td>
+              <vs-td>
+                <div class="flex items-center space-x-2">
+                  <vs-button
+                    :to="{ name: 'users-edit', params: { id: data[i].id } }"
+                    color="primary"
+                    type="filled"
+                    icon="edit"
+                  ></vs-button>
+                </div>
+              </vs-td>
             </vs-tr>
           </template>
         </vs-table>
