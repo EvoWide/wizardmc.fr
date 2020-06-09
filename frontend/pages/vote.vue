@@ -200,7 +200,7 @@
                 Les 10 meilleurs voteurs recoivent leur nombre de votes
                 <span
                   class="text-yellow-500"
-                >x10</span> en points boutique.
+                >multipliés par un nombre</span> en points boutique.
               </p>
             </div>
             <table class="min-w-full mt-4 table-auto">
@@ -209,6 +209,7 @@
                   <th class="p-2 lg:px-4">Rang</th>
                   <th class="p-2 lg:px-4">Joueur</th>
                   <th class="p-2 lg:px-4">Votes</th>
+                  <th class="p-2 lg:px-4">Multiplicateur</th>
                   <th class="p-2 lg:px-4">Récompense</th>
                 </tr>
               </thead>
@@ -221,9 +222,10 @@
                   <td class="p-2 lg:px-4">{{ index + 1 }}</td>
                   <td class="p-2 lg:px-4">{{ player.username }}</td>
                   <td class="p-2 lg:px-4">{{ player.votes }}</td>
+                  <td class="p-2 text-yellow-500 lg:px-4">x{{ factors[index] ? factors[index] : 2 }}</td>
                   <td class="p-2 lg:px-4">
                     <div class="flex items-center leading-none">
-                      <div>{{ player.votes * 10 }}</div>
+                      <div>{{ player.votes * (factors[index] ? factors[index] : 2) }}</div>
                       <div class="ml-2 text-sm text-purple-200 whitespace-no-wrap">points boutique</div>
                     </div>
                   </td>
@@ -278,6 +280,7 @@ export default {
   data () {
     return {
       currentStep: 0,
+      factors: [10, 7, 5],
       interval: null,
       lastVote: '',
       out: null,
