@@ -82,6 +82,8 @@ Route.group(() => {
 
   // Users
   Route.get('users', 'Admin/UsersController.index')
+  Route.get('users/:id', 'Admin/UsersController.show')
+  Route.put('users/:id', 'Admin/UsersController.update')
 
   // Shop
   Route.get('shop/categories', 'Admin/ShopController.categories')
