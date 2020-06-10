@@ -16,6 +16,10 @@ export default class SessionsController {
       return response.globalError('Identifiants invalides.', 422)
     }
 
+    // Clear session before login to try to remove the "auth bug"
+    await auth.logout()
+    session.clear()
+
     if (!user.forumId) {
       const createForumUser: any = await XenforoService.register(user.username, user.email, data.password)
       if (createForumUser) {
