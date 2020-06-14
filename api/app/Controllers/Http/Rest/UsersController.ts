@@ -16,7 +16,7 @@ export default class UsersController {
   // Fields player, credits
   public async withdraw ({ request, response }: HttpContextContract) {
     const { player, credits } = request.post()
-    if (!player || !credits || !isNaN(credits)) {
+    if (!player || !credits || isNaN(credits)) {
       return response.status(400).json({ message: 'Invalid request' })
     }
 
@@ -34,7 +34,7 @@ export default class UsersController {
   // Fields player, credits
   public async deposit ({ request, response }: HttpContextContract) {
     const { player, credits } = request.post()
-    if (!player || !credits || !isNaN(credits)) {
+    if (!player || !credits || isNaN(credits)) {
       return response.status(400).json({ message: 'Invalid request' })
     }
 
@@ -48,7 +48,7 @@ export default class UsersController {
   // Fields: player, target, credits
   public async transfer ({ request, response }: HttpContextContract) {
     const { player, target, credits } = request.post()
-    if (!player || !target || !credits || !isNaN(credits)) {
+    if (!player || !target || !credits || isNaN(credits)) {
       return response.status(400).json({ message: 'Invalid request' })
     }
 
