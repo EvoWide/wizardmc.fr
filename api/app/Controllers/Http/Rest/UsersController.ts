@@ -70,7 +70,7 @@ export default class UsersController {
 
   private async findByIdOrUUID (idOrUuid: string): Promise<User> {
     return await User.query()
-      .select('credits', 'username')
+      .select('id', 'credits', 'username')
       .where('username', idOrUuid)
       .orWhere('uuid', idOrUuid)
       .firstOrFail()
