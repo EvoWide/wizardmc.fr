@@ -62,6 +62,5 @@ export default class ResetVote extends BaseCommand {
     await Database.manager.closeAll()
 
     this.logger.success('Reward finished.')
-    // TODO MAKE NEWS WITH REWARDED OBJECTS 
   }
 }
