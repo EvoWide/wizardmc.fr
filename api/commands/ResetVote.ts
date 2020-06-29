@@ -27,7 +27,6 @@ export default class ResetVote extends BaseCommand {
 
       this.logger.info(`User ${user.username} #${i + 1} has been credited of ${reward} credits with a total of ${user.votes} x ${mulitiplicator}`)
 
-      user.votes = 0
       user.credits += reward
       await user.save()
 
@@ -36,6 +35,8 @@ export default class ResetVote extends BaseCommand {
         reward: reward,
       }
     }
+
+    await Database.from('users').update({ votes: 0 })
 
     const post = await Post.findOrFail(4)
     let postContent = post.content
