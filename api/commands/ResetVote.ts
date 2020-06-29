@@ -27,9 +27,9 @@ export default class ResetVote extends BaseCommand {
 
       this.logger.info(`User ${user.username} #${i + 1} has been credited of ${reward} credits with a total of ${user.votes} x ${mulitiplicator}`)
 
-      // user.votes = 0
-      // user.credits += reward
-      // await user.save() ADD SAVE LATER TO ADD POINTS
+      user.votes = 0
+      user.credits += reward
+      await user.save()
 
       rewarded[i] = {
         user: user,
@@ -56,7 +56,7 @@ export default class ResetVote extends BaseCommand {
       title: post.title.replace('{month}', month),
       content: postContent,
       image: 'https://cloud.wizardmc.fr/posts/5gdywnSqXtD_ygmREiWecaZBp87Gb_0H.jpg',
-      hidden: true,
+      hidden: false,
     })
 
     await Database.manager.closeAll()
