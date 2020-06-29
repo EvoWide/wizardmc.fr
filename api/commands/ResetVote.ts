@@ -37,7 +37,7 @@ export default class ResetVote extends BaseCommand {
       }
     }
 
-    const post = await Post.findOrFail(22)
+    const post = await Post.findOrFail(4)
     let postContent = post.content
 
     for (let i = 0; i < rewarded.length; i++) {
@@ -52,7 +52,7 @@ export default class ResetVote extends BaseCommand {
     postContent = postContent.replace('{month}', month)
 
     await Post.create({
-      authorId: 4,
+      authorId: 3,
       title: post.title.replace('{month}', month),
       content: postContent,
       image: 'https://cloud.wizardmc.fr/posts/5gdywnSqXtD_ygmREiWecaZBp87Gb_0H.jpg',
