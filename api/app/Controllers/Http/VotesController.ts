@@ -80,6 +80,7 @@ export default class VotesController {
     user.save()
 
     if (reward.commands) {
+      ServerService.execute('notifysite vote {playerName}')
       if (ServerService.isOnline(user.username)) {
         ServerService.execute(reward.commands.replace(/{playerName}/g, user.username))
       } else {
