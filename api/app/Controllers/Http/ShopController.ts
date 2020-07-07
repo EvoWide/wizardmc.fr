@@ -86,7 +86,7 @@ export default class ShopsController {
       })
 
     if (offer.commands) {
-      const commands = `${offer.commands}|annonce 鏧 &b&l{playerName} &evient d'acheter le grade &6&l$${offer.name} &f鏧;time:200;y:30;scale:0.9;id:656531`
+      const commands = `${offer.commands}|annonce &b&l{playerName} &evient d'acheter le grade &6&l$${offer.name};time:200;y:30;scale:0.9;id:656531`
       ServerService.execute(commands.replace(/{playerName}/g, user.username))
     }
 

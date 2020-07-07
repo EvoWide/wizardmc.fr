@@ -23,7 +23,7 @@ class ServerService {
   }
 
   public async execute (command: string) {
-    return this.minecraft.executeCommand(command.split('|'))
+    return this.minecraft.executeCommand(command)
   }
 
   public async update () {

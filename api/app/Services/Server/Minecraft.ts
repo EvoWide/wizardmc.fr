@@ -15,6 +15,7 @@ export default class Minecraft {
       }
       url += '&args=' + escape(JSON.stringify(args))
     }
+    console.log(url)
     return url
   }
 
@@ -50,9 +51,12 @@ export default class Minecraft {
     return response !== null ? response : []
   }
 
-  public async executeCommand (commands: string[] | string) {
-    const response: any = await this.call('runConsoleCommand', commands)
-    return response !== null ? response : []
+  public async executeCommand (strCommands: string) {
+    const commands = strCommands.split('|')
+    for (const command of commands) {
+      await this.call('runConsoleCommand', command)
+    }
+    return []
   }
 }
 
