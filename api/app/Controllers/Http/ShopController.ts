@@ -86,7 +86,10 @@ export default class ShopsController {
       })
 
     if (offer.commands) {
-      ServerService.execute(offer.commands.replace(/{playerName}/g, user.username))
+      let commands = offer.commands
+      commands = commands + `|_K-message 鏧 &b&l{playerName} &evient d'acheter le grade &6&l$${offer.name} &f鏧;time:200;y:30;scale:0.9;id:656531`
+
+      ServerService.execute(commands.replace(/{playerName}/g, user.username))
     }
 
     if (offer.unique || offer.version || offer.categoryId === 1) {
