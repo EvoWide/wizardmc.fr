@@ -25,20 +25,16 @@
       <div class="flex justify-between max-w-xl mx-auto text-white">
         <!-- TODO: add hover:scale-105 to all three a tags and remove tooltips -->
         <a
-          v-tooltip="{
-            content: 'Launcher bientôt disponible.',
-          }"
-          href="#"
+          href="https://cloud.wizardmc.fr/update/WizardMC_Installer.exe"
+          target="_blank"
           class="flex flex-col items-center justify-center px-2 py-2 transition-transform duration-200 ease-in-out transform border bg-purple-1000 border-gradient sm:px-4"
         >
           <img class="w-12 h-12 sm:w-16 sm:h-16" src="@/assets/img/icons/windows.svg" alt="Windows" />
           <p class="mt-1 font-title">Windows</p>
         </a>
         <a
-          v-tooltip="{
-            content: 'Launcher bientôt disponible.',
-          }"
-          href="#"
+          href="https://cloud.wizardmc.fr/update/WizardMC_Installer.dmg"
+          target="_blank"
           class="flex flex-col items-center justify-center px-4 py-2 transition-transform duration-200 ease-in-out transform border bg-purple-1000 border-gradient"
         >
           <img class="w-12 h-12 sm:w-16 sm:h-16" src="@/assets/img/icons/apple.svg" alt="MacOS" />
