@@ -28,11 +28,14 @@ class ServerService {
 
   public async update () {
     this.playersName = await this.minecraft.getPlayerNames()
-    this.playerCount = this.playersName.length
 
     if (this.playerCount > this.maxPlayerCount) {
       this.maxPlayerCount = this.playerCount
     }
+  }
+
+  public async setMaxPlayerCount (playerCount: number) {
+    this.playerCount = playerCount
   }
 
   public getAndResetMaxPlayers () {

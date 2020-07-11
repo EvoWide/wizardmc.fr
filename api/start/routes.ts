@@ -120,6 +120,8 @@ Route.group(() => {
   Route.post('users/transfer', 'Rest/UsersController.transfer')
 
   Route.post('codes/store', 'Rest/PromotionalCodesController.store')
+
+  Route.post('server/player', 'Rest/ServersController.setPlayerCount')
 }).prefix('rest').middleware('rest')
 
 /* All users */
