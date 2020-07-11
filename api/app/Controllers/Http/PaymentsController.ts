@@ -43,7 +43,7 @@ export default class PaymentsController {
 
     const credits = dedipassValidation.virtual_currency ?? 0
     if (credits) {
-      auth.user!.credits += credits
+      auth.user!.credits += Number(credits)
       await auth.user!.save()
     }
 
