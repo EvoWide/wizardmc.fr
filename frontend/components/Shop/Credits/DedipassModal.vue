@@ -35,7 +35,7 @@
               id="code"
               :class="errors.code ? 'border-red-500': 'border-gradient'"
               class="block w-full form-input focus:bg-purple-900"
-              type="number"
+              type="text"
               required
             />
           </div>
