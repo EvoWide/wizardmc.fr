@@ -64,15 +64,17 @@ export default class UsersController {
     const user = await this.findByIdOrUUID(player)
     const userTarget = await this.findByIdOrUUID(target)
 
-    if (user.credits < credits) {
-      return response.status(403).send({ error: 'Not enough credits' })
+    if (user.uuid !== userTarget.uuid) {
+      if (user.credits < credits) {
+        return response.status(403).send({ error: 'Not enough credits' })
+      }
+
+      user.credits -= credits
+      await user.save()
+
+      userTarget.credits += credits
+      await userTarget.save()
     }
-
-    user.credits -= credits
-    await user.save()
-
-    userTarget.credits += credits
-    await userTarget.save()
 
     return response.send({ success: true, player: user.credits, target: userTarget.credits })
   }
