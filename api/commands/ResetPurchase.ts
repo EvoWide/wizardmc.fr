@@ -1,6 +1,6 @@
 import { BaseCommand } from '@adonisjs/ace'
 
-export default class ResetVote extends BaseCommand {
+export default class ResetPurchase extends BaseCommand {
   public static commandName = 'reset:purchases'
   public static description = 'Command to reset player purchases'
 
