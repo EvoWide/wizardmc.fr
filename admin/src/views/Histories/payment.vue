@@ -36,7 +36,7 @@
         <div class="mb-6 vx-row">
           <div class="w-full vx-col">
             <vs-input
-              v-model="history.credits"
+              v-model="history.credits_purchased"
               type="number"
               class="w-full"
               icon-pack="feather"
