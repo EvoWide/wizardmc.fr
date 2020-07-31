@@ -60,7 +60,7 @@
 
         <div class="mb-6 vx-row">
           <div class="w-full vx-col">
-            <vs-textarea v-model="history.data" rows="10" disabled />
+            <vs-textarea v-model="paypalStringTxn" rows="10" disabled />
           </div>
         </div>
       </form>
@@ -80,8 +80,8 @@ export default {
   data() {
     return {
       history: null,
-      paypalData: null,
       paypalTxnId: null,
+      paypalStringTxn: null,
       errors: {}
     }
   },
@@ -96,9 +96,14 @@ export default {
     try {
       const { data } = await this.$axios.get(`admin/history/payments/${this.$route.params.id}`)
       this.history = data[0]
-      this.paypalData = JSON.parse(this.history.data)
-      this.paypalTxnId = this.paypalData.txn_id
+      if (typeof this.history.data === 'string') {
+        this.history.data = JSON.parse(this.history.data)
+      }
+
+      this.paypalTxnId = this.history.data.txn_id
       this.history.created_at = new Date(this.history.created_at).toLocaleString()
+      this.paypalStringTxn = JSON.stringify(this.history.data)
+
       console.log(this.history)
     } catch (e) {
     }
