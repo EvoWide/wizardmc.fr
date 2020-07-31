@@ -102,6 +102,7 @@ Route.group(() => {
   // History
   Route.get('history/purchases', 'Admin/HistoriesController.purchases')
   Route.get('history/payments', 'Admin/HistoriesController.payments')
+  Route.get('history/payments/:id', 'Admin/HistoriesController.view')
 
   // Posts
   Route.resource('posts', 'Admin/PostsController').apiOnly()

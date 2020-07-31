@@ -24,6 +24,7 @@
             <vs-th sort-key="payout">Reversé</vs-th>
             <vs-th sort-key="credits">Crédits</vs-th>
             <vs-th sort-key="created_at">Création</vs-th>
+            <vs-th>Actions</vs-th>
           </template>
 
           <template slot-scope="{data}">
@@ -39,6 +40,16 @@
               <vs-td :data="data[i].payout">{{data[i].payout}} {{data[i].currency}}</vs-td>
               <vs-td :data="data[i].credits">{{data[i].credits}}</vs-td>
               <vs-td :data="data[i].created_at">{{ new Date(data[i].created_at).toLocaleString()}}</vs-td>
+              <vs-td>
+                <div class="flex items-center space-x-2">
+                  <vs-button
+                    :to="{ name: 'history-payments-view', params: { id: data[i].id } }"
+                    color="primary"
+                    type="filled"
+                    icon="edit"
+                  ></vs-button>
+                </div>
+              </vs-td>
             </vs-tr>
           </template>
         </vs-table>
