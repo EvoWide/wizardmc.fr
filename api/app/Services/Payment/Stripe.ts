@@ -17,7 +17,7 @@ class Stripe {
   private get stripe (): stripe {
     if (!this._stripe) {
       this._stripe = new stripe(this.privateKey, {
-        apiVersion: '2020-03-02',
+        apiVersion: '2020-08-27',
         typescript: true,
       })
     }
@@ -68,7 +68,7 @@ class Stripe {
   public async validate (request: RequestContract, response: ResponseContract) {
     const sig = request.headers()['stripe-signature'] as string
 
-    let event
+    let event:stripe.Event
     try {
       event = this.stripe.webhooks.constructEvent(request.raw() ?? '', sig, this.webhook)
     } catch (err) {
@@ -79,7 +79,8 @@ class Stripe {
       return
     }
 
-    const session: any = await this.stripe.checkout.sessions.retrieve(event.data.object.id, {
+    const charge = event.data.object as stripe.Charge
+    const session: any = await this.stripe.checkout.sessions.retrieve(charge.id, {
       expand: ['payment_intent.charges.data.balance_transaction'],
     })
 

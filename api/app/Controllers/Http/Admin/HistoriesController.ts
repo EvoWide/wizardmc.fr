@@ -50,7 +50,7 @@ export default class HistoriesController {
       .paginate(page, 8)
   }
 
-  public async view ({ request, params }: HttpContextContract) {
+  public async view ({ params }: HttpContextContract) {
     return await Database.from('user_payments')
       .innerJoin('users', 'users.id', 'user_payments.user_id')
       .where('user_payments.id', params.id)
