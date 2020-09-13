@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 class Skin {
   private readonly head: Part[] = [
     new Part(8, 0, 16, 8),

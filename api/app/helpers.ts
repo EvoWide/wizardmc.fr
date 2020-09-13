@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 export function slugify (text:string) {
   return text
     .toString() // Cast to string

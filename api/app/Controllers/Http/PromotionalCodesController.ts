@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PromotionalCode from 'App/Models/PromotionalCode'
 

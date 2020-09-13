@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { WizardConfig } from '@ioc:App/WizardMC'
 import Env from '@ioc:Adonis/Core/Env'
 

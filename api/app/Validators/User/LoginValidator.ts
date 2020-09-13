@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class LoginValidator {

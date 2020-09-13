@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { IocContract } from '@adonisjs/fold'
 import { ResponseConstructorContract } from '@ioc:Adonis/Core/Response'
 import Application from '@ioc:Adonis/Core/Application'

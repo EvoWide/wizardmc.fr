@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class ShopOffers extends BaseSchema {

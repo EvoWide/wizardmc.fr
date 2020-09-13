@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { BaseCommand } from '@adonisjs/ace'
 
 export default class ResetPurchase extends BaseCommand {

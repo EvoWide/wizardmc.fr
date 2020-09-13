@@ -1,9 +1,14 @@
 /**
-* Config source: https://git.io/JvyKy
-*
-* Feel free to let us know via PR, if you find something broken in this config
-* file.
-*/
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ *
+ * Config source: https://git.io/JvyKy
+ *
+ * Feel free to let us know via PR, if you find something broken in this config
+ * file.
+ */
 
 import User from 'App/Models/User'
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth'

@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import { listDirectoryFiles } from '@adonisjs/ace'
 import Application from '@ioc:Adonis/Core/Application'
 

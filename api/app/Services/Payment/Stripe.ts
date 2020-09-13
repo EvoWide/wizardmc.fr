@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import Env from '@ioc:Adonis/Core/Env'
 import User from 'App/Models/User'
 import Database from '@ioc:Adonis/Lucid/Database'

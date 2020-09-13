@@ -1,3 +1,10 @@
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
+
 import crypto from 'crypto'
 import got from 'got'
 import { JsonapiConfig } from '@ioc:App/WizardMC'

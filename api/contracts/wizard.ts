@@ -1,5 +1,11 @@
-declare module '@ioc:App/WizardMC' {
+/**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ */
 
+declare module '@ioc:App/WizardMC' {
   export interface WizardConfig {
     recaptcha: RecaptchaConfig,
     jsonapi: JsonapiConfig,
@@ -22,5 +28,4 @@ declare module '@ioc:App/WizardMC' {
     key: string,
     whitelist: string[],
   }
-
 }

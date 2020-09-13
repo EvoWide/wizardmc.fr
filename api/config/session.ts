@@ -1,4 +1,9 @@
 /**
+ * WizardMC API Source Code.
+ *
+ * @license GPLv3
+ * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
+ *
  * Config source: https://git.io/JeYHp
  *
  * Feel free to let us know via PR, if you find something broken in this config
