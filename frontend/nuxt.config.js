@@ -2,7 +2,6 @@ import axios from 'axios'
 import { slugify } from './helpers/functions.js'
 
 export default {
-  mode: 'universal',
   /*
   ** Headers of the page
   */
