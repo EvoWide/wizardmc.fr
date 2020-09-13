@@ -1,4 +1,4 @@
-export function slugify (text) {
+export function slugify (text:string) {
   return text
     .toString() // Cast to string
     .toLowerCase() // Convert the string to lowercase letters
