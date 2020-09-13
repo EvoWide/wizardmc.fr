@@ -105,11 +105,6 @@ const router = new Router({
           path: '/history/payments/:id',
           name: 'history-payments-view',
           component: () => import('./views/Histories/payment.vue')
-        },
-        {
-          path: '/commands',
-          name: 'commands',
-          component: () => import('./views/Commands/index.vue')
         }
       ]
     },
