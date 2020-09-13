@@ -77,7 +77,7 @@ export default {
     }
   },
 
-  data() {
+  data () {
     return {
       history: null,
       paypalTxnId: null,
@@ -87,12 +87,12 @@ export default {
   },
 
   computed: {
-    title() {
+    title () {
       return `Achat #${this.paypalTxnId}`
     }
   },
 
-  async created() {
+  async created () {
     try {
       const { data } = await this.$axios.get(`admin/history/payments/${this.$route.params.id}`)
       this.history = data[0]

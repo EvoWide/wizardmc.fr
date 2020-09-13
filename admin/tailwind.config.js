@@ -53,6 +53,10 @@ module.exports = {
   purge: {
     enabled: false,
   },
+  future: {
+    purgeLayersByDefault: true,
+    removeDeprecatedGapUtilities: true
+  },
 
   theme: {
 
