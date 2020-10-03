@@ -129,6 +129,11 @@ export default {
   ** Build configuration
   */
   build: {
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-nullish-coalescing-operator'
+      ]
+    },
     html: {
       minify: {
         collapseWhitespace: true, // as @dario30186 mentioned
