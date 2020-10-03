@@ -70,7 +70,7 @@ export default class ProfileController {
       return response.globalError('Les dimensions de l\'image sont invalides : 64x32 | 128x64')
     }
 
-    // On vérifie le nombre de pixel transparent uniquement sur le skin
+    // We check the number of transparent pixels only on the skin
     if (type === 'skin') {
       let alphaCount = 0
       const factor = image.bitmap.width / 64
@@ -99,7 +99,7 @@ export default class ProfileController {
 
     await CloudflareService.clear(cacheUrls)
 
-    // si c'est le changement du skin, on génère l'avatar
+    // If it is the change of the skin, we generate the avatar
     if (type === 'skin') {
       const newImage = await Jimp.read(`${cloudPath}/${type}/${auth.user!.username}.png`)
 

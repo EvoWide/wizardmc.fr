@@ -42,7 +42,7 @@ export default class VotesController {
   public async initiate ({ request, response, session, auth }: HttpContextContract) {
     const data = await this.getLastVote(auth.user!.id, request.ip())
     if (data) {
-      // print timeleft
+      // TODO: print timeleft
       return response.globalError('Vous avez déjà voté il y a moins de 3 heures !')
     }
 

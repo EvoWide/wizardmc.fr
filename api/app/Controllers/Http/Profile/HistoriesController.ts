@@ -39,6 +39,7 @@ export default class HistoriesController {
         break
     }
 
+    // Only cache first page of the histories
     if (page === 0) {
       CacheService.put(cacheKey, data, '30m')
     }

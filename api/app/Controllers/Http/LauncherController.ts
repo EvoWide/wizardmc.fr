@@ -5,7 +5,6 @@
  * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
  */
 
-// import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import CacheService from 'App/Services/CacheService'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { slugify } from 'App/helpers'

@@ -10,7 +10,10 @@ import User from 'App/Models/User'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UsersController {
-  // Fields: player
+  /**
+   * Fields to give: player
+   * @param ctx 
+   */
   public async balance ({ request, response }: HttpContextContract) {
     const { player } = await request.validate({
       schema: schema.create({
@@ -22,7 +25,10 @@ export default class UsersController {
     return response.send({ success: true, balance: user.credits })
   }
 
-  // Fields player, credits
+  /**
+   * Fields to give: player, credits
+   * @param ctx 
+   */
   public async withdraw ({ request, response }: HttpContextContract) {
     const { player, credits } = await request.validate({
       schema: schema.create({
@@ -42,7 +48,10 @@ export default class UsersController {
     return response.send({ success: true, balance: user.credits })
   }
 
-  // Fields player, credits
+  /**
+   * Fields to give: player, credits
+   * @param ctx 
+   */
   public async deposit ({ request, response }: HttpContextContract) {
     const { player, credits } = await request.validate({
       schema: schema.create({
@@ -58,7 +67,10 @@ export default class UsersController {
     return response.send({ success: true, 'user.username': user.credits })
   }
 
-  // Fields: player, target, credits
+  /**
+   * Fields to give: player, target, credits
+   * @param ctx 
+   */
   public async transfer ({ request, response }: HttpContextContract) {
     const { player, target, credits } = await request.validate({
       schema: schema.create({

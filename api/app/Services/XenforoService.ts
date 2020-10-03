@@ -5,7 +5,7 @@
  * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
  */
 
-import got from 'got'
+import got, { Response } from 'got'
 
 class XenforoService {
   private readonly apiUrl = 'https://forum.wizardmc.fr/api.php?key=wfUhRbmmEU5avDtMC9TEsV8EecN5LGkj'
@@ -27,7 +27,7 @@ class XenforoService {
   }
 
   private async makeRequest (action: string, data: any) {
-    let response
+    let response: Response
     try {
       response = await got.post(`${this.apiUrl}&action=${action}`, {
         json: data,

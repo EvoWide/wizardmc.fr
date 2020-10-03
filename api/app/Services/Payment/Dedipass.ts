@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import got from 'got'
+import got, { Response } from 'got'
 
 class Dedipass {
   private readonly url = 'https://api.dedipass.com/v1/pay/'
@@ -71,7 +71,7 @@ class Dedipass {
   }
 
   public async validate (code: string) {
-    let response: any
+    let response: Response<any>
     try {
       response = await got.get(`${this.url}?public_key=${this.publicKey}&private_key=${this.privateKey}&code=${code}`, { responseType: 'json' })
     } catch (ex) {

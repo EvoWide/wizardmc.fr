@@ -6,7 +6,7 @@
  */
 
 import Env from '@ioc:Adonis/Core/Env'
-import got from 'got'
+import got, { Response } from 'got'
 import qs from 'querystring'
 
 class Paypal {
@@ -20,7 +20,7 @@ class Paypal {
 
   public async verify (payload: any): Promise<boolean> {
     payload.cmd = '_notify-validate'
-    let response
+    let response: Response
 
     try {
       response = await got.post(this.getUrl(), {

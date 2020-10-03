@@ -13,6 +13,13 @@ import { RequestContract } from '@ioc:Adonis/Core/Request'
 import { Stripe as stripe } from 'stripe'
 import CacheService from '../CacheService'
 
+interface StripePrice {
+  id: string,
+  price: number,
+  currency: string,
+  credits: string,
+}
+
 class Stripe {
   private _stripe: stripe
 
@@ -34,7 +41,7 @@ class Stripe {
   public async getProducts () {
     return await CacheService.remember('stripe-products', async () => {
       const products = await this.stripe.products.list({ active: true })
-      const returnedPrices: Object[] = []
+      const returnedPrices: StripePrice[] = []
 
       for (const product of products.data) {
         if (!product.metadata.credits) {
@@ -66,7 +73,7 @@ class Stripe {
         })
       }
 
-      returnedPrices.sort((a: any, b: any) => a.price - b.price)
+      returnedPrices.sort((a, b) => a.price - b.price)
 
       return returnedPrices
     }, '1h')
@@ -87,17 +94,20 @@ class Stripe {
     }
 
     const charge = event.data.object as stripe.Charge
-    const session: any = await this.stripe.checkout.sessions.retrieve(charge.id, {
+    const session: stripe.Checkout.Session = await this.stripe.checkout.sessions.retrieve(charge.id, {
       expand: ['payment_intent.charges.data.balance_transaction'],
     })
 
-    if (session === null) {
+    if (!session || !session.payment_intent) {
       return
     }
 
-    const fee = session.payment_intent.charges.data[0].balance_transaction.fee / 100
-    const price = session.payment_intent.amount / 100
-    const credits = Number(session.payment_intent.description.split(' ')[1]) ?? 0
+    const paymentIntent = session.payment_intent as stripe.PaymentIntent
+    const balanceTransaction = paymentIntent.charges.data[0].balance_transaction as stripe.BalanceTransaction
+
+    const fee = balanceTransaction.fee / 100
+    const price = paymentIntent.amount / 100
+    const credits = Number(paymentIntent.description!.split(' ')[1]) ?? 0
     const payout = price - fee
 
     const user = await User.findOrFail(Number(session.client_reference_id))

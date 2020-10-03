@@ -11,9 +11,13 @@ import qrcode from 'qrcode'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import UserRequest from 'App/Models/UserRequest'
 import { DateTime } from 'luxon'
+import { verifyToken } from 'App/helpers'
 
 export default class SecurityController {
-  // Appelé en get sans argument
+  /**
+   * Called in GET without args
+   * @param ctx 
+   */
   public async enable ({ request, response, auth }: HttpContextContract) {
     const user = auth.user!
     const security = await user.related('security').query().first()
@@ -82,8 +86,7 @@ export default class SecurityController {
     const user = auth.user!
     const token = params.token as string
 
-    // replace with global helper??
-    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+    if (!verifyToken(token)) {
       return response.globalError('La requête est incorrect.')
     }
 
@@ -113,12 +116,14 @@ export default class SecurityController {
     return response.globalSuccess('La double authentification a bien été désactivée !')
   }
 
-  // Appelé en GET suite à la redirection du mail, retourne le qrcode a afficher au joueur
+  /**
+   * Called in GET following the redirection of the mail, returns the qrcode to be displayed to the player
+   * @param ctx 
+   */
   public async qrcode ({ response, params, auth }: HttpContextContract) {
     const token = params.token as string
 
-    // replace with global helper??
-    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+    if (!verifyToken(token)) {
       return response.globalError('La requête est incorrect.')
     }
 
@@ -147,12 +152,14 @@ export default class SecurityController {
     return response.send(imageUrl)
   }
 
-  // Appelé en POST avec comme argument 'code' qui contient le code entré par l'utilisateur
+  /**
+   * Called in POST with the argument 'code' which contains the code entered by the user
+   * @param ctx 
+   */
   public async store ({ request, response, auth, params }: HttpContextContract) {
     const token = params.token as string
 
-    // replace with global helper??
-    if (!token.match(/^[a-z0-9]+$/i) || token.length !== 32) {
+    if (!verifyToken(token)) {
       return response.globalError('La requête est incorrect.')
     }
 

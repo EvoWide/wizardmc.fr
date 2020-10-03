@@ -6,8 +6,13 @@
  */
 
 import crypto from 'crypto'
-import got from 'got'
+import got, { Response } from 'got'
 import { JsonapiConfig } from '@ioc:App/WizardMC'
+
+interface ResponseBody {
+  result: string,
+  success: any
+}
 
 export default class Minecraft {
   constructor (protected options: JsonapiConfig) {
@@ -32,9 +37,9 @@ export default class Minecraft {
       .digest('hex')
   }
 
-  private async call (method: string, args?: any): Promise<any> {
+  private async call (method: string, args?: any) {
     const url = this.generateUrl(method, args)
-    let response: any
+    let response: Response<ResponseBody>
 
     try {
       response = await got.get(url, { responseType: 'json', timeout: 1500 })
@@ -49,12 +54,12 @@ export default class Minecraft {
   }
 
   public async getPlayerCount (): Promise<number> {
-    const response: any = await this.call('getPlayerCount')
+    const response = await this.call('getPlayerCount')
     return response !== null ? Number(response) : -1
   }
 
   public async getPlayerNames (): Promise<string[]> {
-    const response: any = await this.call('getPlayerNames')
+    const response = await this.call('getPlayerNames')
     return response !== null ? response : []
   }
 

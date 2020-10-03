@@ -6,7 +6,13 @@
  */
 
 import { BaseCommand } from '@adonisjs/ace'
+import User from 'App/Models/User'
 import { DateTime } from 'luxon'
+
+interface Rewarded {
+  user: User,
+  reward: number
+}
 
 export default class ResetVote extends BaseCommand {
   public static commandName = 'reset:vote'
@@ -25,7 +31,7 @@ export default class ResetVote extends BaseCommand {
     const Post = (await import('App/Models/Post')).default
 
     const bestVoters = await User.query().orderBy('votes', 'desc').limit(10)
-    const rewarded: any[] = []
+    const rewarded: Rewarded[] = []
 
     for (let i = 0; i < bestVoters.length; i++) {
       const mulitiplicator = this.multiplicators[i] ?? this.defMultiplicator
@@ -51,7 +57,7 @@ export default class ResetVote extends BaseCommand {
     for (let i = 0; i < rewarded.length; i++) {
       postContent = postContent
         .replace(`{player_${i}}`, rewarded[i].user.username)
-        .replace(`{reward_${i}}`, rewarded[i].reward)
+        .replace(`{reward_${i}}`, rewarded[i].reward.toString())
     }
 
     let month = DateTime.local().minus({ day: 1 }).reconfigure({ locale: 'fr-FR' }).monthLong
