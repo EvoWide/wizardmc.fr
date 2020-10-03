@@ -27,7 +27,6 @@ export default class Minecraft {
       }
       url += '&args=' + escape(JSON.stringify(args))
     }
-    console.log(url)
     return url
   }
 
