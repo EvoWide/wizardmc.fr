@@ -108,7 +108,7 @@
           <nuxt-link :to="{name: 'vote'}" class="underline-effect">Vote et gagne</nuxt-link>
         </div>
         <div class="py-2">
-          <a href="https://forum.wizardmc.fr" class="underline-effect">Forum</a>
+          <nuxt-link :to="{name: 'forum'}" class="underline-effect">Forum</nuxt-link>
         </div>
         <div class="py-2">
           <nuxt-link :to="{name: 'faq'}" class="underline-effect">FAQ</nuxt-link>
@@ -176,10 +176,10 @@
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
               href="#"
             >Vote et gagne</nuxt-link>
-            <a
+            <nuxt-link
+              :to="{name: 'forum'}"
               class="px-4 text-sm text-gray-200 border-r nav-link border-separator hover:text-white xl:text-base"
-              href="https://forum.wizardmc.fr"
-            >Forum</a>
+            >Forum</nuxt-link>
             <nuxt-link
               :to="{name: 'faq'}"
               class="pl-4 text-sm text-gray-200 nav-link hover:text-white xl:text-base"
