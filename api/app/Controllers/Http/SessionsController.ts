@@ -11,7 +11,6 @@ import User from 'App/Models/User'
 import Hash from '@ioc:Adonis/Core/Hash'
 import { DateTime } from 'luxon'
 import { authenticator } from 'otplib'
-import XenforoService from 'App/Services/XenforoService'
 
 export default class SessionsController {
   public async store ({ auth, request, response, session }: HttpContextContract) {
@@ -26,14 +25,6 @@ export default class SessionsController {
     // Clear session before login to try to remove the "auth bug"
     await auth.logout()
     session.clear()
-
-    if (!user.forumId) {
-      const createForumUser: any = await XenforoService.register(user.username, user.email, data.password)
-      if (createForumUser) {
-        user.forumId = createForumUser.id
-        await user.save()
-      }
-    }
 
     if (user.security && user.security.method === 'otp') {
       session.put('auth-otp', {
