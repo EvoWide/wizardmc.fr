@@ -26,9 +26,9 @@
 - [TailwindCSS](https://tailwindcss.com/)
 - [Vuexy admin dashboard template](https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/)
 
-# Installation
+## Installation
 
-## Frontend
+### Frontend
 ```bash
 > cd wizardmc.fr/frontend
 > npm install
@@ -36,7 +36,7 @@
 > npm run dev
 ```
 
-## API
+### API
 ```bash
 > cd wizardmc.fr/api
 > npm install
@@ -48,7 +48,7 @@
 > npm run dev
 ```
 
-## Admin dashboard
+### Admin dashboard
 ```bash
 > cd wizardmc.fr/admin
 > npm install
@@ -56,30 +56,30 @@
 > npm run dev
 ```
 
-# Deployment
-## Frontend
+## Deployment
+### Frontend
 ```bash
 > cd frontend
 > npm run build
 ```
 
-## API
+### API
 ```bash
 > cd api
 > node ace build
 ```
 
-## Admin dashboard
+### Admin dashboard
 ```bash
 > cd admin
 > npm run build
 ```
 
-# Contributing
+## Contributing
 
 Do not hesitate to contribute to the project by adapting or adding features ! Bug reports or pull requests are welcome.
 
-# License
+## License
 
 This project is using the [GPLv3 License](https://choosealicense.com/licenses/gpl-3.0/).
 Feel free to create an issue for any question regarding your rights to use this project.
