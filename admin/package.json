@@ -1,6 +1,6 @@
 {
-  "name": "vuexy-vuejs-html-laravel-dashboard-admin-template",
-  "version": "4.0.0",
+  "name": "wizardmc-admin-dashboard",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "npm run serve",
