@@ -1,16 +1,10 @@
 /**
- * WizardMC API Source Code.
- *
- * @license GPLv3
- * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
- *
- * Config source: https://git.io/JvyKy
+ * Config source: https://git.io/JY0mp
  *
  * Feel free to let us know via PR, if you find something broken in this config
  * file.
  */
 
-import User from 'App/Models/User'
 import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 
 /*
@@ -24,7 +18,7 @@ import { AuthConfig } from '@ioc:Adonis/Addons/Auth'
 */
 const authConfig: AuthConfig = {
   guard: 'web',
-  list: {
+  guards: {
     /*
     |--------------------------------------------------------------------------
     | Web Guard
@@ -70,17 +64,20 @@ const authConfig: AuthConfig = {
         | of the mentioned columns to find their user record.
         |
         */
-        uids: ['username'],
+        uids: ['email'],
 
         /*
         |--------------------------------------------------------------------------
         | Model
         |--------------------------------------------------------------------------
         |
-        | The model to use for fetching or finding users
+        | The model to use for fetching or finding users. The model is imported
+        | lazily since the config files are read way earlier in the lifecycle
+        | of booting the app and the models may not be in a usable state at
+        | that time.
         |
         */
-        model: User,
+        model: () => import('App/Models/User'),
       },
     },
   },

@@ -10,7 +10,7 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import { DateTime } from 'luxon'
 
 export default class Visit {
-  public async handle (ctx: HttpContextContract, next: () => Promise<void>) {
+  public async handle(ctx: HttpContextContract, next: () => Promise<void>) {
     if (!ctx.session.get('hasVisited')) {
       ctx.session.put('hasVisited', true)
 

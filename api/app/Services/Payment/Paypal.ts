@@ -13,12 +13,12 @@ class Paypal {
   private readonly url: string = 'https://paypal.com/cgi-bin/webscr'
   private readonly sandbox_url: string = 'https://sandbox.paypal.com/cgi-bin/webscr'
 
-  constructor (
+  constructor(
     protected sandbox = Env.get('PAYMENT_PAYPAL_SANDBOX'),
-    protected email = Env.get('PAYMENT_PAYPAL_EMAIL'),
-  ) { }
+    protected email = Env.get('PAYMENT_PAYPAL_EMAIL')
+  ) {}
 
-  public async verify (payload: any): Promise<boolean> {
+  public async verify(payload: any): Promise<boolean> {
     payload.cmd = '_notify-validate'
     let response: Response
 
@@ -49,7 +49,7 @@ class Paypal {
     return true
   }
 
-  private getUrl (): string {
+  private getUrl(): string {
     return this.sandbox ? this.sandbox_url : this.url
   }
 }

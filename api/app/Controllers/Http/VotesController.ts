@@ -17,29 +17,34 @@ import Reward from 'App/Models/Vote/Reward'
 import CacheService from 'App/Services/CacheService'
 
 export default class VotesController {
-  public async index ({ response }: HttpContextContract) {
-    const [ranking, rewards] = await CacheService.remember('vote-ranking-rewards', async () => {
-      return Promise.all([
-        await Database.query().from('users')
-          .orderBy('votes', 'desc')
-          .select('username', 'votes')
-          .limit(10),
-        await Reward.query()
-          .orderBy('chance', 'asc')
-          .orderBy('name', 'asc')
-          .select('id', 'name', 'chance'),
-      ])
-    }, '10m')
+  public async index({ response }: HttpContextContract) {
+    const [ranking, rewards] = await CacheService.remember(
+      'vote-ranking-rewards',
+      async () => {
+        return Promise.all([
+          await Database.query()
+            .from('users')
+            .orderBy('votes', 'desc')
+            .select('username', 'votes')
+            .limit(10),
+          await Reward.query()
+            .orderBy('chance', 'asc')
+            .orderBy('name', 'asc')
+            .select('id', 'name', 'chance'),
+        ])
+      },
+      '10m'
+    )
 
     return response.send({ rewards, ranking })
   }
 
-  public async lastVote ({ request, response, auth }: HttpContextContract) {
+  public async lastVote({ request, response, auth }: HttpContextContract) {
     const vote = await this.getLastVote(auth.user!.id, request.ip())
     return response.send(vote)
   }
 
-  public async initiate ({ request, response, session, auth }: HttpContextContract) {
+  public async initiate({ request, response, session, auth }: HttpContextContract) {
     const data = await this.getLastVote(auth.user!.id, request.ip())
     if (data) {
       // TODO: print timeleft
@@ -52,7 +57,7 @@ export default class VotesController {
     return response.send(token)
   }
 
-  public async confirm ({ request, response, session, auth }: HttpContextContract) {
+  public async confirm({ request, response, session, auth }: HttpContextContract) {
     const { out, token } = request.post()
     const user = auth.user!
 
@@ -77,7 +82,7 @@ export default class VotesController {
     session.forget('vote-token')
     const reward = await this.getRandomReward()
     if (!reward) {
-      return response.globalError('Aucune récompense n\'a été trouvée.')
+      return response.globalError("Aucune récompense n'a été trouvée.")
     }
 
     user.votes++
@@ -101,22 +106,22 @@ export default class VotesController {
     return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
   }
 
-  private async getRandomReward () {
+  private async getRandomReward() {
     const voteItems = await Item.all()
-    const totalChance = voteItems.map(item => item.chance).reduce((o1, o2) => o1 + o2)
-    const rand = Math.floor((Math.random() * totalChance) + 1)
+    const totalChance = voteItems.map((item) => item.chance).reduce((o1, o2) => o1 + o2)
+    const rand = Math.floor(Math.random() * totalChance + 1)
 
     let i = 0
-    return voteItems.find(item => {
+    return voteItems.find((item) => {
       if (rand <= (i += item.chance)) {
         return item
       }
     })
   }
 
-  private async getLastVote (user_id: number, ip: string) {
+  private async getLastVote(user_id: number, ip: string) {
     return await Database.from('vote_histories')
-      .where(builder => {
+      .where((builder) => {
         builder.where('user_id', user_id)
         builder.orWhere('ip', ip)
       })

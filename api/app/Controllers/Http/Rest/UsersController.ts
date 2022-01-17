@@ -12,9 +12,9 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 export default class UsersController {
   /**
    * Fields to give: player
-   * @param ctx 
+   * @param ctx
    */
-  public async balance ({ request, response }: HttpContextContract) {
+  public async balance({ request, response }: HttpContextContract) {
     const { player } = await request.validate({
       schema: schema.create({
         player: schema.string(),
@@ -27,9 +27,9 @@ export default class UsersController {
 
   /**
    * Fields to give: player, credits
-   * @param ctx 
+   * @param ctx
    */
-  public async withdraw ({ request, response }: HttpContextContract) {
+  public async withdraw({ request, response }: HttpContextContract) {
     const { player, credits } = await request.validate({
       schema: schema.create({
         player: schema.string(),
@@ -50,9 +50,9 @@ export default class UsersController {
 
   /**
    * Fields to give: player, credits
-   * @param ctx 
+   * @param ctx
    */
-  public async deposit ({ request, response }: HttpContextContract) {
+  public async deposit({ request, response }: HttpContextContract) {
     const { player, credits } = await request.validate({
       schema: schema.create({
         player: schema.string(),
@@ -64,14 +64,14 @@ export default class UsersController {
     user.credits += credits
     await user.save()
 
-    return response.send({ success: true, 'user.username': user.credits })
+    return response.send({ 'success': true, 'user.username': user.credits })
   }
 
   /**
    * Fields to give: player, target, credits
-   * @param ctx 
+   * @param ctx
    */
-  public async transfer ({ request, response }: HttpContextContract) {
+  public async transfer({ request, response }: HttpContextContract) {
     const { player, target, credits } = await request.validate({
       schema: schema.create({
         player: schema.string(),
@@ -98,7 +98,7 @@ export default class UsersController {
     return response.send({ success: true, player: user.credits, target: userTarget.credits })
   }
 
-  private async findByIdOrUUID (idOrUuid: string): Promise<User> {
+  private async findByIdOrUUID(idOrUuid: string): Promise<User> {
     return await User.query()
       .select('id', 'credits', 'username')
       .where('username', idOrUuid)

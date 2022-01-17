@@ -16,22 +16,19 @@ import SkinService from 'App/Services/SkinService'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ProfileController {
-  public async index ({ auth, response }: HttpContextContract) {
+  public async index({ auth, response }: HttpContextContract) {
     const [rewards, security] = await Promise.all([
       await Database.from('vote_inventory')
         .where('user_id', auth.user!.id)
         .innerJoin('vote_rewards', 'vote_rewards.id', 'vote_inventory.item_id')
         .orderBy('vote_inventory.created_at', 'desc')
         .select('vote_inventory.id', 'vote_rewards.name'),
-      await UserSecurity.query()
-        .where('user_id', auth.user!.id)
-        .select('id', 'method')
-        .first(),
+      await UserSecurity.query().where('user_id', auth.user!.id).select('id', 'method').first(),
     ])
     return response.json({ rewards, security })
   }
 
-  public async upload ({ request, response, auth, params }: HttpContextContract) {
+  public async upload({ request, response, auth, params }: HttpContextContract) {
     if (!['skin', 'cape'].includes(params.type)) {
       return response.badRequest('')
     }
@@ -45,20 +42,20 @@ export default class ProfileController {
         }),
       }),
       messages: {
-        'skin.file.extname': 'Le format de l\'image est incorrect.',
-        'skin.file.size': 'La taille de l\'image ne peut pas dépasser 2MB.',
-        'cape.file.extname': 'Le format de l\'image est incorrect.',
-        'cape.file.size': 'La taille de l\'image ne peut pas dépasser 2MB.',
+        'skin.file.extname': "Le format de l'image est incorrect.",
+        'skin.file.size': "La taille de l'image ne peut pas dépasser 2MB.",
+        'cape.file.extname': "Le format de l'image est incorrect.",
+        'cape.file.size': "La taille de l'image ne peut pas dépasser 2MB.",
       },
     })
     const file = data[type]
     if (!file) {
-      return response.globalError('L\'image utilisée est invalide.')
+      return response.globalError("L'image utilisée est invalide.")
     }
 
     const image = await Jimp.read(file.tmpPath!)
     if (!image) {
-      return response.globalError('L\'image utilisée est invalide.')
+      return response.globalError("L'image utilisée est invalide.")
     }
 
     const { width, height } = image.bitmap
@@ -67,7 +64,7 @@ export default class ProfileController {
       !(image.bitmap.width === 64 && image.bitmap.height === 32) &&
       !(image.bitmap.width === 128 && image.bitmap.height === 64)
     ) {
-      return response.globalError('Les dimensions de l\'image sont invalides : 64x32 | 128x64')
+      return response.globalError("Les dimensions de l'image sont invalides : 64x32 | 128x64")
     }
 
     // We check the number of transparent pixels only on the skin
@@ -88,7 +85,9 @@ export default class ProfileController {
     }
 
     const configPath = Env.get('CLOUD_DESTINATION') as string
-    const cloudPath = configPath.startsWith('/') ? configPath : Application.publicPath(`${configPath}`)
+    const cloudPath = configPath.startsWith('/')
+      ? configPath
+      : Application.publicPath(`${configPath}`)
 
     await file.move(`${cloudPath}/${type}`, { name: `${auth.user!.username}.png` })
 

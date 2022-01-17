@@ -10,7 +10,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class ShopHistories extends BaseSchema {
   protected tableName = 'shop_histories'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.bigInteger('user_id').unsigned()
@@ -21,7 +21,7 @@ export default class ShopHistories extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

@@ -9,7 +9,7 @@ import got from 'got'
 import Env from '@ioc:Adonis/Core/Env'
 
 class Recaptcha {
-  public async verify (token: string) {
+  public async verify(token: string) {
     const response = await got.post('https://www.google.com/recaptcha/api/siteverify', {
       responseType: 'json',
       json: {

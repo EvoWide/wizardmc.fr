@@ -1,10 +1,3 @@
-/**
- * WizardMC API Source Code.
- *
- * @license GPLv3
- * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
- */
-
 /*
 |--------------------------------------------------------------------------
 | Application middleware
@@ -24,12 +17,12 @@ import Server from '@ioc:Adonis/Core/Server'
 |--------------------------------------------------------------------------
 |
 | An array of global middleware, that will be executed in the order they
-| are defined for all HTTP requests.
+| are defined for every HTTP requests.
 |
 */
 Server.middleware.register([
-  'Adonis/Core/BodyParserMiddleware',
-  'App/Middleware/SilentAuth',
+  () => import('@ioc:Adonis/Core/BodyParser'),
+  () => import('App/Middleware/SilentAuth'),
 ])
 
 /*
@@ -37,11 +30,11 @@ Server.middleware.register([
 | Named middleware
 |--------------------------------------------------------------------------
 |
-| Named middleware are defined a key-value pair. The value is the namespace
+| Named middleware are defined as key-value pair. The value is the namespace
 | or middleware function and key is the alias. Later you can use these
 | alias on individual routes. For example:
 |
-| { auth: 'Adonis/Auth/Middleware' }
+| { auth: () => import('App/Middleware/Auth') }
 |
 | and then use it as follows
 |

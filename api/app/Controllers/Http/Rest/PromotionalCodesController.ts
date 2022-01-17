@@ -13,7 +13,7 @@ import ms from 'ms'
 import PromotionalCode from 'App/Models/PromotionalCode'
 
 export default class PromotionalCodesController {
-  public async store ({ request, response }: HttpContextContract) {
+  public async store({ request, response }: HttpContextContract) {
     let { code, reduction, duration } = await request.validate({
       schema: schema.create({
         code: schema.string(),

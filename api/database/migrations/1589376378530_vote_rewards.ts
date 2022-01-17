@@ -10,7 +10,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class VoteRewards extends BaseSchema {
   protected tableName = 'vote_rewards'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name', 255)
@@ -22,7 +22,7 @@ export default class VoteRewards extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

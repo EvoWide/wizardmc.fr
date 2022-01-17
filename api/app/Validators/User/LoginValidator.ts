@@ -34,9 +34,7 @@ export default class LoginValidator {
       rules.maxLength(16),
     ]),
 
-    password: schema.string({ trim: true }, [
-      rules.minLength(5),
-    ]),
+    password: schema.string({ trim: true }, [rules.minLength(5)]),
   })
 
   /**
@@ -58,11 +56,11 @@ export default class LoginValidator {
    *   'profile.username.required': 'Username is required',
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
-  */
+   */
   public messages = {
-    'username.exists': 'Nom d\'utilisateur incorrect.',
-    'username.minLength': 'Nom d\'utilisateur incorrect.',
-    'username.maxLength': 'Nom d\'utilisateur incorrect.',
+    'username.exists': "Nom d'utilisateur incorrect.",
+    'username.minLength': "Nom d'utilisateur incorrect.",
+    'username.maxLength': "Nom d'utilisateur incorrect.",
     'password.minLength': 'Mot de passe incorrect.',
   }
 }

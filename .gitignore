@@ -6,3 +6,6 @@
 *.njsproj
 *.sln
 *.sw?
+old_api
+*.code-workspace
+.DS_Store

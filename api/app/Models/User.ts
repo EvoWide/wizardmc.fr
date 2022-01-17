@@ -6,7 +6,16 @@
  */
 
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany, beforeCreate, beforeUpdate, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import {
+  BaseModel,
+  column,
+  hasMany,
+  HasMany,
+  beforeCreate,
+  beforeUpdate,
+  hasOne,
+  HasOne,
+} from '@ioc:Adonis/Lucid/Orm'
 import uuid from '@lukeed/uuid'
 import Post from 'App/Models/Post'
 import Hash from '@ioc:Adonis/Core/Hash'
@@ -62,13 +71,13 @@ export default class User extends BaseModel {
   public requests: HasMany<typeof UserRequest>
 
   @beforeCreate()
-  public static async beforeCreateHook (userInstance: User) {
+  public static async beforeCreateHook(userInstance: User) {
     userInstance.password = await Hash.make(userInstance.password)
     userInstance.uuid = uuid().replace(/-/g, '')
   }
 
   @beforeUpdate()
-  public static async beforeUpdateHook (userInstance: User) {
+  public static async beforeUpdateHook(userInstance: User) {
     if (userInstance.$dirty.password) {
       userInstance.password = await Hash.make(userInstance.password)
     }

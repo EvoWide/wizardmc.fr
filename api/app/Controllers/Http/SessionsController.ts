@@ -13,12 +13,16 @@ import { DateTime } from 'luxon'
 import { authenticator } from 'otplib'
 
 export default class SessionsController {
-  public async store ({ auth, request, response, session }: HttpContextContract) {
+  public async store({ auth, request, response, session }: HttpContextContract) {
     const data = await request.validate(LoginValidator)
     const remember = !!request.post().remember
 
     const user = await User.query().preload('security').where('username', data.username).first()
-    if (!user || user.username !== data.username || !(await Hash.verify(user.password, data.password))) {
+    if (
+      !user ||
+      user.username !== data.username ||
+      !(await Hash.verify(user.password, data.password))
+    ) {
       return response.globalError('Identifiants invalides.', 422)
     }
 
@@ -40,7 +44,7 @@ export default class SessionsController {
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
-  public async verify ({ auth, request, response, session }: HttpContextContract) {
+  public async verify({ auth, request, response, session }: HttpContextContract) {
     const data = session.get('auth-otp')
     if (!data || data.time <= Date.now()) {
       session.forget('auth-otp')
@@ -59,7 +63,7 @@ export default class SessionsController {
     return response.globalSuccess('Vous vous êtes connecté avec succès.')
   }
 
-  public async destroy ({ auth, response, session }: HttpContextContract) {
+  public async destroy({ auth, response, session }: HttpContextContract) {
     await auth.logout()
 
     // Remove bought Shop offers, shop histories, ...

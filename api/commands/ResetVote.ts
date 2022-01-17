@@ -10,13 +10,14 @@ import User from 'App/Models/User'
 import { DateTime } from 'luxon'
 
 interface Rewarded {
-  user: User,
+  user: User
   reward: number
 }
 
 export default class ResetVote extends BaseCommand {
   public static commandName = 'reset:vote'
-  public static description = 'Command to reset and redeem rewards for players who has the more votes'
+  public static description =
+    'Command to reset and redeem rewards for players who has the more votes'
 
   public static settings = {
     loadApp: true,
@@ -25,7 +26,7 @@ export default class ResetVote extends BaseCommand {
   private readonly multiplicators = [10, 7, 5]
   private readonly defMultiplicator = 2
 
-  public async handle () {
+  public async handle() {
     const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     const User = (await import('App/Models/User')).default
     const Post = (await import('App/Models/Post')).default
@@ -38,7 +39,11 @@ export default class ResetVote extends BaseCommand {
       const user = bestVoters[i]
       const reward = Math.round(user.votes * mulitiplicator)
 
-      this.logger.info(`User ${user.username} #${i + 1} has been credited of ${reward} credits with a total of ${user.votes} x ${mulitiplicator}`)
+      this.logger.info(
+        `User ${user.username} #${i + 1} has been credited of ${reward} credits with a total of ${
+          user.votes
+        } x ${mulitiplicator}`
+      )
 
       user.credits += reward
       await user.save()

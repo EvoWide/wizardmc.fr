@@ -10,12 +10,12 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import CacheService from 'App/Services/CacheService'
 
 export default class HistoriesController {
-  public async index ({ response, auth, params }: HttpContextContract) {
+  public async index({ response, auth, params }: HttpContextContract) {
     if (!['shop', 'payments'].includes(params.type)) {
-      return response.globalError('La page demandée n\'a pas été trouvée', 404)
+      return response.globalError("La page demandée n'a pas été trouvée", 404)
     }
 
-    let page = (params.page ?? 0)
+    let page = params.page ?? 0
     if (isNaN(page) || page < 1) {
       page = 1
     }
@@ -47,7 +47,7 @@ export default class HistoriesController {
     return data
   }
 
-  private async historyShop (user_id: number, page: number): Promise<any[]> {
+  private async historyShop(user_id: number, page: number): Promise<any[]> {
     return await Database.from('shop_histories')
       .where('shop_histories.user_id', user_id)
       .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
@@ -57,7 +57,7 @@ export default class HistoriesController {
       .select('shop_offers.name', 'shop_histories.price', 'shop_histories.created_at')
   }
 
-  private async historyPayments (user_id: number, page: number): Promise<any[]> {
+  private async historyPayments(user_id: number, page: number): Promise<any[]> {
     return await Database.from('user_payments')
       .where('user_id', user_id)
       .limit(4)

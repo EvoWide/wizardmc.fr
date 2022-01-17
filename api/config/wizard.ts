@@ -10,19 +10,19 @@ import Env from '@ioc:Adonis/Core/Env'
 
 const wizardConfig: WizardConfig = {
   recaptcha: {
-    publicKey: Env.getOrFail('RECAPTCHA_PUBLIC_KEY') as string,
-    privateKey: Env.getOrFail('RECAPTCHA_PRIVATE_KEY') as string,
+    publicKey: Env.get('RECAPTCHA_PUBLIC_KEY') as string,
+    privateKey: Env.get('RECAPTCHA_PRIVATE_KEY') as string,
   },
 
   jsonapi: {
-    host: Env.getOrFail('JSONAPI_HOST') as string,
-    port: Number(Env.getOrFail('JSONAPI_PORT')),
-    user: Env.getOrFail('JSONAPI_USER') as string,
-    password: Env.getOrFail('JSONAPI_PASSWORD') as string,
+    host: Env.get('JSONAPI_HOST') as string,
+    port: Number(Env.get('JSONAPI_PORT')),
+    user: Env.get('JSONAPI_USER') as string,
+    password: Env.get('JSONAPI_PASSWORD') as string,
   },
 
   rest: {
-    key: Env.getOrFail('REST_KEY') as string,
+    key: Env.get('REST_KEY') as string,
     whitelist: ['127.0.0.1'],
   },
 }

@@ -9,8 +9,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class UserValidator {
-  constructor (private ctx: HttpContextContract) {
-  }
+  constructor(private ctx: HttpContextContract) {}
 
   /**
    * Defining a schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -57,6 +56,6 @@ export default class UserValidator {
    *   'profile.username.required': 'Username is required',
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
-  */
+   */
   public messages = {}
 }

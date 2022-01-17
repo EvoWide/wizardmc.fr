@@ -10,7 +10,7 @@ import { schema } from '@ioc:Adonis/Core/Validator'
 import ServerService from 'App/Services/Server/ServerService'
 
 export default class ServersController {
-  public async setPlayerCount ({ request, response }: HttpContextContract) {
+  public async setPlayerCount({ request, response }: HttpContextContract) {
     const { playerCount } = await request.validate({
       schema: schema.create({
         playerCount: schema.number(),

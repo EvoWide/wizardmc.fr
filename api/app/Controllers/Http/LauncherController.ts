@@ -10,16 +10,20 @@ import Database from '@ioc:Adonis/Lucid/Database'
 import { slugify } from 'App/helpers'
 
 export default class LauncherController {
-  public async index () {
-    return await CacheService.remember('launcher-info', async () => {
-      return {
-        post: await this.getLastPost(),
-        shop: await this.getMostBoughtOffers(3),
-      }
-    }, '1h')
+  public async index() {
+    return await CacheService.remember(
+      'launcher-info',
+      async () => {
+        return {
+          post: await this.getLastPost(),
+          shop: await this.getMostBoughtOffers(3),
+        }
+      },
+      '1h'
+    )
   }
 
-  private async getLastPost () {
+  private async getLastPost() {
     const queryResult = await Database.from('posts')
       .select('id', 'image', 'title')
       .where('hidden', false)
@@ -36,7 +40,7 @@ export default class LauncherController {
     return queryResult
   }
 
-  private async getMostBoughtOffers (limit: number) {
+  private async getMostBoughtOffers(limit: number) {
     const mostBoughtOffers = await Database.from('shop_histories')
       .countDistinct('id', 'count')
       .select('offer_id')

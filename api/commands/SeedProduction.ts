@@ -16,7 +16,7 @@ export default class SeedProduction extends BaseCommand {
     loadApp: true,
   }
 
-  public async handle () {
+  public async handle() {
     const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     this.logger.info('Seed production started.')
 
@@ -30,7 +30,8 @@ export default class SeedProduction extends BaseCommand {
       .first()
 
     if (!row) {
-      await Database.insertQuery().table('statistics')
+      await Database.insertQuery()
+        .table('statistics')
         .insert({
           type_id: 0,
           count: 0,

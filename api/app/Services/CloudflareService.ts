@@ -10,13 +10,13 @@ import got from 'got'
 
 class CloudflareService {
   private readonly apiUrl = 'https://api.cloudflare.com/'
-  constructor (
+  constructor(
     private email = Env.get('CLOUDFLARE_EMAIL') as string,
     private key = Env.get('CLOUDFLARE_KEY') as string,
     private zone = Env.get('CLOUDFLARE_ZONE') as string
-  ) { }
+  ) {}
 
-  public async clear (url: string | string[]) {
+  public async clear(url: string | string[]) {
     if ((Env.get('NODE_ENV') as string) === 'development') {
       return
     }

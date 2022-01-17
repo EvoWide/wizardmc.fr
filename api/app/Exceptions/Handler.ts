@@ -9,11 +9,11 @@ import Logger from '@ioc:Adonis/Core/Logger'
 import HttpExceptionHandler from '@ioc:Adonis/Core/HttpExceptionHandler'
 
 export default class ExceptionHandler extends HttpExceptionHandler {
-  constructor () {
+  constructor() {
     super(Logger)
   }
 
-  public async handle (error, ctx) {
+  public async handle(error, ctx) {
     if (error.code === 'E_ROW_NOT_FOUND') {
       return ctx.response.globalError('Elément non trouvé', 404)
     }
@@ -27,7 +27,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     }
 
     if (error.code === 'EAUTH') {
-      return ctx.response.globalError('Une erreur est survenue, le mail n\'a pas pu être envoyé.')
+      return ctx.response.globalError("Une erreur est survenue, le mail n'a pas pu être envoyé.")
     }
 
     return super.handle(error, ctx)

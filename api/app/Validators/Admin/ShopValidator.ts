@@ -9,8 +9,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class ShopValidator {
-  constructor (private ctx: HttpContextContract) {
-  }
+  constructor(private ctx: HttpContextContract) {}
 
   /**
    * Defining a schema to validate the "shape", "type", "formatting" and "integrity" of data.
@@ -33,9 +32,7 @@ export default class ShopValidator {
    */
   public schema = schema.create({
     name: schema.string(),
-    category_id: schema.number([
-      rules.exists({ table: 'shop_categories', column: 'id' }),
-    ]),
+    category_id: schema.number([rules.exists({ table: 'shop_categories', column: 'id' })]),
     description: schema.string(),
     image: schema.string(),
     price: schema.number(),
@@ -63,6 +60,6 @@ export default class ShopValidator {
    *   'profile.username.required': 'Username is required',
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
-  */
+   */
   public messages = {}
 }

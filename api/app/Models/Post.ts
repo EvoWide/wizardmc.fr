@@ -34,6 +34,6 @@ export default class Post extends BaseModel {
   @column()
   public hidden: boolean
 
-  @belongsTo(() => User, {localKey: 'id', foreignKey: 'authorId'})
+  @belongsTo(() => User, { localKey: 'id', foreignKey: 'authorId' })
   public author: BelongsTo<typeof User>
 }

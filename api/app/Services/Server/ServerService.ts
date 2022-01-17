@@ -21,19 +21,19 @@ class ServerService {
     password: Env.get('JSONAPI_PASSWORD') as string,
   })
 
-  public getPlayersCount () {
+  public getPlayersCount() {
     return this.playerCount
   }
 
-  public isOnline (playerName: string) {
+  public isOnline(playerName: string) {
     return this.playersName.includes(playerName)
   }
 
-  public async execute (command: string) {
+  public async execute(command: string) {
     return this.minecraft.executeCommand(command)
   }
 
-  public async update () {
+  public async update() {
     this.playersName = await this.minecraft.getPlayerNames()
 
     if (this.playerCount > this.maxPlayerCount) {
@@ -41,17 +41,17 @@ class ServerService {
     }
   }
 
-  public async setMaxPlayerCount (playerCount: number) {
+  public async setMaxPlayerCount(playerCount: number) {
     this.playerCount = playerCount
   }
 
-  public getAndResetMaxPlayers () {
+  public getAndResetMaxPlayers() {
     const tmp = this.maxPlayerCount
     this.maxPlayerCount = 0
     return tmp
   }
 
-  public getMaxPlayers () {
+  public getMaxPlayers() {
     return this.maxPlayerCount
   }
 }

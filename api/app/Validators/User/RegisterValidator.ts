@@ -34,9 +34,7 @@ export default class RegisterValidator {
       rules.maxLength(16),
     ]),
 
-    password: schema.string({ trim: true }, [
-      rules.minLength(5),
-    ]),
+    password: schema.string({ trim: true }, [rules.minLength(5)]),
 
     email: schema.string({ escape: true, trim: true }, [
       rules.email({
@@ -65,11 +63,11 @@ export default class RegisterValidator {
    *   'profile.username.required': 'Username is required',
    *   'scores.*.number': 'Define scores as valid numbers'
    * }
-  */
+   */
   public messages = {
-    'username.unique': 'Nom d\'utilisateur non disponible.',
-    'username.minLength': 'Nom d\'utilisateur trop court.',
-    'username.maxLength': 'Nom d\'utilisateur trop long.',
+    'username.unique': "Nom d'utilisateur non disponible.",
+    'username.minLength': "Nom d'utilisateur trop court.",
+    'username.maxLength': "Nom d'utilisateur trop long.",
     'password.minLength': 'Mot de passe pas assez sécurisé.',
     'email.email': 'Email incorrecte.',
     'email.unique': 'Email non disponible.',

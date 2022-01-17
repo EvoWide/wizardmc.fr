@@ -16,9 +16,9 @@ import { verifyToken } from 'App/helpers'
 export default class SecurityController {
   /**
    * Called in GET without args
-   * @param ctx 
+   * @param ctx
    */
-  public async enable ({ request, response, auth }: HttpContextContract) {
+  public async enable({ request, response, auth }: HttpContextContract) {
     const user = auth.user!
     const security = await user.related('security').query().first()
     if (security) {
@@ -35,7 +35,8 @@ export default class SecurityController {
     const url = `/users/security/enable?token=${token}`
 
     await Mail.send((message) => {
-      message.to(user.email)
+      message
+        .to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Activation de la double authentification')
         .htmlView('emails/enable_2fa', { url: origin + url, user })
@@ -50,12 +51,12 @@ export default class SecurityController {
     return response.globalSuccess('Un mail a été envoyé')
   }
 
-  public async disable ({ request, response, auth }: HttpContextContract) {
+  public async disable({ request, response, auth }: HttpContextContract) {
     const user = auth.user!
     const security = await user.related('security').query().first()
 
     if (!security || security.method !== 'otp') {
-      return response.globalError('La 2FA OTP n\'est pas activé sur votre compte.')
+      return response.globalError("La 2FA OTP n'est pas activé sur votre compte.")
     }
 
     if (!(await UserRequest.isAllowed(user))) {
@@ -68,7 +69,8 @@ export default class SecurityController {
     const url = `/users/security/disable?token=${token}`
 
     await Mail.send((message) => {
-      message.to(user.email)
+      message
+        .to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Désactivation de la double authentification')
         .htmlView('emails/disable_2fa', { url: origin + url, user })
@@ -82,7 +84,7 @@ export default class SecurityController {
     return response.globalSuccess('Un mail a été envoyé')
   }
 
-  public async delete ({ response, params, auth }: HttpContextContract) {
+  public async delete({ response, params, auth }: HttpContextContract) {
     const user = auth.user!
     const token = params.token as string
 
@@ -90,7 +92,9 @@ export default class SecurityController {
       return response.globalError('La requête est incorrect.')
     }
 
-    const mailRequest = await auth.user!.related('requests').query()
+    const mailRequest = await auth
+      .user!.related('requests')
+      .query()
       .where('token', params.token)
       .where('user_id', auth.user!.id)
       .where('expired', 0)
@@ -104,12 +108,10 @@ export default class SecurityController {
     mailRequest.expired = true
     await mailRequest.save()
 
-    const security = await user.related('security').query()
-      .where('method', 'otp')
-      .first()
+    const security = await user.related('security').query().where('method', 'otp').first()
 
     if (!security) {
-      return response.globalError('La double authentification n\'a pas été trouvée.')
+      return response.globalError("La double authentification n'a pas été trouvée.")
     }
     await security.delete()
 
@@ -118,16 +120,18 @@ export default class SecurityController {
 
   /**
    * Called in GET following the redirection of the mail, returns the qrcode to be displayed to the player
-   * @param ctx 
+   * @param ctx
    */
-  public async qrcode ({ response, params, auth }: HttpContextContract) {
+  public async qrcode({ response, params, auth }: HttpContextContract) {
     const token = params.token as string
 
     if (!verifyToken(token)) {
       return response.globalError('La requête est incorrect.')
     }
 
-    const mailRequest = await auth.user!.related('requests').query()
+    const mailRequest = await auth
+      .user!.related('requests')
+      .query()
       .where('token', params.token)
       .where('user_id', auth.user!.id)
       .where('expired', 0)
@@ -139,7 +143,7 @@ export default class SecurityController {
     }
 
     const otpauth = authenticator.keyuri(auth.user!.username, 'WizardMC', mailRequest.data)
-    const imageUrl = await new Promise(resolve => {
+    const imageUrl = await new Promise((resolve) => {
       qrcode.toDataURL(otpauth, (err, imageURL) => {
         resolve(err ? null : imageURL)
       })
@@ -154,9 +158,9 @@ export default class SecurityController {
 
   /**
    * Called in POST with the argument 'code' which contains the code entered by the user
-   * @param ctx 
+   * @param ctx
    */
-  public async store ({ request, response, auth, params }: HttpContextContract) {
+  public async store({ request, response, auth, params }: HttpContextContract) {
     const token = params.token as string
 
     if (!verifyToken(token)) {
@@ -164,12 +168,14 @@ export default class SecurityController {
     }
 
     const { code } = request.post()
-    if (!code || !(/^\d+$/.test(code)) || code.length !== 6) {
-      return response.globalError('La code indiqué n\'est pas dans le bon format')
+    if (!code || !/^\d+$/.test(code) || code.length !== 6) {
+      return response.globalError("La code indiqué n'est pas dans le bon format")
     }
 
     const user = auth.user!
-    const mailRequest = await auth.user!.related('requests').query()
+    const mailRequest = await auth
+      .user!.related('requests')
+      .query()
       .where('token', params.token)
       .where('method', 'enable-otp')
       .where('user_id', auth.user!.id)

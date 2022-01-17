@@ -58,9 +58,7 @@ const bodyParserConfig: BodyParserConfig = {
     encoding: 'utf-8',
     limit: '1mb',
     queryString: {},
-    types: [
-      'application/x-www-form-urlencoded',
-    ],
+    types: ['application/x-www-form-urlencoded'],
   },
 
   /*
@@ -77,9 +75,7 @@ const bodyParserConfig: BodyParserConfig = {
     encoding: 'utf-8',
     limit: '1mb',
     queryString: {},
-    types: [
-      'text/*',
-    ],
+    types: ['text/*'],
   },
 
   /*
@@ -182,9 +178,7 @@ const bodyParserConfig: BodyParserConfig = {
     | The types that will be considered and parsed as multipart body.
     |
     */
-    types: [
-      'multipart/form-data',
-    ],
+    types: ['multipart/form-data'],
   },
 }
 

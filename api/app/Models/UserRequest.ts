@@ -39,12 +39,12 @@ export default class UserRequest extends BaseModel {
   @belongsTo(() => User, { foreignKey: 'userId' })
   public user: BelongsTo<typeof User>
 
-  public static generateToken () {
+  public static generateToken() {
     return uuid().replace(/-/g, '')
   }
 
   // Check if user is allowed to use mail
-  public static async isAllowed (user: User): Promise<boolean> {
+  public static async isAllowed(user: User): Promise<boolean> {
     const result = await this.query()
       .where('user_id', user.id)
       .where('created_at', DateTime.local().minus({ hour: 1 }).toSQL())

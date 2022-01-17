@@ -15,7 +15,7 @@ export default class ResetPurchase extends BaseCommand {
     loadApp: true,
   }
 
-  public async handle () {
+  public async handle() {
     const Database = (await import('@ioc:Adonis/Lucid/Database')).default
 
     const shopHistories = await Database.table('shop_histories')

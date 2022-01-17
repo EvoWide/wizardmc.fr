@@ -11,14 +11,14 @@ import ms from 'ms'
 class CacheService {
   private cache = new Map<string, CacheValue>()
 
-  public put (key: string, value: any, duration?: Duration | string) {
+  public put(key: string, value: any, duration?: Duration | string) {
     if (!duration) {
       this.cache.set(key, { data: value })
       return
     }
 
     let expireAt: number
-    if (typeof (duration) === 'string') {
+    if (typeof duration === 'string') {
       expireAt = ms(duration)
     } else {
       expireAt = duration.as('millisecond')
@@ -31,11 +31,11 @@ class CacheService {
     this.cache.set(key, data)
   }
 
-  public remove (key: string): boolean {
+  public remove(key: string): boolean {
     return this.cache.delete(key)
   }
 
-  public async remember (key: string, method: () => any, duration: Duration | string) {
+  public async remember(key: string, method: () => any, duration: Duration | string) {
     const currentValue = this.get(key)
     if (currentValue) {
       return currentValue
@@ -47,7 +47,7 @@ class CacheService {
     return data
   }
 
-  public get (key: string, defValue?: any): any {
+  public get(key: string, defValue?: any): any {
     const currentValue = this.cache.get(key)
     if (!currentValue || this.isExpired(currentValue)) {
       return defValue ?? null
@@ -55,7 +55,7 @@ class CacheService {
     return currentValue.data
   }
 
-  private isExpired (value: CacheValue) {
+  private isExpired(value: CacheValue) {
     if ('expireAt' in value) {
       return (value as ExpiringCacheValue).expireAt <= new Date().getTime()
     }

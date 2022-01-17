@@ -10,15 +10,14 @@ import got, { Response } from 'got'
 import { JsonapiConfig } from '@ioc:App/WizardMC'
 
 interface ResponseBody {
-  result: string,
+  result: string
   success: any
 }
 
 export default class Minecraft {
-  constructor (protected options: JsonapiConfig) {
-  }
+  constructor(protected options: JsonapiConfig) {}
 
-  private generateUrl (method: string, args?: any) {
+  private generateUrl(method: string, args?: any) {
     const key = this.generateKey(method)
     let url = `http://${this.options.host}:${this.options.port}/api/call?method=${method}&key=${key}&tag=null`
     if (args) {
@@ -30,13 +29,14 @@ export default class Minecraft {
     return url
   }
 
-  private generateKey (method: string) {
-    return crypto.createHash('sha256')
+  private generateKey(method: string) {
+    return crypto
+      .createHash('sha256')
       .update(this.options.user + method + this.options.password)
       .digest('hex')
   }
 
-  private async call (method: string, args?: any) {
+  private async call(method: string, args?: any) {
     const url = this.generateUrl(method, args)
     let response: Response<ResponseBody>
 
@@ -52,17 +52,17 @@ export default class Minecraft {
     return response.body.success
   }
 
-  public async getPlayerCount (): Promise<number> {
+  public async getPlayerCount(): Promise<number> {
     const response = await this.call('getPlayerCount')
     return response !== null ? Number(response) : -1
   }
 
-  public async getPlayerNames (): Promise<string[]> {
+  public async getPlayerNames(): Promise<string[]> {
     const response = await this.call('getPlayerNames')
     return response !== null ? response : []
   }
 
-  public async executeCommand (strCommands: string) {
+  public async executeCommand(strCommands: string) {
     const commands = strCommands.split('|')
     for (const command of commands) {
       await this.call('runConsoleCommand', command)
@@ -72,9 +72,9 @@ export default class Minecraft {
 }
 
 export interface MinecraftOptions {
-  adress: string,
-  port: number,
-  user: string,
-  password: string,
+  adress: string
+  port: number
+  user: string
+  password: string
   salt?: string
 }

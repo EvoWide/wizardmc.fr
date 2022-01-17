@@ -5,7 +5,7 @@
  * @copyright EvoWide - Valentin Kaelin & Quentin Fialon
  */
 
-export function slugify (text: string) {
+export function slugify(text: string) {
   return text
     .toString() // Cast to string
     .toLowerCase() // Convert the string to lowercase letters
@@ -16,6 +16,6 @@ export function slugify (text: string) {
     .replace(/\-\-+/g, '-') // Replace multiple - with single -
 }
 
-export function verifyToken (token: string) {
+export function verifyToken(token: string) {
   return token.match(/^[a-z0-9]+$/i) && token.length === 32
 }

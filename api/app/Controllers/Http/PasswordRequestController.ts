@@ -18,9 +18,9 @@ import { verifyToken } from 'App/helpers'
 export default class PasswordRequestController {
   /**
    * Method used when user (guest) forgot his password
-   * @param ctx 
+   * @param ctx
    */
-  public async forget ({ request, response }: HttpContextContract) {
+  public async forget({ request, response }: HttpContextContract) {
     const { email } = await request.validate({
       schema: schema.create({
         email: schema.string({}, [
@@ -38,7 +38,7 @@ export default class PasswordRequestController {
     try {
       user = await User.query().where('email', email).firstOrFail()
     } catch (error) {
-      return response.status(422).send({ 'errors': [{ 'field': 'email', 'message': 'Email inconnue.' }] })
+      return response.status(422).send({ errors: [{ field: 'email', message: 'Email inconnue.' }] })
     }
 
     await this.store(request, response, user)
@@ -46,19 +46,19 @@ export default class PasswordRequestController {
 
   /**
    * Method used when user (logged) want to change his password
-   * @param ctx 
+   * @param ctx
    */
-  public async change ({ request, response, auth }: HttpContextContract) {
+  public async change({ request, response, auth }: HttpContextContract) {
     await this.store(request, response, auth.user!)
   }
 
   /**
-   * Private method used by both (guest and logged) methods to send mail 
-   * @param request 
-   * @param response 
-   * @param user 
+   * Private method used by both (guest and logged) methods to send mail
+   * @param request
+   * @param response
+   * @param user
    */
-  private async store (request: RequestContract, response: ResponseContract, user: User) {
+  private async store(request: RequestContract, response: ResponseContract, user: User) {
     if (!(await UserRequest.isAllowed(user))) {
       return response.globalError('Trop de mail ont été envoyés avec ce mail, veuillez patienter.')
     }
@@ -69,7 +69,8 @@ export default class PasswordRequestController {
     const url = `/users/password-requests?token=${token}`
 
     await Mail.send((message) => {
-      message.to(user.email)
+      message
+        .to(user.email)
         .from('noreply@wizardmc.fr', 'WizardMC')
         .subject('WizardMC - Réinitialisation de votre mot de passe')
         .htmlView('emails/reset_password', { url: origin + url, user })
@@ -83,7 +84,7 @@ export default class PasswordRequestController {
     return response.globalSuccess('Un mail a été envoyé')
   }
 
-  public async update ({ request, response, params }: HttpContextContract) {
+  public async update({ request, response, params }: HttpContextContract) {
     const token = params.token as string
 
     if (!verifyToken(token)) {
@@ -92,9 +93,7 @@ export default class PasswordRequestController {
 
     const { password } = await request.validate({
       schema: schema.create({
-        password: schema.string({}, [
-          rules.minLength(5),
-        ]),
+        password: schema.string({}, [rules.minLength(5)]),
       }),
       messages: {
         'password.minLength': 'Mot de passe pas assez sécurisé.',

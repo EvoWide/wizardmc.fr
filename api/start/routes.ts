@@ -68,7 +68,9 @@ Route.group(() => {
     Route.get('inventory/:id', 'InventoryController.redeem')
 
     Route.post('upload/:type', 'ProfileController.upload')
-  }).prefix('profile').namespace('App/Controllers/Http/Profile')
+  })
+    .prefix('profile')
+    .namespace('App/Controllers/Http/Profile')
 
   Route.get('password-requests', 'PasswordRequestController.change')
 
@@ -114,7 +116,9 @@ Route.group(() => {
   // Posts
   Route.resource('posts', 'Admin/PostsController').apiOnly()
   Route.post('posts/image', 'Admin/PostsController.storeImage')
-}).prefix('admin').middleware(['auth', 'admin'])
+})
+  .prefix('admin')
+  .middleware(['auth', 'admin'])
 
 /* Rest only */
 Route.group(() => {
@@ -126,7 +130,9 @@ Route.group(() => {
   Route.post('codes/store', 'Rest/PromotionalCodesController.store')
 
   Route.post('server/player', 'Rest/ServersController.setPlayerCount')
-}).prefix('rest').middleware('rest')
+})
+  .prefix('rest')
+  .middleware('rest')
 
 /* All users */
 

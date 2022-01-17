@@ -30,7 +30,7 @@ export default class PromotionalCode extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  public isExpired (): boolean {
+  public isExpired(): boolean {
     return this.expireAt !== null && this.expireAt <= DateTime.local()
   }
 }

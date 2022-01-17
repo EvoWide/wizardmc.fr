@@ -11,14 +11,16 @@ import ServerService from 'App/Services/Server/ServerService'
 import Reward from 'App/Models/Vote/Reward'
 
 export default class InventoryController {
-  public async redeem ({ response, params, auth }: HttpContextContract) {
+  public async redeem({ response, params, auth }: HttpContextContract) {
     const inventoryItem = await InventoryItem.query()
       .where('user_id', auth.user!.id)
       .where('id', params.id)
       .firstOrFail()
 
     if (!ServerService.isOnline(auth.user!.username)) {
-      return response.globalError('Vous devez être connecté sur le serveur pour récupérer votre récompense')
+      return response.globalError(
+        'Vous devez être connecté sur le serveur pour récupérer votre récompense'
+      )
     }
 
     await inventoryItem.delete()

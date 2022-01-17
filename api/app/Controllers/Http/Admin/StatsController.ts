@@ -9,15 +9,11 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class StatsController {
-  public async visits ({ response }: HttpContextContract) {
+  public async visits({ response }: HttpContextContract) {
     let visits = await Database.from('statistics')
       .where('type_id', 0)
       .where('count', '>', 0)
-      .select(
-        'id',
-        'count',
-        'created_at',
-      )
+      .select('id', 'count', 'created_at')
       .orderBy('created_at', 'desc')
       .limit(14)
 
@@ -26,7 +22,7 @@ export default class StatsController {
     return response.json(visits)
   }
 
-  public async registrations ({ response }: HttpContextContract) {
+  public async registrations({ response }: HttpContextContract) {
     const registrations = await Database.rawQuery(`
       SELECT * FROM (
         SELECT DATE(created_at) as registerdate, COUNT(id) as count
@@ -37,14 +33,10 @@ export default class StatsController {
     return response.json(registrations.rows ?? registrations)
   }
 
-  public async players ({ response }: HttpContextContract) {
+  public async players({ response }: HttpContextContract) {
     let players = await Database.from('statistics')
       .where('type_id', 1)
-      .select(
-        'id',
-        'count',
-        'created_at',
-      )
+      .select('id', 'count', 'created_at')
       .orderBy('created_at', 'desc')
       .limit(96) // 24h
 

@@ -10,7 +10,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class Statistics extends BaseSchema {
   protected tableName = 'statistics'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('type_id') // 0 = visits, 1 = players
@@ -19,7 +19,7 @@ export default class Statistics extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }

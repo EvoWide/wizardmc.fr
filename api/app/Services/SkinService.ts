@@ -6,16 +6,11 @@
  */
 
 class Skin {
-  private readonly head: Part[] = [
-    new Part(8, 0, 16, 8),
-    new Part(0, 8, 32, 8),
-  ]
+  private readonly head: Part[] = [new Part(8, 0, 16, 8), new Part(0, 8, 32, 8)]
 
-  private readonly body: Part[] = [
-    new Part(0, 16, 55, 16),
-  ]
+  private readonly body: Part[] = [new Part(0, 16, 55, 16)]
 
-  public isInside (x: number, y: number, factor?: number): boolean {
+  public isInside(x: number, y: number, factor?: number): boolean {
     if (!factor) {
       factor = 1
     }
@@ -40,15 +35,15 @@ class Skin {
 }
 
 class Part {
-  constructor (
+  constructor(
     private x: number,
     private y: number,
     private width: number,
     private height: number
-  ) { }
+  ) {}
 
-  public isInside (x: number, y: number) {
-    return (x >= this.x && x < this.x + this.width) && (y >= this.y && y < this.y + this.height)
+  public isInside(x: number, y: number) {
+    return x >= this.x && x < this.x + this.width && y >= this.y && y < this.y + this.height
   }
 }
 

@@ -11,16 +11,17 @@ import { DateTime } from 'luxon'
 
 export default class SeedDb extends BaseCommand {
   public static commandName = 'seed:db'
-  public static description = 'Command to seed the database while Adonis 5 does not provide seeds/factories'
+  public static description =
+    'Command to seed the database while Adonis 5 does not provide seeds/factories'
 
   public static settings = {
     loadApp: true,
   }
 
   /**
-  * Executes a shell command and return it as a Promise.
-  */
-  private execShellCommand (cmd: string): Promise<string> {
+   * Executes a shell command and return it as a Promise.
+   */
+  private execShellCommand(cmd: string): Promise<string> {
     const exec = require('child_process').exec
 
     return new Promise((resolve) => {
@@ -33,7 +34,7 @@ export default class SeedDb extends BaseCommand {
     })
   }
 
-  public async handle () {
+  public async handle() {
     const Database = (await import('@ioc:Adonis/Lucid/Database')).default
     const User = (await import('App/Models/User')).default
     const ShopCategory = (await import('App/Models/Shop/Category')).default
@@ -218,14 +219,14 @@ export default class SeedDb extends BaseCommand {
     const offersToBuy = ['Kit minerais', 'Enchanteur', 'Booster XP']
 
     for (const offerName of offersToBuy) {
-      const offer = offersCreated.find(o => o.name === offerName)
+      const offer = offersCreated.find((o) => o.name === offerName)
       await Database.insertQuery()
         .table('shop_histories')
         .insert({
           user_id: 1,
           offer_id: offer?.id,
           price: offer?.price,
-          version: (offer?.version ? 1 : -1),
+          version: offer?.version ? 1 : -1,
         })
     }
 
@@ -253,7 +254,12 @@ export default class SeedDb extends BaseCommand {
 
     for (const promo of promos) {
       const expireAt = DateTime.local().plus(ms(promo.duration))
-      await PromotionalCode.create({ code: promo.code, quantity: promo.quantity, reduction: promo.reduction, expireAt })
+      await PromotionalCode.create({
+        code: promo.code,
+        quantity: promo.quantity,
+        reduction: promo.reduction,
+        expireAt,
+      })
     }
 
     // Payments prices

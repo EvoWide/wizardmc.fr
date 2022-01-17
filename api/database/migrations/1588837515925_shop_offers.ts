@@ -10,7 +10,7 @@ import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 export default class ShopOffers extends BaseSchema {
   protected tableName = 'shop_offers'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('category_id')
@@ -27,7 +27,7 @@ export default class ShopOffers extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }
