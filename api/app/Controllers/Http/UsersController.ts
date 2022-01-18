@@ -22,7 +22,7 @@ export default class UsersController {
     const offers = (
       await Database.from('shop_histories')
         .innerJoin('shop_offers', 'shop_offers.id', 'shop_histories.offer_id')
-        .where('shop_histories.user_id', auth.user!.id)
+        .where('shop_histories.user_id', (<any>auth.user).id)
         .andWhere((builder) => {
           builder.where((subBuilder) => {
             subBuilder
@@ -56,7 +56,7 @@ export default class UsersController {
       !/^[a-z](?:_?[a-z0-9])*$/i.test(data.username) ||
       (data.username.match(/_/g) || []).length > 1
     ) {
-      return response.globalError('Le format du pseudo est incorrect: a-Z et un seul _ !')
+      return response.abort('Le format du pseudo est incorrect: a-Z et un seul _ !')
     }
 
     const alreadyExist = await User.query()
@@ -65,13 +65,13 @@ export default class UsersController {
       .first()
 
     if (alreadyExist) {
-      return response.globalError("L'adresse email ou le pseudo est déjà utilisé.")
+      return response.abort("L'adresse email ou le pseudo est déjà utilisé.")
     }
 
     await User.create(data)
 
     await auth.attempt(data.username, data.password)
 
-    return response.globalSuccess('Vous vous êtes inscrit avec succès.')
+    return 'Vous vous êtes inscrit avec succès.'
   }
 }

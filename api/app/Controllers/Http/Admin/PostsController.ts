@@ -9,9 +9,9 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Env from '@ioc:Adonis/Core/Env'
 import Post from 'App/Models/Post'
 import PostValidator from 'App/Validators/Admin/PostValidator'
-import { randomString } from '@poppinss/utils'
 import Application from '@ioc:Adonis/Core/Application'
 import CacheService from 'App/Services/CacheService'
+import { randomString } from 'App/helpers'
 
 export default class PostsController {
   public async index({ response }: HttpContextContract) {
@@ -37,7 +37,7 @@ export default class PostsController {
     })
 
     if (!file) {
-      return response.globalError("L'image utilisée est invalide.")
+      return response.badRequest("L'image utilisée est invalide.")
     }
 
     const configPath = Env.get('CLOUD_DESTINATION') as string
@@ -55,29 +55,29 @@ export default class PostsController {
     return response.json({ url: filePath })
   }
 
-  public async store({ auth, request, response }: HttpContextContract) {
+  public async store({ auth, request }: HttpContextContract) {
     const data = await request.validate(PostValidator)
-    data.author_id = auth.user!.id
+    data.author_id = (<any>auth.user).id
 
     await Post.create(data)
     CacheService.remove('posts-page-1')
 
-    return response.globalSuccess('Article créé!')
+    return 'Article créé!'
   }
 
-  public async destroy({ params, response }: HttpContextContract) {
+  public async destroy({ params }: HttpContextContract) {
     await Post.query().where('id', params.id).delete()
     CacheService.remove('posts-page-1')
 
-    return response.globalSuccess('Article supprimé!')
+    return 'Article supprimé!'
   }
 
-  public async update({ params, request, response }: HttpContextContract) {
+  public async update({ params, request }: HttpContextContract) {
     const data = await request.validate(PostValidator)
 
     await Post.query().where('id', params.id).update(data)
     CacheService.remove('posts-page-1')
 
-    return response.globalSuccess('Article modifié!')
+    return 'Article modifié!'
   }
 }

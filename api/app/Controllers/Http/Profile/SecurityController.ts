@@ -19,14 +19,14 @@ export default class SecurityController {
    * @param ctx
    */
   public async enable({ request, response, auth }: HttpContextContract) {
-    const user = auth.user!
+    const user = <any>auth.user
     const security = await user.related('security').query().first()
     if (security) {
-      return response.globalError('La 2FA est déjà activée sur votre compte.')
+      return response.abort('La 2FA est déjà activée sur votre compte.')
     }
 
     if (!(await UserRequest.isAllowed(user))) {
-      return response.globalError('Vous avez effectué trop de changement, veuillez patienter.')
+      return response.abort('Vous avez effectué trop de changement, veuillez patienter.')
     }
 
     const origin = request.headers().origin as string
@@ -48,19 +48,19 @@ export default class SecurityController {
       token: token,
     })
 
-    return response.globalSuccess('Un mail a été envoyé')
+    return 'Un mail a été envoyé'
   }
 
   public async disable({ request, response, auth }: HttpContextContract) {
-    const user = auth.user!
+    const user = <any>auth.user
     const security = await user.related('security').query().first()
 
     if (!security || security.method !== 'otp') {
-      return response.globalError("La 2FA OTP n'est pas activé sur votre compte.")
+      return response.abort("La 2FA OTP n'est pas activé sur votre compte.")
     }
 
     if (!(await UserRequest.isAllowed(user))) {
-      return response.globalError('Vous avez effectué trop de changement, veuillez patienter.')
+      return response.abort('Vous avez effectué trop de changement, veuillez patienter.')
     }
 
     const origin = request.headers().origin as string
@@ -81,28 +81,28 @@ export default class SecurityController {
       token: token,
     })
 
-    return response.globalSuccess('Un mail a été envoyé')
+    return 'Un mail a été envoyé'
   }
 
   public async delete({ response, params, auth }: HttpContextContract) {
-    const user = auth.user!
+    const user = <any>auth.user
     const token = params.token as string
 
     if (!verifyToken(token)) {
-      return response.globalError('La requête est incorrect.')
+      return 'La requête est incorrect.'
     }
 
-    const mailRequest = await auth
-      .user!.related('requests')
+    const mailRequest = await user
+      .related('requests')
       .query()
       .where('token', params.token)
-      .where('user_id', auth.user!.id)
+      .where('user_id', (<any>auth.user).id)
       .where('expired', 0)
       .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
-      return response.globalError('La requête est incorrect.')
+      return response.badRequest('La requête est incorrect.')
     }
 
     mailRequest.expired = true
@@ -111,11 +111,11 @@ export default class SecurityController {
     const security = await user.related('security').query().where('method', 'otp').first()
 
     if (!security) {
-      return response.globalError("La double authentification n'a pas été trouvée.")
+      return response.abort("La double authentification n'a pas été trouvée.")
     }
     await security.delete()
 
-    return response.globalSuccess('La double authentification a bien été désactivée !')
+    return 'La double authentification a bien été désactivée !'
   }
 
   /**
@@ -126,23 +126,23 @@ export default class SecurityController {
     const token = params.token as string
 
     if (!verifyToken(token)) {
-      return response.globalError('La requête est incorrect.')
+      return response.badRequest('La requête est incorrect.')
     }
 
-    const mailRequest = await auth
-      .user!.related('requests')
+    const mailRequest = await (<any>auth.user)
+      .related('requests')
       .query()
       .where('token', params.token)
-      .where('user_id', auth.user!.id)
+      .where('user_id', (<any>auth.user).id)
       .where('expired', 0)
       .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
-      return response.globalError('La requête est incorrect.')
+      return response.badRequest('La requête est incorrect.')
     }
 
-    const otpauth = authenticator.keyuri(auth.user!.username, 'WizardMC', mailRequest.data)
+    const otpauth = authenticator.keyuri((<any>auth.user).username, 'WizardMC', mailRequest.data)
     const imageUrl = await new Promise((resolve) => {
       qrcode.toDataURL(otpauth, (err, imageURL) => {
         resolve(err ? null : imageURL)
@@ -150,7 +150,7 @@ export default class SecurityController {
     })
 
     if (!imageUrl) {
-      return response.globalError('Une erreur est survenue pendant la génération du QRCode')
+      return response.internalServerError('Une erreur est survenue pendant la génération du QRCode')
     }
 
     return response.send(imageUrl)
@@ -164,43 +164,43 @@ export default class SecurityController {
     const token = params.token as string
 
     if (!verifyToken(token)) {
-      return response.globalError('La requête est incorrect.')
+      return response.badRequest('La requête est incorrect.')
     }
 
     const { code } = request.post()
     if (!code || !/^\d+$/.test(code) || code.length !== 6) {
-      return response.globalError("La code indiqué n'est pas dans le bon format")
+      return response.abort("La code indiqué n'est pas dans le bon format")
     }
 
-    const user = auth.user!
-    const mailRequest = await auth
-      .user!.related('requests')
+    const user = <any>auth.user
+    const mailRequest = await (<any>auth.user)
+      .related('requests')
       .query()
       .where('token', params.token)
       .where('method', 'enable-otp')
-      .where('user_id', auth.user!.id)
+      .where('user_id', (<any>auth.user).id)
       .where('expired', 0)
       .where('created_at', '>', DateTime.local().minus({ minute: 30 }).toSQL())
       .firstOrFail()
 
     if (!mailRequest) {
-      return response.globalError('La requête est incorrect.')
+      return response.badRequest('La requête est incorrect.')
     }
 
     const currentToken = authenticator.generate(mailRequest.data)
     if (currentToken !== code) {
-      return response.globalError('Le code indiqué est incorrect.')
+      return response.abort('Le code indiqué est incorrect.')
     }
 
     const security = await user.related('security').query().first()
     if (security) {
-      return response.globalError('La 2FA est déjà activée sur votre compte.')
+      return response.abort('La 2FA est déjà activée sur votre compte.')
     }
 
     mailRequest.expired = true
     await mailRequest.save()
 
     await user.related('security').create({ method: 'otp', secret: mailRequest.data })
-    return response.globalSuccess('La double authentification a bien été activée !')
+    return 'La double authentification a bien été activée !'
   }
 }

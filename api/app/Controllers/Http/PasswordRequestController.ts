@@ -60,7 +60,7 @@ export default class PasswordRequestController {
    */
   private async store(request: RequestContract, response: ResponseContract, user: User) {
     if (!(await UserRequest.isAllowed(user))) {
-      return response.globalError('Trop de mail ont été envoyés avec ce mail, veuillez patienter.')
+      return response.abort('Trop de mail ont été envoyés avec ce mail, veuillez patienter.')
     }
 
     const token = UserRequest.generateToken()
@@ -81,14 +81,14 @@ export default class PasswordRequestController {
       token: token,
     })
 
-    return response.globalSuccess('Un mail a été envoyé')
+    return 'Un mail a été envoyé'
   }
 
   public async update({ request, response, params }: HttpContextContract) {
     const token = params.token as string
 
     if (!verifyToken(token)) {
-      return response.globalError('La requête est incorrect.')
+      return response.abort('La requête est incorrect.')
     }
 
     const { password } = await request.validate({
@@ -108,7 +108,7 @@ export default class PasswordRequestController {
       .first()
 
     if (!passwordRequest || !passwordRequest.user) {
-      return response.globalError('La requête est incorrect.')
+      return response.abort('La requête est incorrect.')
     }
 
     passwordRequest.user.password = password
@@ -117,6 +117,6 @@ export default class PasswordRequestController {
     passwordRequest.expired = true
     await passwordRequest.save()
 
-    return response.globalSuccess('Le mot de passe a bien été modifié')
+    return 'Le mot de passe a bien été modifié'
   }
 }

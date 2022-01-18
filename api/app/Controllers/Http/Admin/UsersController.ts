@@ -46,11 +46,11 @@ export default class UsersController {
     return response.json({ user, security, histories: { shop, payments } })
   }
 
-  public async update({ params, request, response }: HttpContextContract) {
+  public async update({ params, request }: HttpContextContract) {
     const data = await request.validate(UserValidator)
 
     await User.query().where('id', params.id).update(data)
 
-    return response.globalSuccess('Utilisateur modifié!')
+    return 'Utilisateur modifié!'
   }
 }

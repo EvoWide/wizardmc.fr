@@ -12,7 +12,7 @@ import CacheService from 'App/Services/CacheService'
 export default class HistoriesController {
   public async index({ response, auth, params }: HttpContextContract) {
     if (!['shop', 'payments'].includes(params.type)) {
-      return response.globalError("La page demandée n'a pas été trouvée", 404)
+      return response.notFound("La page demandée n'a pas été trouvée")
     }
 
     let page = params.page ?? 0
@@ -21,7 +21,7 @@ export default class HistoriesController {
     }
     page -= 1
 
-    const cacheKey = `user-${auth.user!.id}-history-${params.type}`
+    const cacheKey = `user-${(<any>auth.user).id}-history-${params.type}`
     if (page === 0) {
       const currentValue = CacheService.get(cacheKey)
       if (currentValue) {
@@ -32,10 +32,10 @@ export default class HistoriesController {
     let data: any[] = []
     switch (params.type) {
       case 'shop':
-        data = await this.historyShop(auth.user!.id, page)
+        data = await this.historyShop((<any>auth.user).id, page)
         break
       case 'payments':
-        data = await this.historyPayments(auth.user!.id, page)
+        data = await this.historyPayments((<any>auth.user).id, page)
         break
     }
 

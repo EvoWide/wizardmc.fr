@@ -15,11 +15,11 @@ export default class PromotionalCodesController {
       .first()
 
     if (!promotionalCode) {
-      return response.globalError("Le code promotionnel n'existe pas.")
+      return response.abort("Le code promotionnel n'existe pas.")
     }
 
     if (promotionalCode.isExpired()) {
-      return response.globalError('Le code promotionnel a expiré')
+      return response.abort('Le code promotionnel a expiré')
     }
 
     return response.json({

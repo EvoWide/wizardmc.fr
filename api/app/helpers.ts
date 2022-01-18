@@ -19,3 +19,10 @@ export function slugify(text: string) {
 export function verifyToken(token: string) {
   return token.match(/^[a-z0-9]+$/i) && token.length === 32
 }
+
+export function randomString(length: number): string {
+  return new Array(length)
+    .fill(null)
+    .map(() => 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)])
+    .join('')
+}

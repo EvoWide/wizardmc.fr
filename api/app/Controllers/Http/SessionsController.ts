@@ -23,7 +23,7 @@ export default class SessionsController {
       user.username !== data.username ||
       !(await Hash.verify(user.password, data.password))
     ) {
-      return response.globalError('Identifiants invalides.', 422)
+      return response.abort('Identifiants invalides.', 422)
     }
 
     // Clear session before login to try to remove the "auth bug"
@@ -40,35 +40,35 @@ export default class SessionsController {
       return response.json({ security: 'otp' })
     }
 
-    auth.login(user, remember)
-    return response.globalSuccess('Vous vous êtes connecté avec succès.')
+    auth.login(<never>user, remember)
+    return 'Vous vous êtes connecté avec succès.'
   }
 
   public async verify({ auth, request, response, session }: HttpContextContract) {
     const data = session.get('auth-otp')
     if (!data || data.time <= Date.now()) {
       session.forget('auth-otp')
-      return response.globalError('Vous avez mis trop de temps pour vérifier votre compte.')
+      return response.abort('Vous avez mis trop de temps pour vérifier votre compte.')
     }
 
     const token = request.input('token')
     if (!authenticator.verify({ token: token, secret: data.secret })) {
-      return response.globalError('Le token entré est incorrect.')
+      return response.abort('Le token entré est incorrect.')
     }
 
     session.forget('auth-otp')
     const user = await User.query().where('id', data.user_id).firstOrFail()
-    auth.login(user, data.remember)
+    auth.login(<never>user, data.remember)
 
-    return response.globalSuccess('Vous vous êtes connecté avec succès.')
+    return 'Vous vous êtes connecté avec succès.'
   }
 
-  public async destroy({ auth, response, session }: HttpContextContract) {
+  public async destroy({ auth, session }: HttpContextContract) {
     await auth.logout()
 
     // Remove bought Shop offers, shop histories, ...
     session.clear()
 
-    return response.globalSuccess('Vous vous êtes déconnecté avec succès.')
+    return 'Vous vous êtes déconnecté avec succès.'
   }
 }

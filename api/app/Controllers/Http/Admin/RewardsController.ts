@@ -20,25 +20,25 @@ export default class RewardsController {
     response.send(offer)
   }
 
-  public async store({ request, response }: HttpContextContract) {
+  public async store({ request }: HttpContextContract) {
     const data = await request.validate(RewardValidator)
 
     await Reward.create(data)
 
-    return response.globalSuccess('Récompense vote créée!')
+    return 'Récompense vote créée!'
   }
 
-  public async destroy({ params, response }: HttpContextContract) {
+  public async destroy({ params }: HttpContextContract) {
     await Reward.query().where('id', params.id).delete()
 
-    return response.globalSuccess('Récompense vote supprimée!')
+    return 'Récompense vote supprimée!'
   }
 
-  public async update({ params, request, response }: HttpContextContract) {
+  public async update({ params, request }: HttpContextContract) {
     const data = await request.validate(RewardValidator)
 
     await Reward.query().where('id', params.id).update(data)
 
-    return response.globalSuccess('Récompense vote modifiée!')
+    return 'Récompense vote modifiée!'
   }
 }

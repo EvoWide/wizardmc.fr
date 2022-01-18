@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /Users/ethan/.yarn/bin/yarn.js add @adonisjs/lucid-orm
+  /usr/local/bin/node /Users/ethan/.yarn/bin/yarn.js add -D @types/@poppinss
 
 PATH: 
   /Users/ethan/.rvm/gems/ruby-2.7.2/bin:/Users/ethan/.rvm/gems/ruby-2.7.2@global/bin:/Users/ethan/.rvm/rubies/ruby-2.7.2/bin:/Users/ethan/scripts/pvm:/Users/ethan/.yarn/bin:/Users/ethan/.config/yarn/global/node_modules/.bin:/usr/local/bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:~/.dotnet/tools:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/ethan/.rvm/gems/ruby-2.7.2/bin:/Users/ethan/.rvm/gems/ruby-2.7.2@global/bin:/Users/ethan/.rvm/rubies/ruby-2.7.2/bin:/Users/ethan/scripts/pvm:/Users/ethan/.yarn/bin:/Users/ethan/.config/yarn/global/node_modules/.bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/local/bin:/opt/local/sbin:/Users/ethan/.cargo/bin:/Users/ethan/.rvm/bin:/Users/ethan/.cargo/bin:/Users/ethan/.rvm/bin:/usr/local/bin
@@ -14,8 +14,8 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@adonisjs%2flucid-orm: Not found
-      at Request.params.callback [as _callback] (/Users/ethan/.yarn/lib/cli.js:67029:18)
+  Error: https://registry.yarnpkg.com/@types%2f: Request "https://registry.yarnpkg.com/@types%2f" returned a 405
+      at Request.params.callback [as _callback] (/Users/ethan/.yarn/lib/cli.js:67038:18)
       at Request.self.callback (/Users/ethan/.yarn/lib/cli.js:140883:22)
       at Request.emit (node:events:390:28)
       at Request.<anonymous> (/Users/ethan/.yarn/lib/cli.js:141855:10)

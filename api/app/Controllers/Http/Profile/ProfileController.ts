@@ -19,11 +19,14 @@ export default class ProfileController {
   public async index({ auth, response }: HttpContextContract) {
     const [rewards, security] = await Promise.all([
       await Database.from('vote_inventory')
-        .where('user_id', auth.user!.id)
+        .where('user_id', (<any>auth.user).id)
         .innerJoin('vote_rewards', 'vote_rewards.id', 'vote_inventory.item_id')
         .orderBy('vote_inventory.created_at', 'desc')
         .select('vote_inventory.id', 'vote_rewards.name'),
-      await UserSecurity.query().where('user_id', auth.user!.id).select('id', 'method').first(),
+      await UserSecurity.query()
+        .where('user_id', (<any>auth.user).id)
+        .select('id', 'method')
+        .first(),
     ])
     return response.json({ rewards, security })
   }
@@ -50,12 +53,12 @@ export default class ProfileController {
     })
     const file = data[type]
     if (!file) {
-      return response.globalError("L'image utilisée est invalide.")
+      return response.badRequest("L'image utilisée est invalide.")
     }
 
     const image = await Jimp.read(file.tmpPath!)
     if (!image) {
-      return response.globalError("L'image utilisée est invalide.")
+      return response.badRequest("L'image utilisée est invalide.")
     }
 
     const { width, height } = image.bitmap
@@ -64,7 +67,7 @@ export default class ProfileController {
       !(image.bitmap.width === 64 && image.bitmap.height === 32) &&
       !(image.bitmap.width === 128 && image.bitmap.height === 64)
     ) {
-      return response.globalError("Les dimensions de l'image sont invalides : 64x32 | 128x64")
+      return response.badRequest("Les dimensions de l'image sont invalides : 64x32 | 128x64")
     }
 
     // We check the number of transparent pixels only on the skin
@@ -80,7 +83,7 @@ export default class ProfileController {
 
       const maxAlpha = image.bitmap.width * image.bitmap.height * 0.2
       if (alphaCount >= maxAlpha) {
-        return response.globalError('Le skin contient trop de pixel transparent.')
+        return response.badRequest('Le skin contient trop de pixel transparent.')
       }
     }
 
@@ -89,18 +92,18 @@ export default class ProfileController {
       ? configPath
       : Application.publicPath(`${configPath}`)
 
-    await file.move(`${cloudPath}/${type}`, { name: `${auth.user!.username}.png` })
+    await file.move(`${cloudPath}/${type}`, { name: `${(<any>auth.user).username}.png` })
 
-    const cacheUrls = [`https://cloud.wizardmc.fr/${type}/${auth.user!.username}.png`]
+    const cacheUrls = [`https://cloud.wizardmc.fr/${type}/${(<any>auth.user).username}.png`]
     if (type === 'skin') {
-      cacheUrls.push(`https://cloud.wizardmc.fr/head/${auth.user!.username}.png`)
+      cacheUrls.push(`https://cloud.wizardmc.fr/head/${(<any>auth.user).username}.png`)
     }
 
     await CloudflareService.clear(cacheUrls)
 
     // If it is the change of the skin, we generate the avatar
     if (type === 'skin') {
-      const newImage = await Jimp.read(`${cloudPath}/${type}/${auth.user!.username}.png`)
+      const newImage = await Jimp.read(`${cloudPath}/${type}/${(<any>auth.user).username}.png`)
 
       const avatarWidthAndX = width / 8
       const avatarHeightAndY = height / 4
@@ -108,9 +111,9 @@ export default class ProfileController {
       await newImage
         .crop(avatarWidthAndX, avatarHeightAndY, avatarWidthAndX, avatarHeightAndY)
         .resize(80, 80, Jimp.RESIZE_NEAREST_NEIGHBOR)
-        .writeAsync(`${cloudPath}/head/${auth.user!.username}.png`)
+        .writeAsync(`${cloudPath}/head/${(<any>auth.user).username}.png`)
     }
 
-    return response.globalSuccess(`Le ${type} a bien été mis à jour !`)
+    return `Le ${type} a bien été mis à jour !`
   }
 }

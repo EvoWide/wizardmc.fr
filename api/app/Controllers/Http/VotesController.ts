@@ -6,7 +6,7 @@
  */
 
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { randomString } from '@poppinss/utils'
+import { randomString } from 'App/helpers'
 import Database from '@ioc:Adonis/Lucid/Database'
 import { DateTime } from 'luxon'
 import Item from 'App/Models/Vote/Reward'
@@ -40,15 +40,15 @@ export default class VotesController {
   }
 
   public async lastVote({ request, response, auth }: HttpContextContract) {
-    const vote = await this.getLastVote(auth.user!.id, request.ip())
+    const vote = await this.getLastVote((<any>auth.user).id, request.ip())
     return response.send(vote)
   }
 
   public async initiate({ request, response, session, auth }: HttpContextContract) {
-    const data = await this.getLastVote(auth.user!.id, request.ip())
+    const data = await this.getLastVote((<any>auth.user).id, request.ip())
     if (data) {
       // TODO: print timeleft
-      return response.globalError('Vous avez déjà voté il y a moins de 3 heures !')
+      return response.abort('Vous avez déjà voté il y a moins de 3 heures !')
     }
 
     const token = randomString(16)
@@ -62,48 +62,51 @@ export default class VotesController {
     const user = auth.user!
 
     if (!token || !out || isNaN(out)) {
-      return response.globalError('La requête est invalide.')
+      return response.abort('La requête est invalide.')
     }
 
     const currentToken = session.get('vote-token')
     if (currentToken !== token) {
-      return response.globalError('Une erreur est survenue, veuillez raffraichir la page.')
+      return response.abort('Une erreur est survenue, veuillez raffraichir la page.')
     }
 
     if (Math.abs(Number(out) - RpgParadizeService.getOut()) >= 3) {
-      return response.globalError('La valeur out est incorrect.')
+      return response.abort('La valeur out est incorrect.')
     }
 
-    await Database.insertQuery().table('vote_histories').insert({
-      user_id: user.id,
-      ip: request.ip(),
-    })
+    await Database.insertQuery()
+      .table('vote_histories')
+      .insert({
+        user_id: (<any>user).id,
+        ip: request.ip(),
+      })
 
     session.forget('vote-token')
     const reward = await this.getRandomReward()
     if (!reward) {
-      return response.globalError("Aucune récompense n'a été trouvée.")
+      return response.abort("Aucune récompense n'a été trouvée.")
     }
 
-    user.votes++
+    ;(<any>user).votes++
     if (reward.credits > 0) {
-      user.credits += reward.credits
+      ;(<any>user).credits += reward.credits
     }
-    user.save()
+    ;(<any>user).save()
 
     if (reward.commands) {
       ServerService.execute('notifysite vote {playerName}')
-      if (ServerService.isOnline(user.username)) {
-        ServerService.execute(reward.commands.replace(/{playerName}/g, user.username))
+      if (ServerService.isOnline((<any>user).username)) {
+        ServerService.execute(reward.commands.replace(/{playerName}/g, (<any>user).username))
       } else {
         await InventoryItem.create({
-          userId: user.id,
+          userId: (<any>user).id,
           itemId: reward.id,
         })
       }
     }
 
-    return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
+    // return response.globalSuccess(`Vous avez gagné : ${reward.name}`, { reward })
+    return `Vous avez gagné : ${reward.name}`
   }
 
   private async getRandomReward() {

@@ -106,6 +106,7 @@ const sessionConfig: SessionConfig = {
   |
   */
   redisConnection: Env.get('REDIS_CONNECTION', 'local') as 'local',
+  enabled: true,
 }
 
 export default sessionConfig

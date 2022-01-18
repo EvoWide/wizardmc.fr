@@ -40,7 +40,7 @@ export default class UserRequest extends BaseModel {
   public user: BelongsTo<typeof User>
 
   public static generateToken() {
-    return uuid().replace(/-/g, '')
+    return uuid.v4().replace(/-/g, '')
   }
 
   // Check if user is allowed to use mail
@@ -51,6 +51,6 @@ export default class UserRequest extends BaseModel {
       .count('id as count')
       .first()
 
-    return result['count'] < 4
+    return result?.['count'] < 4
   }
 }

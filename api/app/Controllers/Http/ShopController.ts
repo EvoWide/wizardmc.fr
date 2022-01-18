@@ -53,7 +53,7 @@ export default class ShopsController {
 
     if (params.promotion) {
       if (offer.unique || offer.version) {
-        return response.globalError("L'offre ne permet pas l'utilisation d'une promotion.")
+        return response.abort("L'offre ne permet pas l'utilisation d'une promotion.")
       }
 
       promo = await PromotionalCode.query()
@@ -61,30 +61,28 @@ export default class ShopsController {
         .first()
 
       if (!promo) {
-        return response.globalError("La promotion utilisée n'a pas été trouvé.")
+        return response.abort("La promotion utilisée n'a pas été trouvé.")
       }
 
       if (promo.isExpired() || promo.quantity <= 0) {
-        return response.globalError('La promotion a expirée.')
+        return response.abort('La promotion a expirée.')
       }
 
       price = Math.round(price * (1 - promo.reduction / 100))
     }
 
-    if (price > user.credits) {
-      return response.globalError(
-        `Il vous manque ${price - user.credits} crédit(s) pour effectuer cet achat.`
+    if (price > (<any>user).credits) {
+      return response.abort(
+        `Il vous manque ${price - (<any>user).credits} crédit(s) pour effectuer cet achat.`
       )
     }
 
-    if (!ServerService.isOnline(user.username)) {
-      return response.globalError(
-        'Vous devez être connecté sur le serveur pour effectuer cet achat'
-      )
+    if (!ServerService.isOnline((<any>auth).username)) {
+      return response.abort('Vous devez être connecté sur le serveur pour effectuer cet achat')
     }
 
     if (offer.deps && !(await this.hasBuy(user, offer.deps, offer.unique || offer.version))) {
-      return response.globalError(
+      return response.abort(
         'Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.'
       )
     }
@@ -93,13 +91,13 @@ export default class ShopsController {
       (offer.unique || offer.version || offer.categoryId === 1) &&
       (await this.hasBuy(user, offer.id, offer.unique || offer.version))
     ) {
-      return response.globalError(
+      return response.abort(
         'Vous ne remplissez pas toutes les conditions pour pouvoir effectuer cet achat.'
       )
     }
 
-    user.credits -= price
-    await user.save()
+    ;(<any>user).credits -= price
+    await (<any>user).save()
 
     if (promo) {
       promo.quantity--
@@ -109,7 +107,7 @@ export default class ShopsController {
     await Database.insertQuery()
       .table('shop_histories')
       .insert({
-        user_id: user.id,
+        user_id: (<any>user).id,
         offer_id: offer.id,
         price: price,
         version: offer.version ? Number(Env.get('SERVER_VERSION')) : -1,
@@ -117,7 +115,7 @@ export default class ShopsController {
 
     if (offer.commands) {
       const commands = `${offer.commands}|notifysite shop {playerName} ${offer.name}`
-      ServerService.execute(commands.replace(/{playerName}/g, user.username))
+      ServerService.execute(commands.replace(/{playerName}/g, (<any>user).username))
     }
 
     if (offer.unique || offer.version || offer.categoryId === 1) {
@@ -126,7 +124,7 @@ export default class ShopsController {
 
     session.forget('history-shop')
 
-    return response.globalSuccess("L'achat a bien été effectué.")
+    return "L'achat a bien été effectué."
   }
 
   private async hasBuy(user: User, offer_id: number, versionOrUnique: boolean) {

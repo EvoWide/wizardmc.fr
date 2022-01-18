@@ -13,12 +13,12 @@ import Reward from 'App/Models/Vote/Reward'
 export default class InventoryController {
   public async redeem({ response, params, auth }: HttpContextContract) {
     const inventoryItem = await InventoryItem.query()
-      .where('user_id', auth.user!.id)
+      .where('user_id', (<any>auth.user).id)
       .where('id', params.id)
       .firstOrFail()
 
-    if (!ServerService.isOnline(auth.user!.username)) {
-      return response.globalError(
+    if (!ServerService.isOnline((<any>auth.user).username)) {
+      return response.unauthorized(
         'Vous devez être connecté sur le serveur pour récupérer votre récompense'
       )
     }
@@ -26,7 +26,7 @@ export default class InventoryController {
     await inventoryItem.delete()
     const reward = await Reward.query().where('id', inventoryItem.itemId).firstOrFail()
 
-    ServerService.execute(reward.commands.replace(/{playerName}/g, auth.user!.username))
+    ServerService.execute(reward.commands.replace(/{playerName}/g, (<any>auth.user).username))
     return response.ok('')
   }
 }

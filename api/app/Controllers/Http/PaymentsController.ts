@@ -44,18 +44,18 @@ export default class PaymentsController {
   public async dedipass({ request, auth, response }: HttpContextContract) {
     const { code } = request.post()
     if (!code || !code.match(/^[a-z0-9]+$/i)) {
-      return response.globalError('Le code est dans un format incorrect.')
+      return response.abort('Le code est dans un format incorrect.')
     }
 
     const dedipassValidation = await Dedipass.validate(code)
     if (!dedipassValidation || dedipassValidation.status !== 'success') {
-      return response.globalError('Le code entré est incorrect.')
+      return response.abort('Le code entré est incorrect.')
     }
 
     const credits = dedipassValidation.virtual_currency ?? 0
     if (credits) {
-      auth.user!.credits += Number(credits)
-      await auth.user!.save()
+      ;(<any>auth.user).credits += Number(credits)
+      await (<any>auth.user).save()
     }
 
     const rate = await Dedipass.getRate(dedipassValidation.rate)
@@ -63,7 +63,7 @@ export default class PaymentsController {
     await Database.insertQuery()
       .table('user_payments')
       .insert({
-        user_id: auth.user!.id,
+        user_id: (<any>auth.user).id,
         method: 'dedipass',
         price: rate.user_price ?? 0,
         currency: rate.user_currency ?? 'EUR',
@@ -71,13 +71,13 @@ export default class PaymentsController {
         credits: credits,
         data: JSON.stringify({ code: code }),
       })
-    return response.globalSuccess(`Les ${credits} crédits ont bien été ajoutés à votre compte !`)
+    return response.abort(`Les ${credits} crédits ont bien été ajoutés à votre compte !`)
   }
 
   public async paysafecard({ request, response, auth }: HttpContextContract) {
     const { price } = request.post()
     if (!price || isNaN(price)) {
-      return response.globalError('Le prix est incorrect.')
+      return response.abort('Le prix est incorrect.')
     }
 
     const priceRow = await Database.from('payment_prices')
@@ -86,33 +86,35 @@ export default class PaymentsController {
       .first()
 
     if (!priceRow) {
-      return response.globalError('Le prix est incorrect.')
+      return response.abort('Le prix est incorrect.')
     }
 
     let payment
     try {
       payment = await Paysafecard.initiate(priceRow.price, {
-        id: auth.user!.uuid,
+        id: (<any>auth.user).uuid,
         ip: request.ip(),
       })
     } catch (e) {
-      return response.globalError(
+      return response.abort(
         "La transaction n'a pas pu être lancée en raison de problèmes de connexion."
       )
     }
 
-    await Database.insertQuery().table('payment_paysafecards').insert({
-      token: payment.id,
-      user_id: auth.user?.id,
-      price: payment.amount,
-    })
+    await Database.insertQuery()
+      .table('payment_paysafecards')
+      .insert({
+        token: payment.id,
+        user_id: (<any>auth.user).id,
+        price: payment.amount,
+      })
     return response.send({ redirect: payment.redirect.auth_url })
   }
 
-  public async paysafecardSuccess({ response, params }: HttpContextContract) {
+  public async paysafecardSuccess({ params }: HttpContextContract) {
     if (!(await Paysafecard.validate(params.paymentId))) {
       return
     }
-    return response.globalSuccess('Les crédits ont bien été ajoutés à votre compte !')
+    return 'Les crédits ont bien été ajoutés à votre compte !'
   }
 }

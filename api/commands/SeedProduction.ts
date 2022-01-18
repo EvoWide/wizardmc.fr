@@ -40,7 +40,7 @@ export default class SeedProduction extends BaseCommand {
             .toSQL(),
         })
     } else {
-      this.logger.warn('Row already exist in database.')
+      this.logger.warning('Row already exist in database.')
     }
 
     await Database.manager.closeAll()
