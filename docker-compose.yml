@@ -1,0 +1,30 @@
+version: "3"
+services:
+  api:
+    container_name: wizardmc-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+    - 3333:3333
+    depends_on:
+      - db
+    environment:
+      PORT: 3333
+      GITHUB_USER: galitan-dev
+      GITHUB_TOKEN: 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
+      PG_HOST: 127.0.0.1
+      PG_PORT: 5432
+      PG_USER: api
+      PG_DB_NAME: wizardmc
+      PG_PASSWORD: eVRYDgOKi9K9bzsZcqbRIPkl2Gr3aqYnqfAcIOzl0N2RpNGHbq22zB7Kb873Q5YiwOmzJ1q352Jr95C1TM/2+w==
+  db:
+    container_name: wizardmc-db
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: wizardmc
+      POSTGRES_USER: api
+      POSTGRES_PASSWORD: eVRYDgOKi9K9bzsZcqbRIPkl2Gr3aqYnqfAcIOzl0N2RpNGHbq22zB7Kb873Q5YiwOmzJ1q352Jr95C1TM/2+w==
