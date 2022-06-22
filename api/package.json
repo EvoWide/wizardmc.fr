@@ -34,7 +34,7 @@
     "@adonisjs/validator": "^7.4.2",
     "@adonisjs/view": "^2.0.9",
     "@lukeed/uuid": "^1.0.1",
-    "got": "^11.6.2",
+    "got": "^11.8.5",
     "jimp": "^0.12.1",
     "jsdom": "^16.4.0",
     "mysql": "^2.18.1",
